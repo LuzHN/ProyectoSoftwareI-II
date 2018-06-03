@@ -3,7 +3,8 @@ import ReactDOM from "react-dom";
 import { Meteor } from "meteor/meteor";
 import {
     Card, Button, CardImg, CardTitle, CardText, CardColumns,
-    CardSubtitle, CardBody
+    CardSubtitle, CardBody, Collapse, Navbar, NavbarToggler, NavbarBrand,
+    Nav, NavItem, NavLink, ListGroup, ListGroupItem, Badge, CardDeck, CardGroup
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -14,74 +15,412 @@ Meteor.startup(function () {
 
 
 
-    let jsx = <Carde />;
-    ReactDOM.render(jsx, document.getElementById('App'));
+    ReactDOM.render(<Header />, document.getElementById('Header'));
+    ReactDOM.render(<Entrada />, document.getElementById('MenuSeleccionado'));
+    ReactDOM.render(<ColorStrip />, document.getElementById('ColorStrip'));
+    ReactDOM.render(<BarraNavigacion />, document.getElementById('BarraNavigacion'));
+    ReactDOM.render(<ColorStrip />, document.getElementById('ColorStrip2'));
+    ReactDOM.render(<FooterLogo />, document.getElementById('FooterLogo'));
+    ReactDOM.render(<FooterInfo />, document.getElementById('FooterInfo'));
+
 
 
 });
 
-class Carde extends React.Component {
+
+
+class Header extends React.Component {
+
+    render() {
+        return (
+            <h1 id="hk-logo-header"></h1>
+        );
+    }
+}
+
+class FooterLogo extends React.Component {
     render() {
         return (
 
+            <img src="http://www.healthkitchen.hn/static/media/hk-logo.b8b1c147.svg" alt="Logo" />
 
-            <CardColumns>
-                <Card>
-                    <CardImg top width="50%" src="http://www.syngenta-us.com/seeds/vegetables/images/leafy/abilene.jpg" alt="Card image cap" />
-                    <CardBody>
-                        <CardTitle>Big lettuce</CardTitle>
-                        <CardSubtitle>Card subtitle</CardSubtitle>
-                        <CardText>This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</CardText>
-                        <Button>Button</Button>
-                    </CardBody>
-                </Card>
-                <Card>
-                    <CardImg top width="50%" src="https://imgix.bustle.com/rehost/2017/5/25/86dc3e78-9463-497c-be93-f0013516fe26.jpg" alt="Card image cap" />
-                </Card>
-                <Card>
-                    <CardBody>
-                        <CardTitle>Carne cruda</CardTitle>
-                        <CardSubtitle>Card subtitle</CardSubtitle>
-                        <CardText>This card has supporting text below as a natural lead-in to additional content.</CardText>
-                        <Button>Button</Button>
-                    </CardBody>
-                </Card>
-                <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
-                    <CardTitle>Special Title Treatment</CardTitle>
-                    <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                    <Button>Button</Button>
-                </Card>
-                <Card>
-                    <CardImg top width="500%" src="http://allure.vanguardngr.com/wp-content/uploads/2016/08/fish.jpg" alt="Card image cap" />
-                    <CardBody>
-                        <CardTitle>Pescado</CardTitle>
-                        <CardSubtitle>Card subtitle</CardSubtitle>
-                        <CardText>This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</CardText>
-                        <Button>Button</Button>
-                    </CardBody>
-                </Card>
-                <Card body inverse color="primary">
-                    <CardTitle>Special Title Treatment</CardTitle>
-                    <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                    <Button color="secondary">Button</Button>
-                </Card>
-            </CardColumns>
+        );
+
+    }
+}
+
+class FooterInfo extends React.Component {
+    render() {
+        return (
+            <div class="FooterDescription">
+                <h3 class="green">Ubicanos</h3>
+                <p class="olive">Metrópolis</p>
+                <p class="olive">Torre #1</p>
+                <p class="olive">Segundo piso</p>
+                <p class="olive">Local C212, entre Nativo y Bistro</p>
+                <p>
+                    <a href="https://fb.me/healthkitchenhn">a<i class="fa fa-facebook-square fa-2x sn-icon"></i></a>
+                    <a href="https://www.instagram.com/healthkitchenhn/"><i class="fa fa-twitter-square fa-2x sn-icon"></i></a>
+                    <a href="https://twitter.com/healthkitchenhn/"><i class="fa fa-instagram fa-2x sn-icon"></i></a>
+                </p>
+            </div>
+        );
+
+    }
+}
+
+
+
+class BarraNavigacion extends React.Component { // falta menu de la casa
+
+
+    render() {
+        return (
+
+            <div className="pos-f-t">
+
+                <nav className="navbar navbar-dark bg-dark">
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                </nav>
+
+                <div className="collapse" id="navbarToggleExternalContent">
+                    <div className="bg-dark p-4">
+                        <h1 className="text-white h4" >Platos</h1>
+                        <ul class="list-group" id="ListaPlatos">
+                            <a href="#Menu" class="list-group-item d-flex justify-content-between align-items-center"
+                                onClick={function () {
+                                    ReactDOM.render(<Entrada />, document.getElementById('MenuSeleccionado'));
+                                }} >
+                                Entradas
+                                <span class="badge badge-primary badge-pill">5</span>
+                            </a>
+                            <a href="#Menu" class="list-group-item d-flex justify-content-between align-items-center"
+                                onClick={function () {
+                                    ReactDOM.render(<Sopas />, document.getElementById('MenuSeleccionado'));
+                                }} >
+                                Sopas
+
+                                <span class="badge badge-primary badge-pill">4</span>
+                            </a>
+                            <a href="#Menu" class="list-group-item d-flex justify-content-between align-items-center"
+                                onClick={function () {
+                                    ReactDOM.render(<Ensaladas />, document.getElementById('MenuSeleccionado'));
+                                }}>
+                                Ensaladas
+                                <span class="badge badge-primary badge-pill">5</span>
+                            </a>
+                            <a href="#Menu" class="list-group-item d-flex justify-content-between align-items-center"
+                                onClick={function () {
+                                    ReactDOM.render(<Wraps />, document.getElementById('MenuSeleccionado'));
+                                }}>
+                                Wraps
+                                <span class="badge badge-primary badge-pill">3</span>
+                            </a>
+                            <a href="#Menu" class="list-group-item d-flex justify-content-between align-items-center"
+                                onClick={function () {
+                                    ReactDOM.render(<LittleItaly />, document.getElementById('MenuSeleccionado'));
+                                }}>
+                                Little Italy (Pastas & Pizettas)
+                                <span class="badge badge-primary badge-pill">10</span>
+                            </a>
+                            <a href="#Menu" class="list-group-item d-flex justify-content-between align-items-center"
+                                onClick={function () {
+                                    ReactDOM.render(<Sandwiches />, document.getElementById('MenuSeleccionado'));
+                                }}>
+                                Sándwiches
+                                <span class="badge badge-primary badge-pill">7</span>
+                            </a>
+                            <a href="#Menu" class="list-group-item d-flex justify-content-between align-items-center"
+                                onClick={function () {
+                                    ReactDOM.render(<Acompañantes />, document.getElementById('MenuSeleccionado'));
+                                }}>
+                                Acompañantes
+                                <span class="badge badge-primary badge-pill">3</span>
+                            </a>
+                            <a href="#Menu" class="list-group-item d-flex justify-content-between align-items-center"
+                                onClick={function () {
+                                    ReactDOM.render(<Desayuno />, document.getElementById('MenuSeleccionado'));
+                                }}>
+                                Desayunos
+                                <span class="badge badge-primary badge-pill">15</span>
+                            </a>
+                            <a href="#Menu" class="list-group-item d-flex justify-content-between align-items-center"
+                                onClick={function () {
+                                    ReactDOM.render(<Postres />, document.getElementById('MenuSeleccionado'));
+                                }}>
+                                Postres
+                                <span class="badge badge-primary badge-pill">5</span>
+                            </a>
+                            <a href="#Menu" class="list-group-item d-flex justify-content-between align-items-center"
+                                onClick={function () {
+                                    ReactDOM.render(<Jugos />, document.getElementById('MenuSeleccionado'));
+                                }}>
+                                Jugos
+                                <span class="badge badge-primary badge-pill">10</span>
+                            </a>
+                            <a href="#Menu" class="list-group-item d-flex justify-content-between align-items-center"
+                                onClick={function () {
+                                    ReactDOM.render(<Bebidas />, document.getElementById('MenuSeleccionado'));
+                                }}>
+                                Bebidas
+                                <span class="badge badge-primary badge-pill">11</span>
+                            </a>
+                            
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
 
 
         );
     }
 }
 
-class App extends React.Component {
-
+class Wraps extends React.Component {
     render() {
         return (
-            <Alert bsStyle="warning">
-                <strong>Holy guacamole!</strong> Best check yo self, you're not looking too
-                good.
-            </Alert>
+            <CardDeck>
+
+                
+                <Card >
+                    <CardImg top width="50%" src="" alt="Card image cap" />
+                    <CardBody>
+                        <CardTitle></CardTitle>
+                        <CardSubtitle>L </CardSubtitle>
+                        <CardText></CardText>
+                        <Button>Ver más</Button>
+                    </CardBody>
+                </Card>
+                <Card >
+                    <CardImg top width="50%" src="" alt="Card image cap" />
+                    <CardBody>
+                        <CardTitle></CardTitle>
+                        <CardSubtitle>L </CardSubtitle>
+                        <CardText></CardText>
+                        <Button>Ver más</Button>
+                    </CardBody>
+                </Card>
+                <Card >
+                    <CardImg top width="50%" src="" alt="Card image cap" />
+                    <CardBody>
+                        <CardTitle></CardTitle>
+                        <CardSubtitle>L </CardSubtitle>
+                        <CardText></CardText>
+                        <Button>Ver más</Button>
+                    </CardBody>
+                </Card>
+            </CardDeck>
+        );
+    }
+}
+
+/*
+class x extends React.Component {
+    render() {
+        return (
+            <CardDeck>
+
+                
+                <Card >
+                    <CardImg top width="50%" src="" alt="Card image cap" />
+                    <CardBody>
+                        <CardTitle></CardTitle>
+                        <CardSubtitle>L </CardSubtitle>
+                        <CardText></CardText>
+                        <Button>Ver más</Button>
+                    </CardBody>
+                </Card>
+            </CardDeck>
+        );
+    }
+}
+*/
+
+class Ensaladas extends React.Component {
+    render() {
+        return (
+
+            <CardDeck>
+
+                <Card >
+                    <CardImg top width="50%" src="https://simplyhomecooked.com/wp-content/uploads/2016/05/Chopped-caprese-salad-5.jpg" alt="Card image cap" />
+                    <CardBody>
+                        <CardTitle>Caprese Salad</CardTitle>
+                        <CardSubtitle>L 149 | Pollo Extra: + L 49</CardSubtitle>
+                        <CardText>Tomate fresco, cuajada, y albaca marinados al pesto, acompañado con mix de lechugas.</CardText>
+                        <Button>Ver más</Button>
+                    </CardBody>
+                </Card>
+                <Card >
+                    <CardImg top width="50%" src="https://www.ideahacks.com/wp-content/uploads/2017/08/Mediterranean-Quinoa-Salad.jpg" alt="Card image cap" />
+                    <CardBody>
+                        <CardTitle>Quinoa Salad</CardTitle>
+                        <CardSubtitle>L 149</CardSubtitle>
+                        <CardText>Mezclada con pepino, aceitunas, cebolla y guacamole, servido con tres rebanadas de pan tostado.</CardText>
+                        <Button>Ver más</Button>
+                    </CardBody>
+                </Card>
+                <Card >
+                    <CardImg top width="50%" src="https://revistamundonatural.com/wordpress/wp-content/uploads/2017/09/ensalada_mediterranea.jpg" alt="Card image cap" />
+                    <CardBody>
+                        <CardTitle>Ensalada Mediterranea</CardTitle>
+                        <CardSubtitle>L 189 | Pollo Extra: + L 49</CardSubtitle>
+                        <CardText>Mix de lechugas, tomates asados, hongos frescos, requesón y carbanzos con vinagreta de ajo rostizado. </CardText>
+                        <Button>Ver más</Button>
+                    </CardBody>
+                </Card>
+                <Card >
+                    <CardImg top width="50%" src="https://www.rebanando.com/media/caesar-salad-source-thinkstock-jpg_crop.jpeg/rh/ensalada-cesar.jpg" alt="Card image cap" />
+                    <CardBody>
+                        <CardTitle>Ensalada César</CardTitle>
+                        <CardSubtitle>L 189</CardSubtitle>
+                        <CardText>Lechuga Romana, queso parmesano, cherry tomatoes, croutons, aderezo césar y pollo al grill.</CardText>
+                        <Button>Ver más</Button>
+                    </CardBody>
+                </Card>
+                <Card >
+                    <CardImg top width="50%" src="https://www.culinaryhill.com/wp-content/uploads/2017/09/Chipotle-Steak-Recipe-Culinary-Hill-2.jpg" alt="Card image cap" />
+                    <CardBody>
+                        <CardTitle>Chipotle Salad</CardTitle>
+                        <CardSubtitle>L 189</CardSubtitle>
+                        <CardText>Mix de lechugas, aguacate, y pollo con aderezo de chipotle.</CardText>
+                        <Button>Ver más</Button>
+                    </CardBody>
+                </Card>
+
+            </CardDeck>
+
+        );
+
+    }
+}
+
+class Sopas extends React.Component { // 4 platos
+    render() {
+        return (
+
+            <CardDeck>
+
+                <Card >
+                    <CardImg top width="50%" src="https://comidasperuanas.net/wp-content/uploads/2017/01/Sopa-de-Pollo-Peruana.jpg" alt="Card image cap" />
+                    <CardBody>
+                        <CardTitle>Sopa de Pollo HK</CardTitle>
+                        <CardSubtitle>L 89</CardSubtitle>
+                        <CardText>Caldo clarificado de pollo y vegetales con tallarines.</CardText>
+                        <Button>Ver más</Button>
+                    </CardBody>
+                </Card>
+                <Card >
+                    <CardImg top width="50%" src="https://estaticos.marie-claire.es/media/cache/680x_thumb/uploads/images/recipe/567925885bafe85dd944606c/interior-wonton-de-pollo.jpg" alt="Card image cap" />
+                    <CardBody>
+                        <CardTitle>Sopa de Wonton</CardTitle>
+                        <CardSubtitle>L 109</CardSubtitle>
+                        <CardText>Caldo ligero de pollo sazonado con soya y sésamo, tallarines y wonton hervido relleno de pollo.</CardText>
+                        <Button>Ver más</Button>
+                    </CardBody>
+                </Card>
+                <Card >
+                    <CardImg top width="50%" src="https://food.fnr.sndimg.com/content/dam/images/food/fullset/2014/3/5/1/BX0203H_Cream-of-Fresh-Tomato-Soup_s4x3.jpg.rend.hgtvcom.616.462.suffix/1394079586646.jpeg" alt="Card image cap" />
+                    <CardBody>
+                        <CardTitle>Creamy Tomatoe</CardTitle>
+                        <CardSubtitle>L 99</CardSubtitle>
+                        <CardText>Acompañada con dos pupusas rellenas de queso.</CardText>
+                        <Button>Ver más</Button>
+                    </CardBody>
+                </Card>
+                <Card >
+                    <CardImg top width="50%" src="http://www.1001consejos.com/wp-content/uploads/2014/03/sopa-de-tortilla.jpg" alt="Card image cap" />
+                    <CardBody>
+                        <CardTitle>Sopa de Tortilla</CardTitle>
+                        <CardSubtitle>L 129</CardSubtitle>
+                        <CardText>Tradicional sopa Azteca con pollo.</CardText>
+                        <Button>Ver más</Button>
+                    </CardBody>
+                </Card>
+
+            </CardDeck>
+
+        );
+
+    }
+}
 
 
+
+
+
+class Entrada extends React.Component { // 5 platos
+    render() {
+        return (
+
+            <section>
+
+                <CardDeck>
+                    <Card >
+                        <CardImg top width="50%" src="http://cdn1-www.momtastic.com/assets/uploads/2016/06/Cauliflower-Nuggets-4.jpg" alt="Card image cap" />
+                        <CardBody>
+                            <CardTitle>Cauliflower Nuggets</CardTitle>
+                            <CardSubtitle>L 129</CardSubtitle>
+                            <CardText>Empanizado con panco, acompañado de una salsa fresca de tomate y Tzatziki</CardText>
+                            <Button>Ver más</Button>
+                        </CardBody>
+                    </Card>
+                    <Card>
+                        <CardImg top width="50%" src="https://www.philadelphia.com.mx/modx/assets/img/revision2016/images/recetas/montaditos_fuerza_roja.jpg" alt="Card image cap" />
+                        <CardBody>
+                            <CardTitle>Montaditos</CardTitle>
+                            <CardSubtitle>L 99</CardSubtitle>
+                            <CardText>Cuatro tostadas de pan de hierbas; atún, vegetales asados, pollo al pesto, y carne de berenjena</CardText>
+                            <Button>Ver más</Button>
+                        </CardBody>
+                    </Card>
+
+                    <Card>
+                        <CardImg top width="50%" src="https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg" alt="Card image cap" />
+                        <CardBody>
+                            <CardTitle>Croquetas de Vegetales</CardTitle>
+                            <CardSubtitle>L 99</CardSubtitle>
+                            <CardText>Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki</CardText>
+                            <Button>Ver más</Button>
+                        </CardBody>
+                    </Card>
+                    <Card >
+                        <CardImg top width="50%" src="http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg" alt="Card image cap" />
+                        <CardBody>
+                            <CardTitle>Palitos de Camote</CardTitle>
+                            <CardSubtitle>L 49</CardSubtitle>
+                            <CardText>Camotes a la francesa, acompañado de aderezo Tzatziki.</CardText>
+                            <Button>Ver más</Button>
+                        </CardBody>
+                    </Card>
+                    <Card >
+                        <CardImg top width="50%" src="http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg" alt="Card image cap" />
+                        <CardBody>
+                            <CardTitle>Aros de Cebolla HK</CardTitle>
+                            <CardSubtitle>L 89</CardSubtitle>
+                            <CardText>5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.</CardText>
+                            <Button>Ver más</Button>
+                        </CardBody>
+                    </Card>
+
+                </CardDeck>
+            </section>
+
+
+
+        );
+    }
+}
+
+
+class ColorStrip extends React.Component {
+    render() {
+        return (
+            <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg" />
         );
     }
 }
