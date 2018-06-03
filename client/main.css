@@ -1,1 +1,2 @@
-/* CSS declarations go here */
+/*Import SCSS*/
+@import '../imports/client/styles/main';
