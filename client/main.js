@@ -16,10 +16,10 @@ Meteor.startup(function () {
 
 
     ReactDOM.render(<Header />, document.getElementById('Header'));
-    ReactDOM.render(<Entrada />, document.getElementById('MenuSeleccionado'));
-    ReactDOM.render(<ColorStrip />, document.getElementById('ColorStrip'));
-    ReactDOM.render(<BarraNavigacion />, document.getElementById('BarraNavigacion'));
-    ReactDOM.render(<ColorStrip />, document.getElementById('ColorStrip2'));
+    ReactDOM.render(<Entree />, document.getElementById('SelectedMenu'));
+    ReactDOM.render(<ColorStrip />, document.getElementById('ColorStripHeader'));
+    ReactDOM.render(<NavigationBar />, document.getElementById('NavigationBar'));
+    ReactDOM.render(<ColorStrip />, document.getElementById('ColorStripFooter'));
     ReactDOM.render(<FooterLogo />, document.getElementById('FooterLogo'));
     ReactDOM.render(<FooterInfo />, document.getElementById('FooterInfo'));
 
@@ -42,7 +42,7 @@ class FooterLogo extends React.Component {
     render() {
         return (
 
-            <img src="http://www.healthkitchen.hn/static/media/hk-logo.b8b1c147.svg" alt="Logo" />
+            <img class = "LogoHK" src="http://www.healthkitchen.hn/static/media/hk-logo.b8b1c147.svg" alt="Logo" />
 
         );
 
@@ -58,10 +58,10 @@ class FooterInfo extends React.Component {
                 <p class="olive">Torre #1</p>
                 <p class="olive">Segundo piso</p>
                 <p class="olive">Local C212, entre Nativo y Bistro</p>
-                <p>
-                    <a href="https://fb.me/healthkitchenhn">a<i class="fa fa-facebook-square fa-2x sn-icon"></i></a>
-                    <a href="https://www.instagram.com/healthkitchenhn/"><i class="fa fa-twitter-square fa-2x sn-icon"></i></a>
-                    <a href="https://twitter.com/healthkitchenhn/"><i class="fa fa-instagram fa-2x sn-icon"></i></a>
+                <p class = "FooterSN">
+                    <a target="_blank" href="https://www.instagram.com/healthkitchenhn/"><ion-icon size = "large" name="logo-instagram"></ion-icon></a>
+                    <a target="_blank" href="https://fb.me/healthkitchenhn"><ion-icon name="logo-facebook"></ion-icon></a>
+                    <a target="_blank" href="https://twitter.com/healthkitchenhn/"><ion-icon name="logo-twitter"></ion-icon></a>
                 </p>
             </div>
         );
@@ -71,34 +71,35 @@ class FooterInfo extends React.Component {
 
 
 
-class BarraNavigacion extends React.Component { // falta menu de la casa
+class NavigationBar extends React.Component { // falta menu de la casa
 
 
     render() {
         return (
 
-            <div className="pos-f-t">
+            <div className="pos-f-t ">
 
                 <nav className="navbar navbar-dark bg-dark">
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
+                        <span> Menú</span>
                     </button>
                 </nav>
 
                 <div className="collapse" id="navbarToggleExternalContent">
-                    <div className="bg-dark p-4">
-                        <h1 className="text-white h4" >Platos</h1>
-                        <ul class="list-group" id="ListaPlatos">
+                    <div className="bg-dark p-4 d-flex justify-content-center" id = "BackgroundNavBar">
+                        
+                        <ul class="list-group" id="PlateList">
                             <a href="#Menu" class="list-group-item d-flex justify-content-between align-items-center"
                                 onClick={function () {
-                                    ReactDOM.render(<Entrada />, document.getElementById('MenuSeleccionado'));
+                                    ReactDOM.render(<Entree />, document.getElementById('SelectedMenu'));
                                 }} >
                                 Entradas
                                 <span class="badge badge-primary badge-pill">5</span>
                             </a>
                             <a href="#Menu" class="list-group-item d-flex justify-content-between align-items-center"
                                 onClick={function () {
-                                    ReactDOM.render(<Sopas />, document.getElementById('MenuSeleccionado'));
+                                    ReactDOM.render(<Soups />, document.getElementById('SelectedMenu'));
                                 }} >
                                 Sopas
 
@@ -106,63 +107,63 @@ class BarraNavigacion extends React.Component { // falta menu de la casa
                             </a>
                             <a href="#Menu" class="list-group-item d-flex justify-content-between align-items-center"
                                 onClick={function () {
-                                    ReactDOM.render(<Ensaladas />, document.getElementById('MenuSeleccionado'));
+                                    ReactDOM.render(<Salads />, document.getElementById('SelectedMenu'));
                                 }}>
                                 Ensaladas
                                 <span class="badge badge-primary badge-pill">5</span>
                             </a>
                             <a href="#Menu" class="list-group-item d-flex justify-content-between align-items-center"
                                 onClick={function () {
-                                    ReactDOM.render(<Wraps />, document.getElementById('MenuSeleccionado'));
+                                    ReactDOM.render(<Wraps />, document.getElementById('SelectedMenu'));
                                 }}>
                                 Wraps
                                 <span class="badge badge-primary badge-pill">3</span>
                             </a>
                             <a href="#Menu" class="list-group-item d-flex justify-content-between align-items-center"
                                 onClick={function () {
-                                    ReactDOM.render(<LittleItaly />, document.getElementById('MenuSeleccionado'));
+                                    ReactDOM.render(<LittleItaly />, document.getElementById('SelectedMenu'));
                                 }}>
                                 Little Italy (Pastas & Pizettas)
                                 <span class="badge badge-primary badge-pill">10</span>
                             </a>
                             <a href="#Menu" class="list-group-item d-flex justify-content-between align-items-center"
                                 onClick={function () {
-                                    ReactDOM.render(<Sandwiches />, document.getElementById('MenuSeleccionado'));
+                                    ReactDOM.render(<Sandwiches />, document.getElementById('SelectedMenu'));
                                 }}>
                                 Sándwiches
                                 <span class="badge badge-primary badge-pill">7</span>
                             </a>
                             <a href="#Menu" class="list-group-item d-flex justify-content-between align-items-center"
                                 onClick={function () {
-                                    ReactDOM.render(<Acompañantes />, document.getElementById('MenuSeleccionado'));
+                                    ReactDOM.render(<SideDish />, document.getElementById('SelectedMenu'));
                                 }}>
                                 Acompañantes
                                 <span class="badge badge-primary badge-pill">3</span>
                             </a>
                             <a href="#Menu" class="list-group-item d-flex justify-content-between align-items-center"
                                 onClick={function () {
-                                    ReactDOM.render(<Desayuno />, document.getElementById('MenuSeleccionado'));
+                                    ReactDOM.render(<Breakfasts />, document.getElementById('SelectedMenu'));
                                 }}>
                                 Desayunos
                                 <span class="badge badge-primary badge-pill">15</span>
                             </a>
                             <a href="#Menu" class="list-group-item d-flex justify-content-between align-items-center"
                                 onClick={function () {
-                                    ReactDOM.render(<Postres />, document.getElementById('MenuSeleccionado'));
+                                    ReactDOM.render(<Desserts />, document.getElementById('SelectedMenu'));
                                 }}>
                                 Postres
                                 <span class="badge badge-primary badge-pill">5</span>
                             </a>
                             <a href="#Menu" class="list-group-item d-flex justify-content-between align-items-center"
                                 onClick={function () {
-                                    ReactDOM.render(<Jugos />, document.getElementById('MenuSeleccionado'));
+                                    ReactDOM.render(<Juices />, document.getElementById('SelectedMenu'));
                                 }}>
                                 Jugos
                                 <span class="badge badge-primary badge-pill">10</span>
                             </a>
                             <a href="#Menu" class="list-group-item d-flex justify-content-between align-items-center"
                                 onClick={function () {
-                                    ReactDOM.render(<Bebidas />, document.getElementById('MenuSeleccionado'));
+                                    ReactDOM.render(<Drinks />, document.getElementById('SelectedMenu'));
                                 }}>
                                 Bebidas
                                 <span class="badge badge-primary badge-pill">11</span>
@@ -240,7 +241,7 @@ class x extends React.Component {
 }
 */
 
-class Ensaladas extends React.Component {
+class Salads extends React.Component {
     render() {
         return (
 
@@ -299,7 +300,7 @@ class Ensaladas extends React.Component {
     }
 }
 
-class Sopas extends React.Component { // 4 platos
+class Soups extends React.Component { // 4 platos
     render() {
         return (
 
@@ -353,7 +354,7 @@ class Sopas extends React.Component { // 4 platos
 
 
 
-class Entrada extends React.Component { // 5 platos
+class Entree extends React.Component { // 5 platos
     render() {
         return (
 
