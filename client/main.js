@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
+import '../imports/client/styles/register';
 
 //import '../imports/ui/body.js';
 //import '../imports/ui/login.css';
@@ -10,6 +11,7 @@ import NotFound from '../imports/ui/NotFound';
 import Principal from '../imports/ui/Principal';
 import Register from '../imports/ui/Register';
 import LoginPage from '../imports/ui/LoginPage';
+
 
 const routes = (
     <BrowserRouter>
@@ -25,3 +27,4 @@ const routes = (
 Meteor.startup(() => {
     ReactDOM.render(routes, document.getElementById('app'));
 });
+
