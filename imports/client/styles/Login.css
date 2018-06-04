@@ -74,11 +74,10 @@ acceso a la página principal del app.
     padding-bottom: 4rem;
 }
 
-@media screen and (max-width: 60rem) {
-    .userDataForm, .emailInput, .passwordInput, .emailLabel, .passwordLabel, .loginButton {
-        width: 50rem;
-        margin-top: 0;
-        margin-left: auto;
-        margin-right:auto;    
+@media screen and (max-width: 695px) {
+    .userDataForm {
+        width: 70rem;
+        margin-top: 5rem;
+        margin-bottom: 1rem;
     }
 }
