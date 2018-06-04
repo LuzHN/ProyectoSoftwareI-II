@@ -10,7 +10,7 @@ import '../imports/client/styles/register';
 import NotFound from '../imports/ui/NotFound';
 import Principal from '../imports/ui/Principal';
 import Register from '../imports/ui/Register';
-
+import LoginPage from '../imports/ui/LoginPage';
 
 
 const routes = (
@@ -18,6 +18,7 @@ const routes = (
         <Switch>
             <Route path="/" exact component={Principal}/> 
             <Route path="/register" component={Register}/>
+            <Route path ="/login" component={LoginPage}/>
             <Route path="*" component={NotFound}/>
         </Switch>
     </BrowserRouter>

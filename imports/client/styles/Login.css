@@ -1,0 +1,83 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: #37555A;
+    color: #87AAAA;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+input, button, select {
+    font-size: 1.3rem;
+    color: black;
+}
+
+/*Esta es la clase del Form que contiene
+los elementos de emailInput, emailLabel,
+passwordInput y passwordLabel.
+*/
+.userDataForm {
+    background:#23363A;
+    display: grid;
+    grid-row-gap: 2rem;
+    margin: 5rem auto 10rem auto;
+    max-width: 80rem;
+    padding-bottom: 2.5rem;
+    padding-top: 5rem;
+}
+
+/*Estas son las clases de los Labels de 
+Email y Password.
+*/
+.emailLabel, .passwordLabel{
+    margin-left: 15rem;
+    margin-right: auto;
+}
+
+/*Estas son las clases de los Inputs del
+Email y de la Password.
+*/
+.emailInput, .passwordInput{
+    margin-left: 15rem;
+    margin-right: auto;
+    padding: 1.2rem;
+    width: 50rem;
+}
+
+/*Este es la clase del Botón que dará
+acceso a la página principal del app.
+*/
+.loginButton{ 
+    background: #cdcaa6;
+    border: 1px solid #efede6;
+    border-radius: 8px;
+    color: black;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+    width: 20rem;    
+}
+
+/*Foto del Logo de The Health Kitchen.*/
+.Image {
+    margin-left: auto;
+    margin-right: auto;
+    background-image: url(logo.PNG);
+    background-repeat: no-repeat;
+    padding-top: 15rem;
+    padding-right: 39rem;
+    padding-bottom: 4rem;
+}
+
+@media screen and (max-width: 695px) {
+    .userDataForm {
+        width: 70rem;
+        margin-top: 5rem;
+        margin-bottom: 1rem;
+    }
+}
