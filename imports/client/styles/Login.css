@@ -14,7 +14,7 @@ html {
 
 input, button, select {
     font-size: 1.3rem;
-    color: black;
+    color: #cdcaa6;
 }
 
 /*Esta es la clase del Form que contiene
@@ -25,16 +25,19 @@ passwordInput y passwordLabel.
     background:#23363A;
     display: grid;
     grid-row-gap: 2rem;
-    margin: 5rem auto 10rem auto;
+    margin: 2rem auto 2rem auto;
     max-width: 80rem;
-    padding-bottom: 2.5rem;
-    padding-top: 5rem;
+    padding-bottom:6rem;
+    padding-top:3rem;
 }
 
 /*Estas son las clases de los Labels de 
 Email y Password.
 */
 .emailLabel, .passwordLabel{
+    color: #87aaaa;
+    font: 'Paralucent Bold';
+    font-size: 1.6rem;
     margin-left: 15rem;
     margin-right: auto;
 }
@@ -43,6 +46,9 @@ Email y Password.
 Email y de la Password.
 */
 .emailInput, .passwordInput{
+    color: black;
+    font: 'Paralucent Bold';
+    font-size: 1.6rem;
     margin-left: 15rem;
     margin-right: auto;
     padding: 1.2rem;
@@ -53,20 +59,48 @@ Email y de la Password.
 acceso a la página principal del app.
 */
 .loginButton{ 
-    background: #cdcaa6;
-    border: 1px solid #efede6;
+    background: #4e873e;
+    border:none;
     border-radius: 8px;
-    color: black;
+    color: white;
+    font: 'Paralucent Bold';
+    font-size: 1.7rem;
     margin-left: auto;
     margin-right: auto;
-    padding: 1rem;
-    width: 20rem;    
+    width: 10rem;    
+}
+
+.registerButton {
+    background: #87aaaa;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font: 'Paralucent Bold';
+    font-size: 1.7rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 10rem;
+}
+
+.Buttons {
+    cursor: pointer;
+    display: flex;
+    line-height: 1;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 3rem;
+}
+
+.orLabel {
+    padding:1rem 1rem 0 1rem;
 }
 
 /*Foto del Logo de The Health Kitchen.*/
 .Image {
     margin-left: auto;
     margin-right: auto;
+    margin-top: 2.6rem;
+    margin-bottom: 2.6rem;
     background-image: url(logo.PNG);
     background-repeat: no-repeat;
     padding-top: 15rem;
