@@ -23,6 +23,15 @@ export default class Register extends React.Component {
             document.getElementById('email_error').style.color = "red";
             email_error.textContent = "*Email is required";
             validator = 1;
+        }else if(this.state.email.indexOf('@')<=0){
+            document.getElementById('email_error').style.color = "red";
+            email_error.textContent = "*Please use a valid email address";
+            validator = 1;
+            
+        }else if(this.state.email.charAt(this.state.email.length-4)!='.' && this.state.email.charAt(this.state.email.length-3)!='.'){
+            document.getElementById('email_error').style.color = "red";
+            email_error.textContent = "*Please use a valid email address 2";
+            validator = 1;
         }else{
             email_error.innerHTML = "";
         }
@@ -100,7 +109,7 @@ export default class Register extends React.Component {
             address_error.innerHTML = "";
 
             //redirigir pagina
-            this.props.history.push("/hola");
+            this.props.history.push("/");
 
         }
 

@@ -4,6 +4,7 @@ import ReactDom from 'react-dom';
 import { disconnect } from 'cluster';
 import PropTypes from 'prop-types';
 import { Router, Route, browserHistory} from 'react-router';
+import {withRouter} from "react-router-dom";
 import { Redirect } from 'react-router'
 import './../client/styles/Login';
 
@@ -19,10 +20,8 @@ export default class LoginPage extends React.Component {
 
 
     onRegister() {   
-        const { redirect } = this.state;
-        if (redirect) {
-            return <Redirect to="/register"/>;
-        }
+         //redirigir a pagina register
+         this.props.history.push("/register");
     }
 
     onLogin() {
