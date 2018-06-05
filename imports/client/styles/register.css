@@ -14,7 +14,7 @@ body{
   }
   
   .contact{
-    background: #2b3e4b;
+    background: #23363a;
     border-radius: 7px;
   }
   
@@ -35,14 +35,17 @@ body{
     grid-gap: 30px;
   }
 
-  /*
-  .image {
-    content:url(https://static.wixstatic.com/media/1439ce_be71579fd0a44678a77bf2f0dd4ed39f~mv2.png/v1/fill/w_572,h_310,al_c,usm_0.66_1.00_0.01/1439ce_be71579fd0a44678a77bf2f0dd4ed39f~mv2.png);
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
- }​ */
+ 
+ .image {
+  margin-left: auto;
+  margin-right: auto;
+  background-image: url(logo.PNG);
+  background-repeat: no-repeat;
+  padding-top: 15rem;
+  padding-right: 39rem;
+  padding-bottom: 4rem;
+  left: 50%;
+}
 
   .contact form label{
     display: block;
