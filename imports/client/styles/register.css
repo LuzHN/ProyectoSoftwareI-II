@@ -6,10 +6,12 @@ body{
   }
 
   .container{
-    max-width: 1170px;/*Doesnt increases when page is extended*/
-    margin-left: auto;
-    margin-right: auto;
-    padding: 1em;
+    display: grid;
+    grid-row-gap: 2rem;
+    margin: 5rem auto 10rem auto;
+    max-width: 80rem;
+    padding-bottom: 2.5rem;
+    padding-top: 5rem;
     
   }
   
@@ -18,11 +20,6 @@ body{
     border-radius: 7px;
   }
   
-  .wrapper{
-    box-shadow: 0 0 20px 0 rgba(72,94,116,0.7);/*red, green, blue, opacity*/
-    
-  }
-
   .wrapper > *{
     padding: 2em;
   }
@@ -32,19 +29,17 @@ body{
   
   .contact form{
     display: grid;
-    grid-gap: 30px;
+    grid-gap: 1rem;
   }
 
  
  .image {
-  margin-left: auto;
-  margin-right: auto;
+  margin: 54px 46px;
   background-image: url(logo.PNG);
   background-repeat: no-repeat;
   padding-top: 15rem;
   padding-right: 39rem;
-  padding-bottom: 4rem;
-  left: 50%;
+  margin-left: 18%;
 }
 
   .contact form label{
@@ -62,22 +57,21 @@ body{
   .contact form button, .contact form input, .contact form textarea{
     width: 100%;
     padding: 1em;
-    border: 1px solid #98bbd3;
+    
   }
   
   .contact form button{
     background: #98bbd3;
     color: #2b3e4b;
     border: 0;
-    text-transform: uppercase;
-    
+    font-weight: bold;
   }
   
-  .contact form button:hover, .contact form button:focus{
+  .contact form button:hover{
     background: #98bbd3;
     color: #fff;
     outline: 0;
-    transition: background-color 2s ease-out;
+    transition: background-color 1s ease-out;
   
   }
   .container-1{
@@ -97,19 +91,18 @@ body{
 
 /*Large Screens*/
 
-@media(min-width:700px){
-    .wrapper{
-      display: grid;
-      grid-template-columns: 3fr 3fr;
-      
-    }
+@media screen and (max-width:695px){
+  .wrapper{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+  }
+  .wrapper > *{
+    padding: 2em;
+  }
     .container{
-      position: absolute;
-      margin: auto;
-      top: 9%;
-      right: 0;
-      bottom: 0;
-      left: 27%;
+      width: 70rem;
+      margin-top: 5rem;
+      margin-bottom: 1rem;
       
     }
     
