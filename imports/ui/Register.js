@@ -17,74 +17,90 @@ export default class Register extends React.Component {
 
   onSubmit = e => {
     e.preventDefault();
+    let email = this.refs.email.value.trim();
+    let password = this.refs.password.value.trim();
 
-    let validator = 0;
-    //Validaciones
-    if(this.state.email == ''){
-      document.getElementById('email_error').style.color = "red";
-      email_error.textContent = "*Email is required";
-      validator = 1;
-    }else if(this.state.email.indexOf('@')<=0){
-      document.getElementById('email_error').style.color = "red";
-      email_error.textContent = "*Please use a valid email address";
-      validator = 1;
+    if (password.length < 9) {
+      return this.setState({error: 'Password must be more than 8 characters long'});
+    }
 
-    }else if(this.state.email.charAt(this.state.email.length-4)!='.' && this.state.email.charAt(this.state.email.length-3)!='.'){
-      document.getElementById('email_error').style.color = "red";
-      email_error.textContent = "*Please use a valid email address 2";
-      validator = 1;
-    }else{
-      email_error.innerHTML = "";
-    }
-    if(this.state.username == ''){
-      document.getElementById('username_error').style.color = "red";
-      username_error.textContent = "*Username is required";
-      validator = 1;
-    }else{
-      username_error.innerHTML = "";
-    }
-    if(this.state.password == ''){
-      document.getElementById('password_error').style.color = "red";
-      password_error.textContent = "*Password is required";
-      validator = 1;
-    }else{
-      password_error.innerHTML = "";
-    }
-    if(this.state.confirmPassword != this.state.password){
-      document.getElementById('confirmPassword_error').style.color = "red";
-      confirmPassword_error.textContent = "Password does not match";
-      validator = 1;
-    }else{
-      confirmPassword_error.innerHTML = "";
-    }
-    if(this.state.firstName == ''){
-      document.getElementById('firstName_error').style.color = "red";
-      firstName_error.textContent = "*First Name is required";
-      validator = 1;
-    }else{
-      firstName_error.innerHTML = "";
-    }
-    if(this.state.lastName == ''){
-      document.getElementById('lastName_error').style.color = "red";
-      lastName_error.textContent = "*Last Name is required";
-      validator = 1;
-    }else{
-      lastName_error.innerHTML = "";
-    }
-    if(this.state.phoneNumber == ''){
-      document.getElementById('phoneNumber_error').style.color = "red";
-      phoneNumber_error.textContent = "*Phone Number is required";
-      validator = 1;
-    }else{
-      phoneNumber_error.innerHTML = "";
-    }
-    if(this.state.address == ''){
-      document.getElementById('address_error').style.color = "red";
-      address_error.textContent = "*Address is required";
-      validator = 1;
-    }else{
-      address_error.innerHTML = "";
-    }
+    Accounts.createUser({ email, password }, (err) =>{
+      if (err) {
+        console.log('entro aqui');
+        alert(err.reason);
+      }else {
+        console.log('esta pendejada');
+        alert('user created');
+      }
+    });
+
+    // let validator = 0;
+    // //Validaciones
+    // if(this.state.email == ''){
+    //   document.getElementById('email_error').style.color = "red";
+    //   email_error.textContent = "*Email is required";
+    //   validator = 1;
+    // }else if(this.state.email.indexOf('@')<=0){
+    //   document.getElementById('email_error').style.color = "red";
+    //   email_error.textContent = "*Please use a valid email address";
+    //   validator = 1;
+    //
+    // }else if(this.state.email.charAt(this.state.email.length-4)!='.' && this.state.email.charAt(this.state.email.length-3)!='.'){
+    //   document.getElementById('email_error').style.color = "red";
+    //   email_error.textContent = "*Please use a valid email address 2";
+    //   validator = 1;
+    // }else{
+    //   email_error.innerHTML = "";
+    // }
+    // if(this.state.username == ''){
+    //   document.getElementById('username_error').style.color = "red";
+    //   username_error.textContent = "*Username is required";
+    //   validator = 1;
+    // }else{
+    //   username_error.innerHTML = "";
+    // }
+    // if(this.state.password == ''){
+    //   document.getElementById('password_error').style.color = "red";
+    //   password_error.textContent = "*Password is required";
+    //   validator = 1;
+    // }else{
+    //   password_error.innerHTML = "";
+    // }
+    // if(this.state.confirmPassword != this.state.password){
+    //   document.getElementById('confirmPassword_error').style.color = "red";
+    //   confirmPassword_error.textContent = "Password does not match";
+    //   validator = 1;
+    // }else{
+    //   confirmPassword_error.innerHTML = "";
+    // }
+    // if(this.state.firstName == ''){
+    //   document.getElementById('firstName_error').style.color = "red";
+    //   firstName_error.textContent = "*First Name is required";
+    //   validator = 1;
+    // }else{
+    //   firstName_error.innerHTML = "";
+    // }
+    // if(this.state.lastName == ''){
+    //   document.getElementById('lastName_error').style.color = "red";
+    //   lastName_error.textContent = "*Last Name is required";
+    //   validator = 1;
+    // }else{
+    //   lastName_error.innerHTML = "";
+    // }
+    // if(this.state.phoneNumber == ''){
+    //   document.getElementById('phoneNumber_error').style.color = "red";
+    //   phoneNumber_error.textContent = "*Phone Number is required";
+    //   validator = 1;
+    // }else{
+    //   phoneNumber_error.innerHTML = "";
+    // }
+    // if(this.state.address == ''){
+    //   document.getElementById('address_error').style.color = "red";
+    //   address_error.textContent = "*Address is required";
+    //   validator = 1;
+    // }else{
+    //   address_error.innerHTML = "";
+    // }
 
     if(validator==0){
 
@@ -128,7 +144,7 @@ export default class Register extends React.Component {
                   <p>
                     <label>Email</label>
                     <input type="email" placeholder='Enter Email' maxLength='140' value={this.state.email}
-                      onChange={e => this.setState({email: e.target.value})} />
+                      onChange={e => this.setState({email: e.target.value})} ref = "email"/>
                       <div id="email_error"></div>
                     </p>
                   </div>
@@ -154,7 +170,7 @@ export default class Register extends React.Component {
                         <p>
                           <label>Confirm Password</label>
                           <input type="password" placeholder='Confirm Password' value={this.state.confirmPassword}
-                            onChange={e => this.setState({confirmPassword: e.target.value})} />
+                            onChange={e => this.setState({confirmPassword: e.target.value})} ref = "password"/>
                             <div id="confirmPassword_error" ></div>
                           </p>
                         </div>

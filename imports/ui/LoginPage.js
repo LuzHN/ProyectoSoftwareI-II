@@ -19,7 +19,7 @@ export default class LoginPage extends React.Component {
     }
 
 
-    onRegister() {   
+    onRegister() {
          //redirigir a pagina register
          this.props.history.push("/register");
     }
@@ -31,11 +31,9 @@ export default class LoginPage extends React.Component {
 
         Meteor.loginWithPassword({email}, password, (err) => {
           if (err) {
-            console.log(email);
-            console.log(password);
-            console.log('Unable to login. Check email and password.');
+            alert('Unable to login. Check email and password.');
           }else {
-            console.log('succesful log in');
+            alert('succesful log in');
           }
         });
         if (document.getElementById("emailBox").value != "" && document.getElementById("passwordBox").value != "") {
