@@ -1,3 +1,4 @@
+import { Accounts } from 'meteor/accounts-base';
 import React from 'react';
 import {withRouter} from "react-router-dom";
 
@@ -146,7 +147,7 @@ export default class Register extends React.Component {
                                 <div className="box-1">
                                     <p>
                                         <label>Password</label>
-                                        <input type="password" placeholder='Enter Password' value={this.state.password} 
+                                        <input type="password" placeholder='Enter Password' value={this.state.password}
                                         onChange={e => this.setState({password: e.target.value})} />
                                         <div id="password_error"></div>
                                     </p>
@@ -154,13 +155,13 @@ export default class Register extends React.Component {
                                 <div className="box-2">
                                     <p>
                                         <label>Confirm Password</label>
-                                        <input type="password" placeholder='Confirm Password' value={this.state.confirmPassword} 
+                                        <input type="password" placeholder='Confirm Password' value={this.state.confirmPassword}
                                         onChange={e => this.setState({confirmPassword: e.target.value})} />
                                         <div id="confirmPassword_error" ></div>
                                     </p>
                                 </div>
                             </div>
-                           
+
                             <div className="container-1">
 
                                 <div className="box-1">
@@ -194,14 +195,14 @@ export default class Register extends React.Component {
                             </p>
 
                             <p>
-                                <button onClick={e => this.onSubmit(e)}>Register</button>    
+                                <button onClick={e => this.onSubmit(e)}>Register</button>
                             </p>
                         </form>
                     </div>
                 </div>
             </body>
-            
-            
+
+
         );
     }
 }
