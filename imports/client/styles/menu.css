@@ -31,10 +31,6 @@ html body {
   margin: 10px 10px 10px 10px;
 }
 
-.LogoHK{
-  margin: 10px 10px 10px 10px;
-  padding-top:20%;
-}
 
 /* CSS Menu */
 
@@ -72,9 +68,7 @@ html body {
 
 }
 
-.card-img-top{
 
-}
 
 .card-body{
   background: #19282b;
@@ -133,6 +127,10 @@ html body {
 
 .FooterSN{
   font-size: 40px;
+}
+
+.LogoHK{
+  margin: 10px 10px 10px 10px;
 }
 
 
