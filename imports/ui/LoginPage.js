@@ -36,16 +36,16 @@ export default class LoginPage extends React.Component {
             alert('succesful log in');
           }
         });
-        if (document.getElementById("emailBox").value != "" && document.getElementById("passwordBox").value != "") {
-            document.getElementById("emailBox").value = "";
-            document.getElementById("passwordBox").value = "";
-        }
         if (document.getElementById("passwordBox").value == "" && document.getElementById("emailBox").value == ""){
             alert("Por favor ingrese sus datos.");
         } else if (document.getElementById("emailBox").value == "") {
             alert("Por favor ingrese su correo.");
         } else if (document.getElementById("passwordBox").value == "") {
             alert("Por favor ingrese su contraseña.");
+        }
+        if (document.getElementById("emailBox").value != "" && document.getElementById("passwordBox").value != "") {
+            document.getElementById("emailBox").value = "";
+            document.getElementById("passwordBox").value = "";
         }
     }
 
@@ -57,7 +57,7 @@ export default class LoginPage extends React.Component {
                         <div className = "Image"></div>
 
                         <label className = "emailLabel">Email</label>
-                        <input className = "emailInput" placeholder = "Email" id = "emailBox"type = "email" ref = "email"/>
+                        <input className = "emailInput" placeholder = "Email" id = "emailBox"type = "email" pattern="[^ @]*@[^ @]*" ref = "email"/>
 
                         <label className = "passwordLabel">Password</label>
                         <input className = "passwordInput" placeholder = "Password" id = "passwordBox" type = "password" ref = "password"/>
