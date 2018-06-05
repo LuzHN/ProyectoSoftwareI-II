@@ -8,8 +8,10 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/menu.css';
 
-
 export default class Menu extends React.Component {
+
+
+
   render() {
     return (
       <div>
@@ -34,7 +36,7 @@ export default class Menu extends React.Component {
               <ul className="list-group" id="PlateList">
                 <a href="#SelectedMenu" className="list-group-item d-flex justify-content-between align-items-center"
                   onClick={function () {
-                    ReactDOM.render(renderPlatos("Entree"), document.getElementById('SelectedMenu'));
+                    ReactDOM.render(<Entree/>, document.getElementById('SelectedMenu'));
 
                   }} >
                   Entradas
@@ -129,8 +131,8 @@ export default class Menu extends React.Component {
 
         </div>
 
-        <section id="Menu">
-          <div id="SelectedMenu"> </div>
+        <section id="Menu" >
+          <div id="SelectedMenu"> <Entree/></div>
         </section>
 
 
@@ -153,9 +155,7 @@ export default class Menu extends React.Component {
           </div>
         </footer>
 
-
       </div>
-
     );
   }
 }
@@ -167,14 +167,10 @@ Template
 
 */
 
-function renderPlatos(nombrePlato) {
-
-  let jsx = "";
-
-  switch (nombrePlato) {
-    case "Entree": {
-
-      jsx = (<CardDeck>
+class Entree extends React.Component {
+  render() {
+    return (
+      <CardDeck>
         <Card >
           <CardImg top width="50%" src="http://cdn1-www.momtastic.com/assets/uploads/2016/06/Cauliflower-Nuggets-4.jpg" alt="Card image cap" />
           <CardBody>
@@ -223,8 +219,15 @@ function renderPlatos(nombrePlato) {
         </Card>
 
       </CardDeck>);
-      break;
-    } //fin case 1
+  }
+}
+
+function renderPlatos(nombrePlato) {
+
+  let jsx = "";
+
+  switch (nombrePlato) {
+   
     case "Soups": {
 
       jsx = (<CardDeck>

@@ -45,7 +45,7 @@ html body {
   align-items: center;
 
   justify-content: center;
-  height: 98vh;
+  
   background-size: cover;
   margin: 0 auto;
 }
@@ -53,7 +53,7 @@ html body {
 #SelectedMenu{
   width: 90%;
   height: 95%;
-  resize: inherit!important;
+ 
   overflow-x: hidden !important;
   overflow-y: auto !important;
   padding-top: 5%;
@@ -161,6 +161,17 @@ html body {
   margin: 0px;
 }
 
+@media only screen and (max-width: 600px){
+  #PlateList{
+    width: 50% !important;
+  }
+}
+
+@media only screen and (min-width: 600px){
+  #PlateList{
+    width: 60% !important;
+  }
+}
 
 #PlateList{
   width: 20%;

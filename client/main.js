@@ -5,7 +5,7 @@ import { Route, BrowserRouter, Switch} from 'react-router-dom';
 import {Router, browserHistory } from 'react-router';
 
 import '../imports/client/styles/menu.css';
-import Menu from '../imports/client/ui/menu'
+import Menu from '../imports/client/ui/menu';
 
 const routes = (
     <BrowserRouter history = {browserHistory}>
@@ -18,3 +18,6 @@ const routes = (
 Meteor.startup(() => {
     ReactDOM.render(routes, document.getElementById('app'));
 });
+
+
+
