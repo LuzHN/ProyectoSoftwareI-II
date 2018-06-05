@@ -26,14 +26,14 @@ export default class Menu extends React.Component{
           <div className="bg-dark p-4 d-flex justify-content-center" id = "BackgroundNavBar">
 
             <ul className="list-group" id="PlateList">
-              <a href="#Menu" className="list-group-item d-flex justify-content-between align-items-center"
+              <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
                 onClick={function () {
                   ReactDOM.render(<Entree />, document.getElementById('SelectedMenu'));
                 }} >
                 Entradas
                 <span className="badge badge-primary badge-pill">5</span>
               </a>
-              <a href="#Menu" className="list-group-item d-flex justify-content-between align-items-center"
+              <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
                 onClick={function () {
                   ReactDOM.render(<Soups />, document.getElementById('SelectedMenu'));
                 }} >
@@ -41,63 +41,63 @@ export default class Menu extends React.Component{
 
                 <span className="badge badge-primary badge-pill">4</span>
               </a>
-              <a href="#Menu" className="list-group-item d-flex justify-content-between align-items-center"
+              <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
                 onClick={function () {
                   ReactDOM.render(<Salads />, document.getElementById('SelectedMenu'));
                 }}>
                 Ensaladas
                 <span className="badge badge-primary badge-pill">5</span>
               </a>
-              <a href="#Menu" className="list-group-item d-flex justify-content-between align-items-center"
+              <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
                 onClick={function () {
                   ReactDOM.render(<Wraps />, document.getElementById('SelectedMenu'));
                 }}>
                 Wraps
                 <span className="badge badge-primary badge-pill">3</span>
               </a>
-              <a href="#Menu" className="list-group-item d-flex justify-content-between align-items-center"
+              <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
                 onClick={function () {
                   ReactDOM.render(<LittleItaly />, document.getElementById('SelectedMenu'));
                 }}>
                 Little Italy (Pastas & Pizettas)
                 <span className="badge badge-primary badge-pill">10</span>
               </a>
-              <a href="#Menu" className="list-group-item d-flex justify-content-between align-items-center"
+              <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
                 onClick={function () {
                   ReactDOM.render(<Sandwiches />, document.getElementById('SelectedMenu'));
                 }}>
                 Sándwiches
                 <span className="badge badge-primary badge-pill">7</span>
               </a>
-              <a href="#Menu" className="list-group-item d-flex justify-content-between align-items-center"
+              <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
                 onClick={function () {
                   ReactDOM.render(<SideDish />, document.getElementById('SelectedMenu'));
                 }}>
                 Acompañantes
                 <span className="badge badge-primary badge-pill">3</span>
               </a>
-              <a href="#Menu" className="list-group-item d-flex justify-content-between align-items-center"
+              <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
                 onClick={function () {
                   ReactDOM.render(<Breakfasts />, document.getElementById('SelectedMenu'));
                 }}>
                 Desayunos
                 <span className="badge badge-primary badge-pill">15</span>
               </a>
-              <a href="#Menu" className="list-group-item d-flex justify-content-between align-items-center"
+              <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
                 onClick={function () {
                   ReactDOM.render(<Desserts />, document.getElementById('SelectedMenu'));
                 }}>
                 Postres
                 <span className="badge badge-primary badge-pill">5</span>
               </a>
-              <a href="#Menu" className="list-group-item d-flex justify-content-between align-items-center"
+              <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
                 onClick={function () {
                   ReactDOM.render(<Juices />, document.getElementById('SelectedMenu'));
                 }}>
                 Jugos
                 <span className="badge badge-primary badge-pill">10</span>
               </a>
-              <a href="#Menu" className="list-group-item d-flex justify-content-between align-items-center"
+              <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
                 onClick={function () {
                   ReactDOM.render(<Drinks />, document.getElementById('SelectedMenu'));
                 }}>
