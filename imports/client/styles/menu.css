@@ -1,0 +1,208 @@
+html body {
+  font-family: Century Gothic;
+  font-size: 15px;
+  line-height: 1.5;
+
+  background-color: #37555A;
+  color: #8ea9a9;
+}
+
+/*CSS Header*/
+
+#Header{
+  background: url(https://i.gyazo.com/e02b199529f41f1a5b4a08f761395f86.png) no-repeat center bottom;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 98vh;
+  background-size: cover;
+}
+
+#hk-logo-header{
+  display: block;
+  width: 420px;
+  height: 150px;
+  text-indent: -9999px;
+  background: url(https://i.gyazo.com/72a18ae2af8e3d1b705d944fbb93de69.png) no-repeat center;
+  background-size: cover;
+  margin: 10px 10px 10px 10px;
+}
+
+
+/* CSS Menu */
+
+#Menu{
+
+
+
+  background: url(https://i.gyazo.com/6158e0d565cc5d704ac3619919a021d3.png);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+  
+  background-size: cover;
+  margin: 0 auto;
+}
+
+#SelectedMenu{
+  width: 90%;
+  height: 95%;
+ 
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  padding-top: 5%;
+}
+
+/*CSS Cards*/
+
+.card{
+
+  height: 30%;
+  border: 1px solid  #c6c08e !important;
+
+}
+
+
+
+.card-body{
+  background: #19282b;
+}
+
+
+.card-title{
+
+
+  font-size: 30px;
+
+  font-family: Paralucent Bold;
+  color: #a6c640;
+
+}
+
+.card-subtitle{
+
+  font-size: 20px;
+
+  color: #d86926;
+}
+.card-text{
+  font-family: Gotham Book;
+  color: #c6c08e;
+}
+
+/*CSS Footer*/
+
+#Footer{
+  background: #19282b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+}
+.FooterDescription{
+  display: flex;
+
+  flex-direction: column;
+
+  padding: 5%;
+  box-sizing: border-box;
+
+
+  justify-content: center;
+}
+
+#FooterLogo{
+  width: 55%;
+  height: 100%;
+
+  padding: 2% 10%;
+  box-sizing: border-box;
+}
+
+.FooterSN{
+  font-size: 40px;
+}
+
+.LogoHK{
+  margin: 10px 10px 10px 10px;
+}
+
+
+.green{
+  color: #a6c640;
+  font-size: 42px;
+}
+
+.olive{
+  color: #c6c08e;
+}
+
+
+
+/*CSS NavBar */
+
+.collapse.in {
+  display: block!important;
+
+}
+
+#BackgroundNavBar{
+  background: url(http://www.healthkitchen.hn/static/media/icon-wall.471f8b8e.svg);
+  background-size: cover;
+}
+
+.navbar{
+  margin: 0px;
+}
+
+@media only screen and (max-width: 600px){
+  #PlateList{
+    width: 50% !important;
+  }
+}
+
+@media only screen and (min-width: 600px){
+  #PlateList{
+    width: 60% !important;
+  }
+}
+
+#PlateList{
+  width: 20%;
+}
+
+/* CSS Plate List & Items*/
+
+.badge-primary {
+  background-color: #a6c640!important;
+}
+
+.list-group-item {
+
+  background-color: #c6c08e!important;
+
+}
+
+/*CSS Buttons*/
+
+.btn-secondary {
+
+  background-color: #a6c640!important;
+
+}
+
+/* CSS Misc. */
+
+#ColorStrip{
+  width: 100%;
+  height: 10px;
+  display: block;
+  padding: 0;
+  margin: 0;
+}

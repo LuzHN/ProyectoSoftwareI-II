@@ -3,6 +3,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, BrowserRouter, Switch} from 'react-router-dom';
 import {Router, browserHistory } from 'react-router';
+
+
+import '../imports/client/styles/menu.css';
+import Menu from '../imports/client/ui/menu';
+
 import '../imports/client/styles/register';
 //import '../imports/ui/body.js';
 //import '../imports/ui/login.css';
@@ -26,4 +31,3 @@ const routes = (
 Meteor.startup(() => {
     ReactDOM.render(routes, document.getElementById('app'));
 });
-
