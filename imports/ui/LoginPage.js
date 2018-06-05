@@ -1,4 +1,4 @@
-import {Meteor} from 'meteor/meteor';
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import ReactDom from 'react-dom';
 import { disconnect } from 'cluster';
@@ -8,7 +8,7 @@ import { Redirect } from 'react-router'
 import './../client/styles/Login';
 
 export default class LoginPage extends React.Component {
-    
+
     state = {
         redirect: true
     }
@@ -18,7 +18,7 @@ export default class LoginPage extends React.Component {
     }
 
 
-    onRegister() {   
+    onRegister() {
         const { redirect } = this.state;
         if (redirect) {
             return <Redirect to="/register"/>;
@@ -26,18 +26,30 @@ export default class LoginPage extends React.Component {
     }
 
     onLogin() {
-        /*Metodo para el boton Login*/ 
+        /*Metodo para el boton Login*/
+        let email = this.refs.email.value.trim();
+        let password = this.refs.password.value.trim();
+
+        Meteor.loginWithPassword({email}, password, (err) => {
+          if (err) {
+            console.log(email);
+            console.log(password);
+            console.log('Unable to login. Check email and password.');
+          }else {
+            console.log('succesful log in');
+          }
+        });
         if (document.getElementById("emailBox").value != "" && document.getElementById("passwordBox").value != "") {
             document.getElementById("emailBox").value = "";
             document.getElementById("passwordBox").value = "";
-        } 
+        }
         if (document.getElementById("passwordBox").value == "" && document.getElementById("emailBox").value == ""){
             alert("Por favor ingrese sus datos.");
         } else if (document.getElementById("emailBox").value == "") {
             alert("Por favor ingrese su correo.");
         } else if (document.getElementById("passwordBox").value == "") {
             alert("Por favor ingrese su contraseña.");
-        } 
+        }
     }
 
     render() {
@@ -48,10 +60,10 @@ export default class LoginPage extends React.Component {
                         <div className = "Image"></div>
 
                         <label className = "emailLabel">Email</label>
-                        <input className = "emailInput" placeholder = "Email" id = "emailBox"type = "email"/>
+                        <input className = "emailInput" placeholder = "Email" id = "emailBox"type = "email" ref = "email"/>
 
                         <label className = "passwordLabel">Password</label>
-                        <input className = "passwordInput" placeholder = "Password" id = "passwordBox" type = "password"/>
+                        <input className = "passwordInput" placeholder = "Password" id = "passwordBox" type = "password" ref = "password"/>
 
                         <div className = "Buttons">
                             <button className = "loginButton" onClick = {this.onLogin.bind(this)}>Login</button>
