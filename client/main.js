@@ -1,10 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, BrowserRouter, Switch } from 'react-router-dom';
-
+import { Route, BrowserRouter, Switch} from 'react-router-dom';
+import {Router, browserHistory } from 'react-router';
 import '../imports/client/styles/register';
-
 //import '../imports/ui/body.js';
 //import '../imports/ui/login.css';
 import NotFound from '../imports/ui/NotFound';
@@ -14,12 +13,12 @@ import LoginPage from '../imports/ui/LoginPage';
 
 
 const routes = (
-    <BrowserRouter>
-        <Switch>
-            <Route path="/" exact component={Principal}/> 
-            <Route path="/register" component={Register}/>
-            <Route path ="/login" component={LoginPage}/>
-            <Route path="*" component={NotFound}/>
+    <BrowserRouter history = {browserHistory}>
+        <Switch history = {browserHistory}>
+            <Route path="/menu" exact component={Principal} history = {browserHistory}/> 
+            <Route path="/register" component={Register} history = {browserHistory}/>
+            <Route path ="/login" component={LoginPage} history = {browserHistory}/>
+            <Route path="*" component={NotFound} history = {browserHistory}/>
         </Switch>
     </BrowserRouter>
 );
