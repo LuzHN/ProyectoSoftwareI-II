@@ -63,8 +63,8 @@ html body {
 
 .card{
 
-  height: 30%;
   border: 1px solid  #c6c08e !important;
+  height: 30%;
 
 }
 
@@ -96,6 +96,13 @@ html body {
   color: #c6c08e;
 }
 
+.card-columns {
+  
+}
+
+
+
+
 /*CSS Footer*/
 
 #Footer{
@@ -117,26 +124,19 @@ html body {
   justify-content: center;
 }
 
-#FooterLogo{
-  width: 55%;
-  height: 100%;
-
-  padding: 2% 10%;
-  box-sizing: border-box;
-}
-
 .FooterSN{
   font-size: 40px;
 }
 
 .LogoHK{
+  width: 30%;
   margin: 10px 10px 10px 10px;
 }
 
 
 .green{
   color: #a6c640;
-  font-size: 42px;
+  font-size: 20px;
 }
 
 .olive{

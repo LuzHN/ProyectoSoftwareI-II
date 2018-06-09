@@ -36,7 +36,7 @@ export default class Menu extends React.Component {
               <ul className="list-group" id="PlateList">
                 <a href="#SelectedMenu" className="list-group-item d-flex justify-content-between align-items-center"
                   onClick={function () {
-                    ReactDOM.render(<Entree/>, document.getElementById('SelectedMenu'));
+                    ReactDOM.render(<Entree />, document.getElementById('SelectedMenu'));
 
                   }} >
                   Entradas
@@ -132,7 +132,7 @@ export default class Menu extends React.Component {
         </div>
 
         <section id="Menu" >
-          <div id="SelectedMenu"> <Entree/></div>
+          <div id="SelectedMenu"> <Entree /></div>
         </section>
 
 
@@ -142,7 +142,7 @@ export default class Menu extends React.Component {
           <img className="LogoHK" src="http://www.healthkitchen.hn/static/media/hk-logo.b8b1c147.svg" alt="Logo" />
 
           <div className="FooterDescription">
-            <h3 className="green">Ubicanos</h3>
+            <h3 className="green"><b>Ubicanos</b></h3>
             <p className="olive">Metrópolis</p>
             <p className="olive">Torre #1</p>
             <p className="olive">Segundo piso</p>
@@ -155,6 +155,7 @@ export default class Menu extends React.Component {
           </div>
         </footer>
 
+        
       </div>
     );
   }
@@ -167,58 +168,39 @@ Template
 
 */
 
+function Plato(categoria, titulo, precio, descripcion, foto, nutricional) {
+  this.categoria = categoria;
+  this.titulo = titulo;
+  this.precio = precio;
+  this.descripcion = descripcion;
+  this.foto = foto;
+  this.nutricional = nutricional;
+}
+
+
+
+var Entrees = [
+  new Plato("Entree", "Cauliflower Nuggets", "129", "Empanizado con panco acompañado "
+    + "con una salsa fresca de tomate y Tzatziki", "http://cdn1-www.momtastic.com/assets/uploads/2016/06/Cauliflower-Nuggets-4.jpg", "")
+  , new Plato("Entree", "Montaditos", "99", "Cuatro tostadas de pan de hierbas; atún, vegetales asados, pollo al pesto, y carne de berenjena",
+    "https://www.philadelphia.com.mx/modx/assets/img/revision2016/images/recetas/montaditos_fuerza_roja.jpg", "")
+  , new Plato("Entree", "Croquetas de Vegetales", "99", "Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki",
+    "https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg", "")
+  , new Plato("Entree", "Palitos de Camote", "49", "Camotes a la francesa, acompañado de aderezo Tzatziki.",
+    "http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg", "")
+  , new Plato("Entree", "Aros de Cebolla HK", "89", "5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.",
+    "http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg", "")
+];
+
+
 class Entree extends React.Component {
   render() {
     return (
-      <CardDeck>
-        <Card >
-          <CardImg top width="50%" src="http://cdn1-www.momtastic.com/assets/uploads/2016/06/Cauliflower-Nuggets-4.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Cauliflower Nuggets</CardTitle>
-            <CardSubtitle>L 129</CardSubtitle>
-            <CardText>Empanizado con panco, acompañado de una salsa fresca de tomate y Tzatziki</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-        <Card>
-          <CardImg top width="50%" src="https://www.philadelphia.com.mx/modx/assets/img/revision2016/images/recetas/montaditos_fuerza_roja.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Montaditos</CardTitle>
-            <CardSubtitle>L 99</CardSubtitle>
-            <CardText>Cuatro tostadas de pan de hierbas; atún, vegetales asados, pollo al pesto, y carne de berenjena</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
 
-        <Card>
-          <CardImg top width="50%" src="https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Croquetas de Vegetales</CardTitle>
-            <CardSubtitle>L 99</CardSubtitle>
-            <CardText>Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-        <Card >
-          <CardImg top width="50%" src="http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Palitos de Camote</CardTitle>
-            <CardSubtitle>L 49</CardSubtitle>
-            <CardText>Camotes a la francesa, acompañado de aderezo Tzatziki.</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-        <Card >
-          <CardImg top width="50%" src="http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Aros de Cebolla HK</CardTitle>
-            <CardSubtitle>L 89</CardSubtitle>
-            <CardText>5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-
-      </CardDeck>);
+      <div class="card-columns">
+        {renderPlates(Entrees)}
+      </div>
+    );
   }
 }
 
@@ -227,7 +209,7 @@ function renderPlatos(nombrePlato) {
   let jsx = "";
 
   switch (nombrePlato) {
-   
+
     case "Soups": {
 
       jsx = (<CardDeck>
@@ -331,3 +313,85 @@ function renderPlatos(nombrePlato) {
 
   return jsx;
 }
+
+
+const renderPlates = (platesList) => {
+  return platesList.map((plate) => {
+    return (
+
+
+
+      <Card >
+        <CardBody>
+          <CardImg top width="50%" src={plate.foto} alt="Card image cap" />
+          <CardTitle>{plate.titulo}</CardTitle>
+          <CardSubtitle>L {plate.precio}</CardSubtitle>
+          <CardText>{plate.descripcion}</CardText>
+          <ButtonPlato plato = {plate} />
+
+
+
+        </CardBody>
+      </Card>
+
+    );
+  });
+}
+
+class ButtonPlato extends React.Component {
+
+
+
+  render() {
+
+    return (
+
+      <Button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Ver más + {this.props.plato.titulo}
+      </Button>
+
+    );
+
+  }
+}
+
+
+
+class showFacts extends React.Component {
+
+  render() {
+
+
+    dataPlato = (plate) => {
+
+      return plate.title;
+
+    }
+
+    return (
+      <div class="modal" tabIndex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">{dataPlato}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"></span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    );
+
+  }
+}
+
+
