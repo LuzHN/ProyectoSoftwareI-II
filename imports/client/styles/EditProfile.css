@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: #37555A;
+    color: #87AAAA;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+input, button {
+    font-size: 1.3rem;
+    color: #cdcaa6;
+}
+
+/*Esta es la clase del Form que contiene 
+todos los elementos a ser editados.
+*/
+.editProfileForm {
+    background:#23363A;
+    display: grid;
+    grid-row-gap: 2rem;
+    margin: 2rem auto 2rem auto;
+    max-width: 80rem;
+    padding-bottom:3rem;
+    padding-top:3rem;
+}
+
+.container{
+    display:flex;
+}
+
+.editNamesBox{
+    flex:1;
+    order:1;
+}
+
+.oldPasswordBox {
+    flex: 2;
+    order: 2;
+}
+  
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 695px) {
+    .userDataForm {
+        width: 70rem;
+        margin-top: 5rem;
+        margin-bottom: 1rem;
+    }
+}
