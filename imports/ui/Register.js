@@ -1,6 +1,7 @@
 import { Accounts } from 'meteor/accounts-base';
 import React from 'react';
 import {withRouter} from "react-router-dom";
+import InputMask from 'react-input-mask';
 
 export default class Register extends React.Component {
   
@@ -167,7 +168,7 @@ export default class Register extends React.Component {
                 <div className="box-1">
                   <p>
                     <label>First Name</label>
-                    <input ref="firstName" type="text" placeholder='Enter First Name' maxLength='140'/>
+                    <input ref="firstName" type="text" placeholder='Enter First Name' maxLength='140' />
                   </p>
                 </div>
                 <div className="box-2">
@@ -179,7 +180,7 @@ export default class Register extends React.Component {
               </div>
               <p>
                 <label>Phone Number</label>
-                <input ref="phoneNumber" type="number" placeholder='Enter Phone Number' />
+                <InputMask mask="9999-9999" ref="phoneNumber"  placeholder='Enter Phone Number' />
               </p>
               <p>
                 <label>Address</label>
