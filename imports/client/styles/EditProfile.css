@@ -12,9 +12,10 @@ html {
     font-size: 62.5%;
 }
 
-input, button {
+input, button, textarea{
     font-size: 1.3rem;
-    color: #cdcaa6;
+    min-width: 6rem;
+    color: #000000;
 }
 
 /*Esta es la clase del Form que contiene 
@@ -25,35 +26,54 @@ todos los elementos a ser editados.
     display: grid;
     grid-row-gap: 2rem;
     margin: 2rem auto 2rem auto;
-    max-width: 80rem;
+    max-width: 60rem;
     padding-bottom:3rem;
     padding-top:3rem;
 }
 
-.container{
-    display:flex;
+.editNamesBox {
+    background: red;
+    display: flex;
+    flex-direction: row;
 }
 
-.editNamesBox{
-    flex:1;
-    order:1;
+.editNamesBox label {
+    display: block;
+    margin-right: 1rem;
+}
+
+.firstNameBox {
+    background:orange;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+}
+
+.lastNameBox {
+    background:yellow;
+    margin-left: 0;
+    margin-right: auto;
+    padding: 1rem;
 }
 
 .oldPasswordBox {
-    flex: 2;
-    order: 2;
+    background:green;
+    margin-left: 8rem;
+    margin-right: auto;
+    padding: 1rem;
 }
-  
 
+.directionBox {
+    background: blue;
+    margin-left: 9rem;
+    margin-right: auto;
+}
 
-
-
-
-
-
-
-
-
+.directionButtonBox {
+    background: indigo;
+    margin-right: 10rem;
+    padding-top: 6rem;
+}
 
 @media screen and (max-width: 695px) {
     .userDataForm {
