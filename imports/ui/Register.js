@@ -3,131 +3,137 @@ import React from 'react';
 import {withRouter} from "react-router-dom";
 
 export default class Register extends React.Component {
-  state = {
-    email : '',
-    username: '',
-    password: '',
-    confirmPassword: '',
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
-    address: ''
-
+  
+  handleSubmit(e) {
+    e.preventDefault();
   }
 
-  onSubmit = e => {
-    e.preventDefault();
+  onSubmit() {
+    
     let email = this.refs.email.value.trim();
     let password = this.refs.password.value.trim();
+    let confirmPassword = this.refs.confirmPassword.value.trim();
+    let firstName = this.refs.firstName.value.trim();
+    let lastName = this.refs.lastName.value.trim();
+    let phoneNumber = this.refs.phoneNumber.value.trim();
+    let address = this.refs.address.value.trim();
 
-    if (password.length < 9) {
-      return this.setState({error: 'Password must be more than 8 characters long'});
+
+
+    //Validaciones
+    let validator = 0;
+    //Validar email
+    if(email == ''){
+      validator=1;
+      let emailError = this.refs.emailError;
+      emailError.classList.add("show");
+      emailError.innerHTML = "Please Enter A Valid Email";
+      setTimeout(function() {
+          emailError.classList.remove("show");
+      }, 3000);
+    }else if(email.indexOf('@')<=0){
+      validator=1;
+      let emailError = this.refs.emailError;
+      emailError.classList.add("show");
+      emailError.innerHTML = "Please Enter A Valid Email";
+      setTimeout(function() {
+          emailError.classList.remove("show");
+      }, 3000);
+    
+    }else if(email.charAt(email.length-4)!='.' && email.charAt(email.length-3)!='.'){
+      validator=1;
+      let emailError = this.refs.emailError;
+      emailError.classList.add("show");
+      emailError.innerHTML = "Please Enter A Valid Email";
+      setTimeout(function() {
+          emailError.classList.remove("show");
+      }, 3000);
+    }else if(password == ''){
+      validator=1;
+      let passwordError = this.refs.passwordError;
+      passwordError.classList.add("show");
+      passwordError.innerHTML = "Password Must Be 9 Digits Long";
+      setTimeout(function() {
+          passwordError.classList.remove("show");
+      }, 3000);
+    }else if (password.length < 9) {
+      validator=1;
+      let passwordError = this.refs.passwordError;
+      passwordError.classList.add("show");
+      passwordError.innerHTML = "Password Must Be 9 Digits Long";
+      setTimeout(function() {
+          passwordError.classList.remove("show");
+      }, 3000);
+    }else if(confirmPassword != password){
+      validator=1;
+      let passwordError = this.refs.passwordError;
+      passwordError.classList.add("show");
+      passwordError.innerHTML = "Password Does Not Match";
+      setTimeout(function() {
+          passwordError.classList.remove("show");
+      }, 3000);
+    }else if(firstName == ''){
+      validator=1;
+      let firstNameError = this.refs.firstNameError;
+      firstNameError.classList.add("show");
+      firstNameError.innerHTML = "Please Enter A Valid Name";
+      setTimeout(function() {
+          firstNameError.classList.remove("show");
+      }, 3000);
+    }else if(lastName == ''){
+      validator=1;
+      let lastNameError = this.refs.lastNameError;
+      lastNameError.classList.add("show");
+      lastNameError.innerHTML = "Please Enter A Valid Name";
+      setTimeout(function() {
+          lastNameError.classList.remove("show");
+      }, 3000);
+    }else if(phoneNumber == ''){
+      validator=1;
+      let phoneNumberError = this.refs.phoneNumberError;
+      phoneNumberError.classList.add("show");
+      phoneNumberError.innerHTML = "Please Enter A Valid Phone Number";
+      setTimeout(function() {
+          phoneNumberError.classList.remove("show");
+      }, 3000);
+    }else if (phoneNumber.length < 8) {
+      validator=1;
+      let phoneNumberError = this.refs.phoneNumberError;
+      phoneNumberError.classList.add("show");
+      phoneNumberError.innerHTML = "Please Enter A Valid Phone Number";
+      setTimeout(function() {
+          phoneNumberError.classList.remove("show");
+      }, 3000);
+    }else if (phoneNumber.charAt(0) !='9' && phoneNumber.charAt(0) !='3' && phoneNumber.charAt(0) !='8' && phoneNumber.charAt(0) !='7' && phoneNumber.charAt(0) !='2') {
+      validator=1;
+      let phoneNumberError = this.refs.phoneNumberError;
+      phoneNumberError.classList.add("show");
+      phoneNumberError.innerHTML = "Please Enter A Valid Phone Number";
+      setTimeout(function() {
+          phoneNumberError.classList.remove("show");
+      }, 3000);
+    }else if(address == ''){
+      validator=1;
+      let addressError = this.refs.addressError;
+      addressError.classList.add("show");
+      addressError.innerHTML = "Please Enter A Valid Address";
+      setTimeout(function() {
+        addressError.classList.remove("show");
+      }, 3000);
     }
 
-    Accounts.createUser({ email, password }, (err) =>{
-      if (err) {
-        console.log('entro aqui');
-        alert(err.reason);
-      }else {
-        console.log('esta pendejada');
-        alert('user created');
-      }
-    });
-
-    // let validator = 0;
-    // //Validaciones
-    // if(this.state.email == ''){
-    //   document.getElementById('email_error').style.color = "red";
-    //   email_error.textContent = "*Email is required";
-    //   validator = 1;
-    // }else if(this.state.email.indexOf('@')<=0){
-    //   document.getElementById('email_error').style.color = "red";
-    //   email_error.textContent = "*Please use a valid email address";
-    //   validator = 1;
-    //
-    // }else if(this.state.email.charAt(this.state.email.length-4)!='.' && this.state.email.charAt(this.state.email.length-3)!='.'){
-    //   document.getElementById('email_error').style.color = "red";
-    //   email_error.textContent = "*Please use a valid email address 2";
-    //   validator = 1;
-    // }else{
-    //   email_error.innerHTML = "";
-    // }
-    // if(this.state.username == ''){
-    //   document.getElementById('username_error').style.color = "red";
-    //   username_error.textContent = "*Username is required";
-    //   validator = 1;
-    // }else{
-    //   username_error.innerHTML = "";
-    // }
-    // if(this.state.password == ''){
-    //   document.getElementById('password_error').style.color = "red";
-    //   password_error.textContent = "*Password is required";
-    //   validator = 1;
-    // }else{
-    //   password_error.innerHTML = "";
-    // }
-    // if(this.state.confirmPassword != this.state.password){
-    //   document.getElementById('confirmPassword_error').style.color = "red";
-    //   confirmPassword_error.textContent = "Password does not match";
-    //   validator = 1;
-    // }else{
-    //   confirmPassword_error.innerHTML = "";
-    // }
-    // if(this.state.firstName == ''){
-    //   document.getElementById('firstName_error').style.color = "red";
-    //   firstName_error.textContent = "*First Name is required";
-    //   validator = 1;
-    // }else{
-    //   firstName_error.innerHTML = "";
-    // }
-    // if(this.state.lastName == ''){
-    //   document.getElementById('lastName_error').style.color = "red";
-    //   lastName_error.textContent = "*Last Name is required";
-    //   validator = 1;
-    // }else{
-    //   lastName_error.innerHTML = "";
-    // }
-    // if(this.state.phoneNumber == ''){
-    //   document.getElementById('phoneNumber_error').style.color = "red";
-    //   phoneNumber_error.textContent = "*Phone Number is required";
-    //   validator = 1;
-    // }else{
-    //   phoneNumber_error.innerHTML = "";
-    // }
-    // if(this.state.address == ''){
-    //   document.getElementById('address_error').style.color = "red";
-    //   address_error.textContent = "*Address is required";
-    //   validator = 1;
-    // }else{
-    //   address_error.innerHTML = "";
-    // }
 
     if(validator==0){
-
-      console.log(this.state);
-
-      this.setState({
-        email : '',
-        username: '',
-        password: '',
-        confirmPassword: '',
-        firstName: '',
-        lastName: '',
-        phoneNumber: '',
-        address: ''
+      Accounts.createUser({ email, password }, (err) =>{
+        if (err) {
+          console.log('entro aqui');
+          alert(err.reason);
+        }else {
+          console.log('esta pendejada');
+          alert('user created');
+        }
       });
-      email_error.innerHTML = "";
-      username_error.innerHTML = "";
-      password_error.innerHTML = "";
-      confirmPassword_error.innerHTML = "";
-      firstName_error.innerHTML = "";
-      lastName_error.innerHTML = "";
-      phoneNumber_error.innerHTML = "";
-      address_error.innerHTML = "";
-
-      //redirigir pagina
-      this.props.history.push("/");
-
+      this.props.history.push("/menu");
     }
 
   };
@@ -138,83 +144,63 @@ export default class Register extends React.Component {
         <div className="wrapper">
           <div className="contact">
             <div className="image"></div>​
-            <form>
+            <form onSubmit = {this.handleSubmit.bind(this)}>
+              <p>
+                <label>Email</label>
+                <input ref = "email" type="email" placeholder='Enter Email' maxLength='140' />
+              </p>
               <div className="container-1">
                 <div className="box-1">
                   <p>
-                    <label>Email</label>
-                    <input type="email" placeholder='Enter Email' maxLength='140' value={this.state.email}
-                      onChange={e => this.setState({email: e.target.value})} ref = "email"/>
-                      <div id="email_error"></div>
-                    </p>
-                  </div>
-                  <div className="box-2">
-                    <p>
-                      <label>Username</label>
-                      <input type="text" placeholder='Enter Username' maxLength='140' value={this.state.username}
-                        onChange={e => this.setState({username: e.target.value})} />
-                        <div id="username_error"></div>
-                      </p>
-                    </div>
-                  </div>
-                  <div className="container-1">
-                    <div className="box-1">
-                      <p>
-                        <label>Password</label>
-                        <input type="password" placeholder='Enter Password' value={this.state.password}
-                          onChange={e => this.setState({password: e.target.value})} />
-                          <div id="password_error"></div>
-                        </p>
-                      </div>
-                      <div className="box-2">
-                        <p>
-                          <label>Confirm Password</label>
-                          <input type="password" placeholder='Confirm Password' value={this.state.confirmPassword}
-                            onChange={e => this.setState({confirmPassword: e.target.value})} ref = "password"/>
-                            <div id="confirmPassword_error" ></div>
-                          </p>
-                        </div>
-                      </div>
+                    <label>Password</label>
+                    <input ref="password" type="password" placeholder='Enter Password' />                 
+                  </p>
+                </div>
+                <div className="box-2">
+                  <p>
+                    <label>Confirm Password</label>
+                    <input ref = "confirmPassword" type="password" placeholder='Confirm Password'/> 
+                  </p>
+                </div>
+              </div>
+              <div className="container-1">
+                <div className="box-1">
+                  <p>
+                    <label>First Name</label>
+                    <input ref="firstName" type="text" placeholder='Enter First Name' maxLength='140'/>
+                  </p>
+                </div>
+                <div className="box-2">
+                  <p>
+                    <label>Last Name</label>
+                    <input ref="lastName" type="text" placeholder='Enter Last Name' maxLength='140' /> 
+                  </p>
+                </div>
+              </div>
+              <p>
+                <label>Phone Number</label>
+                <input ref="phoneNumber" type="number" placeholder='Enter Phone Number' />
+              </p>
+              <p>
+                <label>Address</label>
+                <textarea  ref="address" rows="5" placeholder='Enter Address' maxLength='140'></textarea>
+              </p>
+              <p>
+                <button onClick={this.onSubmit.bind(this)}>Register</button>
+              </p>
 
-                      <div className="container-1">
+              <div ref="emailError" id="emailError"></div>
+              <div ref="passwordError" id="passwordError"></div>
+              <div ref="confirmPasswordError" id="confirmPasswordError"></div>
+              <div ref="firstNameError" id="firstNameError" ></div>
+              <div ref="lastNameError" id="lastNameError"></div>
+              <div ref="phoneNumberError" id="phoneNumberError" ></div>
+              <div ref="addressError" id="addressError"></div>
 
-                        <div className="box-1">
-                          <p>
-                            <label>First Name</label>
-                            <input type="text" placeholder='Enter First Name' maxLength='140' value={this.state.firstName}
-                              onChange={e => this.setState({firstName: e.target.value})} />
-                              <div id="firstName_error" ></div>
-                            </p>
-                          </div>
-                          <div className="box-2">
-                            <p>
-                              <label>Last Name</label>
-                              <input type="text" placeholder='Enter Last Name' maxLength='140' value={this.state.lastName}
-                                onChange={e => this.setState({lastName: e.target.value})} />
-                                <div id="lastName_error"></div>
-                              </p>
-                            </div>
-                          </div>
-                          <p>
-                            <label>Phone Number</label>
-                            <input type="number" placeholder='Enter Phone Number' value={this.state.phoneNumber}
-                              onChange={e => this.setState({phoneNumber: e.target.value})} />
-                              <div id="phoneNumber_error" ></div>
-                            </p>
-                            <p>
-                              <label>Address</label>
-                              <textarea  rows="5" placeholder='Enter Address' maxLength='140' value={this.state.address}
-                                onChange={e => this.setState({address: e.target.value})}></textarea>
-                                <div id="address_error"></div>
-                              </p>
-
-                              <p>
-                                <button onClick={e => this.onSubmit(e)}>Register</button>
-                              </p>
-                            </form>
-                          </div>
-                        </div>
-                      </body>
-                    );
-                  }
-                }
+            </form>
+          </div>
+        </div>
+      </body>
+    );
+  }
+}
