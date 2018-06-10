@@ -84,6 +84,44 @@ todos los elementos a ser editados.
     margin-right: auto;
 }
 
+.Buttons {
+    cursor: pointer;
+    display: flex;
+    line-height: 1;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 3rem;
+}
+
+.loginButton{ 
+    background: #4e873e;
+    border:none;
+    border-radius: 8px;
+    color: white;
+    font: 'Paralucent Bold';
+    font-size: 1.7rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 10rem;    
+}
+
+.registerButton {
+    background: #87aaaa;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font: 'Paralucent Bold';
+    font-size: 1.7rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 10rem;
+}
+
+
+.orLabel {
+    padding:1rem 1rem 0 1rem;
+}
+
 @media screen and (max-width: 619px) {
     .editProfileForm {
         width: 70rem;

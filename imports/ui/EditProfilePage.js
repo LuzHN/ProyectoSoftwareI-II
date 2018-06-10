@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { Router, Route, browserHistory} from 'react-router';
 import {withRouter} from "react-router-dom";
 import { Redirect } from 'react-router'
+import InputMask from 'react-input-mask';
 import './../client/styles/EditProfile';
 
 export default class EditProfilePage extends React.Component {
@@ -84,15 +85,33 @@ export default class EditProfilePage extends React.Component {
                      <div className = "editNamesBox">
                         <div className = "firstNameBox">
                             <label>Teléfono 1</label>
-                            <input id = "phone1Input"/> 
+                            <InputMask mask="9999-9999"/>
                         </div>
                         <div className = "lastNameBox">
                             <label>Teléfono 2</label>
-                            <input id = "phone2Input"/> 
+                            <InputMask mask="9999-9999"/>
                         </div>
                     </div>
                     {/*First two phone numbers end here.*/}
 
+                    {/*Last two phone numbers.*/}
+                    <div className = "editNamesBox">
+                        <div className = "firstNameBox">
+                            <label>Teléfono 3</label>
+                            <InputMask mask="9999-9999"/>
+                        </div>
+                        <div className = "lastNameBox">
+                            <label>Teléfono 4</label>
+                            <InputMask mask="9999-9999"/>
+                        </div>
+                    </div>
+                    {/*Last two phone numbers end here.*/}
+
+                     <div className = "Buttons">
+                            <button className = "loginButton">Login</button>
+                            <label className = "orLabel"></label>
+                            <button className = "registerButton">Register</button>
+                    </div>
 
                 </form> 
             </div>
