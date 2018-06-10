@@ -73,7 +73,7 @@ export default class Register extends React.Component {
       setTimeout(function() {
           passwordError.classList.remove("show");
       }, 3000);
-    }else if(firstName == ''){
+    }else if(firstName == '' ||  firstName.match(/[^a-z]/gi)){
       validator=1;
       let firstNameError = this.refs.firstNameError;
       firstNameError.classList.add("show");
@@ -81,7 +81,7 @@ export default class Register extends React.Component {
       setTimeout(function() {
           firstNameError.classList.remove("show");
       }, 3000);
-    }else if(lastName == ''){
+    }else if(lastName == '' ||  lastName.match(/[^a-z]/gi)){
       validator=1;
       let lastNameError = this.refs.lastNameError;
       lastNameError.classList.add("show");
