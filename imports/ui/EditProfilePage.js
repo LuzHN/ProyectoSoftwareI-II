@@ -22,21 +22,21 @@ export default class EditProfilePage extends React.Component {
                     {/*First Name and Last Name inputs and labels.*/}
                     <div className = "editNamesBox">
                         <div className = "firstNameBox">
-                            <label className = "firstNameLabel">First Name</label>
-                            <input className = "firstNameInput" id = "firstNameId"/> 
+                            <label>First Name</label>
+                            <input id = "firstNameId"/> 
                         </div>
                         <div className = "lastNameBox">
-                            <label className = "lastNameLabel">Last Name</label>
-                            <input className = "lastNameInput" id = "passwordBox" /> 
+                            <label>Last Name</label>
+                            <input id = "passwordBox" /> 
                         </div> 
                     </div>
                     {/*First Name and Last Name inputs and labels ends here.*/}
 
                     {/*Old Password input and label.*/}
-                    <div className = "editNamesBox">
+                    <div className = "passBox">
                         <div className = "oldPasswordBox">
-                            <label className = "oldPasswordLabel">Old Password</label>
-                            <input className = "oldPasswordInput" id = "oldPasswordId"/>
+                            <label>Old Password</label>
+                            <input id = "oldPasswordId"/>
                         </div>
                     </div>
                     {/*Old Password input and label ends here.*/}
@@ -54,17 +54,44 @@ export default class EditProfilePage extends React.Component {
                     </div>
                     {/*New and Confirm Password inputs and labels end here.*/}
 
-                    {/*New and Confirm Password inputs and labels.*/}
+                    {/*First two directions text areas.*/}
                     <div className = "editNamesBox">
-                        <div className = "directionBox">
-                            <label>Dirección</label>
-                            <textarea id = "directionTextArea" maxLength='140' rows="5"/> 
+                        <div className = "firstNameBox">
+                            <label>Dirección 1</label>
+                            <textarea id = "direction1TextArea" maxLength='140' rows="5"/> 
                         </div>
-                        <div className = "directionButtonBox">
-                            <button>Agregar Dirección</button>
-                        </div> 
+                        <div className = "lastNameBox">
+                            <label>Dirección 2</label>
+                            <textarea id = "direction2TextArea" maxLength='140' rows="5"/> 
+                        </div>
                     </div>
-                    {/*New and Confirm Password inputs and labels end here.*/}
+                    {/*First two directions text areas end here.*/}
+
+                    {/*Last two directions text areas.*/}
+                    <div className = "editNamesBox">
+                        <div className = "firstNameBox">
+                            <label>Dirección 3</label>
+                            <textarea id = "direction3TextArea" maxLength='140' rows="5"/> 
+                        </div>
+                        <div className = "lastNameBox">
+                            <label>Dirección 4</label>
+                            <textarea id = "direction4TextArea" maxLength='140' rows="5"/> 
+                        </div>
+                    </div>
+                    {/*Last two directions text areas end here.*/}
+
+                     {/*First two phone numbers.*/}
+                     <div className = "editNamesBox">
+                        <div className = "firstNameBox">
+                            <label>Teléfono 1</label>
+                            <input id = "phone1Input"/> 
+                        </div>
+                        <div className = "lastNameBox">
+                            <label>Teléfono 2</label>
+                            <input id = "phone2Input"/> 
+                        </div>
+                    </div>
+                    {/*First two phone numbers end here.*/}
 
 
                 </form> 
