@@ -21,12 +21,12 @@ export default class EditProfilePage extends React.Component {
                 <form className = "editProfileForm" onSubmit = {this.handleSubmit.bind(this)}>
 
                     {/*First Name and Last Name inputs and labels.*/}
-                    <div className = "editNamesBox">
-                        <div className = "firstNameBox">
+                    <div className = "containerBox">
+                        <div className = "leftContainerBox">
                             <label>First Name</label>
                             <input id = "firstNameId"/> 
                         </div>
-                        <div className = "lastNameBox">
+                        <div className = "rightContainerBox">
                             <label>Last Name</label>
                             <input id = "passwordBox" /> 
                         </div> 
@@ -43,12 +43,12 @@ export default class EditProfilePage extends React.Component {
                     {/*Old Password input and label ends here.*/}
 
                     {/*New and Confirm Password inputs and labels.*/}
-                    <div className = "editNamesBox">
-                        <div className = "firstNameBox">
+                    <div className = "containerBox">
+                        <div className = "leftContainerBox">
                             <label>New Password</label>
                             <input id = "newPasswordId"/> 
                         </div>
-                        <div className = "lastNameBox">
+                        <div className = "rightContainerBox">
                             <label>Confirm Password</label>
                             <input id = "confirmPasswordId"/> 
                         </div> 
@@ -56,12 +56,12 @@ export default class EditProfilePage extends React.Component {
                     {/*New and Confirm Password inputs and labels end here.*/}
 
                     {/*First two directions text areas.*/}
-                    <div className = "editNamesBox">
-                        <div className = "firstNameBox">
+                    <div className = "containerBox">
+                        <div className = "leftContainerBox">
                             <label>Dirección 1</label>
                             <textarea id = "direction1TextArea" maxLength='140' rows="5"/> 
                         </div>
-                        <div className = "lastNameBox">
+                        <div className = "rightContainerBox">
                             <label>Dirección 2</label>
                             <textarea id = "direction2TextArea" maxLength='140' rows="5"/> 
                         </div>
@@ -69,12 +69,12 @@ export default class EditProfilePage extends React.Component {
                     {/*First two directions text areas end here.*/}
 
                     {/*Last two directions text areas.*/}
-                    <div className = "editNamesBox">
-                        <div className = "firstNameBox">
+                    <div className = "containerBox">
+                        <div className = "leftContainerBox">
                             <label>Dirección 3</label>
                             <textarea id = "direction3TextArea" maxLength='140' rows="5"/> 
                         </div>
-                        <div className = "lastNameBox">
+                        <div className = "rightContainerBox">
                             <label>Dirección 4</label>
                             <textarea id = "direction4TextArea" maxLength='140' rows="5"/> 
                         </div>
@@ -82,12 +82,12 @@ export default class EditProfilePage extends React.Component {
                     {/*Last two directions text areas end here.*/}
 
                      {/*First two phone numbers.*/}
-                     <div className = "editNamesBox">
-                        <div className = "firstNameBox">
+                     <div className = "containerBox">
+                        <div className = "leftContainerBox">
                             <label>Teléfono 1</label>
                             <InputMask mask="9999-9999"/>
                         </div>
-                        <div className = "lastNameBox">
+                        <div className = "rightContainerBox">
                             <label>Teléfono 2</label>
                             <InputMask mask="9999-9999"/>
                         </div>
@@ -95,12 +95,12 @@ export default class EditProfilePage extends React.Component {
                     {/*First two phone numbers end here.*/}
 
                     {/*Last two phone numbers.*/}
-                    <div className = "editNamesBox">
-                        <div className = "firstNameBox">
+                    <div className = "containerBox">
+                        <div className = "leftContainerBox">
                             <label>Teléfono 3</label>
                             <InputMask mask="9999-9999"/>
                         </div>
-                        <div className = "lastNameBox">
+                        <div className = "rightContainerBox">
                             <label>Teléfono 4</label>
                             <InputMask mask="9999-9999"/>
                         </div>
@@ -108,9 +108,9 @@ export default class EditProfilePage extends React.Component {
                     {/*Last two phone numbers end here.*/}
 
                      <div className = "Buttons">
-                            <button className = "loginButton">Login</button>
-                            <label className = "orLabel"></label>
-                            <button className = "registerButton">Register</button>
+                            <button className = "disableAccBtn">Disable Account</button>
+                            <label className = "spaceLabel"></label>
+                            <button className = "saveChangesBtn">Save Changes</button>
                     </div>
 
                 </form> 

@@ -90,9 +90,9 @@ body{
   }
 
   #emailError, #passwordError, #confirmPasswordError, #firstNameError, #lastNameError, #phoneNumberError, #addressError {
-    background-color: #cdcaa6;
+    background-color: #e33444;
     border-radius: 4px;
-    color: #000;
+    color: #fff;
     font-size: 17px;
     left: 50%;
     min-width: 250px;
