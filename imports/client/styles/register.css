@@ -32,16 +32,6 @@ body{
     grid-gap: 1rem;
   }
 
- 
- .image {
-  margin: 54px 46px;
-  background-image: url(logo.PNG);
-  background-repeat: no-repeat;
-  padding-top: 15rem;
-  padding-right: 39rem;
-  margin-left: 18%;
-}
-
   .contact form label{
     display: block;
   }
@@ -108,6 +98,15 @@ body{
 #emailError.show, #passwordError.show, #confirmPasswordError.show, #firstNameError.show, #lastNameError.show, #phoneNumberError.show, #addressError.show {
     visibility: visible;
     animation: fadeInOut 3s;
+}
+
+.image {
+  margin: 54px 46px;
+  background-image: url(logo.PNG);
+  background-repeat: no-repeat;
+  padding-top: 15rem;
+  padding-right: 39rem;
+  margin-left: 18%;
 }
 
 @keyframes fadeInOut {
