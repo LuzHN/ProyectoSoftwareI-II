@@ -1,0 +1,21 @@
+#Header{
+    background: url(http://www.healthkitchen.hn/static/media/hero-ingredients.9299118b.jpg) no-repeat center bottom;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    height: 98vh;
+    background-size: cover;
+  }
+  
+  #hk-logo-header{
+    display: block;
+    width: 420px;
+    height: 150px;
+    text-indent: -9999px;
+    background: url(https://i.gyazo.com/72a18ae2af8e3d1b705d944fbb93de69.png) no-repeat center;
+    background-size: cover;
+    margin: 10px 10px 10px 10px;
+  }

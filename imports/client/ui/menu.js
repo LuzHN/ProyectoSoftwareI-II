@@ -178,7 +178,7 @@ function Plato(categoria, titulo, precio, descripcion, foto, nutricional) {
 }
 
 
-
+//arreglo de por mientras (solo de entradas)
 var Entrees = [
   new Plato("Entree", "Cauliflower Nuggets", "129", "Empanizado con panco acompañado "
     + "con una salsa fresca de tomate y Tzatziki", "http://cdn1-www.momtastic.com/assets/uploads/2016/06/Cauliflower-Nuggets-4.jpg", "")
@@ -193,7 +193,7 @@ var Entrees = [
 ];
 
 
-class Entree extends React.Component {
+class Entree extends React.Component { 
   render() {
     return (
 
@@ -204,7 +204,7 @@ class Entree extends React.Component {
   }
 }
 
-function renderPlatos(nombrePlato) {
+function renderPlatos(nombrePlato) { // metodo viejo
 
   let jsx = "";
 
@@ -315,7 +315,7 @@ function renderPlatos(nombrePlato) {
 }
 
 
-const renderPlates = (platesList) => {
+const renderPlates = (platesList) => { //metodo a usar con la base
   return platesList.map((plate) => {
     return (
 
@@ -355,43 +355,5 @@ class ButtonPlato extends React.Component {
   }
 }
 
-
-
-class showFacts extends React.Component {
-
-  render() {
-
-
-    dataPlato = (plate) => {
-
-      return plate.title;
-
-    }
-
-    return (
-      <div class="modal" tabIndex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">{dataPlato}</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true"></span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>Modal body text goes here.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Save changes</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    );
-
-  }
-}
 
 
