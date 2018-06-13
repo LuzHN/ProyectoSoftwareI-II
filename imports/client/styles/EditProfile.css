@@ -139,6 +139,32 @@ todos los elementos a ser editados.
 button:focus {
     outline:0;
 }
+
+
+#oldPasswordError,#newPasswordError, #confirmPasswordError, #firstNameError, #lastNameError, #phoneNumberError, #addressError {
+    background-color: #e33444;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 17px;
+    left: 50%;
+    min-width: 250px;
+    padding: 16px;
+    position: fixed;
+    text-align: center;
+    transform: translate(-50%);
+    top: 0;
+    visibility: hidden;
+    z-index: 1;
+}
+
+#oldPasswordError.show,#newPasswordError.show, #confirmPasswordError.show, #firstNameError.show, #lastNameError.show, #phoneNumberError.show, #addressError.show {
+    visibility: visible;
+    animation: fadeInOut 3s;
+}
+
+
+
+
 @media screen and (max-width: 619px) {
     .editProfileForm {
         width: 70rem;

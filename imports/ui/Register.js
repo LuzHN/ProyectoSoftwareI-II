@@ -2,6 +2,7 @@ import { Accounts } from 'meteor/accounts-base';
 import React from 'react';
 import {withRouter} from "react-router-dom";
 import InputMask from 'react-input-mask';
+import './../client/styles/Register';
 
 export default class Register extends React.Component {
   
@@ -28,7 +29,7 @@ export default class Register extends React.Component {
       validator=1;
       let emailError = this.refs.emailError;
       emailError.classList.add("show");
-      emailError.innerHTML = "Please Enter A Valid Email";
+      emailError.innerHTML = "Please enter a valid email.";
       setTimeout(function() {
           emailError.classList.remove("show");
       }, 3000);
@@ -36,7 +37,7 @@ export default class Register extends React.Component {
       validator=1;
       let emailError = this.refs.emailError;
       emailError.classList.add("show");
-      emailError.innerHTML = "Please Enter A Valid Email";
+      emailError.innerHTML = "Please enter a valid email.";
       setTimeout(function() {
           emailError.classList.remove("show");
       }, 3000);
@@ -45,7 +46,7 @@ export default class Register extends React.Component {
       validator=1;
       let emailError = this.refs.emailError;
       emailError.classList.add("show");
-      emailError.innerHTML = "Please Enter A Valid Email";
+      emailError.innerHTML = "Please enter a valid email.";
       setTimeout(function() {
           emailError.classList.remove("show");
       }, 3000);
@@ -53,7 +54,7 @@ export default class Register extends React.Component {
       validator=1;
       let passwordError = this.refs.passwordError;
       passwordError.classList.add("show");
-      passwordError.innerHTML = "Password Must Be 9 Digits Long";
+      passwordError.innerHTML = "Password must be 9 digits long.";
       setTimeout(function() {
           passwordError.classList.remove("show");
       }, 3000);
@@ -61,7 +62,7 @@ export default class Register extends React.Component {
       validator=1;
       let passwordError = this.refs.passwordError;
       passwordError.classList.add("show");
-      passwordError.innerHTML = "Password Must Be 9 Digits Long";
+      passwordError.innerHTML = "Password must be 9 digits long.";
       setTimeout(function() {
           passwordError.classList.remove("show");
       }, 3000);
@@ -69,7 +70,7 @@ export default class Register extends React.Component {
       validator=1;
       let passwordError = this.refs.passwordError;
       passwordError.classList.add("show");
-      passwordError.innerHTML = "Password Does Not Match";
+      passwordError.innerHTML = "Password does not match.";
       setTimeout(function() {
           passwordError.classList.remove("show");
       }, 3000);
@@ -77,7 +78,7 @@ export default class Register extends React.Component {
       validator=1;
       let firstNameError = this.refs.firstNameError;
       firstNameError.classList.add("show");
-      firstNameError.innerHTML = "Please Enter A Valid Name";
+      firstNameError.innerHTML = "Please enter a valid name.";
       setTimeout(function() {
           firstNameError.classList.remove("show");
       }, 3000);
@@ -85,7 +86,7 @@ export default class Register extends React.Component {
       validator=1;
       let lastNameError = this.refs.lastNameError;
       lastNameError.classList.add("show");
-      lastNameError.innerHTML = "Please Enter A Valid Name";
+      lastNameError.innerHTML = "Please enter a valid name.";
       setTimeout(function() {
           lastNameError.classList.remove("show");
       }, 3000);
@@ -93,7 +94,7 @@ export default class Register extends React.Component {
       validator=1;
       let phoneNumberError = this.refs.phoneNumberError;
       phoneNumberError.classList.add("show");
-      phoneNumberError.innerHTML = "Please Enter A Valid Phone Number";
+      phoneNumberError.innerHTML = "Please enter a valid phone number.";
       setTimeout(function() {
           phoneNumberError.classList.remove("show");
       }, 3000);
@@ -101,7 +102,7 @@ export default class Register extends React.Component {
       validator=1;
       let phoneNumberError = this.refs.phoneNumberError;
       phoneNumberError.classList.add("show");
-      phoneNumberError.innerHTML = "Please Enter A Valid Phone Number";
+      phoneNumberError.innerHTML = "Please enter a valid phone number.";
       setTimeout(function() {
           phoneNumberError.classList.remove("show");
       }, 3000);
@@ -109,7 +110,7 @@ export default class Register extends React.Component {
       validator=1;
       let phoneNumberError = this.refs.phoneNumberError;
       phoneNumberError.classList.add("show");
-      phoneNumberError.innerHTML = "Please Enter A Valid Phone Number";
+      phoneNumberError.innerHTML = "Please enter a valid phone number.";
       setTimeout(function() {
           phoneNumberError.classList.remove("show");
       }, 3000);
@@ -117,14 +118,14 @@ export default class Register extends React.Component {
       validator=1;
       let addressError = this.refs.addressError;
       addressError.classList.add("show");
-      addressError.innerHTML = "Please Enter A Valid Address";
+      addressError.innerHTML = "Please enter a valid address.";
       setTimeout(function() {
         addressError.classList.remove("show");
       }, 3000);
     }
 
 
-    if(validator==0){
+    if(!validator){
       Accounts.createUser({ email, password }, (err) =>{
         if (err) {
           console.log('entro aqui');
