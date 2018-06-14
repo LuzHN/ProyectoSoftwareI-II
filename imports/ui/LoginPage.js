@@ -30,28 +30,28 @@ export default class LoginPage extends React.Component {
             if (email == "" && password == ""){
                 let loginEmpty = document.getElementById("emptyLogin");
                 loginEmpty.classList.add("show");
-                loginEmpty.innerHTML = "Por favor ingrese sus datos.";
+                loginEmpty.innerHTML = "Please enter your information.";
                 setTimeout(function() {
                     loginEmpty.classList.remove("show"); 
                 }, 3000);
             } else if (email == "") {
                 let emailEmpty = document.getElementById("emailEmpty");
                 emailEmpty.classList.add("show");
-                emailEmpty.innerHTML = "Por favor ingrese su correo.";
+                emailEmpty.innerHTML = "Please enter your email.";
                 setTimeout(function() {
                     emailEmpty.classList.remove("show");
                 }, 3000);
             } else if (password == "") {
                 let passwordEmpty = document.getElementById("passwordEmpty");
                 passwordEmpty.classList.add("show");
-                passwordEmpty.innerHTML = "Por favor ingrese su contraseña.";
+                passwordEmpty.innerHTML = "Please enter your password.";
                 setTimeout(function() {
                     passwordEmpty.classList.remove("show");
                 }, 3000);
             } else {
                 let errorLogin = document.getElementById("loginError");
                 errorLogin.classList.add("show");
-                errorLogin.innerHTML = "No se puede iniciar sesión. Revise sus datos."
+                errorLogin.innerHTML = "Unable to log in. Check your information."
                 setTimeout(function() {
                     errorLogin.classList.remove("show"); 
                 }, 3000);    
@@ -61,7 +61,7 @@ export default class LoginPage extends React.Component {
 
             let loginSuccessful = document.getElementById("successfulLogin");
             loginSuccessful.classList.add("show");
-            loginSuccessful.innerHTML = "Se ha iniciado sesión."
+            loginSuccessful.innerHTML = "Logged in successfully."
             setTimeout(function() {
                 loginSuccessful.classList.remove("show"); 
             }, 3000);
