@@ -2,7 +2,7 @@ import { Accounts } from 'meteor/accounts-base';
 import React from 'react';
 import {withRouter} from "react-router-dom";
 import InputMask from 'react-input-mask';
-import './../client/styles/Register';
+import './../client/styles/register';
 
 export default class Register extends React.Component {
   
@@ -142,7 +142,7 @@ export default class Register extends React.Component {
 
   render(){
     return (
-      <body className="container">
+      <div className="container">
         <div className="wrapper">
           <div className="contact">
             <div className="image"></div>​
@@ -202,7 +202,7 @@ export default class Register extends React.Component {
             </form>
           </div>
         </div>
-      </body>
+      </div>
     );
   }
 }
