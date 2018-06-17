@@ -45,7 +45,7 @@ html body {
   align-items: center;
 
   justify-content: center;
-  
+
   background-size: cover;
   margin: 0 auto;
 }
@@ -53,7 +53,7 @@ html body {
 #SelectedMenu{
   width: 90%;
   height: 95%;
- 
+
   overflow-x: hidden !important;
   overflow-y: auto !important;
   padding-top: 5%;
@@ -61,34 +61,91 @@ html body {
 
 /*CSS Cards*/
 
-.card{
+.card-columnas{
+  display: flex;
+  flex-wrap: wrap;
 
-  border: 1px solid  #c6c08e !important;
-  height: 30%;
-
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
+.cards_item {
+  display: flex;
+  margin-top: 0;
+  padding: 0 1em 2em;
+}
 
+.no-flexbox .cards_item {
+  float: left;
+}
+@media screen and (min-width: 42em) and (max-width: 60em) {
+  .cards_item {
+    width: 50%;
+  }
+  .no-flexbox .cards_item:nth-child(2n+1) {
+    clear: both;
+  }
+}
+@media screen and (min-width: 60em) {
+  .cards_item {
+    width: 33.3333%;
+  }
+  .no-flexbox .cards_item:nth-child(3n+1) {
+    clear: both;
+  }
+}
+
+.card-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #1e2c2f;
+  border: 0 solid #eee;
+  border-radius: 0;
+}
+
+.card-img {
+  width: 100%;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  height: 380px;
+}
+
+.card-content {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  margin-top: 0;
+  padding: 1.5em;
+}
+
+.card-titulo{
+  color:  #A6C640;
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.card-content .card-desc {
+  flex: 1 0 auto;
+  color: #C6C08E;
+  font-size: 17px;
+}
 
 .card-body{
   background: #19282b;
+  height: 100%;
+  position: relative;
 }
 
 
 .card-title{
-
-
   font-size: 30px;
-
   font-family: Paralucent Bold;
   color: #a6c640;
-
 }
 
-.card-subtitle{
-
+.card-price{
   font-size: 20px;
-
   color: #d86926;
 }
 .card-text{
@@ -96,10 +153,72 @@ html body {
   color: #c6c08e;
 }
 
-.card-columns {
-  
+.btn {
+  display: block;
 }
 
+button {
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  color: #fff;
+  position: relative;
+  letter-spacing: 0.1em;
+  font-weight: 400;
+  padding: 1rem 3rem 1rem 3rem;
+  text-transform: uppercase;
+  font-family: "Lato";
+  font-size: 1.5em;
+}
+
+.btn-bg {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-bg.bg-2 .btn-2 button {
+  color: white;
+  font-weight: 500;
+  font-size: 17px;
+  background: #4c8644;
+  border: none;
+  -webkit-transition: all 0.7s ease;
+  transition: all 0.7s ease;
+}
+
+.btn-bg.bg-2 .btn-2 button:hover {
+  background: transparent;
+  color: #d0f9c7;
+}
+
+.btn-bg.bg-2 .btn-2 button:hover:before,
+.btn-bg.bg-2 .btn-2 button:hover:after {
+  -webkit-transition: all 0.7s ease;
+  transition: all 0.7s ease;
+  width: 100%;
+}
+
+.btn-bg.bg-2 .btn-2 button:before,
+.btn-bg.bg-2 .btn-2 button:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0px;
+  width: 0px;
+  height: 3px;
+  background: #4c8644;
+  transition: all 0.4s ease;
+}
+
+.btn-bg.bg-2 .btn-2 button:after {
+  top: inherit;
+  left: inherit;
+  bottom: 0;
+  right: 0;
+}
 
 
 

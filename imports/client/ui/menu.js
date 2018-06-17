@@ -1,24 +1,17 @@
-import React from "react";
+import React, {Component} from "react";
 import ReactDOM from 'react-dom';
-import {
-  Card, Button, CardImg, CardTitle, CardText, CardColumns,
-  CardSubtitle, CardBody, Collapse, Navbar, NavbarToggler, NavbarBrand,
-  Nav, NavItem, NavLink, ListGroup, ListGroupItem, Badge, CardDeck, CardGroup
-} from 'reactstrap';
+import {Card, Button, CardImg, CardTitle, CardText, CardBody, CardSubtitle, Container, Row, Col, CardDeck} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/menu.css';
 
-export default class Menu extends React.Component {
-
-
+export default class Menu extends Component {
 
   render() {
     return (
       <div>
-        <header id="Header">
+        {/* <header id="Header">
           <h1 id="hk-logo-header"></h1>
-        </header>
-
+        </header> */}
         <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg" />
 
         <div className="pos-f-t ">
@@ -155,7 +148,7 @@ export default class Menu extends React.Component {
           </div>
         </footer>
 
-        
+
       </div>
     );
   }
@@ -190,15 +183,29 @@ var Entrees = [
     "http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg", "")
   , new Plato("Entree", "Aros de Cebolla HK", "89", "5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.",
     "http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg", "")
+  , new Plato("Entree", "Palitos de Camote", "49", "Camotes a la francesa, acompañado de aderezo Tzatziki.",
+    "http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg", "")
+  , new Plato("Entree", "Aros de Cebolla HK", "89", "5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.",
+    "http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg", "")
+  , new Plato("Entree", "Croquetas de Vegetales", "99", "Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki",
+    "https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg", "")
 ];
 
 
-class Entree extends React.Component {
+class Entree extends Component {
   render() {
     return (
 
-      <div class="card-columns">
-        {renderPlates(Entrees)}
+      <div className="card-columnas">
+        {/* <Container>
+          <Row>
+            <Col> */}
+
+              {renderPlates(Entrees)}
+
+            {/* </Col>
+          </Row>
+        </Container> */}
       </div>
     );
   }
@@ -316,48 +323,47 @@ function renderPlatos(nombrePlato) {
 
 
 const renderPlates = (platesList) => {
-  return platesList.map((plate) => {
+  return platesList.map((plate, i) => {
     return (
-
-
-
-      <Card >
-        <CardBody>
-          <CardImg top width="50%" src={plate.foto} alt="Card image cap" />
-          <CardTitle>{plate.titulo}</CardTitle>
-          <CardSubtitle>L {plate.precio}</CardSubtitle>
-          <CardText>{plate.descripcion}</CardText>
-          <ButtonPlato plato = {plate} />
-
-
-
-        </CardBody>
-      </Card>
-
-    );
+      // <Card key={i}>
+      //   <CardBody>
+      //     <CardImg top width="50%" src={plate.foto} alt="Card image cap" />
+      //     <CardTitle>{plate.titulo}</CardTitle>
+      //     <CardSubtitle>L {plate.precio}</CardSubtitle>
+      //     <CardText>{plate.descripcion}</CardText>
+      //     <ButtonPlato plato = {plate} />
+      //   </CardBody>
+      // </Card>
+      <div className="cards_item" key={i}>
+        <div className="card-card">
+          <img className="card-img" src={plate.foto} alt="Card image cap"/>
+          <div className="card-content">
+            <h3 className="card-titulo">{plate.titulo}</h3>
+            <p className="card-price">L. {plate.precio}</p>
+            <p className="card-desc">{plate.descripcion}</p>
+            <ButtonPlato plato={plate}></ButtonPlato>
+          </div>
+        </div>
+      </div>
+    )
   });
 }
 
-class ButtonPlato extends React.Component {
-
-
-
+class ButtonPlato extends Component {
   render() {
-
     return (
-
-      <Button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Ver más + {this.props.plato.titulo}
-      </Button>
-
+      <div class="btn-bg bg-2">
+        <div class="btn btn-2">
+          <button href="#">Informacion Nutricional</button>
+        </div>
+      </div>
     );
-
   }
 }
 
 
 
-class showFacts extends React.Component {
+class showFacts extends Component {
 
   render() {
 
@@ -393,5 +399,3 @@ class showFacts extends React.Component {
 
   }
 }
-
-
