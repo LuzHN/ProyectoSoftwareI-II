@@ -4,7 +4,179 @@ import {Card, Button, CardImg, CardTitle, CardText, CardBody, CardSubtitle, Cont
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/menu.css';
 
+//Components
+import ModalNutritional from './components/modal'
+import Entree from './components/Entree'
+import ButtonPlato from './components/ButtonPlato'
+
 export default class Menu extends Component {
+
+  defaultMenu = "Entree";
+
+  state = {
+    selectedFood: this.defaultMenu
+  };
+
+  renderPlatos = (nombrePlato) => {
+
+    let jsx = "";
+
+    switch (nombrePlato) {
+
+      case "Soups": {
+
+        jsx = (<CardDeck>
+
+          <Card >
+            <CardImg top width="50%" src="https://comidasperuanas.net/wp-content/uploads/2017/01/Sopa-de-Pollo-Peruana.jpg" alt="Card image cap" />
+            <CardBody>
+              <CardTitle>Sopa de Pollo HK</CardTitle>
+              <CardSubtitle>L 89</CardSubtitle>
+              <CardText>Caldo clarificado de pollo y vegetales con tallarines.</CardText>
+              <Button>Ver más</Button>
+            </CardBody>
+          </Card>
+          <Card >
+            <CardImg top width="50%" src="https://estaticos.marie-claire.es/media/cache/680x_thumb/uploads/images/recipe/567925885bafe85dd944606c/interior-wonton-de-pollo.jpg" alt="Card image cap" />
+            <CardBody>
+              <CardTitle>Sopa de Wonton</CardTitle>
+              <CardSubtitle>L 109</CardSubtitle>
+              <CardText>Caldo ligero de pollo sazonado con soya y sésamo, tallarines y wonton hervido relleno de pollo.</CardText>
+              <Button>Ver más</Button>
+            </CardBody>
+          </Card>
+          <Card >
+            <CardImg top width="50%" src="https://food.fnr.sndimg.com/content/dam/images/food/fullset/2014/3/5/1/BX0203H_Cream-of-Fresh-Tomato-Soup_s4x3.jpg.rend.hgtvcom.616.462.suffix/1394079586646.jpeg" alt="Card image cap" />
+            <CardBody>
+              <CardTitle>Creamy Tomatoe</CardTitle>
+              <CardSubtitle>L 99</CardSubtitle>
+              <CardText>Acompañada con dos pupusas rellenas de queso.</CardText>
+              <Button>Ver más</Button>
+            </CardBody>
+          </Card>
+          <Card >
+            <CardImg top width="50%" src="http://www.1001consejos.com/wp-content/uploads/2014/03/sopa-de-tortilla.jpg" alt="Card image cap" />
+            <CardBody>
+              <CardTitle>Sopa de Tortilla</CardTitle>
+              <CardSubtitle>L 129</CardSubtitle>
+              <CardText>Tradicional sopa Azteca con pollo.</CardText>
+              <Button>Ver más</Button>
+            </CardBody>
+          </Card>
+
+        </CardDeck>);
+        break;
+
+      } //fin case 2
+      case "Salads": {
+
+        jsx = (<CardDeck>
+
+          <Card >
+            <CardImg top width="50%" src="https://simplyhomecooked.com/wp-content/uploads/2016/05/Chopped-caprese-salad-5.jpg" alt="Card image cap" />
+            <CardBody>
+              <CardTitle>Caprese Salad</CardTitle>
+              <CardSubtitle>L 149 | Pollo Extra: + L 49</CardSubtitle>
+              <CardText>Tomate fresco, cuajada, y albaca marinados al pesto, acompañado con mix de lechugas.</CardText>
+              <Button>Ver más</Button>
+            </CardBody>
+          </Card>
+          <Card >
+            <CardImg top width="50%" src="https://www.ideahacks.com/wp-content/uploads/2017/08/Mediterranean-Quinoa-Salad.jpg" alt="Card image cap" />
+            <CardBody>
+              <CardTitle>Quinoa Salad</CardTitle>
+              <CardSubtitle>L 149</CardSubtitle>
+              <CardText>Mezclada con pepino, aceitunas, cebolla y guacamole, servido con tres rebanadas de pan tostado.</CardText>
+              <Button>Ver más</Button>
+            </CardBody>
+          </Card>
+          <Card >
+            <CardImg top width="50%" src="https://revistamundonatural.com/wordpress/wp-content/uploads/2017/09/ensalada_mediterranea.jpg" alt="Card image cap" />
+            <CardBody>
+              <CardTitle>Ensalada Mediterranea</CardTitle>
+              <CardSubtitle>L 189 | Pollo Extra: + L 49</CardSubtitle>
+              <CardText>Mix de lechugas, tomates asados, hongos frescos, requesón y carbanzos con vinagreta de ajo rostizado. </CardText>
+              <Button>Ver más</Button>
+            </CardBody>
+          </Card>
+          <Card >
+            <CardImg top width="50%" src="https://www.rebanando.com/media/caesar-salad-source-thinkstock-jpg_crop.jpeg/rh/ensalada-cesar.jpg" alt="Card image cap" />
+            <CardBody>
+              <CardTitle>Ensalada César</CardTitle>
+              <CardSubtitle>L 189</CardSubtitle>
+              <CardText>Lechuga Romana, queso parmesano, cherry tomatoes, croutons, aderezo césar y pollo al grill.</CardText>
+              <Button>Ver más</Button>
+            </CardBody>
+          </Card>
+          <Card >
+            <CardImg top width="50%" src="https://www.culinaryhill.com/wp-content/uploads/2017/09/Chipotle-Steak-Recipe-Culinary-Hill-2.jpg" alt="Card image cap" />
+            <CardBody>
+              <CardTitle>Chipotle Salad</CardTitle>
+              <CardSubtitle>L 189</CardSubtitle>
+              <CardText>Mix de lechugas, aguacate, y pollo con aderezo de chipotle.</CardText>
+              <Button>Ver más</Button>
+            </CardBody>
+          </Card>
+
+        </CardDeck>);
+        break;
+
+      } // fin case 3
+    }
+
+    return jsx;
+  }
+
+
+
+
+
+
+
+
+  // class showFacts extends Component {
+  //
+  //   render() {
+  //
+  //
+  //     dataPlato = (plate) => {
+  //       return plate.title;
+  //     }
+  //
+  //     return (
+  //       <div className="modal" tabIndex="-1" role="dialog">
+  //         <div className="modal-dialog" role="document">
+  //           <div className="modal-content">
+  //             <div className="modal-header">
+  //               <h5 className="modal-title">{dataPlato}</h5>
+  //               <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+  //                 <span aria-hidden="true"></span>
+  //               </button>
+  //             </div>
+  //             <div className="modal-body">
+  //               <p>Modal body text goes here.</p>
+  //             </div>
+  //             <div className="modal-footer">
+  //               <button type="button" className="btn btn-primary">Save changes</button>
+  //               <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+  //             </div>
+  //           </div>
+  //         </div>
+  //       </div>
+  //
+  //     );
+  //
+  //   }
+  // }
+
+  array = [{"categoria":"Entree","titulo":"Cauliflower Nuggets","precio":"129","descripcion":"Empanizado con panco acompañado con una salsa fresca de tomate y Tzatziki","foto":"http://cdn1-www.momtastic.com/assets/uploads/2016/06/Cauliflower-Nuggets-4.jpg","nutricional":""},
+  {"categoria":"Entree","titulo":"Montaditos","precio":"99","descripcion":"Cuatro tostadas de pan de hierbas; atún, vegetales asados, pollo al pesto, y carne de berenjena","foto":"https://www.philadelphia.com.mx/modx/assets/img/revision2016/images/recetas/montaditos_fuerza_roja.jpg","nutricional":""},
+  {"categoria":"Entree","titulo":"Croquetas de Vegetales","precio":"99","descripcion":"Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki","foto":"https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg","nutricional":""},
+  {"categoria":"Entree","titulo":"Palitos de Camote","precio":"49","descripcion":"Camotes a la francesa, acompañado de aderezo Tzatziki.","foto":"http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg","nutricional":""},
+  {"categoria":"Entree","titulo":"Aros de Cebolla HK","precio":"89","descripcion":"5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.","foto":"http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg","nutricional":""},
+  {"categoria":"Entree","titulo":"Palitos de Camote","precio":"49","descripcion":"Camotes a la francesa, acompañado de aderezo Tzatziki.","foto":"http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg","nutricional":""},
+  {"categoria":"Entree","titulo":"Aros de Cebolla HK","precio":"89","descripcion":"5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.","foto":"http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg","nutricional":""},
+  {"categoria":"Entree","titulo":"Croquetas de Vegetales","precio":"99","descripcion":"Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki","foto":"https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg","nutricional":""}]
 
   render() {
     return (
@@ -29,7 +201,7 @@ export default class Menu extends Component {
               <ul className="list-group" id="PlateList">
                 <a href="#SelectedMenu" className="list-group-item d-flex justify-content-between align-items-center"
                   onClick={function () {
-                    ReactDOM.render(<Entree />, document.getElementById('SelectedMenu'));
+                    ReactDOM.hydrate(<Entree />, document.getElementById('SelectedMenu'));
 
                   }} >
                   Entradas
@@ -125,7 +297,19 @@ export default class Menu extends Component {
         </div>
 
         <section id="Menu" >
-          <div id="SelectedMenu"> <Entree /></div>
+          <div id="SelectedMenu"> <Entree
+            hola="simon"
+            Platos={
+              [{"categoria":"Entree","titulo":"Cauliflower Nuggets","precio":"129","descripcion":"Empanizado con panco acompañado con una salsa fresca de tomate y Tzatziki","foto":"http://cdn1-www.momtastic.com/assets/uploads/2016/06/Cauliflower-Nuggets-4.jpg","nutricional":""},
+              {"categoria":"Entree","titulo":"Montaditos","precio":"99","descripcion":"Cuatro tostadas de pan de hierbas; atún, vegetales asados, pollo al pesto, y carne de berenjena","foto":"https://www.philadelphia.com.mx/modx/assets/img/revision2016/images/recetas/montaditos_fuerza_roja.jpg","nutricional":""},
+              {"categoria":"Entree","titulo":"Croquetas de Vegetales","precio":"99","descripcion":"Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki","foto":"https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg","nutricional":""},
+              {"categoria":"Entree","titulo":"Palitos de Camote","precio":"49","descripcion":"Camotes a la francesa, acompañado de aderezo Tzatziki.","foto":"http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg","nutricional":""},
+              {"categoria":"Entree","titulo":"Aros de Cebolla HK","precio":"89","descripcion":"5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.","foto":"http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg","nutricional":""},
+              {"categoria":"Entree","titulo":"Palitos de Camote","precio":"49","descripcion":"Camotes a la francesa, acompañado de aderezo Tzatziki.","foto":"http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg","nutricional":""},
+              {"categoria":"Entree","titulo":"Aros de Cebolla HK","precio":"89","descripcion":"5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.","foto":"http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg","nutricional":""},
+              {"categoria":"Entree","titulo":"Croquetas de Vegetales","precio":"99","descripcion":"Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki","foto":"https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg","nutricional":""}]
+            } />
+          </div>
         </section>
 
 
@@ -160,242 +344,3 @@ Template
 
 
 */
-
-function Plato(categoria, titulo, precio, descripcion, foto, nutricional) {
-  this.categoria = categoria;
-  this.titulo = titulo;
-  this.precio = precio;
-  this.descripcion = descripcion;
-  this.foto = foto;
-  this.nutricional = nutricional;
-}
-
-
-
-var Entrees = [
-  new Plato("Entree", "Cauliflower Nuggets", "129", "Empanizado con panco acompañado "
-    + "con una salsa fresca de tomate y Tzatziki", "http://cdn1-www.momtastic.com/assets/uploads/2016/06/Cauliflower-Nuggets-4.jpg", "")
-  , new Plato("Entree", "Montaditos", "99", "Cuatro tostadas de pan de hierbas; atún, vegetales asados, pollo al pesto, y carne de berenjena",
-    "https://www.philadelphia.com.mx/modx/assets/img/revision2016/images/recetas/montaditos_fuerza_roja.jpg", "")
-  , new Plato("Entree", "Croquetas de Vegetales", "99", "Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki",
-    "https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg", "")
-  , new Plato("Entree", "Palitos de Camote", "49", "Camotes a la francesa, acompañado de aderezo Tzatziki.",
-    "http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg", "")
-  , new Plato("Entree", "Aros de Cebolla HK", "89", "5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.",
-    "http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg", "")
-  , new Plato("Entree", "Palitos de Camote", "49", "Camotes a la francesa, acompañado de aderezo Tzatziki.",
-    "http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg", "")
-  , new Plato("Entree", "Aros de Cebolla HK", "89", "5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.",
-    "http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg", "")
-  , new Plato("Entree", "Croquetas de Vegetales", "99", "Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki",
-    "https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg", "")
-];
-
-
-class Entree extends Component {
-  render() {
-    return (
-
-      <div className="card-columnas">
-        {/* <Container>
-          <Row>
-            <Col> */}
-
-              {renderPlates(Entrees)}
-
-            {/* </Col>
-          </Row>
-        </Container> */}
-      </div>
-    );
-  }
-}
-
-function renderPlatos(nombrePlato) {
-
-  let jsx = "";
-
-  switch (nombrePlato) {
-
-    case "Soups": {
-
-      jsx = (<CardDeck>
-
-        <Card >
-          <CardImg top width="50%" src="https://comidasperuanas.net/wp-content/uploads/2017/01/Sopa-de-Pollo-Peruana.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Sopa de Pollo HK</CardTitle>
-            <CardSubtitle>L 89</CardSubtitle>
-            <CardText>Caldo clarificado de pollo y vegetales con tallarines.</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-        <Card >
-          <CardImg top width="50%" src="https://estaticos.marie-claire.es/media/cache/680x_thumb/uploads/images/recipe/567925885bafe85dd944606c/interior-wonton-de-pollo.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Sopa de Wonton</CardTitle>
-            <CardSubtitle>L 109</CardSubtitle>
-            <CardText>Caldo ligero de pollo sazonado con soya y sésamo, tallarines y wonton hervido relleno de pollo.</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-        <Card >
-          <CardImg top width="50%" src="https://food.fnr.sndimg.com/content/dam/images/food/fullset/2014/3/5/1/BX0203H_Cream-of-Fresh-Tomato-Soup_s4x3.jpg.rend.hgtvcom.616.462.suffix/1394079586646.jpeg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Creamy Tomatoe</CardTitle>
-            <CardSubtitle>L 99</CardSubtitle>
-            <CardText>Acompañada con dos pupusas rellenas de queso.</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-        <Card >
-          <CardImg top width="50%" src="http://www.1001consejos.com/wp-content/uploads/2014/03/sopa-de-tortilla.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Sopa de Tortilla</CardTitle>
-            <CardSubtitle>L 129</CardSubtitle>
-            <CardText>Tradicional sopa Azteca con pollo.</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-
-      </CardDeck>);
-      break;
-
-    } //fin case 2
-    case "Salads": {
-
-      jsx = (<CardDeck>
-
-        <Card >
-          <CardImg top width="50%" src="https://simplyhomecooked.com/wp-content/uploads/2016/05/Chopped-caprese-salad-5.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Caprese Salad</CardTitle>
-            <CardSubtitle>L 149 | Pollo Extra: + L 49</CardSubtitle>
-            <CardText>Tomate fresco, cuajada, y albaca marinados al pesto, acompañado con mix de lechugas.</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-        <Card >
-          <CardImg top width="50%" src="https://www.ideahacks.com/wp-content/uploads/2017/08/Mediterranean-Quinoa-Salad.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Quinoa Salad</CardTitle>
-            <CardSubtitle>L 149</CardSubtitle>
-            <CardText>Mezclada con pepino, aceitunas, cebolla y guacamole, servido con tres rebanadas de pan tostado.</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-        <Card >
-          <CardImg top width="50%" src="https://revistamundonatural.com/wordpress/wp-content/uploads/2017/09/ensalada_mediterranea.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Ensalada Mediterranea</CardTitle>
-            <CardSubtitle>L 189 | Pollo Extra: + L 49</CardSubtitle>
-            <CardText>Mix de lechugas, tomates asados, hongos frescos, requesón y carbanzos con vinagreta de ajo rostizado. </CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-        <Card >
-          <CardImg top width="50%" src="https://www.rebanando.com/media/caesar-salad-source-thinkstock-jpg_crop.jpeg/rh/ensalada-cesar.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Ensalada César</CardTitle>
-            <CardSubtitle>L 189</CardSubtitle>
-            <CardText>Lechuga Romana, queso parmesano, cherry tomatoes, croutons, aderezo césar y pollo al grill.</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-        <Card >
-          <CardImg top width="50%" src="https://www.culinaryhill.com/wp-content/uploads/2017/09/Chipotle-Steak-Recipe-Culinary-Hill-2.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Chipotle Salad</CardTitle>
-            <CardSubtitle>L 189</CardSubtitle>
-            <CardText>Mix de lechugas, aguacate, y pollo con aderezo de chipotle.</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-
-      </CardDeck>);
-      break;
-
-    } // fin case 3
-  }
-
-  return jsx;
-}
-
-
-const renderPlates = (platesList) => {
-  return platesList.map((plate, i) => {
-    return (
-      // <Card key={i}>
-      //   <CardBody>
-      //     <CardImg top width="50%" src={plate.foto} alt="Card image cap" />
-      //     <CardTitle>{plate.titulo}</CardTitle>
-      //     <CardSubtitle>L {plate.precio}</CardSubtitle>
-      //     <CardText>{plate.descripcion}</CardText>
-      //     <ButtonPlato plato = {plate} />
-      //   </CardBody>
-      // </Card>
-      <div className="cards_item" key={i}>
-        <div className="card-card">
-          <img className="card-img" src={plate.foto} alt="Card image cap"/>
-          <div className="card-content">
-            <h3 className="card-titulo">{plate.titulo}</h3>
-            <p className="card-price">L. {plate.precio}</p>
-            <p className="card-desc">{plate.descripcion}</p>
-            <ButtonPlato plato={plate}></ButtonPlato>
-          </div>
-        </div>
-      </div>
-    )
-  });
-}
-
-class ButtonPlato extends Component {
-  render() {
-    return (
-      <div class="btn-bg bg-2">
-        <div class="btn btn-2">
-          <button href="#">Informacion Nutricional</button>
-        </div>
-      </div>
-    );
-  }
-}
-
-
-
-class showFacts extends Component {
-
-  render() {
-
-
-    dataPlato = (plate) => {
-
-      return plate.title;
-
-    }
-
-    return (
-      <div class="modal" tabIndex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">{dataPlato}</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true"></span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>Modal body text goes here.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Save changes</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    );
-
-  }
-}
