@@ -17,9 +17,7 @@ export default class MenuAdmin extends Component {
   }
 
   
-
   render() {
-    
     return (
       <div>
         <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg" />
@@ -111,46 +109,37 @@ export default class MenuAdmin extends Component {
         <div id="simpleModal" className="modal">
           <div className="modal-content">
 
+            {/* Header */}
             <div className="modal-header">
               <div className="modal-header-Btn">
                 <span className="closeBtn" onClick={this.closeAgregar.bind(this)}>&times;</span>
               </div>
               <div className="modal-header-Name">
-                <h2>Agregar Nuevo Plato</h2>
+                <h2>Agregar Plato</h2>
               </div>
             </div>
+            {/* Body */}
             <div className="modal-body">
-              <form>
+              <form className="contactModal">
                 <p>
-                  <label>Nombre Plato</label>
-                  <input ref = "nombrePlato" type="text" placeholder='Nombre Plato' maxLength='140' />
+                  <label id="labelAgregar">Nombre Plato</label>
+                  <input id="inputAgregar" ref = "nombrePlato" type="text" placeholder='Nombre Plato' maxLength='140' />
                 </p>
                 <p>
-                  <label>Precio</label>
-                  <input ref = "precioPlato" type="number" placeholder='Precio Plato' maxLength='140' />
+                  <label id="labelAgregar">Precio</label>
+                  <input id="inputAgregar"  ref = "precioPlato" type="number" placeholder='Precio Plato' maxLength='140' />
                 </p>
-                
-                <div className="container-1">
-                  <div className="box-1">
-                    <p>
-                      <label>Descripción Plato</label>
-                      <textarea  ref="descriptionPlato" rows="5" placeholder='Enter Descripción Plato' maxLength='140'></textarea>
-                    </p>
-                  </div>
-                  <div className="box-2">
-                    <p>
-                      <label>Nutrional Facts</label>
-                      <textarea  ref="nutritionalfacts" rows="5" placeholder='Enter Nutritional Facts' maxLength='140'></textarea>
-                    </p>
-                  </div>
-                </div>
                 <p>
-                  <button>Agregar Plato</button>
+                  <label id="labelAgregar">Descripción Plato</label>
+                  <textarea  id="inputAgregar"  ref="descriptionPlato" rows="5" placeholder='Enter Descripción Plato' maxLength='140'></textarea>
+                </p>      
+                <p>
+                  <button className="agregarFinalBtn">Agregar Plato</button>
                 </p>
               </form>
             </div>
+            {/* Footer */}
             <div className="modal-footer"></div>
-
           </div>
         </div>
         

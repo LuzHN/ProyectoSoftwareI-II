@@ -1,7 +1,5 @@
 html body {
   font-family: 'Paralucent Bold', 'Gotham Book', Geneva, Verdana, sans-serif;
-  font-size: 15px;
-  line-height: 1.5;
   background-color: #37555A;
   color: #8ea9a9;
 }
@@ -362,9 +360,10 @@ button {
 }
 
 .modal-header-Name{
-  margin:0;
+  margin-top:1%;
   flex:1;
   order:1;
+  font-family: 'Paralucent Bold', 'Gotham Book', Geneva, Verdana, sans-serif;
 }
 
 .modal-header-Btn{
@@ -375,6 +374,8 @@ button {
 .closeBtn{
   font-size:30px;
   color:#fff;
+  margin-left: 90%;
+  margin-bottom:5%;
 }
 
 .closeBtn:hover,.closeBtn:focus{
@@ -389,7 +390,7 @@ button {
 
 .modal-footer{
   background:#d86926;
-  padding:10px;
+  padding:2%;
   color:#fff;
 }
 
@@ -408,8 +409,39 @@ button {
   order:2;
 }
 
-
 @keyframes modalopen{
   from{ opacity: 0}
   to {opacity: 1}
+}
+
+ /* Form Styles */
+  
+.contactModal{
+  display: grid;
+  grid-gap: 1rem;
+  
+}
+
+#labelAgregar{
+  display: block;
+}
+
+.agregarFinalBtn, #inputAgregar{
+  width: 100%;
+  padding: 1em;
+}
+
+.agregarFinalBtn{
+  background: #4c8644;
+  color: #fff;
+  border: 0;
+  text-transform: none;
+  font-family: 'Paralucent Bold', 'Gotham Book', Geneva, Verdana, sans-serif;
+}
+
+.agregarFinalBtn:hover{
+  background: #3d6b37;
+  color: #fff;
+  outline: 0;
+  transition: background-color 1s ease-out;
 }
