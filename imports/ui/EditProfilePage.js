@@ -7,11 +7,12 @@ import { Router, Route, browserHistory} from 'react-router';
 import {withRouter} from "react-router-dom";
 import { Redirect } from 'react-router'
 import InputMask from 'react-input-mask';
+import { createContainer } from 'meteor/react-meteor-data';
+
 import './../client/styles/EditProfile';
 
 
-
-export default class EditProfilePage extends React.Component {
+class EditProfilePage extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
@@ -31,6 +32,7 @@ export default class EditProfilePage extends React.Component {
         let address3 = this.refs.address3.value.trim();
         let address4 = this.refs.address4.value.trim();
 
+        Meteor.call('updateUser', {firstName, lastName, phoneNumber1, phoneNumber2, phoneNumber3, phoneNumber4, address1, address2, address3, address4});
         /**
          * Nota: Falta validar que la vieja contraseña sea la misma que tenia antes
          */
@@ -167,8 +169,8 @@ export default class EditProfilePage extends React.Component {
         }
 
 
-        
-        
+
+
 
         if(!validator){
             /**
@@ -198,12 +200,12 @@ export default class EditProfilePage extends React.Component {
                     <div className = "containerBox">
                         <div className = "leftContainerBox">
                             <label>First Name</label>
-                            <input ref = "firstName" id = "firstNameId" maxLength='140' placeholder='Enter First Name'/> 
+                            <input ref = "firstName" id = "firstNameId" maxLength='140' placeholder='Enter First Name'/>
                         </div>
                         <div className = "rightContainerBox">
                             <label>Last Name</label>
-                            <input ref="lastName" id = "passwordBox" maxLength='140' placeholder='Enter Last Name'/> 
-                        </div> 
+                            <input ref="lastName" id = "passwordBox" maxLength='140' placeholder='Enter Last Name'/>
+                        </div>
                     </div>
                     {/*First Name and Last Name inputs and labels ends here.*/}
                     {/*New and Confirm Password inputs and labels.*/}
@@ -216,12 +218,12 @@ export default class EditProfilePage extends React.Component {
 
                         <div className = "leftContainerBox">
                             <label>New Password</label>
-                            <input ref="newPassword" type="password" id = "newPasswordId" placeholder='New Password'/> 
+                            <input ref="newPassword" type="password" id = "newPasswordId" placeholder='New Password'/>
                         </div>
                         <div className = "rightContainerBox">
                             <label>Confirm Password</label>
-                            <input ref="confirmPassword" type="password" id = "confirmPasswordId" placeholder='Confirm Password'/> 
-                        </div> 
+                            <input ref="confirmPassword" type="password" id = "confirmPasswordId" placeholder='Confirm Password'/>
+                        </div>
                     </div>
                     {/*New and Confirm Password inputs and labels end here.*/}
 
@@ -255,11 +257,11 @@ export default class EditProfilePage extends React.Component {
                     <div className = "containerBox">
                         <div className = "leftContainerBox">
                             <label>*Address 1</label>
-                            <textarea ref="address1" id = "direction1TextArea" maxLength='140' rows="5" placeholder='Enter Address'/> 
+                            <textarea ref="address1" id = "direction1TextArea" maxLength='140' rows="5" placeholder='Enter Address'/>
                         </div>
                         <div className = "rightContainerBox">
                             <label>Address 2</label>
-                            <textarea ref="address2" id = "direction2TextArea" maxLength='140' rows="5" placeholder='Enter Address'/> 
+                            <textarea ref="address2" id = "direction2TextArea" maxLength='140' rows="5" placeholder='Enter Address'/>
                         </div>
                     </div>
                     {/*First two directions text areas end here.*/}
@@ -268,11 +270,11 @@ export default class EditProfilePage extends React.Component {
                     <div className = "containerBox">
                         <div className = "leftContainerBox">
                             <label>Address 3</label>
-                            <textarea ref="address3" id = "direction3TextArea" maxLength='140' rows="5" placeholder='Enter Address'/> 
+                            <textarea ref="address3" id = "direction3TextArea" maxLength='140' rows="5" placeholder='Enter Address'/>
                         </div>
                         <div className = "rightContainerBox">
                             <label>Address 4</label>
-                            <textarea ref="address4" id = "direction4TextArea" maxLength='140' rows="5" placeholder='Enter Address'/> 
+                            <textarea ref="address4" id = "direction4TextArea" maxLength='140' rows="5" placeholder='Enter Address'/>
                         </div>
                     </div>
                     {/*Last two directions text areas end here.*/}
@@ -283,7 +285,7 @@ export default class EditProfilePage extends React.Component {
                             <button className = "saveChangesBtn" onClick={this.onSubmit.bind(this)}>Save Changes</button>
                     </div>
 
-                    
+
                     <div ref="firstNameError" id="firstNameError" ></div>
                     <div ref="lastNameError" id="lastNameError"></div>
                     <div ref="oldPasswordError" id="oldPasswordError"></div>
@@ -292,9 +294,13 @@ export default class EditProfilePage extends React.Component {
                     <div ref="phoneNumberError" id="phoneNumberError" ></div>
                     <div ref="addressError" id="addressError"></div>
 
-                </form> 
+                </form>
             </div>
         );
     }
 
 }
+
+export default createContainer(() => {
+  return { user: Meteor.user() };
+},  EditProfilePage);
