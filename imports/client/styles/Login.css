@@ -27,7 +27,7 @@ passwordInput y passwordLabel.
     grid-row-gap: 2rem;
     margin: 2rem auto 2rem auto;
     max-width: 80rem;
-    padding-bottom:6rem;
+    padding-bottom:3rem;
     padding-top:3rem;
 }
 
@@ -106,6 +106,36 @@ acceso a la página principal del app.
     padding-top: 15rem;
     padding-right: 39rem;
     padding-bottom: 4rem;
+}
+
+button:focus {
+    outline:0;
+}
+
+#emptyLogin, #emailEmpty, #passwordEmpty, #loginError, #successfulLogin {
+    background-color: #e33444;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 17px;
+    left: 50%;
+    min-width: 250px;
+    padding: 16px;
+    position: fixed;
+    text-align: center;
+    transform: translate(-50%);
+    top: 0;
+    visibility: hidden;
+    z-index: 1;
+}
+
+#emptyLogin.show, #emailEmpty.show, #passwordEmpty.show, #loginError.show, #successfulLogin.show {
+    visibility: visible;
+    animation: fadeInOut 3s;
+}
+
+@keyframes fadeInOut {
+    5%,95%{opacity: 1; top: 38rem}
+    15%, 85%{opacity:1; top: 38rem} 
 }
 
 @media screen and (max-width: 695px) {

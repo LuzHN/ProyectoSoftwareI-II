@@ -13,6 +13,7 @@ import NotFound from '../imports/ui/NotFound';
 import Principal from '../imports/ui/Principal';
 import Register from '../imports/ui/Register';
 import LoginPage from '../imports/ui/LoginPage';
+import EditProfilePage from '../imports/ui/EditProfilePage';
 
 import '../imports/client/styles/cart.css';
 import Cart from '../imports/ui/Cart';
@@ -31,6 +32,7 @@ class Hk extends React.Component{
           <Route path="/register" component={Register} history = {browserHistory}/>
           <Route path ="/login" component={LoginPage} history = {browserHistory}/>
           <Route path="/cart" component={Cart} history = {browserHistory}/>
+          <Route path ="/editProfile" component={EditProfilePage} history = {browserHistory}/>
           <Route path="*" component={NotFound} history = {browserHistory}/>
         </Switch>
       </BrowserRouter>

@@ -1,331 +1,423 @@
-import React from "react";
+import React, {Component} from "react";
 import ReactDOM from 'react-dom';
-import {
-  Card, Button, CardImg, CardTitle, CardText, CardColumns,
-  CardSubtitle, CardBody, Collapse, Navbar, NavbarToggler, NavbarBrand,
-  Nav, NavItem, NavLink, ListGroup, ListGroupItem, Badge, CardDeck, CardGroup
-} from 'reactstrap';
+import {Card, Button, CardImg, CardTitle, CardText, CardBody, CardSubtitle, Container, Row, Col, CardDeck} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/menu.css';
 
-export default class Menu extends React.Component {
+//Components
+import ModalNutritional from './components/modal'
+import Entree from './components/Entree'
+import ButtonPlato from './components/ButtonPlato'
+
+//Schemas
+import {Dishes} from '../../api/dishes';
+
+export default class Menu extends Component {
+
+  defaultMenu = "Entree";
+
+  state = {
+    selectedFood: this.defaultMenu,
+    dishes: [],
+    cart:{
+      estado: "Preorden",
+      platos: []
+    },
+    platosMostrados:[],
+    cantidadOrden: 0,
+    cantEntree: 0,
+    cantSoup: 0,
+    cantEnsalada: 0,
+    cantWrap: 0,
+    cantPasta: 0,
+    cantSandwich: 0,
+    cantAcompañante: 0,
+    cantDesayuno: 0,
+    cantPostre: 0,
+    cantJugo: 0,
+    cantBebida: 0
+  };
+
+  componentDidMount() {
+    this.dishesTracker = Tracker.autorun(() => {
+      Meteor.subscribe('dishes');
+      const dishes = Dishes.find().fetch();
+      console.log(dishes);
+      let cantEntree = 0, cantSoup = 0, cantEnsalada = 0, cantWrap = 0,
+      cantPasta = 0, cantSandwich = 0, cantAcompañante = 0,
+      cantDesayuno = 0, cantPostre = 0, cantJugo = 0, cantBebida = 0;
+      for (var i = 0; i < dishes.length; i++) {
+        if (dishes[i].type === "Entree") {
+          cantEntree++;
+        }else if(dishes[i].type === "Soup"){
+          cantSoup++;
+        }else if(dishes[i].type === "Salad"){
+          cantEnsalada++;
+        }else if(dishes[i].type === "Wrap"){
+          cantWrap++;
+        }else if(dishes[i].type === "LittleItaly"){
+          cantPasta++;
+        }else if(dishes[i].type === "Sandwich"){
+          cantSandwich++;
+        }else if(dishes[i].type === "SideDish"){
+          cantAcompañante++;
+        }else if(dishes[i].type === "Breakfast"){
+          cantDesayuno++;
+        }else if(dishes[i].type === "Dessert"){
+          cantPostre++;
+        }else if(dishes[i].type === "Juice"){
+          cantJugo++;
+        }else if(dishes[i].type === "Drink"){
+          cantBebida++;
+        }
+      }
+      this.setState({
+        ...this.state,
+        dishes,
+        platosMostrados: dishes,
+        cantEntree,
+        cantSoup,
+        cantEnsalada,
+        cantWrap,
+        cantPasta,
+        cantSandwich,
+        cantAcompañante,
+        cantDesayuno,
+        cantPostre,
+        cantJugo,
+        cantBebida
+      })
+    });
+
+  }
+
+  componentWillUnmount() {
+    this.dishesTracker.stop();
+  }
+
+
+  renderPlatos = (nombrePlato) => {
+    const platosMostrar = []
+    for (var i = 0; i < this.state.dishes.length; i++) {
+      if (this.state.dishes[i].type === nombrePlato) {
+        platosMostrar.push(this.state.dishes[i]);
+      }
+    }
+    this.setState({...this.state, platosMostrados: platosMostrar});
+  }
+
+  clickComida = (plato, precio) =>{
+
+    const platoOrdenado = {
+      plato,
+      precio
+    }
+
+    const platosOrdenados = this.state.cart.platos;
+    if (platosOrdenados.length > 0) {
+      let encontro = false;
+      for (var i = 0; i < platosOrdenados.length; i++) {
+        if (platosOrdenados[i].plato === platoOrdenado.plato) {
+          platosOrdenados[i].cantidad ++;
+          encontro = true;
+        }
+      }
+
+      if (encontro === false) {
+        platosOrdenados.push({...platoOrdenado, cantidad: 1})
+      }
+    }else{
+      platosOrdenados.push({...platoOrdenado, cantidad: 1});
+    }
+    const cantidadOrden = ++this.state.cantidadOrden;
+    this.setState({...this.state, platos: platosOrdenados, cantidadOrden});
+  }
+
+  btnCart = () =>{
+    this.props.history.push({pathname:'/cart', state: this.state.cart});
+  }
+
+  openModal = () => {
+    var modal = document.getElementById('simpleModal');
+    modal.style.display = 'block';
+  }
+
+  closeModal(){
+    var modal = document.getElementById('simpleModal');
+    modal.style.display = 'none';
+  }
 
   render() {
     return (
       <div>
         <header id="Header">
-          <h1 id="hk-logo-header"></h1>
-        </header>
+        <h1 id="hk-logo-header"></h1>
+      </header>
+      <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg" />
 
-        <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg" />
+      <div className="pos-f-t ">
 
-        <div className="pos-f-t ">
+        <nav className="navbar navbar-dark bg-dark">
+          <button className="navbar-toggler btn-menu" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+            <span> Menú</span>
+          </button>
+          <button className="navbar-toggler carrito-btn" onClick={this.btnCart}>Cart <span className="carrito-cant">{this.state.cantidadOrden}</span></button>
+        </nav>
 
-          <nav className="navbar navbar-dark bg-dark">
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span className="navbar-toggler-icon"></span>
-              <span> Menú</span>
-            </button>
-          </nav>
+        <div className="collapse" id="navbarToggleExternalContent">
+          <div className="bg-dark p-4 d-flex justify-content-center" id="BackgroundNavBar">
 
-          <div className="collapse" id="navbarToggleExternalContent">
-            <div className="bg-dark p-4 d-flex justify-content-center" id="BackgroundNavBar">
+            <ul className="list-group" id="PlateList">
+              <a href="#SelectedMenu" className="list-group-item d-flex justify-content-between align-items-center"
+                onClick={(e)=>this.renderPlatos("Entree")}>
+                Entradas
+                <span className="badge badge-primary badge-pill">{this.state.cantEntree}</span>
+              </a>
+              <a
+                href="#SelectedMenu"
+                className="list-group-item d-flex justify-content-between align-items-center"
+                onClick={(e)=>this.renderPlatos("Soup")}>
+                Sopas
+                <span className="badge badge-primary badge-pill">{this.state.cantSoup}</span>
+              </a>
+              <a href="#SelectedMenu" className="list-group-item d-flex justify-content-between align-items-center"
+                onClick={(e)=>this.renderPlatos("Salad")}>
+                Ensaladas
+                <span className="badge badge-primary badge-pill">{this.state.cantEnsalada}</span>
+              </a>
+              <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
+                onClick={(e)=>this.renderPlatos("Wrap")}>
+                Wraps
+                <span className="badge badge-primary badge-pill">{this.state.cantWrap}</span>
+              </a>
+              <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
+                onClick={(e)=>this.renderPlatos("LittleItaly")}>
+                Little Italy (Pastas & Pizettas)
+                <span className="badge badge-primary badge-pill">{this.state.cantPasta}</span>
+              </a>
+              <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
+                onClick={(e)=>this.renderPlatos("Sandwich")}>
+                Sándwiches
+                <span className="badge badge-primary badge-pill">{this.state.cantSandwich}</span>
+              </a>
+              <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
+                onClick={(e)=>this.renderPlatos("SideDish")}>
+                Acompañantes
+                <span className="badge badge-primary badge-pill">{this.state.cantAcompañante}</span>
+              </a>
+              <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
+                onClick={(e)=>this.renderPlatos("Breakfast")}>
+                Desayunos
+                <span className="badge badge-primary badge-pill">{this.state.cantDesayuno}</span>
+              </a>
+              <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
+                onClick={(e)=>this.renderPlatos("Dessert")}>
+                Postres
+                <span className="badge badge-primary badge-pill">{this.state.cantPostre}</span>
+              </a>
+              <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
+                onClick={(e)=>this.renderPlatos("Juice")}>
+                Jugos
+                <span className="badge badge-primary badge-pill">{this.state.cantJugo}</span>
+              </a>
+              <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
+                onClick={(e)=>this.renderPlatos("Drink")}>
+                Bebidas
+                <span className="badge badge-primary badge-pill">{this.state.cantBebida}</span>
+              </a>
 
-              <ul className="list-group" id="PlateList">
-                <a href="#SelectedMenu" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
-                    ReactDOM.render(<Entree/>, document.getElementById('SelectedMenu'));
+            </ul>
 
-                  }} >
-                  Entradas
-                <span className="badge badge-primary badge-pill">5</span>
-                </a>
-                <a href="#SelectedMenu" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
-                    ReactDOM.render(renderPlatos("Soups"), document.getElementById('SelectedMenu'));
-
-                  }} >
-                  Sopas
-
-                <span className="badge badge-primary badge-pill">4</span>
-                </a>
-                <a href="#SelectedMenu" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
-                    ReactDOM.render(renderPlatos("Salads"), document.getElementById('SelectedMenu'));
-
-                  }}>
-                  Ensaladas
-                <span className="badge badge-primary badge-pill">5</span>
-                </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
-                    //ReactDOM.render(<Wraps />, document.getElementById('SelectedMenu'));
-                    renderPlatos("Wraps");
-                  }}>
-                  Wraps
-                <span className="badge badge-primary badge-pill">3</span>
-                </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
-                    //ReactDOM.render(<LittleItaly />, document.getElementById('SelectedMenu'));
-                    renderPlatos("LittleItaly");
-                  }}>
-                  Little Italy (Pastas & Pizettas)
-                <span className="badge badge-primary badge-pill">10</span>
-                </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
-                    //ReactDOM.render(<Sandwiches />, document.getElementById('SelectedMenu'));
-                    renderPlatos("Sandwiches");
-                  }}>
-                  Sándwiches
-                <span className="badge badge-primary badge-pill">7</span>
-                </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
-                    //ReactDOM.render(<SideDish />, document.getElementById('SelectedMenu'));
-                    renderPlatos("SideDish");
-                  }}>
-                  Acompañantes
-                <span className="badge badge-primary badge-pill">3</span>
-                </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
-                    //ReactDOM.render(<Breakfasts />, document.getElementById('SelectedMenu'));
-                    renderPlatos("Breakfasts");
-                  }}>
-                  Desayunos
-                <span className="badge badge-primary badge-pill">15</span>
-                </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
-                    //ReactDOM.render(<Desserts />, document.getElementById('SelectedMenu'));
-                    renderPlatos("Desserts");
-                  }}>
-                  Postres
-                <span className="badge badge-primary badge-pill">5</span>
-                </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
-                    //ReactDOM.render(<Juices />, document.getElementById('SelectedMenu'));
-                    renderPlatos("Juices");
-                  }}>
-                  Jugos
-                <span className="badge badge-primary badge-pill">10</span>
-                </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
-                    //ReactDOM.render(<Drinks />, document.getElementById('SelectedMenu'));
-                    renderPlatos("Drinks");
-                  }}>
-                  Bebidas
-                <span className="badge badge-primary badge-pill">11</span>
-                </a>
-
-              </ul>
-
-            </div>
           </div>
-
         </div>
 
-        <section id="Menu" >
-          <div id="SelectedMenu"> <Entree/></div>
-        </section>
-
-
-        <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg" />
-
-        <footer id="Footer">
-          <img className="LogoHK" src="http://www.healthkitchen.hn/static/media/hk-logo.b8b1c147.svg" alt="Logo" />
-
-          <div className="FooterDescription">
-            <h3 className="green">Ubicanos</h3>
-            <p className="olive">Metrópolis</p>
-            <p className="olive">Torre #1</p>
-            <p className="olive">Segundo piso</p>
-            <p className="olive">Local C212, entre Nativo y Bistro</p>
-            <p className="FooterSN">
-              <a target="_blank" href="https://www.instagram.com/healthkitchenhn/"><ion-icon size="large" name="logo-instagram"></ion-icon></a>
-              <a target="_blank" href="https://fb.me/healthkitchenhn"><ion-icon name="logo-facebook"></ion-icon></a>
-              <a target="_blank" href="https://twitter.com/healthkitchenhn/"><ion-icon name="logo-twitter"></ion-icon></a>
-            </p>
-          </div>
-        </footer>
-
       </div>
-    );
-  }
+
+      <section id="Menu" >
+        <div id="SelectedMenu">
+          <Entree
+            hola="simon"
+            // Platos={
+            //   [{"type":"Entree","name":"Cauliflower Nuggets","price":"129","description":"Empanizado con panco acompañado con una salsa fresca de tomate y Tzatziki","image":"http://cdn1-www.momtastic.com/assets/uploads/2016/06/Cauliflower-Nuggets-4.jpg","nutricional":""},
+            //   {"type":"Entree","name":"Montaditos","price":"99","description":"Cuatro tostadas de pan de hierbas; atún, vegetales asados, pollo al pesto, y carne de berenjena","image":"https://www.philadelphia.com.mx/modx/assets/img/revision2016/images/recetas/montaditos_fuerza_roja.jpg","nutricional":""},
+            //   {"type":"Entree","name":"Croquetas de Vegetales","price":"99","description":"Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki","image":"https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg","nutricional":""},
+            //   {"type":"Entree","name":"Palitos de Camote","price":"49","description":"Camotes a la francesa, acompañado de aderezo Tzatziki.","image":"http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg","nutricional":""},
+            //   {"type":"Entree","name":"Aros de Cebolla HK","price":"89","description":"5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.","image":"http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg","nutricional":""},
+            //   {"type":"Entree","name":"Palitos de Camote","price":"49","description":"Camotes a la francesa, acompañado de aderezo Tzatziki.","image":"http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg","nutricional":""},
+            //   {"type":"Entree","name":"Aros de Cebolla HK","price":"89","description":"5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.","image":"http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg","nutricional":""},
+            //   {"type":"Entree","name":"Croquetas de Vegetales","price":"99","description":"Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki","image":"https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg","nutricional":""}]
+            // }
+            Platos = {this.state.platosMostrados}
+            onClick={this.clickComida}
+            modal={this.openModal}
+          />
+        </div>
+      </section>
+
+
+      <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg" />
+
+      <footer id="Footer">
+        <img className="LogoHK" src="http://www.healthkitchen.hn/static/media/hk-logo.b8b1c147.svg" alt="Logo" />
+
+        <div className="FooterDescription">
+          <h3 className="green"><b>Ubicanos</b></h3>
+          <p className="olive">Metrópolis</p>
+          <p className="olive">Torre #1</p>
+          <p className="olive">Segundo piso</p>
+          <p className="olive">Local C212, entre Nativo y Bistro</p>
+          <p className="FooterSN">
+            <a target="_blank" href="https://www.instagram.com/healthkitchenhn/"><ion-icon size="large" name="logo-instagram"></ion-icon></a>
+            <a target="_blank" href="https://fb.me/healthkitchenhn"><ion-icon name="logo-facebook"></ion-icon></a>
+            <a target="_blank" href="https://twitter.com/healthkitchenhn/"><ion-icon name="logo-twitter"></ion-icon></a>
+          </p>
+        </div>
+      </footer>
+
+      {/*Modal*/}
+      <div id="simpleModal" className="modal">
+        <div className="modal-content">
+
+          {/* Header */}
+          <div className="modal-header">
+            <div className="modal-header-Btn">
+              <span className="closeBtn" onClick={this.closeModal}>&times;</span>
+            </div>
+            <div className="modal-header-Name">
+              <h2>Agregar Plato</h2>
+            </div>
+          </div>
+          {/* Body */}
+          <div className="nutritionLabel" id="nutrilabel" style={{widh: "50%"}}>
+            <div className="yes">
+            <div className="title">
+              Nutrition Facts
+            </div>
+
+            <div className="serving">
+              <div className="cf">
+                <div className="servingSizeText fl">
+                  Serving Size
+                </div>
+
+                <div className="servingUnitQuantity fl">
+                  1
+                </div>
+              </div>
+            </div>
+
+            <div className="bar1"></div>
+
+            <div className="line m" style={{fontWeight: "bold"}}>
+              Amount Per Serving
+            </div>
+
+            <div className="line">
+              <div className="fr">
+                Calories from Fat 0
+              </div>
+
+              <div>
+                <b>Calories</b> 0
+              </div>
+            </div>
+
+            <div className="bar2"></div>
+            <div className="line ar" style={{fontWeight: "bold"}}>
+              % Daily Value<sup>*</sup>
+            </div>
+            <div className="line">
+              <div className="dv">
+                <b>0</b>%
+              </div><b>Total Fat</b> 0g
+            </div>
+
+            <div className="line indent">
+              <div className="dv">
+                <b>0</b>%
+              </div>Saturated Fat 0g
+            </div>
+
+            <div className="line indent">
+              <i>Trans</i> Fat 0g
+            </div>
+
+
+            <div className="line">
+              <div className="dv">
+                <b>0</b>%
+              </div><b>Cholesterol</b> 0mg
+            </div>
+
+            <div className="line">
+              <div className="dv">
+                <b>0</b>%
+              </div><b>Sodium</b> 0mg
+            </div>
+
+            <div className="line">
+              <div className="dv">
+                <b>0</b>%
+              </div><b>Total Carbohydrates</b> 0g
+            </div>
+
+            <div className="line indent">
+              <div className="dv">
+                <b>0</b>%
+              </div>Dietary Fiber 0g
+            </div>
+
+            <div className="line indent">
+              Sugars 0g
+            </div>
+
+            <div className="line">
+              <b>Protein</b> 0g
+            </div>
+
+            <div className="bar1"></div>
+
+            <div className="line vitaminA">
+              <div className="dv">
+                0%
+              </div>Vitamin A
+            </div>
+
+            <div className="line vitaminC">
+              <div className="dv">
+                0%
+              </div>Vitamin C
+            </div>
+
+            <div className="line calcium">
+              <div className="dv">
+                0%
+              </div>Calcium
+            </div>
+
+            <div className="line iron">
+              <div className="dv">
+                0%
+              </div>Iron
+            </div>
+
+            <div className="dvCalorieDiet line">
+              <div className="calorieNote">
+                <span className="star">*</span> Percent Daily Values are based on a 2000 calorie diet.<br/>
+                <div className="ingredientListDiv">
+                  <b className="active" id="ingredientList">INGREDIENTS:</b> None
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* Footer */}
+          <div className="modal-footer"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  );
 }
-
-/*
-Template
-
-
-
-*/
-
-class Entree extends React.Component {
-  render() {
-    return (
-      <CardDeck>
-        <Card >
-          <CardImg top width="50%" src="http://cdn1-www.momtastic.com/assets/uploads/2016/06/Cauliflower-Nuggets-4.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Cauliflower Nuggets</CardTitle>
-            <CardSubtitle>L 129</CardSubtitle>
-            <CardText>Empanizado con panco, acompañado de una salsa fresca de tomate y Tzatziki</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-        <Card>
-          <CardImg top width="50%" src="https://www.philadelphia.com.mx/modx/assets/img/revision2016/images/recetas/montaditos_fuerza_roja.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Montaditos</CardTitle>
-            <CardSubtitle>L 99</CardSubtitle>
-            <CardText>Cuatro tostadas de pan de hierbas; atún, vegetales asados, pollo al pesto, y carne de berenjena</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-
-        <Card>
-          <CardImg top width="50%" src="https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Croquetas de Vegetales</CardTitle>
-            <CardSubtitle>L 99</CardSubtitle>
-            <CardText>Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-        <Card >
-          <CardImg top width="50%" src="http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Palitos de Camote</CardTitle>
-            <CardSubtitle>L 49</CardSubtitle>
-            <CardText>Camotes a la francesa, acompañado de aderezo Tzatziki.</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-        <Card >
-          <CardImg top width="50%" src="http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Aros de Cebolla HK</CardTitle>
-            <CardSubtitle>L 89</CardSubtitle>
-            <CardText>5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-
-      </CardDeck>);
-  }
-}
-
-function renderPlatos(nombrePlato) {
-
-  let jsx = "";
-
-  switch (nombrePlato) {
-
-    case "Soups": {
-
-      jsx = (<CardDeck>
-
-        <Card >
-          <CardImg top width="50%" src="https://comidasperuanas.net/wp-content/uploads/2017/01/Sopa-de-Pollo-Peruana.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Sopa de Pollo HK</CardTitle>
-            <CardSubtitle>L 89</CardSubtitle>
-            <CardText>Caldo clarificado de pollo y vegetales con tallarines.</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-        <Card >
-          <CardImg top width="50%" src="https://estaticos.marie-claire.es/media/cache/680x_thumb/uploads/images/recipe/567925885bafe85dd944606c/interior-wonton-de-pollo.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Sopa de Wonton</CardTitle>
-            <CardSubtitle>L 109</CardSubtitle>
-            <CardText>Caldo ligero de pollo sazonado con soya y sésamo, tallarines y wonton hervido relleno de pollo.</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-        <Card >
-          <CardImg top width="50%" src="https://food.fnr.sndimg.com/content/dam/images/food/fullset/2014/3/5/1/BX0203H_Cream-of-Fresh-Tomato-Soup_s4x3.jpg.rend.hgtvcom.616.462.suffix/1394079586646.jpeg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Creamy Tomatoe</CardTitle>
-            <CardSubtitle>L 99</CardSubtitle>
-            <CardText>Acompañada con dos pupusas rellenas de queso.</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-        <Card >
-          <CardImg top width="50%" src="http://www.1001consejos.com/wp-content/uploads/2014/03/sopa-de-tortilla.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Sopa de Tortilla</CardTitle>
-            <CardSubtitle>L 129</CardSubtitle>
-            <CardText>Tradicional sopa Azteca con pollo.</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-
-      </CardDeck>);
-      break;
-
-    } //fin case 2
-    case "Salads": {
-
-      jsx = (<CardDeck>
-
-        <Card >
-          <CardImg top width="50%" src="https://simplyhomecooked.com/wp-content/uploads/2016/05/Chopped-caprese-salad-5.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Caprese Salad</CardTitle>
-            <CardSubtitle>L 149 | Pollo Extra: + L 49</CardSubtitle>
-            <CardText>Tomate fresco, cuajada, y albaca marinados al pesto, acompañado con mix de lechugas.</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-        <Card >
-          <CardImg top width="50%" src="https://www.ideahacks.com/wp-content/uploads/2017/08/Mediterranean-Quinoa-Salad.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Quinoa Salad</CardTitle>
-            <CardSubtitle>L 149</CardSubtitle>
-            <CardText>Mezclada con pepino, aceitunas, cebolla y guacamole, servido con tres rebanadas de pan tostado.</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-        <Card >
-          <CardImg top width="50%" src="https://revistamundonatural.com/wordpress/wp-content/uploads/2017/09/ensalada_mediterranea.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Ensalada Mediterranea</CardTitle>
-            <CardSubtitle>L 189 | Pollo Extra: + L 49</CardSubtitle>
-            <CardText>Mix de lechugas, tomates asados, hongos frescos, requesón y carbanzos con vinagreta de ajo rostizado. </CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-        <Card >
-          <CardImg top width="50%" src="https://www.rebanando.com/media/caesar-salad-source-thinkstock-jpg_crop.jpeg/rh/ensalada-cesar.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Ensalada César</CardTitle>
-            <CardSubtitle>L 189</CardSubtitle>
-            <CardText>Lechuga Romana, queso parmesano, cherry tomatoes, croutons, aderezo césar y pollo al grill.</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-        <Card >
-          <CardImg top width="50%" src="https://www.culinaryhill.com/wp-content/uploads/2017/09/Chipotle-Steak-Recipe-Culinary-Hill-2.jpg" alt="Card image cap" />
-          <CardBody>
-            <CardTitle>Chipotle Salad</CardTitle>
-            <CardSubtitle>L 189</CardSubtitle>
-            <CardText>Mix de lechugas, aguacate, y pollo con aderezo de chipotle.</CardText>
-            <Button>Ver más</Button>
-          </CardBody>
-        </Card>
-
-      </CardDeck>);
-      break;
-
-    } // fin case 3
-  }
-
-  return jsx;
 }
