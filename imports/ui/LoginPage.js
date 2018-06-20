@@ -58,6 +58,9 @@ export default class LoginPage extends React.Component {
             }//Fin del if anidado
 
           }else {
+<<<<<<< HEAD
+            this.props.history.push("/menu");
+=======
 
             let loginSuccessful = document.getElementById("successfulLogin");
             loginSuccessful.classList.add("show");
@@ -67,6 +70,7 @@ export default class LoginPage extends React.Component {
             }, 3000);
             email = "";
             password = "";
+>>>>>>> 8-view-de-cliente
           }
         });
     }
