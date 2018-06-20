@@ -38,5 +38,8 @@ Meteor.methods({
   },
   'orders.setInProgress'(id) {
     Orders.update(id, {$set: { status: 'InProgress'}});
+  },
+  'orders.delete'(id) {
+    Orders.remove(id);
   }
 });
