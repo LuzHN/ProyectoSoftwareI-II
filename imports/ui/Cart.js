@@ -40,7 +40,7 @@ export default class Cart extends React.Component{
     });
     console.log(price);
     let order = {
-      products: items,
+      products: this.state.cart.platos,
       price
     };
     //aqui esta como se insert

@@ -5,22 +5,34 @@ import InputMask from 'react-input-mask';
 import './../client/styles/register';
 
 export default class Register extends React.Component {
-  
+
   handleSubmit(e) {
     e.preventDefault();
   }
 
   onSubmit() {
-    
+
     let email = this.refs.email.value.trim();
     let password = this.refs.password.value.trim();
     let confirmPassword = this.refs.confirmPassword.value.trim();
     let firstName = this.refs.firstName.value.trim();
     let lastName = this.refs.lastName.value.trim();
-    let phoneNumber = this.refs.phoneNumber.value.trim();
-    let address = this.refs.address.value.trim();
+    let phoneNumber1 = this.refs.phoneNumber.value.trim();
+    let address1 = this.refs.address.value.trim();
 
-
+    let profile = {
+      firstName,
+      lastName,
+      phoneNumber1,
+      phoneNumber2: '',
+      phoneNumber3: '',
+      phoneNumber4: '',
+      address1,
+      address2: '',
+      address3: '',
+      address4: '',
+      role: 'user'
+    };
 
     //Validaciones
     let validator = 0;
@@ -41,7 +53,7 @@ export default class Register extends React.Component {
       setTimeout(function() {
           emailError.classList.remove("show");
       }, 3000);
-    
+
     }else if(email.charAt(email.length-4)!='.' && email.charAt(email.length-3)!='.'){
       validator=1;
       let emailError = this.refs.emailError;
@@ -90,7 +102,7 @@ export default class Register extends React.Component {
       setTimeout(function() {
           lastNameError.classList.remove("show");
       }, 3000);
-    }else if(phoneNumber == ''){
+    }else if(phoneNumber1 == ''){
       validator=1;
       let phoneNumberError = this.refs.phoneNumberError;
       phoneNumberError.classList.add("show");
@@ -98,7 +110,7 @@ export default class Register extends React.Component {
       setTimeout(function() {
           phoneNumberError.classList.remove("show");
       }, 3000);
-    }else if (phoneNumber.length < 8) {
+    }else if (phoneNumber1.length < 8) {
       validator=1;
       let phoneNumberError = this.refs.phoneNumberError;
       phoneNumberError.classList.add("show");
@@ -106,7 +118,7 @@ export default class Register extends React.Component {
       setTimeout(function() {
           phoneNumberError.classList.remove("show");
       }, 3000);
-    }else if (phoneNumber.charAt(0) !='9' && phoneNumber.charAt(0) !='3' && phoneNumber.charAt(0) !='8' && phoneNumber.charAt(0) !='7' && phoneNumber.charAt(0) !='2') {
+    }else if (phoneNumber1.charAt(0) !='9' && phoneNumber1.charAt(0) !='3' && phoneNumber1.charAt(0) !='8' && phoneNumber1.charAt(0) !='7' && phoneNumber1.charAt(0) !='2') {
       validator=1;
       let phoneNumberError = this.refs.phoneNumberError;
       phoneNumberError.classList.add("show");
@@ -114,7 +126,7 @@ export default class Register extends React.Component {
       setTimeout(function() {
           phoneNumberError.classList.remove("show");
       }, 3000);
-    }else if(address == ''){
+    }else if(address1 == ''){
       validator=1;
       let addressError = this.refs.addressError;
       addressError.classList.add("show");
@@ -126,12 +138,10 @@ export default class Register extends React.Component {
 
 
     if(!validator){
-      Accounts.createUser({ email, password }, (err) =>{
+      Accounts.createUser({ email, password, profile }, (err) =>{
         if (err) {
-          console.log('entro aqui');
           alert(err.reason);
         }else {
-          console.log('esta pendejada');
           alert('user created');
         }
       });
@@ -155,13 +165,13 @@ export default class Register extends React.Component {
                 <div className="box-1">
                   <p>
                     <label>Password</label>
-                    <input ref="password" type="password" placeholder='Enter Password' />                 
+                    <input ref="password" type="password" placeholder='Enter Password' />
                   </p>
                 </div>
                 <div className="box-2">
                   <p>
                     <label>Confirm Password</label>
-                    <input ref = "confirmPassword" type="password" placeholder='Confirm Password'/> 
+                    <input ref = "confirmPassword" type="password" placeholder='Confirm Password'/>
                   </p>
                 </div>
               </div>
@@ -175,7 +185,7 @@ export default class Register extends React.Component {
                 <div className="box-2">
                   <p>
                     <label>Last Name</label>
-                    <input ref="lastName" type="text" placeholder='Enter Last Name' maxLength='140' /> 
+                    <input ref="lastName" type="text" placeholder='Enter Last Name' maxLength='140' />
                   </p>
                 </div>
               </div>
