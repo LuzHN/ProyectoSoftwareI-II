@@ -10,8 +10,6 @@ import '../styles/menu.css';
 
 export default class Menu extends React.Component {
 
-
-
   render() {
     return (
       <div>
@@ -227,7 +225,7 @@ function renderPlatos(nombrePlato) {
   let jsx = "";
 
   switch (nombrePlato) {
-   
+
     case "Soups": {
 
       jsx = (<CardDeck>
