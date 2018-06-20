@@ -39,6 +39,7 @@ export default class Cart extends React.Component{
     ];
     let rows = items.map((item) =>
     <tr>
+      {this.CalcSubtotal(item.price, item.quantity)}
       <th scope="row">
         <div className="card">
           <img className="card-img-top" src={item.product.image} alt="Image food"/>
@@ -51,8 +52,8 @@ export default class Cart extends React.Component{
       </th>
       <td>Lps.{item.price.toFixed(2)}</td>
       <td>{item.quantity}</td>
-      {this.Subtotal(item.price,item.quantity)}
     </tr>
+
     );
 
     let newVal = (
@@ -70,9 +71,9 @@ export default class Cart extends React.Component{
         </tbody>
       </table>
       <div>
-        <h3>Subtotal:{this.state.subtotal}</h3>
+        <h3>Subtotal:Lps.{this.state.subtotal.toFixed(2)}</h3>
         <h3>ISV: 15%</h3>
-        <h2>Total:{(this.state.subtotal*0.15)+this.state.subtotal}</h2>
+        <h2>Total:Lps.{((this.state.subtotal*0.15)+this.state.subtotal).toFixed(2)}</h2>
         <button className="btn btn-primary">Confirmar</button>
       </div>
       </div>
@@ -85,9 +86,9 @@ export default class Cart extends React.Component{
     return this.setState({...this.state, value: newVal})
   }
 
-  Subtotal(price,quantity){
-    let sub = this.state.subtotal+(price*quantity);
-    return this.setState({...this.state, subtotal: sub});
+  CalcSubtotal(price,quantity){
+    let subtotal = 23;
+    return this.setState({...this.state, subtotal: subtotal});
   }
 
   render(){
