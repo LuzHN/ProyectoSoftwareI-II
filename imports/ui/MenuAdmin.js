@@ -19,6 +19,8 @@ export default class MenuAdmin extends Component {
     let price = this.refs.precioPlato.value.trim();
     let description = this.refs.descriptionPlato.value.trim();
     let type = '';
+    let string = '';
+    let calories = '';
     let totalFat = '';
     let saturatedFat =  '';
     let transFat = '';
@@ -66,16 +68,6 @@ export default class MenuAdmin extends Component {
   componentWillUnmount() {
     this.dishesTracker.stop();
   }
-
-  renderDishes() {
-    return this.state.dishes.map((dish) => {
-      return (
-        <div key={dish._id}>
-          <p>{dish.name}</p>
-        </div>
-      );
-    });
-  };
 
   openAgregar(){
     var modal = document.getElementById('simpleModal');
