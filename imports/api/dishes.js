@@ -39,6 +39,6 @@ Meteor.methods({
     });
   },
   'dishes.delete'(id) {
-    Dish.remove(id);
+    Dishes.remove(id);
   }
 });

@@ -65,6 +65,16 @@ export default class MenuAdmin extends Component {
     this.dishesTracker.stop();
   }
 
+  renderDishes() {
+    return this.state.dishes.map((dish) => {
+      return (
+        <div key={dish._id}>
+          <p>{dish.name}</p>
+        </div>
+      );
+    });
+  };
+
   openAgregar(){
     var modal = document.getElementById('simpleModal');
     modal.style.display = 'block';
@@ -98,7 +108,6 @@ export default class MenuAdmin extends Component {
                 <a href="#SelectedMenu" className="list-group-item d-flex justify-content-between align-items-center"
                   onClick={function () {ReactDOM.render(renderPlatos("Soups"), document.getElementById('SelectedMenu'));}} >
                   Sopas
-                  {console.log(this.state.dishes)}
                 </a>
                 <a href="#SelectedMenu" className="list-group-item d-flex justify-content-between align-items-center"
                   onClick={function () {ReactDOM.render(renderPlatos("Salads"), document.getElementById('SelectedMenu'));}}>
@@ -158,7 +167,7 @@ export default class MenuAdmin extends Component {
         </div>
 
         <section id="Menu" >
-          <div id="SelectedMenu"><Entree/></div>
+          <div id="SelectedMenu"><Entree dishes={this.state.dishes}/></div>
         </section>
 
         <div id="wrapper">
@@ -256,7 +265,7 @@ class Entree extends Component {
   render() {
     return (
       <div className="card-columnas">
-        {renderPlates(Entrees)}
+        {renderPlates(this.props.dishes)}
       </div>
     );
   }
@@ -264,16 +273,16 @@ class Entree extends Component {
 
 
 const renderPlates = (platesList) => {
-  return platesList.map((plate, i) => {
+  return platesList.map((dish) => {
     return (
-      <div className="cards_item" key={i}>
+      <div className="cards_item" key={dish._id}>
         <div className="card-card">
-          <img className="card-img" src={plate.foto} alt="Card image cap"/>
+          <img className="card-img"  alt="Card image cap"/>
           <div className="card-content">
-            <h3 className="card-titulo">{plate.titulo}</h3>
-            <p className="card-price">L. {plate.precio}</p>
-            <p className="card-desc">{plate.descripcion}</p>
-            <ButtonPlato plato={plate}></ButtonPlato>
+            <h3 className="card-titulo">{dish.name}</h3>
+            <p className="card-price">L. {dish.price}</p>
+            <p className="card-desc">{dish.description}</p>
+            <ButtonPlato id={dish._id}></ButtonPlato>
           </div>
         </div>
       </div>
@@ -282,11 +291,14 @@ const renderPlates = (platesList) => {
 }
 
 class ButtonPlato extends Component {
+  deleteDish(id) {
+    Meteor.call('dishes.delete', id);
+  }
   render() {
     return (
-      <div class="btn-bg bg-2">
-        <div class="btn btn-2">
-          <button>Editar Plato</button>
+      <div className="btn-bg bg-2">
+        <div className="btn btn-2">
+          <button onClick={() => this.deleteDish(this.props.id)}>Delete</button>
         </div>
       </div>
     );
