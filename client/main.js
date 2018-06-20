@@ -15,6 +15,7 @@ import NotFound from '../imports/ui/NotFound';
 import Principal from '../imports/ui/Principal';
 import Register from '../imports/ui/Register';
 import LoginPage from '../imports/ui/LoginPage';
+import EditProfilePage from '../imports/ui/EditProfilePage';
 
 
 const routes = (
@@ -23,6 +24,7 @@ const routes = (
             <Route path="/menu" exact component={Menu} history = {browserHistory}/>
             <Route path="/register" component={Register} history = {browserHistory} simon="simon"/>
             <Route path ="/login" component={LoginPage} history = {browserHistory}/>
+            <Route path ="/editProfile" component={EditProfilePage} history = {browserHistory}/>
             <Route path="*" component={NotFound} history = {browserHistory}/>
         </Switch>
     </BrowserRouter>
