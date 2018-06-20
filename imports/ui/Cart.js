@@ -15,7 +15,6 @@ export default class Cart extends React.Component{
     this.state= {
       orders: [],
       value : 0,
-      subtotal : 0
     };
   }
   componentDidMount() {
@@ -32,7 +31,7 @@ export default class Cart extends React.Component{
     let items = [
       {
         product:{
-          image:"https://www.imanet.org/-/media/87b3b2fc07ec476e98f9279f5cc0fb1e.ashx?h=200&w=200&la=en&hash=8650EEABE56B14E9CFB3E2469E3F3C32C86D4FE0",
+          image:"https://food.fnr.sndimg.com/content/dam/images/food/fullset/2011/3/1/0/FNM_040111-WN-Dinners-030_s4x3.jpg.rend.hgtvcom.616.462.suffix/1371595164628.jpeg",
           name:"Pasta",
           description:"sin queso porfavor",
           quantity:2
@@ -51,7 +50,7 @@ export default class Cart extends React.Component{
     ];
     let price = 0;
     let getPrice = items.forEach((item) => {
-      price += item.price;
+      price += item.price*item.product.quantity;
     });
     console.log(price);
     let order = {
@@ -65,7 +64,6 @@ export default class Cart extends React.Component{
     Meteor.call('orders.setPending', id);
     let rows = items.map((item) =>
     <tr>
-      {this.CalcSubtotal(item.price, item.quantity)}
       <th scope="row">
         <div className="card">
           <img className="card-img-top" src={item.product.image} alt="Image food"/>
@@ -77,9 +75,8 @@ export default class Cart extends React.Component{
           </div>
       </th>
       <td>Lps.{item.price.toFixed(2)}</td>
-      <td>{item.quantity}</td>
+      <td>{item.product.quantity}</td>
     </tr>
-
     );
 
     let newVal = (
@@ -97,9 +94,9 @@ export default class Cart extends React.Component{
         </tbody>
       </table>
       <div>
-        <h3>Subtotal:Lps.{this.state.subtotal.toFixed(2)}</h3>
+        <h3>Subtotal:Lps.{price.toFixed(2)}</h3>
         <h3>ISV: 15%</h3>
-        <h2>Total:Lps.{((this.state.subtotal*0.15)+this.state.subtotal).toFixed(2)}</h2>
+        <h2>Total:Lps.{((price*0.15)+price).toFixed(2)}</h2>
         <button className="btn btn-primary">Confirmar</button>
       </div>
       </div>
@@ -110,11 +107,6 @@ export default class Cart extends React.Component{
   onHistory(){
     let newVal = 2;
     return this.setState({...this.state, value: newVal})
-  }
-
-  CalcSubtotal(price,quantity){
-    let subtotal = 23;
-    return this.setState({...this.state, subtotal: subtotal});
   }
 
   render(){
