@@ -25,6 +25,7 @@ Meteor.methods({
       string: dish.string,
       nutritionFacts: {
         calores: dish.calories,
+
         totalFat: dish.totalFat,
         saturatedFat: dish.saturatedFat,
         transFat: dish.transFat,
