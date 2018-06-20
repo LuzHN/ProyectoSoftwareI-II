@@ -81,33 +81,36 @@ class MenuEmpleadoComponente extends React.Component {
 
     state = {
         simon: "simon",
-        entradas: [{"categoria":"Entree","titulo":"Cauliflower Nuggets","precio":"129","descripcion":"Empanizado con panco acompañado con una salsa fresca de tomate y Tzatziki","foto":"http://cdn1-www.momtastic.com/assets/uploads/2016/06/Cauliflower-Nuggets-4.jpg","nutricional":""},
-        {"categoria":"Entree","titulo":"Montaditos","precio":"99","descripcion":"Cuatro tostadas de pan de hierbas; atún, vegetales asados, pollo al pesto, y carne de berenjena","foto":"https://www.philadelphia.com.mx/modx/assets/img/revision2016/images/recetas/montaditos_fuerza_roja.jpg","nutricional":""},
-        {"categoria":"Entree","titulo":"Croquetas de Vegetales","precio":"99","descripcion":"Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki","foto":"https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg","nutricional":""},
-        {"categoria":"Entree","titulo":"Palitos de Camote","precio":"49","descripcion":"Camotes a la francesa, acompañado de aderezo Tzatziki.","foto":"http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg","nutricional":""},
-        {"categoria":"Entree","titulo":"Aros de Cebolla HK","precio":"89","descripcion":"5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.","foto":"http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg","nutricional":""},
-        {"categoria":"Entree","titulo":"Palitos de Camote","precio":"49","descripcion":"Camotes a la francesa, acompañado de aderezo Tzatziki.","foto":"http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg","nutricional":""},
-        {"categoria":"Entree","titulo":"Aros de Cebolla HK","precio":"89","descripcion":"5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.","foto":"http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg","nutricional":""},
-        {"categoria":"Entree","titulo":"Croquetas de Vegetales","precio":"99","descripcion":"Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki","foto":"https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg","nutricional":""}]
+        entradas: [{"categoria":"Entree","titulo":"Cauliflower Nuggets","precio":"129","descripcion":"Empanizado con panco acompañado con una salsa fresca de tomate y Tzatziki","foto":"http://cdn1-www.momtastic.com/assets/uploads/2016/06/Cauliflower-Nuggets-4.jpg","nutricional":"", "estado": "Pendiente"},
+        {"categoria":"Entree","titulo":"Montaditos","precio":"99","descripcion":"Cuatro tostadas de pan de hierbas; atún, vegetales asados, pollo al pesto, y carne de berenjena","foto":"https://www.philadelphia.com.mx/modx/assets/img/revision2016/images/recetas/montaditos_fuerza_roja.jpg","nutricional":"", "estado": "Pendiente"},
+        {"categoria":"Entree","titulo":"Croquetas de Vegetales","precio":"99","descripcion":"Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki","foto":"https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg","nutricional":"", "estado": "Pendiente"},
+        {"categoria":"Entree","titulo":"Palitos de Camote","precio":"49","descripcion":"Camotes a la francesa, acompañado de aderezo Tzatziki.","foto":"http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg","nutricional":"", "estado": "Pendiente"},
+        {"categoria":"Entree","titulo":"Aros de Cebolla HK","precio":"89","descripcion":"5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.","foto":"http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg","nutricional":"", "estado": "Pendiente"},
+        {"categoria":"Entree","titulo":"Palitos de Camote","precio":"49","descripcion":"Camotes a la francesa, acompañado de aderezo Tzatziki.","foto":"http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg","nutricional":"", "estado": "Pendiente"},
+        {"categoria":"Entree","titulo":"Aros de Cebolla HK","precio":"89","descripcion":"5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.","foto":"http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg","nutricional":"", "estado": "Pendiente"},
+        {"categoria":"Entree","titulo":"Croquetas de Vegetales","precio":"99","descripcion":"Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki","foto":"https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg","nutricional":"", "estado": "Pendiente"}]
     }
 
     render() {
         return (
             <div class="card-columns EmployeeCardColumn">
-                {renderPlates(Entrees, this.state.simon, this.imprimir)}
+                {renderPlates(this.state.entradas, this.state.simon, this.cambiarEstado)}
             </div>
         );
     }
 
-    imprimir = (i, estado) =>{
-        let entradass = this.entradas;
+    cambiarEstado = (i, estado) =>{
+        var entradass = this.state.entradas;
         entradass[i].estado = estado;
+        console.log(entradass[i].estado );
         this.setState({...state, entradas: entradass})
+        // renderPlates(Entrees, this.state.simon, this.imprimir);
     }
 }
 
-const renderPlates = (platesList, simon, imprimir) => { //metodo a usar con la base
+const renderPlates = (platesList, simon, cambiarEstado) => { //metodo a usar con la base
     return platesList.map((plate, i) => {
+      console.log(plate);
         return (
 
 
@@ -132,13 +135,9 @@ const renderPlates = (platesList, simon, imprimir) => { //metodo a usar con la b
                         <span id = "state">Estado: {plate.estado}</span>
                         <button id = "btn" onClick={function () {
                             if (plate.estado == "Pendiente") {
-                                console.log(platesList[i].estado);
-                                platesList[i].estado = "simon";
-                                console.log(platesList[i].estado);
-                                simon = "nomon";
-                                imprimir(i, "Terminado");
+                                cambiarEstado(i, "Terminado");
                             } else {
-                                
+                                cambiarEstado(i, "Pendiente");
                             }
                         }}>Cambiar a {returnState(plate.estado)}</button>
                     </div>
@@ -153,10 +152,10 @@ const renderPlates = (platesList, simon, imprimir) => { //metodo a usar con la b
 }
 
 function returnState(state){
-    if(state == "Pendiente"){
+    if(state === "Pendiente"){
         return "Terminado";
     } else{
-        return state;
+        return "Pendiente";
     }
 }
 
