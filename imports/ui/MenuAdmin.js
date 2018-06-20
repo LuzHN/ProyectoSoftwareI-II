@@ -15,11 +15,10 @@ export default class MenuAdmin extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    console.log(this)
     let name = this.refs.nombrePlato.value.trim();
     let price = this.refs.precioPlato.value.trim();
     let description = this.refs.descriptionPlato.value.trim();
-    let type = this.refs.tipodeComida.selected;
+    let type = this.refs.tipodeComida[this.refs.tipodeComida.selectedIndex].value;
     let string = '';
     let calories = '';
     let totalFat = '';
@@ -40,6 +39,7 @@ export default class MenuAdmin extends Component {
         name,
         price,
         description,
+        type,
         totalFat,
         saturatedFat,
         transFat,

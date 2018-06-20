@@ -85,7 +85,7 @@ const renderPlates = (platesList) => { //metodo a usar con la base
                     <div className="card-body">
                         <div>
                             <h1 className="card-title">{`${product.plato} - Cantidad: ${product.cantidad}`}
-                                
+
                             </h1>
                             <hr></hr>
                             <h2 id="InfoCliente" className="card-text">Cliente: {plate.cliente}</h2>
@@ -96,14 +96,14 @@ const renderPlates = (platesList) => { //metodo a usar con la base
                             </p>
                             <hr></hr>
                         </div>
-    
+
                         <div className="card-footer text-muted">
                             <span className = "green">Estado: </span>
                             <span className = "red">{plate.status}</span>
-                            <button className="ChangeState" onClick= {function () {
+                            <button className="ChangeState" id="ingresado" onClick= {function () {
                                 if (plate.status == "") {
                                     Meteor.call('orders.setInProgress', plate._id)
-    
+                                    this.document.getElementById("ingresado").setAttribute("disabled", "true");
                                 }
                             }}>Cambiar a Ingresado</button>
                             <button className="ChangeState" onClick={function () {
@@ -118,6 +118,6 @@ const renderPlates = (platesList) => { //metodo a usar con la base
                 </div>
             );
         }));
-        
+
     });
 }
