@@ -27,10 +27,16 @@ Meteor.methods({
       userId: this.uderId
     });
   },
-  'orders.setCompleted'(id) {
-    Orders.update(id, {$set: { status: 'Completed'}});
+  'orders.setDispatched'(id) {
+    Orders.update(id, {$set: { status: 'Dispatched'}});
   },
   'orders.setPending'(id) {
     Orders.update(id, {$set: { status: 'Pending'}});
+  },
+  'orders.setPreOrder'(id) {
+    Orders.update(id, {$set: { status: 'PreOrder'}});
+  },
+  'orders.setInProgress'(id) {
+    Orders.update(id, {$set: { status: 'InProgress'}});
   }
 });
