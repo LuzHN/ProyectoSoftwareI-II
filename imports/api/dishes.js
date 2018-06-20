@@ -21,6 +21,7 @@ Meteor.methods({
       name: dish.name,
       price: dish.price,
       description: dish.description,
+      type: dish.type,
       nutritionFacts: {
         totalFat: dish.totalFat,
         saturatedFat: dish.saturatedFat,

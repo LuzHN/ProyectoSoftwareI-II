@@ -18,6 +18,7 @@ export default class MenuAdmin extends Component {
     let name = this.refs.nombrePlato.value.trim();
     let price = this.refs.precioPlato.value.trim();
     let description = this.refs.descriptionPlato.value.trim();
+    let type = '';
     let totalFat = '';
     let saturatedFat =  '';
     let transFat = '';
