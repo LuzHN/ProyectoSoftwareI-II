@@ -89,7 +89,6 @@ export default class Menu extends Component {
       })
     });
 
-
   }
 
   componentWillUnmount() {
@@ -325,11 +324,9 @@ export default class Menu extends Component {
             </div>
 
             <div className="bar2"></div>
-
             <div className="line ar" style={{fontWeight: "bold"}}>
               % Daily Value<sup>*</sup>
             </div>
-
             <div className="line">
               <div className="dv">
                 <b>0</b>%
