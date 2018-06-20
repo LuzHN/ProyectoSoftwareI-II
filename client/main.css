@@ -3,3 +3,26 @@
 
 @import '../imports/client/styles/Login.css';
 
+@import '../imports/client/styles/cart.css';
+
+.navbar{
+  background-color: #172C2F;
+}
+
+.nav-link{
+  color: #9EC847;
+}
+
+.img{
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  background-image: url(logo1.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  padding: 0;
+  height: 120%;
+  width: 75px;
+}

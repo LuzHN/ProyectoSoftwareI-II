@@ -32,16 +32,6 @@ body{
     grid-gap: 1rem;
   }
 
- 
- .image {
-  margin: 54px 46px;
-  background-image: url(logo.PNG);
-  background-repeat: no-repeat;
-  padding-top: 15rem;
-  padding-right: 39rem;
-  margin-left: 18%;
-}
-
   .contact form label{
     display: block;
   }
@@ -88,6 +78,41 @@ body{
     flex:1;
     order:2;
   }
+
+  #emailError, #passwordError, #confirmPasswordError, #firstNameError, #lastNameError, #phoneNumberError, #addressError {
+    background-color: #e33444;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 17px;
+    left: 50%;
+    min-width: 250px;
+    padding: 16px;
+    position: fixed;
+    text-align: center;
+    transform: translate(-50%);
+    top: 0;
+    visibility: hidden;
+    z-index: 1;
+}
+
+#emailError.show, #passwordError.show, #confirmPasswordError.show, #firstNameError.show, #lastNameError.show, #phoneNumberError.show, #addressError.show {
+    visibility: visible;
+    animation: fadeInOut 3s;
+}
+
+.image {
+  margin: 54px 46px;
+  background-image: url(logo.PNG);
+  background-repeat: no-repeat;
+  padding-top: 15rem;
+  padding-right: 39rem;
+  margin-left: 18%;
+}
+
+@keyframes fadeInOut {
+    5%,95%{opacity: 1; top: 38rem}
+    15%,85%{opacity:1; top: 38rem} 
+}
 
 /*Large Screens*/
 
