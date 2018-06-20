@@ -31,26 +31,44 @@ export default class MenuAdmin extends Component {
     let vitaminC = '';
     let calcium = '';
     let iron = '';
-
-    let dish = {
-      name,
-      price,
-      description,
-      totalFat,
-      saturatedFat,
-      transFat,
-      cholesterol,
-      sodium,
-      totalCarbohydrates,
-      dietaryFibers,
-      sugar,
-      protein,
-      vitaminA,
-      vitaminC,
-      calcium,
-      iron
+    if (name != "" && price != "" && description != "") {
+      let dish = {
+        name,
+        price,
+        description,
+        totalFat,
+        saturatedFat,
+        transFat,
+        cholesterol,
+        sodium,
+        totalCarbohydrates,
+        dietaryFibers,
+        sugar,
+        protein,
+        vitaminA,
+        vitaminC,
+        calcium,
+        iron
+      }
+      Meteor.call('dishes.insert', dish);
+      let platoAgregado = document.getElementById("platoAgregadoToast");
+      platoAgregado.classList.add("show");
+      platoAgregado.innerHTML = "Se ha agregado un plato nuevo."
+      setTimeout(function() {
+        platoAgregado.classList.remove("show");
+        var modal = document.getElementById('simpleModal');
+        modal.style.display = 'none';
+      }, 3000);
+    } else {
+      
+      let platoAgregado = document.getElementById("platoAgregadoToast");
+      platoAgregado.classList.add("show");
+      platoAgregado.innerHTML = "No ha ingresado todos los datos."
+      setTimeout(function() {
+        platoAgregado.classList.remove("show");
+      }, 3000);
     }
-    Meteor.call('dishes.insert', dish);
+
   }
 
   componentDidMount() {
@@ -76,6 +94,9 @@ export default class MenuAdmin extends Component {
   };
 
   openAgregar(){
+    this.refs.nombrePlato.value = "";
+    this.refs.precioPlato.value = "";
+    this.refs.descriptionPlato.value = "";
     var modal = document.getElementById('simpleModal');
     modal.style.display = 'block';
   }
@@ -83,6 +104,21 @@ export default class MenuAdmin extends Component {
   closeAgregar(){
     var modal = document.getElementById('simpleModal');
     modal.style.display = 'none';
+  }
+
+  agregarFinal() {
+    let platoAgregado = document.getElementById("platoAgregadoToast");
+    platoAgregado.classList.add("show");
+    platoAgregado.innerHTML = "Se ha agregado un plato nuevo."
+    let name = this.refs.nombrePlato.value;
+    let price = this.refs.precioPlato.value;
+    let descript = this.refs.descriptionPlato.value;
+    setTimeout(function() {
+      platoAgregado.classList.remove("show");
+      name = "";
+      price = "";
+      descript = "";
+    }, 3000);
   }
 
 
@@ -203,8 +239,9 @@ export default class MenuAdmin extends Component {
                   <textarea  id="inputAgregar"  ref="descriptionPlato" rows="5" placeholder='Enter Descripción Plato' maxLength='140'></textarea>
                 </p>
                 <p>
-                  <button className="agregarFinalBtn">Agregar Plato</button>
+                  <button className="agregarFinalBtn" onClick = {this.agregarFinal.bind(this)}>Agregar Plato</button>
                 </p>
+                <div id = "platoAgregadoToast"></div>
               </form>
             </div>
             {/* Footer */}
