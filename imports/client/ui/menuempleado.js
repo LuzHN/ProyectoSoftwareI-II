@@ -7,9 +7,27 @@ import {
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/menu.css';
+import {Orders} from '../../api/orders'
 
 
 export default class MenuEmployee extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      orders: []
+    }
+  }
+  componentDidMount() {
+    this.ordersTracker = Tracker.autorun(() => {
+      Meteor.subscribe('orders');
+      const orders = Orders.find().fetch();
+      this.setState({ orders });
+    });
+  }
+
+  componentWillUnmount() {
+    this.ordersTracker.stop();
+  }
 
     render() {
         return (
@@ -22,15 +40,14 @@ export default class MenuEmployee extends React.Component {
 
                 <div className="pos-f-t "></div>
 
-                <section class="MenuEmployee" >
-                    <MenuEmployeeComponent />
+                <section className="MenuEmployee" >
+                    <MenuEmployeeComponent orders={this.state.orders}/>
                 </section>
 
                 <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg" />
 
                 <footer id="Footer">
                     <img className="LogoHK" src="http://www.healthkitchen.hn/static/media/hk-logo.b8b1c147.svg" alt="Logo" />
-
                     <div className="FooterDescription">
                         <h3 className="green"><b>Ubicanos</b></h3>
                         <p className="olive">Metrópolis</p>
@@ -51,24 +68,10 @@ export default class MenuEmployee extends React.Component {
 
 }
 class MenuEmployeeComponent extends React.Component {
-
-    state = {
-
-        orders: [
-            { "titulo": "Cauliflower Nuggets", "estado": "Pendiente", "cliente": "Jose Ricardo", "Direccion": "Nullam sed nisi eu leo suscipit consectetur nec in sapien." },
-            { "titulo": "Montaditos", "estado": "Pendiente", "cliente": "Harold Mendoza", "Direccion": "Mauris sit amet purus vel eros accumsan faucibus. Aenean leo." },
-            { "titulo": "Croquetas de Vegetales", "estado": "Pendiente", "cliente": "Luis Cabrera", "Direccion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque enim." },
-            { "titulo": "Palitos de Camote", "estado": "Pendiente", "cliente": "Diego Galdamez", "Direccion": "Pellentesque maximus molestie hendrerit." },
-            { "titulo": "Aros de Cebolla HK", "estado": "Pendiente", "cliente": "Walther Carrasco", "Direccion": "Pellentesque maximus molestie hendrerit." },
-            { "titulo": "Palitos de Camote", "estado": "Pendiente", "cliente": "Mauricio Matamoros", "Direccion": "Pellentesque maximus molestie hendrerit." },
-            { "titulo": "Aros de Cebolla HK", "estado": "Pendiente", "cliente": "Miguel Ardon", "Direccion": "Pellentesque maximus molestie hendrerit." },
-            { "titulo": "Croquetas de Vegetales", "estado": "Pendiente", "cliente": "Mario Raudales", "Direccion": "Pellentesque maximus molestie hendrerit." }]
-    }
-
     render() {
         return (
-            <div class="card-columns EmployeeCardColumn">
-                {renderPlates(this.state.orders, this.cambiarEstado, this.deleteCard)}
+            <div className="card-columns EmployeeCardColumn">
+                {renderPlates(this.props.orders, this.cambiarEstado, this.deleteCard)}
             </div>
         );
     }
@@ -88,14 +91,14 @@ class MenuEmployeeComponent extends React.Component {
 }
 
 const renderPlates = (platesList, cambiarEstado, deleteCard) => { //metodo a usar con la base
-    return platesList.map((plate, i) => {
+    return platesList.map((plate) => {
         return (
-            <div className="card EmployeeCard " key={i}>
+            <div className="card EmployeeCard " key={plate._id}>
                 <div className="card-body">
                     <div>
-                        <h1 className="card-title">{plate.titulo}
+                        <h1 className="card-title">{plate.products[0].plato}
                             <button onClick={function () {
-                                deleteCard(i);
+                                Meteor.call('orders.delete', plate._id)
                             }} className="RemovePlate">x</button>
                         </h1>
                         <hr></hr>
@@ -108,13 +111,13 @@ const renderPlates = (platesList, cambiarEstado, deleteCard) => { //metodo a usa
                         <hr></hr>
                     </div>
 
-                    <div class="card-footer text-muted">
+                    <div className="card-footer text-muted">
                         <span className = "green">Estado: </span>
                         <span className = "red">{plate.estado}</span>
                         <button className="ChangeState" onClick= {function () {
                             if (plate.estado == "Pendiente") {
                                 cambiarEstado(i, "Ingresado");
-                                
+
                             }
                         }}>Cambiar a Ingresado</button>
                         <button className="ChangeState" onClick={function () {
@@ -130,4 +133,3 @@ const renderPlates = (platesList, cambiarEstado, deleteCard) => { //metodo a usa
         );
     });
 }
-
