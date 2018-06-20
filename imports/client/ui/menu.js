@@ -89,7 +89,6 @@ export default class Menu extends Component {
       })
     });
 
-
   }
 
   componentWillUnmount() {
@@ -107,11 +106,12 @@ export default class Menu extends Component {
     this.setState({...this.state, platosMostrados: platosMostrar});
   }
 
-  clickComida = (plato, precio) =>{
+  clickComida = (plato, precio, imagen) =>{
 
     const platoOrdenado = {
       plato,
-      precio
+      precio,
+      imagen
     }
 
     const platosOrdenados = this.state.cart.platos;
@@ -325,11 +325,9 @@ export default class Menu extends Component {
             </div>
 
             <div className="bar2"></div>
-
             <div className="line ar" style={{fontWeight: "bold"}}>
               % Daily Value<sup>*</sup>
             </div>
-
             <div className="line">
               <div className="dv">
                 <b>0</b>%

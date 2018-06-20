@@ -10,7 +10,7 @@ class ButtonPlato extends Component {
             if(this.props.texto === "Informacion Nutricional"){
               this.props.onClick();
             }else{
-              this.props.onClick(this.props.plato, this.props.precio)
+              this.props.onClick(this.props.plato, this.props.precio, this.props.imagen)
             }
           }}>{this.props.texto}</button>
         </div>

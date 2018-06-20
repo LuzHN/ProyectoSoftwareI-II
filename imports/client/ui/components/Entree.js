@@ -15,7 +15,7 @@ renderPlates = (props) => {
             <p className="card-price">L. {plate.price}</p>
             <p className="card-desc">{plate.description}</p>
             <ButtonPlato texto="Informacion Nutricional" onClick={props.modal}></ButtonPlato>
-            <ButtonPlato texto="Agregar a Carrito" onClick={props.onClick} plato={plate.titulo} precio={plate.precio}></ButtonPlato>
+            <ButtonPlato texto="Agregar a Carrito" onClick={props.onClick} plato={plate.name} precio={plate.price} imagen={plate.image}></ButtonPlato>
           </div>
         </div>
       </div>
