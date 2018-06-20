@@ -6,16 +6,28 @@ import PropTypes from 'prop-types';
 import { Router, Route, browserHistory} from 'react-router';
 import {withRouter} from "react-router-dom";
 import { Redirect } from 'react-router';
+import { Orders } from '../api/orders';
 import './../client/styles/cart';
 
 export default class Cart extends React.Component{
   constructor(props){
     super(props);
     this.state= {
+      orders: [],
       value : 0,
       subtotal : 0
     };
   }
+  componentDidMount() {
+    this.ordersTracker = Tracker.autorun(() => {
+      Meteor.subscribe('client-orders');
+      const orders = Orders.find().fetch();
+      this.setState({ orders });
+    });
+  };
+  componentWillUnmount() {
+    this.ordersTracker.stop();
+  };
   onActual(){
     let items = [
       {
@@ -23,20 +35,34 @@ export default class Cart extends React.Component{
           image:"https://www.imanet.org/-/media/87b3b2fc07ec476e98f9279f5cc0fb1e.ashx?h=200&w=200&la=en&hash=8650EEABE56B14E9CFB3E2469E3F3C32C86D4FE0",
           name:"Pasta",
           description:"sin queso porfavor",
+          quantity:2
         },
         price:22,
-        quantity:2
       },
       {
         product:{
           image:"hamburguesa1",
           name:"Italian Hamburger",
           description:"",
+          quantity:1
         },
         price:198.00,
-        quantity:1
       }
     ];
+    let price = 0;
+    let getPrice = items.forEach((item) => {
+      price += item.price;
+    });
+    console.log(price);
+    let order = {
+      products: items,
+      price
+    };
+    //aqui esta como se insert
+    Meteor.call('orders.insert', order);
+    //ejemplo de como se marca pending/completed
+    let id = '9qxdEChNBWKh2PSvD';
+    Meteor.call('orders.setPending', id);
     let rows = items.map((item) =>
     <tr>
       <th scope="row">
