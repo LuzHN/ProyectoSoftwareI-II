@@ -20,8 +20,8 @@ import LoginPage from '../imports/ui/LoginPage';
 const routes = (
     <BrowserRouter history = {browserHistory}>
         <Switch history = {browserHistory}>
-            <Route path="/menu" exact component={Menu} history = {browserHistory}/> 
-            <Route path="/register" component={Register} history = {browserHistory}/>
+            <Route path="/menu" exact component={Menu} history = {browserHistory}/>
+            <Route path="/register" component={Register} history = {browserHistory} simon="simon"/>
             <Route path ="/login" component={LoginPage} history = {browserHistory}/>
             <Route path="*" component={NotFound} history = {browserHistory}/>
         </Switch>

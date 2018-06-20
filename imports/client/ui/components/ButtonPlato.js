@@ -5,7 +5,14 @@ class ButtonPlato extends Component {
     return (
       <div className="btn-bg bg-2">
         <div className="btn btn-2">
-          <button href="#">Informacion Nutricional</button>
+          <button href="#" onClick={enviar= (e)=>{
+            e.preventDefault();
+            if(this.props.texto === "Informacion Nutricional"){
+              this.props.onClick();
+            }else{
+              this.props.onClick(this.props.plato, this.props.precio)
+            }
+          }}>{this.props.texto}</button>
         </div>
       </div>
     );
