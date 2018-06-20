@@ -75,61 +75,49 @@ class MenuEmployeeComponent extends React.Component {
             </div>
         );
     }
-
-    cambiarEstado = (i, estado) => {
-        var neworders = this.state.orders;
-        neworders[i].estado = estado;
-        this.setState({ ...this.state, orders: neworders })
-    }
-
-    deleteCard = (i) => {
-        var neworders = this.state.orders;
-        neworders.splice(i, 1);
-        this.setState({ ...this.state, orders: neworders })
-
-    }
 }
 
-const renderPlates = (platesList, cambiarEstado, deleteCard) => { //metodo a usar con la base
+const renderPlates = (platesList) => { //metodo a usar con la base
     return platesList.map((plate) => {
-        return (
-            <div className="card EmployeeCard " key={plate._id}>
-                <div className="card-body">
-                    <div>
-                        <h1 className="card-title">{plate.products[0].plato}
-                            <button onClick={function () {
-                                Meteor.call('orders.delete', plate._id)
-                            }} className="RemovePlate">x</button>
-                        </h1>
-                        <hr></hr>
-                        <h2 id="InfoCliente" className="card-text">Cliente: {plate.cliente}</h2>
-                        <h2 id="InfoCliente" className="card-text">Teléfono: 94795544</h2>
-                        <h2 id="InfoCliente" className="card-text">Dirección: {plate.Direccion}</h2>
-                        <p id="ComentarioCliente" className="card-text">
-                            Lorem ipsum dolor sitorem ipsum dolor sitorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  {}
-                        </p>
-                        <hr></hr>
-                    </div>
-
-                    <div className="card-footer text-muted">
-                        <span className = "green">Estado: </span>
-                        <span className = "red">{plate.estado}</span>
-                        <button className="ChangeState" onClick= {function () {
-                            if (plate.estado == "Pendiente") {
-                                cambiarEstado(i, "Ingresado");
-
-                            }
-                        }}>Cambiar a Ingresado</button>
-                        <button className="ChangeState" onClick={function () {
-                            if (plate.estado == "Ingresado") {
-                                cambiarEstado(i, "Terminado");
-                            } else if (plate.estado == "Pendiente") {
-                                alert("Primero tiene que estar ingresado.")
-                            }
-                        }}>Cambiar a Terminado</button>
+        return (plate.products.map((product, i) => {
+            return (
+                <div className="card EmployeeCard " key={i}>
+                    <div className="card-body">
+                        <div>
+                            <h1 className="card-title">{`${product.plato} - Cantidad: ${product.cantidad}`}
+                                
+                            </h1>
+                            <hr></hr>
+                            <h2 id="InfoCliente" className="card-text">Cliente: {plate.cliente}</h2>
+                            <h2 id="InfoCliente" className="card-text">Teléfono: 94795544</h2>
+                            <h2 id="InfoCliente" className="card-text">Dirección: {plate.Direccion}</h2>
+                            <p id="ComentarioCliente" className="card-text">
+                                Lorem ipsum dolor sitorem ipsum dolor sitorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  {}
+                            </p>
+                            <hr></hr>
+                        </div>
+    
+                        <div className="card-footer text-muted">
+                            <span className = "green">Estado: </span>
+                            <span className = "red">{plate.status}</span>
+                            <button className="ChangeState" onClick= {function () {
+                                if (plate.status == "") {
+                                    Meteor.call('orders.setInProgress', plate._id)
+    
+                                }
+                            }}>Cambiar a Ingresado</button>
+                            <button className="ChangeState" onClick={function () {
+                                if (plate.status == "InProgress") {
+                                    Meteor.call('orders.setDispatched', plate._id)
+                                } else if (plate.status == "") {
+                                    alert("Primero tiene que estar ingresado.")
+                                }
+                            }}>Cambiar a Terminado</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        }));
+        
     });
 }
