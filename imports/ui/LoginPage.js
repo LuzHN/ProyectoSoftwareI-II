@@ -26,13 +26,13 @@ export default class LoginPage extends React.Component {
 
         Meteor.loginWithPassword({email}, password, (err) => {
           if (err) {
-              
+
             if (email == "" && password == ""){
                 let loginEmpty = document.getElementById("emptyLogin");
                 loginEmpty.classList.add("show");
                 loginEmpty.innerHTML = "Please enter your information.";
                 setTimeout(function() {
-                    loginEmpty.classList.remove("show"); 
+                    loginEmpty.classList.remove("show");
                 }, 3000);
             } else if (email == "") {
                 let emailEmpty = document.getElementById("emailEmpty");
@@ -53,24 +53,20 @@ export default class LoginPage extends React.Component {
                 errorLogin.classList.add("show");
                 errorLogin.innerHTML = "Unable to log in. Check your information."
                 setTimeout(function() {
-                    errorLogin.classList.remove("show"); 
-                }, 3000);    
+                    errorLogin.classList.remove("show");
+                }, 3000);
             }//Fin del if anidado
 
           }else {
-<<<<<<< HEAD
-            this.props.history.push("/menu");
-=======
-
             let loginSuccessful = document.getElementById("successfulLogin");
             loginSuccessful.classList.add("show");
             loginSuccessful.innerHTML = "Logged in successfully."
             setTimeout(function() {
-                loginSuccessful.classList.remove("show"); 
+                loginSuccessful.classList.remove("show");
             }, 3000);
             email = "";
             password = "";
->>>>>>> 8-view-de-cliente
+            this.props.history.push("/menu");
           }
         });
     }
