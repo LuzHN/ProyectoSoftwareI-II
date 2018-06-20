@@ -1,4 +1,4 @@
-#HeaderEmpleado{
+#HeaderEmployee{
     background: url(http://www.healthkitchen.hn/static/media/hero-ingredients.9299118b.jpg) no-repeat center bottom;
     display: -ms-flexbox;
     display: flex;
@@ -23,33 +23,72 @@
 
   /* Menu */
 
-
-  .MenuEmpleado{
-
+  .MenuEmployee{
 
 
+    
     background: url(http://www.healthkitchen.hn/static/media/icon-wall.471f8b8e.svg);
 
+    background-color: #325157;
     
   }
 
-  
-
   .EmployeeCardColumn{
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
+   
     padding-top: 5%;
     padding-left: 15%;
 
-    column-count: 3 !important;
+    column-count: 2;
     orphans: inherit !important;
     widows: inherit !important;
 
   }
 
-  html button{
+  @media only screen and (max-width: 800px){
+    .EmployeeCardColumn{
+      column-count: 1 !important;
+      
+    }
+  }
+  
+  @media only screen and (min-width: 900px){
+    .EmployeeCardColumn{
+      column-count: 2 !important;
+    }
+  }
+
+  .green{
+
+  }
+
+  .red{
+    color: #d86926;
+    font-size: 20px;
+  }
+
+
+  .RemovePlate{
+    float: right;
+    font-size: 100%;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+  }
+
+  .ChangeState{
+    background-color:  #325157;
+    border: 0;
+    width: 50%;
+    height: 100%;
+    margin: 4px;
     display: flex;
-    color: forestgreen;
+  }
+
+  .ChangeState:hover{
+
+    width:70%;
+
   }
 
 

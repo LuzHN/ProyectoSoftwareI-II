@@ -9,13 +9,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/menu.css';
 
 
-export default class MenuEmpleado extends React.Component {
-
+export default class MenuEmployee extends React.Component {
 
     render() {
         return (
             <div>
-                <header id="HeaderEmpleado">
+                <header id="HeaderEmployee">
                     <h1 id="hk-logo-header"></h1>
                 </header>
 
@@ -23,8 +22,8 @@ export default class MenuEmpleado extends React.Component {
 
                 <div className="pos-f-t "></div>
 
-                <section class="MenuEmpleado" >
-                    <MenuEmpleadoComponente />
+                <section class="MenuEmployee" >
+                    <MenuEmployeeComponent />
                 </section>
 
                 <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg" />
@@ -51,157 +50,84 @@ export default class MenuEmpleado extends React.Component {
     }
 
 }
-
-function Plato(categoria, titulo, precio, descripcion, foto, nutricional, estado) {
-    this.categoria = categoria;
-    this.titulo = titulo;
-    this.precio = precio;
-    this.descripcion = descripcion;
-    this.foto = foto;
-    this.nutricional = nutricional;
-    this.estado = estado;
-}
-
-var Entrees = [
-    new Plato("Entree", "Cauliflower Nuggets", "129", "Empanizado con panco acompañado "
-        + "con una salsa fresca de tomate y Tzatziki", "http://cdn1-www.momtastic.com/assets/uploads/2016/06/Cauliflower-Nuggets-4.jpg", "", "Pendiente")
-    , new Plato("Entree", "Montaditos", "99", "Cuatro tostadas de pan de hierbas; atún, vegetales asados, pollo al pesto, y carne de berenjena",
-        "https://www.philadelphia.com.mx/modx/assets/img/revision2016/images/recetas/montaditos_fuerza_roja.jpg", "", "Pendiente")
-    , new Plato("Entree", "Croquetas de Vegetales", "99", "Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki",
-        "https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg", "", "Pendiente")
-    , new Plato("Entree", "Palitos de Camote", "49", "Camotes a la francesa, acompañado de aderezo Tzatziki.",
-        "http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg", "", "Pendiente")
-    , new Plato("Entree", "Aros de Cebolla HK", "89", "5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.",
-        "http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg", "", "Pendiente")
-
-];
-
-
-class MenuEmpleadoComponente extends React.Component {
+class MenuEmployeeComponent extends React.Component {
 
     state = {
-        simon: "simon",
-        entradas: [{"categoria":"Entree","titulo":"Cauliflower Nuggets","precio":"129","descripcion":"Empanizado con panco acompañado con una salsa fresca de tomate y Tzatziki","foto":"http://cdn1-www.momtastic.com/assets/uploads/2016/06/Cauliflower-Nuggets-4.jpg","nutricional":"", "estado": "Pendiente"},
-        {"categoria":"Entree","titulo":"Montaditos","precio":"99","descripcion":"Cuatro tostadas de pan de hierbas; atún, vegetales asados, pollo al pesto, y carne de berenjena","foto":"https://www.philadelphia.com.mx/modx/assets/img/revision2016/images/recetas/montaditos_fuerza_roja.jpg","nutricional":"", "estado": "Pendiente"},
-        {"categoria":"Entree","titulo":"Croquetas de Vegetales","precio":"99","descripcion":"Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki","foto":"https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg","nutricional":"", "estado": "Pendiente"},
-        {"categoria":"Entree","titulo":"Palitos de Camote","precio":"49","descripcion":"Camotes a la francesa, acompañado de aderezo Tzatziki.","foto":"http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg","nutricional":"", "estado": "Pendiente"},
-        {"categoria":"Entree","titulo":"Aros de Cebolla HK","precio":"89","descripcion":"5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.","foto":"http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg","nutricional":"", "estado": "Pendiente"},
-        {"categoria":"Entree","titulo":"Palitos de Camote","precio":"49","descripcion":"Camotes a la francesa, acompañado de aderezo Tzatziki.","foto":"http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg","nutricional":"", "estado": "Pendiente"},
-        {"categoria":"Entree","titulo":"Aros de Cebolla HK","precio":"89","descripcion":"5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.","foto":"http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg","nutricional":"", "estado": "Pendiente"},
-        {"categoria":"Entree","titulo":"Croquetas de Vegetales","precio":"99","descripcion":"Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki","foto":"https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg","nutricional":"", "estado": "Pendiente"}]
+
+        orders: [
+            { "titulo": "Cauliflower Nuggets", "estado": "Pendiente", "cliente": "Jose Ricardo", "Direccion": "Nullam sed nisi eu leo suscipit consectetur nec in sapien." },
+            { "titulo": "Montaditos", "estado": "Pendiente", "cliente": "Harold Mendoza", "Direccion": "Mauris sit amet purus vel eros accumsan faucibus. Aenean leo." },
+            { "titulo": "Croquetas de Vegetales", "estado": "Pendiente", "cliente": "Luis Cabrera", "Direccion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque enim." },
+            { "titulo": "Palitos de Camote", "estado": "Pendiente", "cliente": "Diego Galdamez", "Direccion": "Pellentesque maximus molestie hendrerit." },
+            { "titulo": "Aros de Cebolla HK", "estado": "Pendiente", "cliente": "Walther Carrasco", "Direccion": "Pellentesque maximus molestie hendrerit." },
+            { "titulo": "Palitos de Camote", "estado": "Pendiente", "cliente": "Mauricio Matamoros", "Direccion": "Pellentesque maximus molestie hendrerit." },
+            { "titulo": "Aros de Cebolla HK", "estado": "Pendiente", "cliente": "Miguel Ardon", "Direccion": "Pellentesque maximus molestie hendrerit." },
+            { "titulo": "Croquetas de Vegetales", "estado": "Pendiente", "cliente": "Mario Raudales", "Direccion": "Pellentesque maximus molestie hendrerit." }]
     }
 
     render() {
         return (
             <div class="card-columns EmployeeCardColumn">
-                {renderPlates(this.state.entradas, this.state.simon, this.cambiarEstado)}
+                {renderPlates(this.state.orders, this.cambiarEstado, this.deleteCard)}
             </div>
         );
     }
 
-    cambiarEstado = (i, estado) =>{
-        var entradass = this.state.entradas;
-        entradass[i].estado = estado;
-        console.log(entradass[i].estado );
-        this.setState({...state, entradas: entradass})
-        // renderPlates(Entrees, this.state.simon, this.imprimir);
+    cambiarEstado = (i, estado) => {
+        var neworders = this.state.orders;
+        neworders[i].estado = estado;
+        this.setState({ ...this.state, orders: neworders })
+    }
+
+    deleteCard = (i) => {
+        var neworders = this.state.orders;
+        neworders.splice(i, 1);
+        this.setState({ ...this.state, orders: neworders })
+
     }
 }
 
-const renderPlates = (platesList, simon, cambiarEstado) => { //metodo a usar con la base
+const renderPlates = (platesList, cambiarEstado, deleteCard) => { //metodo a usar con la base
     return platesList.map((plate, i) => {
-      console.log(plate);
         return (
-
-
-            <div class="card EmployeeCard " key={i}>
-                <div class="card-body">
+            <div className="card EmployeeCard " key={i}>
+                <div className="card-body">
                     <div>
-
-                        <h1 class="card-title">{plate.titulo}</h1>
+                        <h1 className="card-title">{plate.titulo}
+                            <button onClick={function () {
+                                deleteCard(i);
+                            }} className="RemovePlate">x</button>
+                        </h1>
                         <hr></hr>
-                        <h2 id="InfoCliente" class="card-text">Cliente: Juancho Pelancho</h2>
-                        <h2 id="InfoCliente" class="card-text">Teléfono: 94795544</h2>
-                        <h2 id="InfoCliente" class="card-text">Dirección: Colonia quince de octubre, casa 103444, bloque xxxx, calle 23443</h2>
-                        <p id="ComentarioCliente" class="card-text">
+                        <h2 id="InfoCliente" className="card-text">Cliente: {plate.cliente}</h2>
+                        <h2 id="InfoCliente" className="card-text">Teléfono: 94795544</h2>
+                        <h2 id="InfoCliente" className="card-text">Dirección: {plate.Direccion}</h2>
+                        <p id="ComentarioCliente" className="card-text">
                             Lorem ipsum dolor sitorem ipsum dolor sitorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  {}
                         </p>
                         <hr></hr>
-
-
                     </div>
 
                     <div class="card-footer text-muted">
-                        <span id = "state">Estado: {plate.estado}</span>
-                        <button id = "btn" onClick={function () {
+                        <span className = "green">Estado: </span>
+                        <span className = "red">{plate.estado}</span>
+                        <button className="ChangeState" onClick= {function () {
                             if (plate.estado == "Pendiente") {
-                                cambiarEstado(i, "Terminado");
-                            } else {
-                                cambiarEstado(i, "Pendiente");
+                                cambiarEstado(i, "Ingresado");
+                                
                             }
-                        }}>Cambiar a {returnState(plate.estado)}</button>
+                        }}>Cambiar a Ingresado</button>
+                        <button className="ChangeState" onClick={function () {
+                            if (plate.estado == "Ingresado") {
+                                cambiarEstado(i, "Terminado");
+                            } else if (plate.estado == "Pendiente") {
+                                alert("Primero tiene que estar ingresado.")
+                            }
+                        }}>Cambiar a Terminado</button>
                     </div>
-
-
                 </div>
             </div>
-
-
         );
     });
 }
 
-function returnState(state){
-    if(state === "Pendiente"){
-        return "Terminado";
-    } else{
-        return "Pendiente";
-    }
-}
-
-class CardFooter extends React.Component {
-    render() {
-
-        if (this.props.plate.estado == "Pendiente") {
-
-            return (
-
-                <div>
-                    <span>Estado: {this.props.plate.estado}</span>
-                    <button onClick={function () {
-                        this.props.plate.estado = "Terminado"
-                    }}>Cambiar a Terminado</button>
-                </div>
-            );
-        } else {
-            return (
-
-                <div>
-                    <span>Estado: {this.props.plate.estado}</span>
-                    <button onClick={function () {
-                        this.props.plate.estado = "Pendiente"
-                    }}>Cambiar a Pendiente</button>
-                </div>
-
-            );
-        }
-    }
-}
-
-
-
-
-/*
-
-<div class="card-footer text-muted">
-                <span>Estado: {this.props.plate.estado}</span>
-                <button onClick={function () {
-                    if (this.props.plate.estado == "Pendiente") {
-                        this.props.plate.estado = "Terminado"
-                    } else {
-                        this.props.plate.estado = "Pendiente"
-                    }
-                }}>Cambiar a {returnState(this.props.plate.estado)}</button>
-            </div>
-
-*/
