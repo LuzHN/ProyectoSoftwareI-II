@@ -11,7 +11,10 @@ import './../client/styles/cart';
 export default class Cart extends React.Component{
   constructor(props){
     super(props);
-    this.state= {value : 0};
+    this.state= {
+      value : 0,
+      subtotal : 0
+    };
   }
   onActual(){
     let items = [
@@ -22,7 +25,7 @@ export default class Cart extends React.Component{
           description:"sin queso porfavor",
         },
         price:22,
-        quantity:1
+        quantity:2
       },
       {
         product:{
@@ -48,11 +51,13 @@ export default class Cart extends React.Component{
       </th>
       <td>Lps.{item.price.toFixed(2)}</td>
       <td>{item.quantity}</td>
+      {this.Subtotal(item.price,item.quantity)}
     </tr>
     );
 
     let newVal = (
-      <table class="table table-striped">
+      <div>
+      <table className="table table-striped">
         <thead>
           <tr>
             <th scope="col">Item</th>
@@ -64,6 +69,13 @@ export default class Cart extends React.Component{
           {rows}
         </tbody>
       </table>
+      <div>
+        <h3>Subtotal:{this.state.subtotal}</h3>
+        <h3>ISV: 15%</h3>
+        <h2>Total:{(this.state.subtotal*0.15)+this.state.subtotal}</h2>
+        <button className="btn btn-primary">Confirmar</button>
+      </div>
+      </div>
     );
     return this.setState({...this.state,value: newVal});
   }
@@ -71,6 +83,11 @@ export default class Cart extends React.Component{
   onHistory(){
     let newVal = 2;
     return this.setState({...this.state, value: newVal})
+  }
+
+  Subtotal(price,quantity){
+    let sub = this.state.subtotal+(price*quantity);
+    return this.setState({...this.state, subtotal: sub});
   }
 
   render(){
