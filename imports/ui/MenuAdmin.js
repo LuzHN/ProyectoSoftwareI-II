@@ -1,10 +1,69 @@
 import React, {Component} from "react";
 import ReactDOM from 'react-dom';
 import {Card, Button, CardImg, CardTitle, CardText, CardBody, CardSubtitle, Container, Row, Col, CardDeck} from 'reactstrap';
+import { Dishes } from '../api/dishes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './../client/styles/MenuAdmin';
 
 export default class MenuAdmin extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dishes: []
+    }
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+    let name = this.refs.nombrePlato.value.trim();
+    let price = this.refs.precioPlato.value.trim();
+    let description = this.refs.descriptionPlato.value.trim();
+    let totalFat = '';
+    let saturatedFat =  '';
+    let transFat = '';
+    let cholesterol = '';
+    let sodium = '';
+    let totalCarbohydrates = '';
+    let dietaryFibers = '';
+    let sugar = '';
+    let protein = '';
+    let vitaminA = '';
+    let vitaminC = '';
+    let calcium = '';
+    let iron = '';
+
+    let dish = {
+      name,
+      price,
+      description,
+      totalFat,
+      saturatedFat,
+      transFat,
+      cholesterol,
+      sodium,
+      totalCarbohydrates,
+      dietaryFibers,
+      sugar,
+      protein,
+      vitaminA,
+      vitaminC,
+      calcium,
+      iron
+    }
+    Meteor.call('dishes.insert', dish);
+  }
+
+  componentDidMount() {
+    this.dishesTracker = Tracker.autorun(() => {
+      Meteor.subscribe('dishes');
+      const dishes = Dishes.find().fetch();
+      this.setState({ dishes });
+    });
+  }
+
+  componentWillUnmount() {
+    this.dishesTracker.stop();
+  }
 
   openAgregar(){
     var modal = document.getElementById('simpleModal');
@@ -16,7 +75,7 @@ export default class MenuAdmin extends Component {
     modal.style.display = 'none';
   }
 
-  
+
   render() {
     return (
       <div>
@@ -39,6 +98,7 @@ export default class MenuAdmin extends Component {
                 <a href="#SelectedMenu" className="list-group-item d-flex justify-content-between align-items-center"
                   onClick={function () {ReactDOM.render(renderPlatos("Soups"), document.getElementById('SelectedMenu'));}} >
                   Sopas
+                  {console.log(this.state.dishes)}
                 </a>
                 <a href="#SelectedMenu" className="list-group-item d-flex justify-content-between align-items-center"
                   onClick={function () {ReactDOM.render(renderPlatos("Salads"), document.getElementById('SelectedMenu'));}}>
@@ -120,7 +180,7 @@ export default class MenuAdmin extends Component {
             </div>
             {/* Body */}
             <div className="modal-body">
-              <form className="contactModal">
+              <form className="contactModal" onSubmit={this.onSubmit.bind(this)}>
                 <p>
                   <label id="labelAgregar">Nombre Plato</label>
                   <input id="inputAgregar" ref = "nombrePlato" type="text" placeholder='Nombre Plato' maxLength='140' />
@@ -132,7 +192,7 @@ export default class MenuAdmin extends Component {
                 <p>
                   <label id="labelAgregar">Descripción Plato</label>
                   <textarea  id="inputAgregar"  ref="descriptionPlato" rows="5" placeholder='Enter Descripción Plato' maxLength='140'></textarea>
-                </p>      
+                </p>
                 <p>
                   <button className="agregarFinalBtn">Agregar Plato</button>
                 </p>
@@ -142,7 +202,7 @@ export default class MenuAdmin extends Component {
             <div className="modal-footer"></div>
           </div>
         </div>
-        
+
 
 
         <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg" />
@@ -232,6 +292,3 @@ class ButtonPlato extends Component {
     );
   }
 }
-
-
-
