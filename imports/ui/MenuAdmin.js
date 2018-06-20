@@ -15,10 +15,11 @@ export default class MenuAdmin extends Component {
 
   onSubmit(e) {
     e.preventDefault();
+    console.log(this)
     let name = this.refs.nombrePlato.value.trim();
     let price = this.refs.precioPlato.value.trim();
     let description = this.refs.descriptionPlato.value.trim();
-    let type = '';
+    let type = this.refs.tipodeComida.selected;
     let string = '';
     let calories = '';
     let totalFat = '';
@@ -63,7 +64,7 @@ export default class MenuAdmin extends Component {
         modal.style.display = 'none';
       }, 3000);
     } else {
-      
+
       let platoAgregado = document.getElementById("platoAgregadoToast");
       platoAgregado.classList.add("show");
       platoAgregado.innerHTML = "No ha ingresado todos los datos."
@@ -106,6 +107,7 @@ export default class MenuAdmin extends Component {
     let name = this.refs.nombrePlato.value;
     let price = this.refs.precioPlato.value;
     let descript = this.refs.descriptionPlato.value;
+    let type = this.refs.tipodeComida.selected;
     setTimeout(function() {
       platoAgregado.classList.remove("show");
       name = "";
@@ -232,6 +234,22 @@ export default class MenuAdmin extends Component {
                   <textarea  id="inputAgregar"  ref="descriptionPlato" rows="5" placeholder='Enter Descripción Plato' maxLength='140'></textarea>
                 </p>
                 <p>
+                  <label id="labelAgregar">Tipo de Plato</label>
+                  <select name="tipoComida" id="tipoDeComida" ref="tipodeComida">
+                    <option value="Entree">Entree</option>
+                    <option value="Soup">Soup</option>
+                    <option value="Salad">Salad</option>
+                    <option value="Wrap">Wrap</option>
+                    <option value="LittleItaly">LittleItaly</option>
+                    <option value="Sandwich">Sandwich</option>
+                    <option value="SideDish">SideDish</option>
+                    <option value="Breakfast">Breakfast</option>
+                    <option value="Dessert">Dessert</option>
+                    <option value="Juice">Juice</option>
+                    <option value="Drink">Drink</option>
+                  </select>
+                </p>
+                <p>
                   <button className="agregarFinalBtn" onClick = {this.agregarFinal.bind(this)}>Agregar Plato</button>
                 </p>
                 <div id = "platoAgregadoToast"></div>
@@ -307,7 +325,7 @@ const renderPlates = (platesList) => {
     return (
       <div className="cards_item" key={dish._id}>
         <div className="card-card">
-          <img className="card-img"  alt="Card image cap"/>
+          <img className="card-img"  alt="Card image cap" src={dish.image}/>
           <div className="card-content">
             <h3 className="card-titulo">{dish.name}</h3>
             <p className="card-price">L. {dish.price}</p>
