@@ -33,7 +33,7 @@ export default class LoginPage extends React.Component {
           if (err) {
             alert('Unable to login. Check email and password.');
           }else {
-            alert('succesful log in');
+            this.props.history.push("/menu");
           }
         });
         if (document.getElementById("passwordBox").value == "" && document.getElementById("emailBox").value == ""){
