@@ -9,14 +9,11 @@ if (Meteor.isServer) {
     return Dishes.find({});
   });
 }
-//resource.action naming convention
 Meteor.methods({
   'dishes.insert'(dish) {
-
     // if (!this.userId) {
     //   throw new Meteor.Error('not-authorized');
     // }
-
     Dishes.insert({
       name: dish.name,
       price: dish.price,
@@ -25,7 +22,6 @@ Meteor.methods({
       string: dish.string,
       nutritionFacts: {
         calores: dish.calories,
-
         totalFat: dish.totalFat,
         saturatedFat: dish.saturatedFat,
         transFat: dish.transFat,

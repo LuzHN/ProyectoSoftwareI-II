@@ -12,14 +12,11 @@ if (Meteor.isServer) {
     return Orders.find({});
   });
 }
-//resource.action naming convention
 Meteor.methods({
   'orders.insert'(order) {
-
     // if (!this.userId) {
     //   throw new Meteor.Error('not-authorized');
     // }
-
     Orders.insert({
       status: '',
       products: order.products,
