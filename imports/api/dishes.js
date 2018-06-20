@@ -22,7 +22,10 @@ Meteor.methods({
       price: dish.price,
       description: dish.description,
       type: dish.type,
+      string: dish.string,
       nutritionFacts: {
+        calores: dish.calories,
+
         totalFat: dish.totalFat,
         saturatedFat: dish.saturatedFat,
         transFat: dish.transFat,

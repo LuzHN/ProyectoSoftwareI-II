@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import { Route, BrowserRouter, Switch} from 'react-router-dom';
 import {Router, browserHistory } from 'react-router';
 
-
 import '../imports/client/styles/menu.css';
 import '../imports/client/styles/menuempleado.css';
 import Menu from '../imports/client/ui/menu';
@@ -16,6 +15,7 @@ import Principal from '../imports/ui/Principal';
 import Register from '../imports/ui/Register';
 import LoginPage from '../imports/ui/LoginPage';
 import EditProfilePage from '../imports/ui/EditProfilePage';
+import MenuAdmin from '../imports/ui/MenuAdmin';
 
 import '../imports/client/styles/cart.css';
 import Cart from '../imports/ui/Cart';
@@ -32,6 +32,7 @@ class Hk extends React.Component{
         <Switch history = {browserHistory}>
             <Route path="/menu" exact component={Menu} history = {browserHistory}/> 
             <Route path="/register" component={Register} history = {browserHistory}/>
+            <Route path="/menuAdmin" component={MenuAdmin} history = {browserHistory}/>
             <Route path ="/login" component={LoginPage} history = {browserHistory}/>
             <Route path="*" component={NotFound} history = {browserHistory}/>
           <Route path="/menu" component={Menu} history = {browserHistory}/>
