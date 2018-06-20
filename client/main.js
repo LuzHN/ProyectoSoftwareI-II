@@ -6,7 +6,9 @@ import {Router, browserHistory } from 'react-router';
 
 
 import '../imports/client/styles/menu.css';
+import '../imports/client/styles/menuempleado.css';
 import Menu from '../imports/client/ui/menu';
+import MenuEmpleado from '../imports/client/ui/menuempleado';
 
 import '../imports/client/styles/register';
 import NotFound from '../imports/ui/NotFound';
@@ -28,11 +30,16 @@ class Hk extends React.Component{
     const routes = (
       <BrowserRouter history = {browserHistory}>
         <Switch history = {browserHistory}>
+            <Route path="/menu" exact component={Menu} history = {browserHistory}/> 
+            <Route path="/register" component={Register} history = {browserHistory}/>
+            <Route path ="/login" component={LoginPage} history = {browserHistory}/>
+            <Route path="*" component={NotFound} history = {browserHistory}/>
           <Route path="/menu" component={Menu} history = {browserHistory}/>
           <Route path="/register" component={Register} history = {browserHistory}/>
           <Route path ="/login" component={LoginPage} history = {browserHistory}/>
           <Route path="/cart" component={Cart} history = {browserHistory}/>
           <Route path ="/editProfile" component={EditProfilePage} history = {browserHistory}/>
+          <Route path="/menuempleado" component={MenuEmpleado} history = {browserHistory}/>
           <Route path="*" component={NotFound} history = {browserHistory}/>
         </Switch>
       </BrowserRouter>

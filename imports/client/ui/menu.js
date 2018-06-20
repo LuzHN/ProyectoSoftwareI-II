@@ -147,6 +147,7 @@ export default class Menu extends Component {
     modal.style.display = 'none';
   }
 
+class Entree extends React.Component { 
   render() {
     return (
       <div>
@@ -232,8 +233,112 @@ export default class Menu extends Component {
           </div>
         </div>
 
-      </div>
+function renderPlatos(nombrePlato) { // metodo viejo
 
+  let jsx = "";
+
+  switch (nombrePlato) {
+
+    case "Soups": {
+
+      jsx = (<CardDeck>
+
+        <Card >
+          <CardImg top width="50%" src="https://comidasperuanas.net/wp-content/uploads/2017/01/Sopa-de-Pollo-Peruana.jpg" alt="Card image cap" />
+          <CardBody>
+            <CardTitle>Sopa de Pollo HK</CardTitle>
+            <CardSubtitle>L 89</CardSubtitle>
+            <CardText>Caldo clarificado de pollo y vegetales con tallarines.</CardText>
+            <Button>Ver más</Button>
+          </CardBody>
+        </Card>
+        <Card >
+          <CardImg top width="50%" src="https://estaticos.marie-claire.es/media/cache/680x_thumb/uploads/images/recipe/567925885bafe85dd944606c/interior-wonton-de-pollo.jpg" alt="Card image cap" />
+          <CardBody>
+            <CardTitle>Sopa de Wonton</CardTitle>
+            <CardSubtitle>L 109</CardSubtitle>
+            <CardText>Caldo ligero de pollo sazonado con soya y sésamo, tallarines y wonton hervido relleno de pollo.</CardText>
+            <Button>Ver más</Button>
+          </CardBody>
+        </Card>
+        <Card >
+          <CardImg top width="50%" src="https://food.fnr.sndimg.com/content/dam/images/food/fullset/2014/3/5/1/BX0203H_Cream-of-Fresh-Tomato-Soup_s4x3.jpg.rend.hgtvcom.616.462.suffix/1394079586646.jpeg" alt="Card image cap" />
+          <CardBody>
+            <CardTitle>Creamy Tomatoe</CardTitle>
+            <CardSubtitle>L 99</CardSubtitle>
+            <CardText>Acompañada con dos pupusas rellenas de queso.</CardText>
+            <Button>Ver más</Button>
+          </CardBody>
+        </Card>
+        <Card >
+          <CardImg top width="50%" src="http://www.1001consejos.com/wp-content/uploads/2014/03/sopa-de-tortilla.jpg" alt="Card image cap" />
+          <CardBody>
+            <CardTitle>Sopa de Tortilla</CardTitle>
+            <CardSubtitle>L 129</CardSubtitle>
+            <CardText>Tradicional sopa Azteca con pollo.</CardText>
+            <Button>Ver más</Button>
+          </CardBody>
+        </Card>
+
+      </CardDeck>);
+      break;
+
+    } //fin case 2
+    case "Salads": {
+
+      jsx = (<CardDeck>
+
+        <Card >
+          <CardImg top width="50%" src="https://simplyhomecooked.com/wp-content/uploads/2016/05/Chopped-caprese-salad-5.jpg" alt="Card image cap" />
+          <CardBody>
+            <CardTitle>Caprese Salad</CardTitle>
+            <CardSubtitle>L 149 | Pollo Extra: + L 49</CardSubtitle>
+            <CardText>Tomate fresco, cuajada, y albaca marinados al pesto, acompañado con mix de lechugas.</CardText>
+            <Button>Ver más</Button>
+          </CardBody>
+        </Card>
+        <Card >
+          <CardImg top width="50%" src="https://www.ideahacks.com/wp-content/uploads/2017/08/Mediterranean-Quinoa-Salad.jpg" alt="Card image cap" />
+          <CardBody>
+            <CardTitle>Quinoa Salad</CardTitle>
+            <CardSubtitle>L 149</CardSubtitle>
+            <CardText>Mezclada con pepino, aceitunas, cebolla y guacamole, servido con tres rebanadas de pan tostado.</CardText>
+            <Button>Ver más</Button>
+          </CardBody>
+        </Card>
+        <Card >
+          <CardImg top width="50%" src="https://revistamundonatural.com/wordpress/wp-content/uploads/2017/09/ensalada_mediterranea.jpg" alt="Card image cap" />
+          <CardBody>
+            <CardTitle>Ensalada Mediterranea</CardTitle>
+            <CardSubtitle>L 189 | Pollo Extra: + L 49</CardSubtitle>
+            <CardText>Mix de lechugas, tomates asados, hongos frescos, requesón y carbanzos con vinagreta de ajo rostizado. </CardText>
+            <Button>Ver más</Button>
+          </CardBody>
+        </Card>
+        <Card >
+          <CardImg top width="50%" src="https://www.rebanando.com/media/caesar-salad-source-thinkstock-jpg_crop.jpeg/rh/ensalada-cesar.jpg" alt="Card image cap" />
+          <CardBody>
+            <CardTitle>Ensalada César</CardTitle>
+            <CardSubtitle>L 189</CardSubtitle>
+            <CardText>Lechuga Romana, queso parmesano, cherry tomatoes, croutons, aderezo césar y pollo al grill.</CardText>
+            <Button>Ver más</Button>
+          </CardBody>
+        </Card>
+        <Card >
+          <CardImg top width="50%" src="https://www.culinaryhill.com/wp-content/uploads/2017/09/Chipotle-Steak-Recipe-Culinary-Hill-2.jpg" alt="Card image cap" />
+          <CardBody>
+            <CardTitle>Chipotle Salad</CardTitle>
+            <CardSubtitle>L 189</CardSubtitle>
+            <CardText>Mix de lechugas, aguacate, y pollo con aderezo de chipotle.</CardText>
+            <Button>Ver más</Button>
+          </CardBody>
+        </Card>
+
+      </CardDeck>);
+      break;
+
+    } // fin case 3
+  }
       <section id="Menu" >
         <div id="SelectedMenu">
           <Entree
@@ -254,10 +359,9 @@ export default class Menu extends Component {
           />
         </div>
       </section>
-
-
-      <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg" />
-
+const renderPlates = (platesList) => { //metodo a usar con la base
+  return platesList.map((plate) => {
+    return (
       <footer id="Footer">
         <img className="LogoHK" src="http://www.healthkitchen.hn/static/media/hk-logo.b8b1c147.svg" alt="Logo" />
 
