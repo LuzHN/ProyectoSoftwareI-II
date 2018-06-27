@@ -94,7 +94,7 @@ const renderPlates = (platesList) => { //metodo a usar con la base
                             <h2 id="InfoCliente" className="card-text">Teléfono: {user.profile.phoneNumber1}</h2>
                             <h2 id="InfoCliente" className="card-text">Dirección: {user.profile.address1}</h2>
                             <p id="ComentarioCliente" className="card-text">
-                                Lorem ipsum dolor sitorem ipsum dolor sitorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  {}
+                                {product.descripcion}
                             </p>
                             <hr></hr>
                         </div>
