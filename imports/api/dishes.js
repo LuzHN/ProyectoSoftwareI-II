@@ -18,6 +18,7 @@ Meteor.methods({
       name: dish.name,
       price: dish.price,
       description: dish.description,
+      image: dish.image,
       type: dish.type,
       string: dish.string,
       nutritionFacts: {
