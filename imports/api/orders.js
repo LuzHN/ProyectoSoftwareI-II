@@ -21,7 +21,8 @@ Meteor.methods({
       status: '',
       products: order.products,
       price: order.price,
-      userId: this.uderId
+      userId: this.userId,
+      cliente: order.cliente
     });
   },
   'orders.setDispatched'(id) {

@@ -79,6 +79,8 @@ class MenuEmployeeComponent extends React.Component {
 
 const renderPlates = (platesList) => { //metodo a usar con la base
     return platesList.map((plate) => {
+      // console.log(Meteor.users.findOne({_id: plate.userId}));
+      const user = Meteor.users.findOne({_id: plate.userId})
         return (plate.products.map((product, i) => {
             return (
                 <div className="card EmployeeCard " key={i}>
@@ -88,9 +90,9 @@ const renderPlates = (platesList) => { //metodo a usar con la base
 
                             </h1>
                             <hr></hr>
-                            <h2 id="InfoCliente" className="card-text">Cliente: {plate.cliente}</h2>
-                            <h2 id="InfoCliente" className="card-text">Teléfono: 94795544</h2>
-                            <h2 id="InfoCliente" className="card-text">Dirección: {plate.Direccion}</h2>
+                            <h2 id="InfoCliente" className="card-text">Cliente: {user.profile.firstName}</h2>
+                            <h2 id="InfoCliente" className="card-text">Teléfono: {user.profile.phoneNumber1}</h2>
+                            <h2 id="InfoCliente" className="card-text">Dirección: {user.profile.address1}</h2>
                             <p id="ComentarioCliente" className="card-text">
                                 Lorem ipsum dolor sitorem ipsum dolor sitorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  {}
                             </p>
