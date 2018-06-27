@@ -176,7 +176,7 @@ class EditProfilePage extends React.Component {
             /**
              * TODO: Modifcar Perfil
              */
-            this.props.history.push("/menu");
+            this.props.history.push("/");
         }
 
 

@@ -30,45 +30,45 @@ class Hk extends React.Component{
     const routes = (
       <BrowserRouter history = {browserHistory}>
         <Switch history = {browserHistory}>
-            <Route path="/menu" exact component={Menu} history = {browserHistory}/>
-            <Route path="/register" component={Register} history = {browserHistory}/>
-            <Route path="/menuAdmin" component={MenuAdmin} history = {browserHistory}/>
-            <Route path ="/login" component={LoginPage} history = {browserHistory}/>
+          <Route path="/register" component={Register} history = {browserHistory}/>
+          <Route path="/menuAdmin" component={MenuAdmin} history = {browserHistory}/>
+          <Route path ="/login" component={LoginPage} history = {browserHistory}/>
           <Route path="/cart" component={Cart} history = {browserHistory}/>
           <Route path ="/editProfile" component={EditProfilePage} history = {browserHistory}/>
           <Route path="/menuempleado" component={MenuEmpleado} history = {browserHistory}/>
+          <Route path="/" exact component={Menu} history = {browserHistory}/>
           <Route path="*" component={NotFound} history = {browserHistory}/>
         </Switch>
       </BrowserRouter>
     );
     const isLogIn = this.state.isLoggedIn;
     let ref;
-    if(isLogIn){
+    if(Meteor.user() !== null){
       ref = <li className="nav-item"><a className="nav-link" href="/cart">Cart<i className="fas fa-shopping-cart"></i></a>
-            </li>
-    }else{
-      ref = <li className="nav-item"><a className="nav-link" href="/login">LogIn/SingUp</a>
-            </li>
-    }
-    return(
-      <div>
-      <nav className="navbar fixed-top navbar-expand-lg ">
-        <a className="navbar-brand" href="/menu"><div className="img"></div></a>
-        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
+    </li>
+  }else{
+    ref = <li className="nav-item"><a className="nav-link" href="/login">LogIn/SingUp</a>
+  </li>
+}
+return(
+  <div>
+    <nav className="navbar fixed-top navbar-expand-lg ">
+      <a className="navbar-brand" href="/"><div className="img"></div></a>
+      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span className="navbar-toggler-icon"></span>
+      </button>
 
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-            <li className="nav-item"><a className="nav-link" href="/menu">Menu</a></li>
-            {ref}
-          </ul>
-        </div>
-      </nav>
-      {routes}
-    </div>
-    );
-  }
+      <div className="collapse navbar-collapse" id="navbarNav">
+        <ul className="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+          <li className="nav-item"><a className="nav-link" href="/">Menu</a></li>
+          {ref}
+        </ul>
+      </div>
+    </nav>
+    {routes}
+  </div>
+);
+}
 }
 
 Meteor.startup(() => {
