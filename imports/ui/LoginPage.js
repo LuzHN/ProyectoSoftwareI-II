@@ -66,7 +66,7 @@ export default class LoginPage extends React.Component {
             }, 3000);
             email = "";
             password = "";
-            this.props.history.push("/menu");
+            this.props.history.push("/");
           }
         });
     }

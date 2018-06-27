@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import React, {Component} from "react";
 import ReactDOM from 'react-dom';
 import {Card, Button, CardImg, CardTitle, CardText, CardBody, CardSubtitle, Container, Row, Col, CardDeck} from 'reactstrap';

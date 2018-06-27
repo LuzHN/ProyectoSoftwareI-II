@@ -41,6 +41,7 @@ export default class MenuEmployee extends React.Component {
                 <div className="pos-f-t "></div>
 
                 <section className="MenuEmployee" >
+                    <h3 id="titulodeorden"></h3>
                     <MenuEmployeeComponent orders={this.state.orders}/>
                 </section>
 
@@ -76,8 +77,15 @@ class MenuEmployeeComponent extends React.Component {
         );
     }
 }
+AgregarHeader = (cliente, id) =>{
+  return (
+    <h3>Cliente: {cliente} -- ID de Orden: {id}</h3>
+  )
+}
 
 const renderPlates = (platesList) => { //metodo a usar con la base
+  console.log(platesList)
+
     return platesList.map((plate) => {
       // console.log(Meteor.users.findOne({_id: plate.userId}));
       const user = Meteor.users.findOne({_id: plate.userId})

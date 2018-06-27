@@ -145,7 +145,7 @@ export default class Register extends React.Component {
           alert('user created');
         }
       });
-      this.props.history.push("/menu");
+      this.props.history.push("/");
     }
 
   };
