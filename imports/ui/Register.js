@@ -147,12 +147,11 @@ export default class Register extends React.Component {
           registerSuccessful.innerHTML = "Se registró el usuario exitosamente."
             setTimeout(function() {
               registerSuccessful.classList.remove("show");
-            }, 3000);
+            }, 4000);
+            this.props.history.push("/login");
         }
       });
-      this.props.history.push("/login");
     }
-
   };
 
   render(){
