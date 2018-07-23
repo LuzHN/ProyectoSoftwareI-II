@@ -17,6 +17,7 @@ export default class MenuAdmin extends Component {
     e.preventDefault();
     let name = this.refs.nombrePlato.value.trim();
     let price = this.refs.precioPlato.value.trim();
+    let image = this.refs.imagenPlato.value.trim();
     let description = this.refs.descriptionPlato.value.trim();
     let type = this.refs.tipodeComida[this.refs.tipodeComida.selectedIndex].value;
     let string = '';
@@ -40,6 +41,7 @@ export default class MenuAdmin extends Component {
         price,
         description,
         type,
+        image,
         totalFat,
         saturatedFat,
         transFat,
@@ -108,6 +110,7 @@ export default class MenuAdmin extends Component {
     let price = this.refs.precioPlato.value;
     let descript = this.refs.descriptionPlato.value;
     let type = this.refs.tipodeComida.selected;
+    let image = this.refs.imagenPlato.value;
     setTimeout(function() {
       platoAgregado.classList.remove("show");
       name = "";
@@ -228,6 +231,10 @@ export default class MenuAdmin extends Component {
                 <p>
                   <label id="labelAgregar">Precio</label>
                   <input id="inputAgregar"  ref = "precioPlato" type="number" placeholder='Precio Plato' maxLength='140' />
+                </p>
+                <p>
+                  <label id="labelAgregar">URL De Imagen</label>
+                  <input id="inputAgregar"  ref = "imagenPlato" type="text" placeholder='https://www.google.com/' />
                 </p>
                 <p>
                   <label id="labelAgregar">Descripción Plato</label>
