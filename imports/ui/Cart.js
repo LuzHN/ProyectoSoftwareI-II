@@ -19,7 +19,8 @@ export default class Cart extends React.Component{
       cart: [],
       orden:{
         estado: "",
-        platos: []
+        platos: [],
+        fecha: ""
       },
       componentes: []
     };
@@ -63,14 +64,18 @@ export default class Cart extends React.Component{
     orden.estado = "Preorden";
     orden.platos = [];
     orden.products = [];
-    console.log(orden);
+
+    let d = new Date();
+    let stringFecha = d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear() + " ," + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(); 
+    orden.fecha = stringFecha;
+
     for (var i = 0; i < this.state.componentes.length; i++) {
       orden.products.push({
         cantidad: this.state.componentes[i].state.cantidad,
         descripcion: this.state.componentes[i].state.descripcion,
         imagen: this.state.componentes[i].state.imagen,
         plato: this.state.componentes[i].state.titulo,
-        precio: this.state.componentes[i].state.precio
+        precio: this.state.componentes[i].state.precio,
       });
     }
     orden.cliente =Meteor.user().profile.firstName;
@@ -78,7 +83,7 @@ export default class Cart extends React.Component{
     Meteor.call('orders.insert', orden);
     orden = {
       estado: "",
-      platos: []
+      platos: [],
     }
     this.setState({...this.state, orden});
 
@@ -92,8 +97,6 @@ export default class Cart extends React.Component{
     let getPrice = this.state.orden.platos.forEach((item) => {
       price += item.precio*item.cantidad;
     });
-
-
 
     //Crear orden internamente
     // let order = {

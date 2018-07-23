@@ -9,7 +9,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/menu.css';
 import {Orders} from '../../api/orders'
 
-
 export default class MenuEmployee extends React.Component {
   constructor(props) {
     super(props);
@@ -94,9 +93,8 @@ const renderPlates = (platesList) => { //metodo a usar con la base
                 <div className="card EmployeeCard " key={i}>
                     <div className="card-body">
                         <div>
-                            <h1 className="card-title">{`${product.plato} - Cantidad: ${product.cantidad}`}
-
-                            </h1>
+                            <h1 className="card-title">{`${product.plato} - Cantidad: ${product.cantidad}`}</h1>
+                            <h2 className="card-subtitle">Fecha ordenado: {plate.fecha} </h2>
                             <hr></hr>
                             <h2 id="InfoCliente" className="card-text">Cliente: {user.profile.firstName}</h2>
                             <h2 id="InfoCliente" className="card-text">Teléfono: {user.profile.phoneNumber1}</h2>
@@ -106,6 +104,7 @@ const renderPlates = (platesList) => { //metodo a usar con la base
                             </p>
                             <hr></hr>
                         </div>
+
 
                         <div className="card-footer text-muted">
                             <span className = "green">Estado: </span>
@@ -126,8 +125,9 @@ const renderPlates = (platesList) => { //metodo a usar con la base
                         </div>
                     </div>
                 </div>
+
+                
             );
         }));
-
     });
 }
