@@ -150,10 +150,6 @@ export default class Register extends React.Component {
           }, 4000);
         }
       });
-<<<<<<< HEAD
-      this.props.history.push("/");
-=======
->>>>>>> Branch-Correcciones
     }
   };
 
