@@ -145,15 +145,19 @@ export default class Register extends React.Component {
           let registerSuccessful = document.getElementById("successfulRegister");
           registerSuccessful.classList.add("show");
           registerSuccessful.innerHTML = "Se registró el usuario exitosamente."
-            setTimeout(function() {
-              registerSuccessful.classList.remove("show");
-            }, 4000);
-            this.props.history.push("/login");
+          setTimeout(function() {
+            registerSuccessful.classList.remove("show");
+          }, 4000);
         }
       });
     }
   };
 
+  changeToLogin () {
+    this.props.history.push("/login");
+  }
+
+  
   render(){
     return (
       <div className="container">
@@ -212,7 +216,7 @@ export default class Register extends React.Component {
               <div ref="lastNameError" id="lastNameError"></div>
               <div ref="phoneNumberError" id="phoneNumberError" ></div>
               <div ref="addressError" id="addressError"></div>
-              <div id = "successfulRegister"></div>
+              <div id = "successfulRegister" onAnimationEnd = {this.changeToLogin.bind(this)}></div>
             </form>
           </div>
         </div>
