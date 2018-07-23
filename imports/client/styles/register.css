@@ -79,7 +79,7 @@ body{
     order:2;
   }
 
-  #emailError, #passwordError, #confirmPasswordError, #firstNameError, #lastNameError, #phoneNumberError, #addressError {
+  #emailError, #passwordError, #confirmPasswordError, #firstNameError, #lastNameError, #phoneNumberError, #addressError, #successfulRegister {
     background-color: #e33444;
     border-radius: 4px;
     color: #fff;
@@ -95,7 +95,7 @@ body{
     z-index: 1;
 }
 
-#emailError.show, #passwordError.show, #confirmPasswordError.show, #firstNameError.show, #lastNameError.show, #phoneNumberError.show, #addressError.show {
+#emailError.show, #passwordError.show, #confirmPasswordError.show, #firstNameError.show, #lastNameError.show, #phoneNumberError.show, #addressError.show, #successfulRegister.show  {
     visibility: visible;
     animation: fadeInOut 3s;
 }
