@@ -41,7 +41,7 @@ export default class Register extends React.Component {
       validator=1;
       let emailError = this.refs.emailError;
       emailError.classList.add("show");
-      emailError.innerHTML = "Please enter a valid email.";
+      emailError.innerHTML = "Por favor ingrese un correo válido.";
       setTimeout(function() {
           emailError.classList.remove("show");
       }, 3000);
@@ -49,7 +49,7 @@ export default class Register extends React.Component {
       validator=1;
       let emailError = this.refs.emailError;
       emailError.classList.add("show");
-      emailError.innerHTML = "Please enter a valid email.";
+      emailError.innerHTML = "Por favor ingrese un correo válido.";
       setTimeout(function() {
           emailError.classList.remove("show");
       }, 3000);
@@ -58,7 +58,7 @@ export default class Register extends React.Component {
       validator=1;
       let emailError = this.refs.emailError;
       emailError.classList.add("show");
-      emailError.innerHTML = "Please enter a valid email.";
+      emailError.innerHTML = "Por favor ingrese un correo válido.";
       setTimeout(function() {
           emailError.classList.remove("show");
       }, 3000);
@@ -66,7 +66,7 @@ export default class Register extends React.Component {
       validator=1;
       let passwordError = this.refs.passwordError;
       passwordError.classList.add("show");
-      passwordError.innerHTML = "Password must be 9 digits long.";
+      passwordError.innerHTML = "La contraseña debe de ser de al menos 9 dígitos.";
       setTimeout(function() {
           passwordError.classList.remove("show");
       }, 3000);
@@ -74,7 +74,7 @@ export default class Register extends React.Component {
       validator=1;
       let passwordError = this.refs.passwordError;
       passwordError.classList.add("show");
-      passwordError.innerHTML = "Password must be 9 digits long.";
+      passwordError.innerHTML = "La contraseña debe de ser de al menos 9 dígitos.";
       setTimeout(function() {
           passwordError.classList.remove("show");
       }, 3000);
@@ -82,7 +82,7 @@ export default class Register extends React.Component {
       validator=1;
       let passwordError = this.refs.passwordError;
       passwordError.classList.add("show");
-      passwordError.innerHTML = "Password does not match.";
+      passwordError.innerHTML = "Las contraseñas no son iguales.";
       setTimeout(function() {
           passwordError.classList.remove("show");
       }, 3000);
@@ -90,7 +90,7 @@ export default class Register extends React.Component {
       validator=1;
       let firstNameError = this.refs.firstNameError;
       firstNameError.classList.add("show");
-      firstNameError.innerHTML = "Please enter a valid name.";
+      firstNameError.innerHTML = "Por favor ingrese un nombre válido.";
       setTimeout(function() {
           firstNameError.classList.remove("show");
       }, 3000);
@@ -98,7 +98,7 @@ export default class Register extends React.Component {
       validator=1;
       let lastNameError = this.refs.lastNameError;
       lastNameError.classList.add("show");
-      lastNameError.innerHTML = "Please enter a valid name.";
+      lastNameError.innerHTML = "Por favor ingrese un nombre válido.";
       setTimeout(function() {
           lastNameError.classList.remove("show");
       }, 3000);
@@ -106,7 +106,7 @@ export default class Register extends React.Component {
       validator=1;
       let phoneNumberError = this.refs.phoneNumberError;
       phoneNumberError.classList.add("show");
-      phoneNumberError.innerHTML = "Please enter a valid phone number.";
+      phoneNumberError.innerHTML = "Por favor ingrese un número de teléfono válido.";
       setTimeout(function() {
           phoneNumberError.classList.remove("show");
       }, 3000);
@@ -114,7 +114,7 @@ export default class Register extends React.Component {
       validator=1;
       let phoneNumberError = this.refs.phoneNumberError;
       phoneNumberError.classList.add("show");
-      phoneNumberError.innerHTML = "Please enter a valid phone number.";
+      phoneNumberError.innerHTML = "Por favor ingrese un número de teléfono válido.";
       setTimeout(function() {
           phoneNumberError.classList.remove("show");
       }, 3000);
@@ -122,7 +122,7 @@ export default class Register extends React.Component {
       validator=1;
       let phoneNumberError = this.refs.phoneNumberError;
       phoneNumberError.classList.add("show");
-      phoneNumberError.innerHTML = "Please enter a valid phone number.";
+      phoneNumberError.innerHTML = "Por favor ingrese un número de teléfono válido.";
       setTimeout(function() {
           phoneNumberError.classList.remove("show");
       }, 3000);
@@ -130,7 +130,7 @@ export default class Register extends React.Component {
       validator=1;
       let addressError = this.refs.addressError;
       addressError.classList.add("show");
-      addressError.innerHTML = "Please enter a valid address.";
+      addressError.innerHTML = "Por favor ingrese una dirección válida.";
       setTimeout(function() {
         addressError.classList.remove("show");
       }, 3000);
@@ -142,14 +142,26 @@ export default class Register extends React.Component {
         if (err) {
           alert(err.reason);
         }else {
-          alert('user created');
+          let registerSuccessful = document.getElementById("successfulRegister");
+          registerSuccessful.classList.add("show");
+          registerSuccessful.innerHTML = "Se registró el usuario exitosamente."
+          setTimeout(function() {
+            registerSuccessful.classList.remove("show");
+          }, 4000);
         }
       });
+<<<<<<< HEAD
       this.props.history.push("/");
+=======
+>>>>>>> Branch-Correcciones
     }
-
   };
 
+  changeToLogin () {
+    this.props.history.push("/login");
+  }
+
+  
   render(){
     return (
       <div className="container">
@@ -208,7 +220,7 @@ export default class Register extends React.Component {
               <div ref="lastNameError" id="lastNameError"></div>
               <div ref="phoneNumberError" id="phoneNumberError" ></div>
               <div ref="addressError" id="addressError"></div>
-
+              <div id = "successfulRegister" onAnimationEnd = {this.changeToLogin.bind(this)}></div>
             </form>
           </div>
         </div>
