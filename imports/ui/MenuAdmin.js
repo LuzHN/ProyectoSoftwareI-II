@@ -259,7 +259,7 @@ export default class MenuAdmin extends Component {
               </div> 
               <div className="body2">
                 {/*Nutritional Facts*/}
-                <div className="nutritionLabel" id="nutrilabel" style={{widh: "50%"}}>
+                <div className="nutritionLabel" id="nutrilabel" >
                   <div className="yes">
                     <div className="title">
                       Nutritional Facts
