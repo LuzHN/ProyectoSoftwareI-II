@@ -208,22 +208,22 @@ export default class MenuAdmin extends Component {
           <button id="modalBtn" className = "btn_Agregar" onClick={this.openAgregar.bind(this)}>Agregar Plato</button>
         </div>
 
-        {/*Modal*/}
-        <div id="simpleModal" className="modal">
-          <div className="modal-content">
-
-            {/* Header */}
-            <div className="modal-header">
-              <div className="modal-header-Btn">
-                <span className="closeBtn" onClick={this.closeAgregar.bind(this)}>&times;</span>
-              </div>
-              <div className="modal-header-Name">
-                <h2>Agregar Plato</h2>
-              </div>
+      {/*Modal*/}
+      <div id="simpleModal" className="modal">
+        <div className="modal-content">
+          {/* Header */}
+          <div className="modal-header">
+            <div className="modal-header-Btn">
+              <span className="closeBtn" onClick={this.closeAgregar.bind(this)}>&times;</span>
             </div>
-            {/* Body */}
-            <div className="modal-body">
-              <form className="contactModal" onSubmit={this.onSubmit.bind(this)}>
+            <div className="modal-header-Name">
+              <h2>Agregar Plato</h2>
+            </div>
+          </div>
+          {/* Body */}
+          <div className="modal-body">
+            <form className="contactModal" onSubmit={this.onSubmit.bind(this)}>
+              <div className="body1">
                 <p>
                   <label id="labelAgregar">Nombre Plato</label>
                   <input id="inputAgregar" ref = "nombrePlato" type="text" placeholder='Nombre Plato' maxLength='140' />
@@ -256,16 +256,145 @@ export default class MenuAdmin extends Component {
                     <option value="Drink">Drink</option>
                   </select>
                 </p>
-                <p>
-                  <button className="agregarFinalBtn" onClick = {this.agregarFinal.bind(this)}>Agregar Plato</button>
-                </p>
-                <div id = "platoAgregadoToast"></div>
-              </form>
-            </div>
-            {/* Footer */}
-            <div className="modal-footer"></div>
+              </div> 
+              <div className="body2">
+                {/*Nutritional Facts*/}
+                <div className="nutritionLabel" id="nutrilabel" style={{widh: "50%"}}>
+                  <div className="yes">
+                    <div className="title">
+                      Nutritional Facts
+                    </div>
+
+                    <div className="serving">
+                      <div className="cf">
+                        <div className="servingSizeText fl">
+                          Serving Size
+                        </div>
+
+                        <div className="servingUnitQuantity fl">
+                          1
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bar1"></div>
+
+                    <div className="line m" style={{fontWeight: "bold"}}>
+                      Amount Per Serving
+                    </div>
+
+                    <div className="line">
+                      <div className="fr">
+                        Calories from Fat 0
+                      </div>
+
+                      <div>
+                        <b>Calories</b> 0
+                      </div>
+                    </div>
+
+                    <div className="bar2"></div>
+
+                    <div className="line ar" style={{fontWeight: "bold"}}>
+                      % Daily Value<sup>*</sup>
+                    </div>
+
+                    <div className="line">
+                      <div className="dv">
+                        <b>0</b>%
+                      </div><b>Total Fat</b> 0g
+                    </div>
+
+                    <div className="line indent">
+                      <div className="dv">
+                        <b>0</b>%
+                      </div>Saturated Fat 0g
+                    </div>
+
+                    <div className="line indent">
+                      <i>Trans</i> Fat 0g
+                    </div>
+
+
+                    <div className="line">
+                      <div className="dv">
+                        <b>0</b>%
+                      </div><b>Cholesterol</b> 0mg
+                    </div>
+
+                    <div className="line">
+                      <div className="dv">
+                        <b>0</b>%
+                      </div><b>Sodium</b> 0mg
+                    </div>
+
+                    <div className="line">
+                      <div className="dv">
+                        <b>0</b>%
+                      </div><b>Total Carbohydrates</b> 0g
+                    </div>
+
+                    <div className="line indent">
+                      <div className="dv">
+                        <b>0</b>%
+                      </div>Dietary Fiber 0g
+                    </div>
+
+                    <div className="line indent">
+                      Sugars 0g
+                    </div>
+
+                    <div className="line">
+                      <b>Protein</b> 0g
+                    </div>
+
+                    <div className="bar1"></div>
+
+                    <div className="line vitaminA">
+                      <div className="dv">
+                        0%
+                      </div>Vitamin A
+                    </div>
+
+                    <div className="line vitaminC">
+                      <div className="dv">
+                        0%
+                      </div>Vitamin C
+                    </div>
+
+                    <div className="line calcium">
+                      <div className="dv">
+                        0%
+                      </div>Calcium
+                    </div>
+
+                    <div className="line iron">
+                      <div className="dv">
+                        0%
+                      </div>Iron
+                    </div>
+
+                    <div className="dvCalorieDiet line">
+                      <div className="calorieNote">
+                        <span className="star">*</span> Percent Daily Values are based on a 2000 calorie diet.<br/>
+                        <div className="ingredientListDiv">
+                          <b className="active" id="ingredientList">INGREDIENTS:</b> None
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>  
+            </form>
+            <p>
+              <button className="agregarFinalBtn" onClick = {this.agregarFinal.bind(this)}>Agregar Plato</button>
+            </p>
+            <div id = "platoAgregadoToast"></div>
           </div>
+          {/* Footer */}
+          <div className="modal-footer"></div>
         </div>
+      </div>
 
 
 

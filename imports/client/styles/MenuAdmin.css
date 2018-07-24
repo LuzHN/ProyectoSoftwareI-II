@@ -467,6 +467,18 @@ button {
   animation: fadeInOut 3s;
 }
 
+.contactModal{
+  display: flex;
+}
+
+.body1{
+  flex:1;
+}
+
+.body1{
+  padding: 16px;
+  flex:2;
+}
 @keyframes fadeInOut {
   5%,95%{opacity: 1; top: 38rem}
   15%, 85%{opacity:1; top: 38rem} 
