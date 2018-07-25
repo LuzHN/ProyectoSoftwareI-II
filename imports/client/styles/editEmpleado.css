@@ -1,0 +1,200 @@
+* {
+    font-family: 'Paralucent Bold', 'Gotham Book', Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: #37555A;
+    color: #87AAAA;
+    font-family: 'Paralucent Bold', 'Gotham Book', Geneva, Verdana, sans-serif;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+input, button, select {
+    color: #cdcaa6;
+}
+
+/*Esta es la clase del Form que contiene
+los elementos de emailInput, emailLabel,
+passwordInput y passwordLabel.
+*/
+.employeeDataForm {
+    background:#23363A;
+    display: grid;
+    grid-row-gap: 2rem;
+    margin-bottom: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10rem;
+    max-width: 130rem;
+    padding-bottom:3rem;
+    padding-top:3rem;
+}
+
+
+/*Este es la clase del Botón que dará
+acceso a la página principal del app.
+*/
+.botonAgregar{ 
+    background: #4e873e;
+    border:none;
+    border-radius: 8px;
+    color: white;
+    font: 'Paralucent Bold';
+    font-size: 1.3rem;
+    margin-left: auto;
+    margin-right: 40rem;
+    padding-right: 10rem;
+    text-align: center;
+    width: 10rem;    
+}
+
+.botonModificar {
+    background: #87aaaa;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font: 'Paralucent Bold';
+    font-size: 1.3rem;
+    margin-left: auto;
+    margin-right: 40rem;
+    padding-right: 11rem;
+    text-align: center;
+    width: 10rem;
+}
+
+.botonEliminar {
+    background: #E13232;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font: 'Paralucent Bold';
+    font-size: 1.3rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 10rem;
+    text-align: center;
+    width: 10rem;
+}
+
+.Buttons {
+    cursor: pointer;
+    display: flex;
+    line-height: 1;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 3rem;
+}
+
+button:focus {
+    outline:0;
+}
+
+
+table{
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-family: 'Paralucent Bold', 'Gotham Book', Geneva, Verdana, sans-serif;
+    margin: auto;
+    opacity: 0.95;
+    width: 90%;
+}
+
+.header {
+    background:#37555A;
+    color: white;
+    font-family: 'Paralucent Bold', 'Gotham Book', Geneva, Verdana, sans-serif;
+}
+  
+th {
+    background: #CDCAA6;
+    color: white;
+}
+  
+tr:nth-child(even) {
+    background:  #e8e8e8;
+}
+  
+tr:nth-child(odd) {
+    background:white;
+}
+  
+  
+th, td {
+    border: 1px solid black;
+    color: black;
+    font-family: 'Paralucent Bold', 'Gotham Book', Geneva, Verdana, sans-serif;
+    padding: 10px;
+    text-align: center;
+}
+  
+article {
+    overflow-x: auto;
+}
+  
+.container-1{
+    display:flex;
+
+  }
+
+  .box-1{
+    flex:1;
+    order:1;
+  }
+  
+  .box-2{
+    flex:1;
+    order:2;
+  }
+  .contact form{
+    display: grid;
+    grid-gap: 1rem;
+  }
+
+  .contact form label{
+    display: block;
+  }
+  
+  .contact form p{
+    margin: 0;
+  }
+ 
+   .contact form .full{
+    grid-column: 1/3;
+  }
+  
+  .contact form button, .contact form input, .contact form textarea{
+    width: 100%;
+    padding: 1em;
+    color: #2b3e4b;
+  }
+  
+  .contact form button{
+    background: #98bbd3;
+    color: #2b3e4b;
+    border: 0;
+    font-weight: bold;
+  }
+  
+  .contact form button:hover{
+    background: #98bbd3;
+    color: #fff;
+    outline: 0;
+    transition: background-color 1s ease-out;
+  
+  }
+
+@keyframes fadeInOut {
+    5%,95%{opacity: 1; top: 38rem}
+    15%, 85%{opacity:1; top: 38rem} 
+}
+
+@media screen and (max-width: 130rem) {
+    .employeeDataForm {
+        width: 130rem;
+    }
+}
