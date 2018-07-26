@@ -289,7 +289,8 @@ export default class MenuAdmin extends Component {
                       </div>
 
                       <div>
-                        <b>Calories</b> 0
+                        <b>Calories</b> 
+                        <input id="inputCalorias"  ref = "calorias" type="number" placeholder='0' maxLength='140'/>
                       </div>
                     </div>
 
@@ -302,50 +303,50 @@ export default class MenuAdmin extends Component {
                     <div className="line">
                       <div className="dv">
                         <b>0</b>%
-                      </div><b>Total Fat</b> 0g
+                      </div><b>Total Fat</b>  <input  id="inputTotalFat"  ref = "totalFat" type="number" placeholder='0g' maxLength='140'/>
                     </div>
 
                     <div className="line indent">
                       <div className="dv">
                         <b>0</b>%
-                      </div>Saturated Fat 0g
+                      </div>Saturated Fat  <input  id="inputSaturatedFat"  ref = "saturatedFat" type="number" placeholder='0g' maxLength='140'/>
                     </div>
 
                     <div className="line indent">
-                      <i>Trans</i> Fat 0g
+                      <i>Trans</i> Fat  <input  id="inputTransFat"  ref = "transFat" type="number" placeholder='0g' maxLength='140'/>
                     </div>
 
 
                     <div className="line">
                       <div className="dv">
                         <b>0</b>%
-                      </div><b>Cholesterol</b> 0mg
+                      </div><b>Cholesterol</b>  <input  id="inputCholesterol"  ref = "cholesterol" type="number" placeholder='0mg' maxLength='140'/>
                     </div>
 
                     <div className="line">
                       <div className="dv">
                         <b>0</b>%
-                      </div><b>Sodium</b> 0mg
+                      </div><b>Sodium</b>  <input  id="inputSodium"  ref = "sodium" type="number" placeholder='0mg' maxLength='140'/>
                     </div>
 
                     <div className="line">
                       <div className="dv">
                         <b>0</b>%
-                      </div><b>Total Carbohydrates</b> 0g
+                      </div><b>Total Carbohydrates</b>  <input  id="inputTotalCarbs"  ref = "carbs" type="number" placeholder='0g' maxLength='140'/>
                     </div>
 
                     <div className="line indent">
                       <div className="dv">
                         <b>0</b>%
-                      </div>Dietary Fiber 0g
+                      </div>Dietary Fiber  <input  id="inputDietaryFiber"  ref = "dietaryFiiber" type="number" placeholder='0g' maxLength='140'/>
                     </div>
 
                     <div className="line indent">
-                      Sugars 0g
+                      Sugars  <input  id="inputSugars"  ref = "sugars" type="number" placeholder='0g' maxLength='140'/>
                     </div>
 
                     <div className="line">
-                      <b>Protein</b> 0g
+                      <b>Protein</b>  <input  id="inputProtein"  ref = "protein" type="number" placeholder='0g' maxLength='140'/>
                     </div>
 
                     <div className="bar1"></div>
@@ -353,33 +354,33 @@ export default class MenuAdmin extends Component {
                     <div className="line vitaminA">
                       <div className="dv">
                         0%
-                      </div>Vitamin A
+                      </div>Vitamin A  <input  id="inputVitaminA"  ref = "vitaminA" type="number" placeholder='0%' maxLength='140'/>
                     </div>
 
                     <div className="line vitaminC">
                       <div className="dv">
                         0%
-                      </div>Vitamin C
+                      </div>Vitamin C  <input  id="inputVitaminC"  ref = "vitaminC" type="number" placeholder='0%' maxLength='140'/>
                     </div>
 
                     <div className="line calcium">
                       <div className="dv">
                         0%
-                      </div>Calcium
+                      </div>Calcium  <input  id="inputCalcium"  ref = "calcium" type="number" placeholder='0%' maxLength='140'/>
                     </div>
 
                     <div className="line iron">
                       <div className="dv">
                         0%
-                      </div>Iron
+                      </div>Iron  <input  id="inputIron"  ref = "iron" type="number" placeholder='0%' maxLength='140'/>
                     </div>
 
                     <div className="dvCalorieDiet line">
                       <div className="calorieNote">
                         <span className="star">*</span> Percent Daily Values are based on a 2000 calorie diet.<br/>
-                        <div className="ingredientListDiv">
+                        {/* <div className="ingredientListDiv">
                           <b className="active" id="ingredientList">INGREDIENTS:</b> None
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                 </div>
