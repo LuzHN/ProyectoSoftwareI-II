@@ -9,6 +9,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/menu.css';
 import { Orders } from '../../api/orders'
 
+
+window.onclick = function (event) {
+    console.log(event);
+    if (event.target.className == "modal") {
+
+        var modal = document.getElementById('simpleModalEmp');
+        modal.style.display = "none";
+    }
+}
+
 export default class MenuEmployee extends React.Component {
     constructor(props) {
         super(props);
@@ -22,6 +32,11 @@ export default class MenuEmployee extends React.Component {
             const orders = Orders.find().fetch();
             this.setState({ orders });
         });
+    }
+
+    closeAgregar() {
+        var modal = document.getElementById('simpleModalEmp');
+        modal.style.display = 'none';
     }
 
     componentWillUnmount() {
@@ -62,6 +77,27 @@ export default class MenuEmployee extends React.Component {
                     </div>
                 </footer>
 
+                <div id="simpleModalEmp" className="modal">
+                    <div className="modal-content">
+
+                        {/* Header */}
+                        <div className="modal-header">
+                            <div className="modal-header-Btn">
+                                <span className="closeBtn" onClick={this.closeAgregar.bind(this)}>&times;</span>
+                            </div>
+                            <div className="modal-header-Name">
+                                <h2>Información del plato</h2>
+                            </div>
+                        </div>
+                        {/* Body */}
+                        <PlateInfo orders={this.state.orders} />
+                        {/* Footer */}
+                        <div className="modal-footer"></div>
+                    </div>
+                </div>
+
+
+
             </div>
         );
     }
@@ -71,7 +107,7 @@ class MenuEmployeeComponent extends React.Component {
     render() {
         return (
 
-            <table id="EmployeeTable" className="table">
+            <table id="EmployeeTable" className="table table-hover table-blue">
                 <thead className="thead-dark">
                     <tr>
                         <th scope="col">Nùmero Orden</th>
@@ -93,9 +129,23 @@ class MenuEmployeeComponent extends React.Component {
     }
 }
 
+class PlateInfo extends React.Component{
+
+    render(){
+
+        return(
+
+            this.props.orders.map((order) =>{
+
+                <li></li>
+            })
+        );
+    }
+}
+
+
 const renderTable = (platesList) => {
 
-    console.log(platesList);
 
 
     return platesList.map((plate) => {
@@ -116,7 +166,13 @@ const renderTable = (platesList) => {
                     <td>{user.profile.phoneNumber1}</td>
                     <td>{plate.status}</td>
                     <td>
-                        <button></button>
+                        <button onClick={function () {
+
+                            var modal = document.getElementById('simpleModalEmp');
+                            modal.plate = plate._id;
+                            modal.style.display = 'block';
+                            
+                        }}></button>
                     </td>
                     <td>
                         <button id="btn-empleado" onClick={function () {
@@ -128,7 +184,7 @@ const renderTable = (platesList) => {
                     <td>
                         <button id="btn-empleado" onClick={function () {
                             if (plate.status == "InProgress" || plate.status == "Dispatched") {
-                                console.log("hola")
+                               
                                 Meteor.call('orders.setDispatched', plate._id)
 
                             } else if (plate.status == "Pending") {
