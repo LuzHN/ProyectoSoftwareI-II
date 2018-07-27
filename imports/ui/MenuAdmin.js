@@ -5,6 +5,14 @@ import { Dishes } from '../api/dishes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './../client/styles/MenuAdmin';
 
+window.onclick = function (event) {
+  if (event.target.className == "modal") {
+
+      var modal = document.getElementById('simpleModal');
+      modal.style.display = "none";
+  }
+}
+
 export default class MenuAdmin extends Component {
   constructor(props) {
     super(props);
@@ -12,6 +20,8 @@ export default class MenuAdmin extends Component {
       dishes: []
     }
   }
+
+  
 
   onSubmit(e) {
     e.preventDefault();
