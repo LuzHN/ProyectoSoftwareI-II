@@ -66,7 +66,7 @@ export default class MenuAdmin extends Component {
         modal.style.display = 'none';
       }, 3000);
     } else {
-
+      
       let platoAgregado = document.getElementById("platoAgregadoToast");
       platoAgregado.classList.add("show");
       platoAgregado.innerHTML = "No ha ingresado todos los datos."
@@ -93,10 +93,14 @@ export default class MenuAdmin extends Component {
     this.refs.nombrePlato.value = "";
     this.refs.precioPlato.value = "";
     this.refs.descriptionPlato.value = "";
+    let title = document.getElementById("h2_ModalTitle");
+    title.innerHTML = "Agregar Plato"
+    let botonFinal = document.getElementById("bt_Modal");
+    botonFinal.innerHTML = "Agregar Plato"
     var modal = document.getElementById('simpleModal');
     modal.style.display = 'block';
   }
-
+  
   closeAgregar(){
     var modal = document.getElementById('simpleModal');
     modal.style.display = 'none';
@@ -217,7 +221,7 @@ export default class MenuAdmin extends Component {
               <span className="closeBtn" onClick={this.closeAgregar.bind(this)}>&times;</span>
             </div>
             <div className="modal-header-Name">
-              <h2>Agregar Plato</h2>
+              <h2 id="h2_ModalTitle">Agregar Plato</h2>
             </div>
           </div>
           {/* Body */}
@@ -388,7 +392,7 @@ export default class MenuAdmin extends Component {
             </div>  
             </form>
             <p>
-              <button className="agregarFinalBtn" onClick = {this.agregarFinal.bind(this)}>Agregar Plato</button>
+              <button id="bt_Modal" className="agregarFinalBtn" onClick = {this.agregarFinal.bind(this)}>Agregar Plato</button>
             </p>
             <div id = "platoAgregadoToast"></div>
           </div>
@@ -444,12 +448,23 @@ class ButtonPlato extends Component {
   deleteDish(id) {
     Meteor.call('dishes.delete', id);
   }
+  editDish(id){
+    var modal = document.getElementById('simpleModal');
+    let title = document.getElementById("h2_ModalTitle");
+    title.innerHTML = "Editar Plato"
+    let botonFinal = document.getElementById("bt_Modal");
+    botonFinal.innerHTML = "Editar Plato"
+    modal.style.display = 'block';
+  }
   render() {
     return (
       <div className="btn-bg bg-2">
         <div className="btn btn-2">
-          <button onClick={() => this.deleteDish(this.props.id)}>Delete</button>
+          <button onClick={() => this.editDish(this.props.id)}>Edit</button>
         </div>
+        <div className="btn btn-2">
+          <button onClick={() => this.deleteDish(this.props.id)}>Delete</button>
+        </div>    
       </div>
     );
   }
