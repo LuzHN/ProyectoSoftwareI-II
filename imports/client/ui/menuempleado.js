@@ -93,52 +93,6 @@ class MenuEmployeeComponent extends React.Component {
     }
 }
 
-//{renderPlates(this.props.orders, this.cambiarEstado, this.deleteCard)}
-
-/*
-
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Nùmero Orden</th>
-      <th scope="col">Cliente</th>
-      <th scope="col">Telèfono</th>
-      <th scope="col">Direcciòn</th>
-      <th scope="col">Estado</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-
-
-*/
-
-
-AgregarHeader = (cliente, id) => {
-    return (
-        <h3>Cliente: {cliente} -- ID de Orden: {id}</h3>
-    )
-}
-
 const renderTable = (platesList) => {
 
     console.log(platesList);
@@ -177,10 +131,6 @@ const renderTable = (platesList) => {
                                 console.log("hola")
                                 Meteor.call('orders.setDispatched', plate._id)
 
-
-
-                                //document.getElementById(plate._id).remove();
-
                             } else if (plate.status == "Pending") {
                                 alert("Primero tiene que estar ingresado.")
                             }
@@ -191,55 +141,5 @@ const renderTable = (platesList) => {
         }
 
 
-    });
-}
-
-
-const renderPlates = (platesList) => { //metodo a usar con la base
-
-    return platesList.map((plate) => {
-        // console.log(Meteor.users.findOne({_id: plate.userId}));
-        const user = Meteor.users.findOne({ _id: plate.userId })
-        return (plate.products.map((product, i) => {
-            return (
-                <div className="card EmployeeCard " key={i}>
-                    <div className="card-body">
-                        <div>
-                            <h1 className="card-title">{`${product.plato} - Cantidad: ${product.cantidad}`}</h1>
-                            <h2 className="card-subtitle">Fecha ordenado: {plate.fecha} </h2>
-                            <hr></hr>
-                            <h2 id="InfoCliente" className="card-text">Cliente: {user.profile.firstName}</h2>
-                            <h2 id="InfoCliente" className="card-text">Teléfono: {user.profile.phoneNumber1}</h2>
-                            <h2 id="InfoCliente" className="card-text">Dirección: {user.profile.address1}</h2>
-                            <p id="ComentarioCliente" className="card-text">
-                                {product.descripcion}
-                            </p>
-                            <hr></hr>
-                        </div>
-
-
-                        <div className="card-footer text-muted">
-                            <span className="green">Estado: </span>
-                            <span className="red">{plate.status}</span>
-                            <button className="ChangeState" id="ingresado" onClick={function () {
-                                if (plate.status == "") {
-                                    Meteor.call('orders.setInProgress', plate._id)
-                                    this.document.getElementById("ingresado").setAttribute("disabled", "true");
-                                }
-                            }}>Cambiar a Ingresado</button>
-                            <button className="ChangeState" onClick={function () {
-                                if (plate.status == "InProgress") {
-                                    Meteor.call('orders.setDispatched', plate._id)
-                                } else if (plate.status == "") {
-                                    alert("Primero tiene que estar ingresado.")
-                                }
-                            }}>Cambiar a Terminado</button>
-                        </div>
-                    </div>
-                </div>
-
-
-            );
-        }));
     });
 }
