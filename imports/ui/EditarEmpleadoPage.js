@@ -12,12 +12,18 @@ import './../client/styles/editEmpleado';
 
 export default class editarEmpleadoPage extends React.Component {
 
-    handleSubmit(e) {
+    searchEmployeeSubmit(e) {
         e.preventDefault();
+        console.log("Search Employee");
     }
 
     onAgregar() {
        console.log("Agrego");
+       var modal = document.getElementById('simpleModal');
+       modal.style.display = 'block';
+       const user = Meteor.users.findOne({_id:plate.userId});
+       console.log(user);
+
     }
 
     onModificar() {
@@ -28,189 +34,116 @@ export default class editarEmpleadoPage extends React.Component {
         console.log("Elimino")
     }
 
-    onSubmit() {
+    closeAgregar(){
+        var modal = document.getElementById('simpleModal');
+        modal.style.display = 'none';
+      }
 
-    }
+
 
     render() {
         return (
             <div className = "EditarEmpleado">
-                <form className = "employeeDataForm" onSubmit = {this.handleSubmit.bind(this)}>
-
+                <div className = "containerPrincipal">
                     <div className = "Buttons">
                         <button className = "botonAgregar" onClick = {this.onAgregar.bind(this)}>Agregar Empleado</button>
                         <button className = "botonModificar" onClick = {this.onModificar.bind(this)}>Modificar Empleado</button>
                         <button className = "botonEliminar" onClick = {this.onEliminar.bind(this)}>Eliminar Empleado</button>
                     </div>
-                    <div className="contact">
-                        <p>
-                            <label>Email</label>
-                            <input ref = "email" type="email" placeholder='Enter Email' maxLength='140' />
-                        </p>
-                        <div className="container-1">
-                            <div className="box-1">
-                                <p>
-                                    <label>Password</label>
-                                    <input ref="password" type="password" placeholder='Enter Password' />
-                                </p>
-                            </div>
-                            <div className="box-2">
-                                <p>
-                                    <label>Confirm Password</label>
-                                    <input ref = "confirmPassword" type="password" placeholder='Confirm Password'/>
-                                </p>
-                            </div>
-                        </div>
-                        <div className="container-1">
-                            <div className="box-1">
-                                <p>
-                                    <label>First Name</label>
-                                    <input ref="firstName" type="text" placeholder='Enter First Name' maxLength='140' />
-                                </p>
-                            </div>
-                            <div className="box-2">
-                                <p>
-                                    <label>Last Name</label>
-                                    <input ref="lastName" type="text" placeholder='Enter Last Name' maxLength='140' />
-                                </p>
-                            </div>
-                        </div>
-                        <p>
-                            <label>Phone Number</label>
-                            <InputMask mask="9999-9999" ref="phoneNumber"  placeholder='Enter Phone Number' />
-                        </p>
-                        <p>
-                            <label>Address</label>
-                            <textarea  ref="address" rows="5" placeholder='Enter Address' maxLength='140'></textarea>
-                        </p>
-                        <p>
-                            <button onClick={this.onSubmit.bind(this)}>Register</button>
-                        </p>
+
+
+                    {/*   <div className = "Buttons">
+                    <div className = "searchBarDiv">
+                        <h3>Empleados</h3>
+                        <input className="searchBar" placeholder="Nombre Empleado" ref="srch" type="search" />
+                        <button className = "botonSearch" onClick={this.searchEmployeeSubmit.bind(this)}>Buscar</button>
                     </div>
+                  </div>*/}
+                  
+
                     
+                    {/*Modal*/}
+                    <div id="simpleModal" className="modal">
+                        <div className="modal-content">
 
+                            {/* Header */}
+                            <div className="modal-header">
+                                <div className="modal-header-Btn">
+                                    <span className="closeBtn" onClick={this.closeAgregar.bind(this)}>&times;</span>
+                                </div>
+                                <div className="modal-header-Name">
+                                    <h2>Agregar Empleado</h2>
+                                </div>
+                            </div>
 
-
-
-                    <table align = "center">
-
-                        <tr>
-                            <td colspan = "7" class = "header">EMPLEADOS</td>
-                        </tr>
-
-                        <tr>
-                            <th>Identificador</th>
-                            <th>1</th>
-                            <th>2</th>
-                            <th>3</th>
-                            <th>4</th>
-                            <th>5</th>
-                        </tr>
-
-                        <tr>
-                            <td>Nombre</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-
-                        <tr>
-                            <td>Apellido</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-
-                        <tr>
-                            <td>Correo</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-
-                        <tr>
-                            <td>Telefono 1</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-
-                        <tr>
-                            <td>Telefono 2</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-
-                        <tr>
-                            <td>Telefono 3</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-
-                        <tr>
-                            <td>Telefono 4</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-
-                        <tr>
-                            <td>Direccion 1</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-
-                        <tr>
-                            <td>Direccion 2</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-
-                        <tr>
-                            <td>Direccion 3</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-
-                        <tr>
-                            <td>Direccion 4</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-
-
-
-                    </table>
-              
-                </form>
+                            {/* Body */}
+                            <div className="modal-body">
+                                <form  className="agregarEmpleadoFormModal">
+                                    <div >
+                                        <div className = "container1">
+                                            <div className = "box1">
+                                                <p>
+                                                    <label>Email</label>
+                                                    <input ref = "email" type="email" placeholder='Enter Email' maxLength='140' />
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div className="container1">
+                                            <div className="box1">
+                                                <p>
+                                                    <label>Password</label>
+                                                    <input ref="password" type="password" placeholder='Enter Password' />
+                                                </p>
+                                            </div>
+                                            <div className="box2">
+                                                <p>
+                                                    <label>Confirm Password</label>
+                                                    <input ref = "confirmPassword" type="password" placeholder='Confirm Password'/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div className="container1">
+                                            <div className="box1">
+                                                <p>
+                                                    <label>First Name</label>
+                                                    <input ref="firstName" type="text" placeholder='Enter First Name' maxLength='140' />
+                                                </p>
+                                            </div>
+                                            <div className="box2">
+                                                <p>
+                                                    <label>Last Name</label>
+                                                    <input ref="lastName" type="text" placeholder='Enter Last Name' maxLength='140' />
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div className = "container1">
+                                            <div className = "box1">
+                                                <p>
+                                                    <label>Phone Number</label>
+                                                    <InputMask mask="9999-9999" ref="phoneNumber"  placeholder='Enter Phone Number' />
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div className = "container1">
+                                            <div className = "box1">
+                                                <p>
+                                                    <label>Address</label>
+                                                    <textarea  ref="address" rows="5" placeholder='Enter Address' maxLength='140'></textarea>
+                                                </p>
+                                            </div>
+                                        </div>
+                                       
+                                        <p>
+                                            <button className = "confirmarAdd" >Confirmar</button>
+                                        </p>
+                                    </div>       
+                                </form>
+                            </div>
+                            {/* Footer */}
+                            <div className="modal-footer"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

@@ -14,15 +14,16 @@ html {
     font-size: 62.5%;
 }
 
-input, button, select {
+input, button, select{
     color: #cdcaa6;
+    color: black;
 }
 
 /*Esta es la clase del Form que contiene
 los elementos de emailInput, emailLabel,
 passwordInput y passwordLabel.
 */
-.employeeDataForm {
+.containerPrincipal {
     background:#23363A;
     display: grid;
     grid-row-gap: 2rem;
@@ -30,11 +31,10 @@ passwordInput y passwordLabel.
     margin-left: auto;
     margin-right: auto;
     margin-top: 10rem;
-    max-width: 130rem;
+    max-width: 90rem;
     padding-bottom:3rem;
-    padding-top:3rem;
+    padding-top:1rem;
 }
-
 
 /*Este es la clase del Botón que dará
 acceso a la página principal del app.
@@ -47,7 +47,7 @@ acceso a la página principal del app.
     font: 'Paralucent Bold';
     font-size: 1.3rem;
     margin-left: auto;
-    margin-right: 40rem;
+    margin-right: 20rem;
     padding-right: 10rem;
     text-align: center;
     width: 10rem;    
@@ -61,7 +61,7 @@ acceso a la página principal del app.
     font: 'Paralucent Bold';
     font-size: 1.3rem;
     margin-left: auto;
-    margin-right: 40rem;
+    margin-right: 20rem;
     padding-right: 11rem;
     text-align: center;
     width: 10rem;
@@ -94,107 +94,150 @@ button:focus {
     outline:0;
 }
 
-
-table{
-    border: 1px solid black;
-    border-collapse: collapse;
+.searchBarDiv {
+    line-height: 1;
     font-family: 'Paralucent Bold', 'Gotham Book', Geneva, Verdana, sans-serif;
-    margin: auto;
-    opacity: 0.95;
-    width: 90%;
+    margin-left: 5rem;
 }
 
-.header {
-    background:#37555A;
-    color: white;
-    font-family: 'Paralucent Bold', 'Gotham Book', Geneva, Verdana, sans-serif;
-}
-  
-th {
-    background: #CDCAA6;
-    color: white;
-}
-  
-tr:nth-child(even) {
-    background:  #e8e8e8;
-}
-  
-tr:nth-child(odd) {
-    background:white;
-}
-  
-  
-th, td {
-    border: 1px solid black;
+.searchBar {
+    padding: 0.5rem;
+    margin-right: 1rem;
     color: black;
-    font-family: 'Paralucent Bold', 'Gotham Book', Geneva, Verdana, sans-serif;
-    padding: 10px;
+}
+
+.botonSearch {
+    background:  #eca597 ;
+    border:none;
+    border-radius: 8px;
+    color: black;
+    font: 'Paralucent Bold';
+    font-size: 1.3rem;
+    padding-right: 8rem;
+    padding-left: 2rem;
     text-align: center;
+    width: 1rem;
+}
+
+/*MODAL*/
+.modal{
+    display:none;
+    position: fixed;
+    z-index:1;
+    left: 0;
+    top:0;
+    height: 100%;
+    width:100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
 }
   
-article {
-    overflow-x: auto;
+.modal-content{
+    background-color:#efede6;
+    margin: 20% auto;
+    width:70%;
+    box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),0 7px 20px 0 rgba(0,0,0,0.17);
+    animation-name:modalopen;
+    animation-duration:1s;
 }
   
-.container-1{
-    display:flex;
-
-  }
-
-  .box-1{
-    flex:1;
-    order:1;
-  }
-  
-  .box-2{
+.modal-header{
+    background:#d86926;
+    color:#fff;
+    display: flex;
+}
+ 
+.modal-header-Btn{
     flex:1;
     order:2;
-  }
-  .contact form{
-    display: grid;
-    grid-gap: 1rem;
-  }
+}
 
-  .contact form label{
-    display: block;
-  }
+.modal-header-Name{
+    margin-top:1%;
+    flex:1;
+    order:1;
+    font-family: 'Paralucent Bold', 'Gotham Book', Geneva, Verdana, sans-serif;
+}
   
-  .contact form p{
-    margin: 0;
-  }
- 
-   .contact form .full{
-    grid-column: 1/3;
-  }
+.closeBtn{
+    font-size:3rem;
+    color:#fff;
+    margin-left: 90%;
+    margin-bottom:5%;
+}
   
-  .contact form button, .contact form input, .contact form textarea{
-    width: 100%;
-    padding: 1em;
-    color: #2b3e4b;
-  }
+.closeBtn:hover,.closeBtn:focus{
+    color:#000;
+    text-decoration: none;
+    cursor:pointer;
+}
   
-  .contact form button{
-    background: #98bbd3;
-    color: #2b3e4b;
-    border: 0;
-    font-weight: bold;
-  }
+.modal-body{
+    padding:10px 20px;
+}
   
-  .contact form button:hover{
-    background: #98bbd3;
-    color: #fff;
-    outline: 0;
-    transition: background-color 1s ease-out;
+.modal-footer{
+    background:#d86926;
+    padding:2%;
+    color:#fff;
+}
+
+
+.container1{
+    color:  #514e4d;
+    display:flex;
+    display: grid;
+    grid-template-columns: 1fr 2fr;   
+
+}
+
+.box1{
+    color:  #514e4d;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    margin-left: 50%;
+
+}
   
-  }
+.box2{
+    color:  #514e4d;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    margin-left: 50%;
+}
+
+.confirmarAdd {
+    background: #4e873e;
+    border:none;
+    border-radius: 8px;
+    color: white;
+    font: 'Paralucent Bold';
+    font-size: 1.3rem;
+    margin-left: 45%;
+    margin-right: 55%;
+    padding-left: 1rem;
+    padding-right: 10rem;
+    width: 10rem;  
+}
 
 @keyframes fadeInOut {
     5%,95%{opacity: 1; top: 38rem}
     15%, 85%{opacity:1; top: 38rem} 
 }
 
-@media screen and (max-width: 130rem) {
-    .employeeDataForm {
-        width: 130rem;
+@media screen and (max-width: 90rem) {
+    .containerPrincipal {
+        width: 90rem;
     }
+}
+
+@media screen and (max-width: 94.2rem) {
+    .modal-content {
+        width: 94.2rem;
+    }
+}
+
+@keyframes modalopen{
+    from{ opacity: 0}
+    to {opacity: 1}
 }
