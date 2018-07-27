@@ -426,12 +426,12 @@ button {
   display: block;
 }
 
-.agregarFinalBtn, #inputAgregar{
+.finalBtn, #inputAgregar{
   width: 100%;
   padding: 1em;
 }
 
-.agregarFinalBtn{
+.finalBtn{
   background: #4c8644;
   color: #fff;
   border: 0;
@@ -439,14 +439,14 @@ button {
   font-family: 'Paralucent Bold', 'Gotham Book', Geneva, Verdana, sans-serif;
 }
 
-.agregarFinalBtn:hover{
+.finalBtn:hover{
   background: #3d6b37;
   color: #fff;
   outline: 0;
   transition: background-color 1s ease-out;
 }
 
-#platoAgregadoToast {
+#botonModalToast {
   background-color: #e33444;
   border-radius: 4px;
   color: #fff;
@@ -462,7 +462,7 @@ button {
   z-index: 1;
 }
 
-#platoAgregadoToast.show {
+#botonModalToast.show {
   visibility: visible;
   animation: fadeInOut 3s;
 }

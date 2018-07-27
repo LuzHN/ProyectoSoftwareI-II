@@ -57,7 +57,7 @@ export default class MenuAdmin extends Component {
         iron
       }
       Meteor.call('dishes.insert', dish);
-      let platoAgregado = document.getElementById("platoAgregadoToast");
+      let platoAgregado = document.getElementById("botonModalToast");
       platoAgregado.classList.add("show");
       platoAgregado.innerHTML = "Se ha agregado un plato nuevo."
       setTimeout(function() {
@@ -67,7 +67,7 @@ export default class MenuAdmin extends Component {
       }, 3000);
     } else {
       
-      let platoAgregado = document.getElementById("platoAgregadoToast");
+      let platoAgregado = document.getElementById("botonModalToast");
       platoAgregado.classList.add("show");
       platoAgregado.innerHTML = "No ha ingresado todos los datos."
       setTimeout(function() {
@@ -95,8 +95,10 @@ export default class MenuAdmin extends Component {
     this.refs.descriptionPlato.value = "";
     let title = document.getElementById("h2_ModalTitle");
     title.innerHTML = "Agregar Plato"
-    let botonFinal = document.getElementById("bt_Modal");
-    botonFinal.innerHTML = "Agregar Plato"
+    let botonEditar = document.getElementById("bt_ModalEditar");
+    botonEditar.style.display = "none";
+    let botonAgregar = document.getElementById("bt_ModalAgregar");
+    botonAgregar.style.display = "block";
     var modal = document.getElementById('simpleModal');
     modal.style.display = 'block';
   }
@@ -107,7 +109,7 @@ export default class MenuAdmin extends Component {
   }
 
   agregarFinal() {
-    let platoAgregado = document.getElementById("platoAgregadoToast");
+    let platoAgregado = document.getElementById("botonModalToast");
     platoAgregado.classList.add("show");
     platoAgregado.innerHTML = "Se ha agregado un plato nuevo."
     let name = this.refs.nombrePlato.value;
@@ -117,10 +119,30 @@ export default class MenuAdmin extends Component {
     let image = this.refs.imagenPlato.value;
     setTimeout(function() {
       platoAgregado.classList.remove("show");
-      name = "";
+      document.getElementById("myForm").reset(); //resets los inputs del form
+      name.value = "";
       price = "";
       descript = "";
-    }, 3000);
+    }, 2000);
+  }
+
+  editarFinal(){
+    let platoAgregado = document.getElementById("botonModalToast");
+    platoAgregado.classList.add("show");
+    platoAgregado.innerHTML = "Se ha editado el plato."
+    let name = this.refs.nombrePlato.value;
+    let price = this.refs.precioPlato.value;
+    let descript = this.refs.descriptionPlato.value;
+    let type = this.refs.tipodeComida.selected;
+    let image = this.refs.imagenPlato.value;
+    setTimeout(function() {
+      platoAgregado.classList.remove("show");
+      document.getElementById("myForm").reset(); //resets los inputs del form
+      name.value = "";
+      price = "";
+      descript = "";
+    }, 2000);
+
   }
 
 
@@ -226,7 +248,7 @@ export default class MenuAdmin extends Component {
           </div>
           {/* Body */}
           <div className="modal-body">
-            <form className="contactModal" onSubmit={this.onSubmit.bind(this)}>
+            <form id="myForm" className="contactModal" onSubmit={this.onSubmit.bind(this)}>
               <div className="body1">
                 <p>
                   <label id="labelAgregar">Nombre Plato</label>
@@ -391,10 +413,14 @@ export default class MenuAdmin extends Component {
               </div>
             </div>  
             </form>
-            <p>
-              <button id="bt_Modal" className="agregarFinalBtn" onClick = {this.agregarFinal.bind(this)}>Agregar Plato</button>
+            <p id="bt_ModalAgregar">
+              <button  className="finalBtn" onClick = {this.agregarFinal.bind(this)}>Agregar Plato</button>
             </p>
-            <div id = "platoAgregadoToast"></div>
+            <p id="bt_ModalEditar">
+              <button  className="finalBtn" onClick = {this.editarFinal.bind(this)}>Editar Plato</button>
+            </p>
+            <div id = "botonModalToast"></div>
+            
           </div>
           {/* Footer */}
           <div className="modal-footer"></div>
@@ -452,8 +478,10 @@ class ButtonPlato extends Component {
     var modal = document.getElementById('simpleModal');
     let title = document.getElementById("h2_ModalTitle");
     title.innerHTML = "Editar Plato"
-    let botonFinal = document.getElementById("bt_Modal");
-    botonFinal.innerHTML = "Editar Plato"
+    let botonAgregar = document.getElementById("bt_ModalAgregar");
+    botonAgregar.style.display = "none";
+    let botonEditar = document.getElementById("bt_ModalEditar");
+    botonEditar.style.display = "block";
     modal.style.display = 'block';
   }
   render() {
