@@ -11,7 +11,6 @@ import { Orders } from '../../api/orders'
 
 
 window.onclick = function (event) {
-    console.log(event);
     if (event.target.className == "modal") {
 
         var modal = document.getElementById('simpleModalEmp');
@@ -43,6 +42,72 @@ export default class MenuEmployee extends React.Component {
         this.ordersTracker.stop();
     }
 
+    showModal = (Order) =>{
+        var modal = document.getElementById('simpleModalEmp');
+        var ModalDescription = document.getElementById('ModalDescription');
+
+
+        let platillos ="";
+
+        Order.products.map((product) => {
+
+            platillos = platillos + product.plato + "\n";
+            
+        });
+
+        ModalDescription.innerText = platillos;
+        //revisar manera para insertar html correctamente con <span> o algo de listas
+        modal.style.display = 'block';
+
+    }
+
+    cargarLista() {
+        return this.state.orders.map((order) => {
+
+            const user = Meteor.users.findOne({ _id: order.userId })
+            if (order.status == "") {
+                order.status = "Pending";
+            }
+
+            if (order.status == "Dispatched") {
+                //no mandar nada
+            } else {
+                return (
+                    <tr key={order._id}>
+                        <td>Orden X</td>
+                        <td>{order.fecha}</td>
+                        <td>{user.profile.firstName + " " + user.profile.lastName}</td>
+                        <td>{user.profile.phoneNumber1}</td>
+                        <td>{order.status}</td>
+                        <td>
+                            <button onClick={(e)=>this.showModal(order)}></button>
+                        </td>
+                        <td>
+                            <button id="btn-empleado" onClick={function () {
+                                if (order.status == "Pending") {
+                                    Meteor.call('orders.setInProgress', order._id)
+                                }
+                            }}>Cambiar a Ingresado</button>
+                        </td>
+                        <td>
+                            <button id="btn-empleado" onClick={function () {
+                                if (order.status == "InProgress" || order.status == "Dispatched") {
+
+                                    Meteor.call('orders.setDispatched', order._id)
+
+                                } else if (order.status == "Pending") {
+                                    alert("Primero tiene que estar ingresado.")
+                                }
+                            }}>Cambiar a Terminado</button>
+                        </td>
+                    </tr>
+                )
+            }
+
+
+        });
+    }
+
     render() {
         return (
             <div>
@@ -71,7 +136,7 @@ export default class MenuEmployee extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            <RenderTable ordersList={this.state.orders} />
+                            {this.cargarLista()}
                         </tbody>
                     </table>
                 </section>
@@ -107,91 +172,15 @@ export default class MenuEmployee extends React.Component {
                             </div>
                         </div>
                         {/* Body */}
-                        <div id = "ModalDescription">
+                        <div id="ModalDescription">
                         </div>
                         {/* Footer */}
                         <div className="modal-footer"></div>
                     </div>
                 </div>
-
-
-
             </div>
         );
     }
 
 }
 
-
-class RenderTable extends React.Component {
-    render() {
-        return (
-            this.cargarLista()
-        );
-    }
-
-    showModal(Order) {
-        var modal = document.getElementById('simpleModalEmp');
-        var ModalDescription = document.getElementById('ModalDescription');
-
-
-
-        let string = Order.products.map( (product) =>{
-
-            string = string + product.plato;
-        });
-
-        ModalDescription.innerHTML = (<span>{string}</span>);
-
-    
-        modal.style.display = 'block';
-
-    }
-
-    cargarLista() {
-        return this.props.ordersList.map((order) => {
-
-            const user = Meteor.users.findOne({ _id: order.userId })
-            if (order.status == "") {
-                order.status = "Pending";
-            }
-
-            if (order.status == "Dispatched") {
-                //no mandar nada
-            } else {
-                return (
-                    <tr key={order._id}>
-                        <td>Orden X</td>
-                        <td>{order.fecha}</td>
-                        <td>{user.profile.firstName + " " + user.profile.lastName}</td>
-                        <td>{user.profile.phoneNumber1}</td>
-                        <td>{order.status}</td>
-                        <td>
-                            <button onClick= {this.showModal(order)}></button>
-                        </td>
-                        <td>
-                            <button id="btn-empleado" onClick={function () {
-                                if (order.status == "Pending") {
-                                    Meteor.call('orders.setInProgress', order._id)
-                                }
-                            }}>Cambiar a Ingresado</button>
-                        </td>
-                        <td>
-                            <button id="btn-empleado" onClick={function () {
-                                if (order.status == "InProgress" || order.status == "Dispatched") {
-
-                                    Meteor.call('orders.setDispatched', order._id)
-
-                                } else if (order.status == "Pending") {
-                                    alert("Primero tiene que estar ingresado.")
-                                }
-                            }}>Cambiar a Terminado</button>
-                        </td>
-                    </tr>
-                )
-            }
-
-
-        });
-    }
-}
