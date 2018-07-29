@@ -56,7 +56,24 @@ export default class MenuEmployee extends React.Component {
 
                 <section className="MenuEmployee" >
                     <h3 id="titulodeorden"></h3>
-                    <MenuEmployeeComponent orders={this.state.orders} />
+                    <table id="EmployeeTable" className="table table-hover table-blue">
+                        <thead className="thead-dark">
+                            <tr>
+                                <th scope="col">Nùmero Orden</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Telèfono</th>
+
+                                <th scope="col">Estado</th>
+                                <th scope="col">Ver más</th>
+                                <th scope="col">Ingresar</th>
+                                <th scope="col">Terminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <RenderTable ordersList={this.state.orders} />
+                        </tbody>
+                    </table>
                 </section>
 
                 <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg" />
@@ -90,7 +107,8 @@ export default class MenuEmployee extends React.Component {
                             </div>
                         </div>
                         {/* Body */}
-                        <PlateInfo orders={this.state.orders} />
+                        <div id = "ModalDescription">
+                        </div>
                         {/* Footer */}
                         <div className="modal-footer"></div>
                     </div>
@@ -103,99 +121,77 @@ export default class MenuEmployee extends React.Component {
     }
 
 }
-class MenuEmployeeComponent extends React.Component {
+
+
+class RenderTable extends React.Component {
     render() {
         return (
+            this.cargarLista()
+        );
+    }
 
-            <table id="EmployeeTable" className="table table-hover table-blue">
-                <thead className="thead-dark">
-                    <tr>
-                        <th scope="col">Nùmero Orden</th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Cliente</th>
-                        <th scope="col">Telèfono</th>
+    showModal(Order) {
+        var modal = document.getElementById('simpleModalEmp');
+        var ModalDescription = document.getElementById('ModalDescription');
 
-                        <th scope="col">Estado</th>
-                        <th scope="col">Ver más</th>
-                        <th scope="col">Ingresar</th>
-                        <th scope="col">Terminar</th>
+
+
+        let string = Order.products.map( (product) =>{
+
+            string = string + product.plato;
+        });
+
+        ModalDescription.innerHTML = (<span>{string}</span>);
+
+    
+        modal.style.display = 'block';
+
+    }
+
+    cargarLista() {
+        return this.props.ordersList.map((order) => {
+
+            const user = Meteor.users.findOne({ _id: order.userId })
+            if (order.status == "") {
+                order.status = "Pending";
+            }
+
+            if (order.status == "Dispatched") {
+                //no mandar nada
+            } else {
+                return (
+                    <tr key={order._id}>
+                        <td>Orden X</td>
+                        <td>{order.fecha}</td>
+                        <td>{user.profile.firstName + " " + user.profile.lastName}</td>
+                        <td>{user.profile.phoneNumber1}</td>
+                        <td>{order.status}</td>
+                        <td>
+                            <button onClick= {this.showModal(order)}></button>
+                        </td>
+                        <td>
+                            <button id="btn-empleado" onClick={function () {
+                                if (order.status == "Pending") {
+                                    Meteor.call('orders.setInProgress', order._id)
+                                }
+                            }}>Cambiar a Ingresado</button>
+                        </td>
+                        <td>
+                            <button id="btn-empleado" onClick={function () {
+                                if (order.status == "InProgress" || order.status == "Dispatched") {
+
+                                    Meteor.call('orders.setDispatched', order._id)
+
+                                } else if (order.status == "Pending") {
+                                    alert("Primero tiene que estar ingresado.")
+                                }
+                            }}>Cambiar a Terminado</button>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    {renderTable(this.props.orders)}
-                </tbody>
-            </table>
-        );
+                )
+            }
+
+
+        });
     }
-}
-
-class PlateInfo extends React.Component{
-
-    render(){
-
-        return(
-
-            this.props.orders.map((order) =>{
-
-                <li></li>
-            })
-        );
-    }
-}
-
-
-const renderTable = (platesList) => {
-
-
-
-    return platesList.map((plate) => {
-
-        const user = Meteor.users.findOne({ _id: plate.userId })
-        if (plate.status == "") {
-            plate.status = "Pending";
-        }
-
-        if (plate.status == "Dispatched") {
-            //no mandar nada
-        } else {
-            return (
-                <tr key={plate._id}>
-                    <td>Orden X</td>
-                    <td>{plate.fecha}</td>
-                    <td>{user.profile.firstName + " " + user.profile.lastName}</td>
-                    <td>{user.profile.phoneNumber1}</td>
-                    <td>{plate.status}</td>
-                    <td>
-                        <button onClick={function () {
-
-                            var modal = document.getElementById('simpleModalEmp');
-                            modal.plate = plate._id;
-                            modal.style.display = 'block';
-                            
-                        }}></button>
-                    </td>
-                    <td>
-                        <button id="btn-empleado" onClick={function () {
-                            if (plate.status == "Pending") {
-                                Meteor.call('orders.setInProgress', plate._id)
-                            }
-                        }}>Cambiar a Ingresado</button>
-                    </td>
-                    <td>
-                        <button id="btn-empleado" onClick={function () {
-                            if (plate.status == "InProgress" || plate.status == "Dispatched") {
-                               
-                                Meteor.call('orders.setDispatched', plate._id)
-
-                            } else if (plate.status == "Pending") {
-                                alert("Primero tiene que estar ingresado.")
-                            }
-                        }}>Cambiar a Terminado</button>
-                    </td>
-                </tr>
-            )
-        }
-
-
-    });
 }
