@@ -11,10 +11,20 @@ import InputMask from 'react-input-mask';
 import './../client/styles/editEmpleado';
 
 export default class editarEmpleadoPage extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            usersFound: []
+        }
+    }
 
     searchEmployeeSubmit(e) {
         e.preventDefault();
         console.log("Search Employee");
+        let parameters = this.refs.valueToQuery.value;
+        const usersFound =  Meteor.call('query.User', parameters);
+        console.log(usersFound);
+       this.setState({ usersFound });
     }
 
     onAgregar() {
@@ -37,7 +47,43 @@ export default class editarEmpleadoPage extends React.Component {
     closeAgregar(){
         var modal = document.getElementById('simpleModal');
         modal.style.display = 'none';
-      }
+    }
+
+    filterList(){
+        //get input element
+        let filterInput = document.getElementById('filterInput');
+        //add event listener
+        filterInput.addEventListener('keyup', filterNames);
+
+        function filterNames(){
+            // console.log(1); (esto era para test)
+            //Get value of input
+            let filterValue = document.getElementById('filterInput').value.toUpperCase();
+
+            //console.log(filterValue);
+
+            //Get names ul
+
+            let ul = document.getElementById('names');
+
+            // Get li from Ul
+            //grab things by classes  and puts them in an array
+            let li = ul.querySelectorAll('li.collection-item'); 
+
+            //Loop through collection-item lis
+            for(let i = 0; i< li.length;i++){
+                let a = li[i].getElementsByTagName('a')[0]; //get current link
+                // if matched
+                if(a.innerHTML.toUpperCase().indexOf(filterValue)> -1){
+                    li[i].style.display = '';
+                }else{
+                    li[i].style.display = 'none';
+                }
+            }
+        }
+    }
+    
+
 
 
 
@@ -52,13 +98,61 @@ export default class editarEmpleadoPage extends React.Component {
                     </div>
 
 
-                    {/*   <div className = "Buttons">
+                    
                     <div className = "searchBarDiv">
-                        <h3>Empleados</h3>
-                        <input className="searchBar" placeholder="Nombre Empleado" ref="srch" type="search" />
-                        <button className = "botonSearch" onClick={this.searchEmployeeSubmit.bind(this)}>Buscar</button>
+                        {/* <h3>Empleados</h3>
+                        <input className="searchBar" placeholder="Nombre Empleado" ref="valueToQuery" type="search" />
+                        <button className = "botonSearch" onClick={this.searchEmployeeSubmit.bind(this)}>Buscar</button> */}
+                        <input type="text" id="filterInput" placeholder="Buscar Empleado..."/>
+                        <ul id="names" className="collection with-header">
+                            <li className="collection-header">
+                                <h5>A</h5>
+                            </li>
+                            <li className="collection-item">
+                                <a href="#" className="hrefNombre">Abe</a>
+                            </li>
+                            <li className="collection-item">
+                                <a href="#" className="hrefNombre">Adam</a>
+                            </li>
+                            <li className="collection-item">
+                                <a href="#" className="hrefNombre">Alan</a>
+                            </li>
+                            <li className="collection-item">
+                                <a href="#" className="hrefNombre">Anna</a>
+                            </li>
+
+                            <li className="collection-header">
+                                <h5>B</h5>
+                            </li>
+                            <li className="collection-item">
+                                <a href="#" className="hrefNombre">Beth</a>
+                            </li>
+                            <li className="collection-item">
+                                <a href="#" className="hrefNombre">Bill</a>
+                            </li>
+                            <li className="collection-item">
+                                <a href="#" className="hrefNombre">Bob</a>
+                            </li>
+                            <li className="collection-item">
+                                <a href="#" className="hrefNombre">Brad</a>
+                            </li>
+
+                            <li className="collection-header">
+                                <h5>C</h5>
+                            </li>
+                            <li className="collection-item">
+                                <a href="#" className="hrefNombre">Carry</a>
+                            </li>
+                            <li className="collection-item">
+                                <a href="#" className="hrefNombre">Cathy</a>
+                            </li>
+                            <li className="collection-item">
+                                <a href="#" className="hrefNombre">Courtney</a>
+                            </li>
+                            
+                        </ul>
                     </div>
-                  </div>*/}
+                
                   
 
                     
