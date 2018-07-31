@@ -42,17 +42,17 @@ export default class MenuEmployee extends React.Component {
         this.ordersTracker.stop();
     }
 
-    showModal = (Order) =>{
+    showModal = (Order) => {
         var modal = document.getElementById('simpleModalEmp');
         var ModalDescription = document.getElementById('ModalDescription');
 
 
-        let platillos ="";
+        let platillos = "";
 
         Order.products.map((product) => {
 
             platillos = platillos + product.plato + "\n";
-            
+
         });
 
         ModalDescription.innerText = platillos;
@@ -80,7 +80,7 @@ export default class MenuEmployee extends React.Component {
                         <td>{user.profile.phoneNumber1}</td>
                         <td>{order.status}</td>
                         <td>
-                            <button onClick={(e)=>this.showModal(order)}></button>
+                            <button id="btn-info" onClick={(e) => this.showModal(order)}>Ver más</button>
                         </td>
                         <td>
                             <button id="btn-empleado" onClick={function () {
@@ -121,7 +121,7 @@ export default class MenuEmployee extends React.Component {
 
                 <section className="MenuEmployee" >
                     <h3 id="titulodeorden"></h3>
-                    <table id="EmployeeTable" className="table table-hover table-blue">
+                    <table id="EmployeeTable" className="table table-hover table-blue table table-bordered text-center">
                         <thead className="thead-dark">
                             <tr>
                                 <th scope="col">Nùmero Orden</th>
@@ -139,6 +139,15 @@ export default class MenuEmployee extends React.Component {
                             {this.cargarLista()}
                         </tbody>
                     </table>
+
+                    <ul className="pagination justify-content-center">
+                        <li className="page-item"><a className="page-link" href="#">Previous</a></li>
+                        <li className="page-item"><a className="page-link" href="#">1</a></li>
+                        <li className="page-item active"><a class="page-link" href="#">2</a></li>
+                        <li className="page-item"><a className="page-link" href="#">3</a></li>
+                        <li className="page-item"><a className="page-link" href="#">Next</a></li>
+                    </ul>
+
                 </section>
 
                 <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg" />

@@ -88,9 +88,23 @@
   }
 
   #btn-empleado{
-    background-color:  #325157;
+    background-color:  #d86926;
     border: none;
     font-size: 1em !important;
+    border-radius: 8px;
+  }
+
+  #btn-info{
+    background-color: #d86926;
+    margin-left: 10px;
+    border: none;
+    font-size: 1em !important;
+    border-radius: 8px;
+  }
+
+  #EmployeeTable{
+    text-align: center;
+    
   }
 
   html hr{
