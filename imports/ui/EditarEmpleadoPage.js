@@ -49,39 +49,39 @@ export default class editarEmpleadoPage extends React.Component {
         modal.style.display = 'none';
     }
 
-    filterList(){
-        //get input element
-        let filterInput = document.getElementById('filterInput');
-        //add event listener
-        filterInput.addEventListener('keyup', filterNames);
+    // filterList(){
+    //     //get input element
+    //     let filterInput = document.getElementById('filterInput');
+    //     //add event listener
+    //     filterInput.addEventListener('keyup', filterNames);
 
-        function filterNames(){
-            // console.log(1); (esto era para test)
-            //Get value of input
-            let filterValue = document.getElementById('filterInput').value.toUpperCase();
+    //     function filterNames(){
+    //         // console.log(1); (esto era para test)
+    //         //Get value of input
+    //         let filterValue = document.getElementById('filterInput').value.toUpperCase();
 
-            //console.log(filterValue);
+    //         //console.log(filterValue);
 
-            //Get names ul
+    //         //Get names ul
 
-            let ul = document.getElementById('names');
+    //         let ul = document.getElementById('names');
 
-            // Get li from Ul
-            //grab things by classes  and puts them in an array
-            let li = ul.querySelectorAll('li.collection-item'); 
+    //         // Get li from Ul
+    //         //grab things by classes  and puts them in an array
+    //         let li = ul.querySelectorAll('li.collection-item'); 
 
-            //Loop through collection-item lis
-            for(let i = 0; i< li.length;i++){
-                let a = li[i].getElementsByTagName('a')[0]; //get current link
-                // if matched
-                if(a.innerHTML.toUpperCase().indexOf(filterValue)> -1){
-                    li[i].style.display = '';
-                }else{
-                    li[i].style.display = 'none';
-                }
-            }
-        }
-    }
+    //         //Loop through collection-item lis
+    //         for(let i = 0; i< li.length;i++){
+    //             let a = li[i].getElementsByTagName('a')[0]; //get current link
+    //             // if matched
+    //             if(a.innerHTML.toUpperCase().indexOf(filterValue)> -1){
+    //                 li[i].style.display = '';
+    //             }else{
+    //                 li[i].style.display = 'none';
+    //             }
+    //         }
+    //     }
+    // }
     
 
 

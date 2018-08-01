@@ -96,7 +96,9 @@ acceso a la página principal del app.
     font-family: 'Paralucent Bold', 'Gotham Book', Geneva, Verdana, sans-serif;
     margin-left: 5rem;
     margin-right:5rem;
-    max-width:1280px;width:90%
+    max-width:1280px;
+    width:90%;
+    
 }
 
 #filterInput{
@@ -131,6 +133,11 @@ acceso a la página principal del app.
 .hrefNombre{
     
     color:#26a69a;
+}
+
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
 }
 
 /* .hrefNombre:not(.active):hover{
