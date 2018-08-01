@@ -47,15 +47,22 @@ export default class MenuEmployee extends React.Component {
         var ModalDescription = document.getElementById('ModalDescription');
 
 
-        let platillos = "";
+        let platillos = [];
+
+        platillos.push(<h1 className = "black">{"Esta orden incluye lo siguiente:"}</h1>);
 
         Order.products.map((product) => {
 
-            platillos = platillos + product.plato + "\n";
+            platillos.push(<li className = "list-group-item black">{product.plato +  " (" +product.cantidad+")"}</li>);
 
         });
 
-        ModalDescription.innerText = platillos;
+        console.log(Order);
+
+
+        ReactDOM.render(platillos, document.getElementById('ModalDescription'));
+
+        //ModalDescription.innerText = platillos;
         //revisar manera para insertar html correctamente con <span> o algo de listas
         modal.style.display = 'block';
 
@@ -80,7 +87,9 @@ export default class MenuEmployee extends React.Component {
                         <td>{user.profile.phoneNumber1}</td>
                         <td>{order.status}</td>
                         <td>
-                            <button id="btn-info" onClick={(e) => this.showModal(order)}>Ver más</button>
+                            <button id="btn-info" onClick={(e) => this.showModal(order)}>Ver más
+                                <span className="badge badge-primary badge-pill">{order.products.length}</span>
+                            </button>
                         </td>
                         <td>
                             <button id="btn-empleado" onClick={function () {

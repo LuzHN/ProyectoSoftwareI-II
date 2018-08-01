@@ -33,58 +33,13 @@
     
   }
 
-  .EmployeeCardColumn{
-   
-    padding-top: 5%;
-    padding-left: 15%;
-
-    column-count: 2;
-    orphans: inherit !important;
-    widows: inherit !important;
-
-  }
-
-  @media only screen and (max-width: 800px){
-    .EmployeeCardColumn{
-      column-count: 1 !important;
-      
-    }
-  }
-  
-  @media only screen and (min-width: 900px){
-    .EmployeeCardColumn{
-      column-count: 2 !important;
-    }
-  }
-
-  .green{
-
+  .black{
+    color: black;
   }
 
   .red{
     color: #d86926;
     font-size: 20px;
-  }
-
-
-  .RemovePlate{
-    float: right;
-    font-size: 100%;
-    background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-  }
-
-
-  .EmployeeCard{
-      min-width: 40%;
-      max-width: 70%;    
-  }
-
-  #InfoCliente{
-    font-size: 1.5rem !important;
-    color: #d86926 !important;
   }
 
   #btn-empleado{
