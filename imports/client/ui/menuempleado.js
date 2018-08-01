@@ -116,9 +116,10 @@ export default class MenuEmployee extends React.Component {
                                 if (order.status == "InProgress" || order.status == "Dispatched") {
 
                                     Meteor.call('orders.setDispatched', order._id)
+                                    toastr.success("La orden ha sido terminada y despachada!")
 
                                 } else if (order.status == "Pending") {
-                                    alert("Primero tiene que estar ingresado.")
+                                    toastr.warning("Primero tiene que estar ingresado.")
                                 }
                             }}>Cambiar a Terminado</button>
                         </td>
