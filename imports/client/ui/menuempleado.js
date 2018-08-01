@@ -42,33 +42,43 @@ export default class MenuEmployee extends React.Component {
         this.ordersTracker.stop();
     }
 
-    showModal = (Order) => {
+    showModal = (Order) => { //Muestra el modal con la informacion de la orden
         var modal = document.getElementById('simpleModalEmp');
-        var ModalDescription = document.getElementById('ModalDescription');
-
-
         let platillos = [];
 
-        platillos.push(<h1 className = "black">{"Esta orden incluye lo siguiente:"}</h1>);
+        platillos.push(<h1 className="black">{"Esta orden incluye lo siguiente:"}</h1>);
 
         Order.products.map((product) => {
 
-            platillos.push(<li className = "list-group-item black">{product.plato +  " (" +product.cantidad+")"}</li>);
+            platillos.push(<li className="list-group-item black">{product.plato + " (" + product.cantidad + ")"}</li>);
 
         });
 
-        console.log(Order);
-
-
         ReactDOM.render(platillos, document.getElementById('ModalDescription'));
-
-        //ModalDescription.innerText = platillos;
-        //revisar manera para insertar html correctamente con <span> o algo de listas
         modal.style.display = 'block';
 
     }
 
-    cargarLista() {
+    countPlates(Order) { //Cuenta cuantos platillos en total tiene una orden
+
+        let count = 0;
+
+        Order.products.map((product) => {
+            count += product.cantidad;
+        });
+
+        return count;
+    }
+
+    checkStatus(Order) {
+        if (Order.status == "InProgress") {
+            return "Ingresada";
+        } else {
+            return "Pendiente";
+        }
+    }
+
+    loadList() { //Carga la tabla con las ordenes
         return this.state.orders.map((order) => {
 
             const user = Meteor.users.findOne({ _id: order.userId })
@@ -85,10 +95,13 @@ export default class MenuEmployee extends React.Component {
                         <td>{order.fecha}</td>
                         <td>{user.profile.firstName + " " + user.profile.lastName}</td>
                         <td>{user.profile.phoneNumber1}</td>
-                        <td>{order.status}</td>
+                        <td>{this.checkStatus(order)}</td>
                         <td>
-                            <button id="btn-info" onClick={(e) => this.showModal(order)}>Ver más
-                                <span className="badge badge-primary badge-pill">{order.products.length}</span>
+                            <button id="btn-info" onClick={(e) => this.showModal(order)}>
+                                <span className ="spanEmployee">{"Ver Más"}</span>
+
+
+                                <span className="badgeEmployee badge badge-primary badge-pill">{this.countPlates(order)}</span>
                             </button>
                         </td>
                         <td>
@@ -130,7 +143,7 @@ export default class MenuEmployee extends React.Component {
 
                 <section className="MenuEmployee" >
                     <h3 id="titulodeorden"></h3>
-                    <table id="EmployeeTable" className="table table-hover table-blue table table-bordered text-center">
+                    <table className="EmployeeTable table table-hover table-blue table table-bordered text-center">
                         <thead className="thead-dark">
                             <tr>
                                 <th scope="col">Nùmero Orden</th>
@@ -145,7 +158,7 @@ export default class MenuEmployee extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.cargarLista()}
+                            {this.loadList()}
                         </tbody>
                     </table>
 

@@ -57,9 +57,38 @@
     border-radius: 8px;
   }
 
-  #EmployeeTable{
+  .EmployeeTable{
+    width: 99% !important;
+    margin: auto;
+    table-layout: fixed;
     text-align: center;
     
+  }
+
+  .spanEmployee{
+    width:100%;
+  }
+
+  .badgeEmployee{
+    width: 30%;
+  }
+
+  @media only screen and (max-width: 600px){
+    #btn-info{
+      width: 50% !important;
+    }
+    #btn-empleado{
+      width: 50% !important;
+    }
+  }
+  
+  @media only screen and (min-width: 600px){
+    #btn-info{
+      width: 80% !important;
+    }
+    #btn-empleado{
+      width: 80% !important;
+    }
   }
 
   html hr{
