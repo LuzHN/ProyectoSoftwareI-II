@@ -130,7 +130,7 @@ export default class MenuAdmin extends Component {
     setTimeout(function() {
       platoAgregado.classList.remove("show");
       document.getElementById("myForm").reset(); //resets los inputs del form
-      name.value = "";
+      name = "";
       price = "";
       descript = "";
     }, 2000);
@@ -148,7 +148,7 @@ export default class MenuAdmin extends Component {
     setTimeout(function() {
       platoAgregado.classList.remove("show");
       document.getElementById("myForm").reset(); //resets los inputs del form
-      name.value = "";
+      name = "";
       price = "";
       descript = "";
     }, 2000);
