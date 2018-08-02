@@ -51,23 +51,23 @@ export default class editarEmpleadoPage extends React.Component {
 
 
 
-    filterNames() {
-        // console.log(1); (esto era para test)
+    filterNames() { 
         //Get value of input
         let filterValue = document.getElementById('filterInput').value.toUpperCase();
 
-        //console.log(filterValue);
+        // console.log(filterValue);
 
         //Get names ul
         let ul = document.getElementById('names');
 
         // Get li from Ul
         //grab things by classes  and puts them in an array
-        let li = ul.getElementsByTagName('li');
-
+        let li = ul.querySelectorAll('li.collection-item');
+        // console.log(li);
         //Loop through collection-item lis
         for (let i = 0; i < li.length; i++) {
             let a = li[i].getElementsByTagName('a')[0]; //get current link
+            // console.log(a);
             // if matched
             if (a.innerHTML.toUpperCase().indexOf(filterValue) > -1) {
                 li[i].style.display = '';
