@@ -259,178 +259,179 @@ export default class MenuAdmin extends Component {
             {/* Body */}
             <div className="modal-body">
               <form id="myForm" className="contactModal" onSubmit={this.onSubmit.bind(this)}>
-                <div className="body1">
-                  <p>
-                    <label id="labelAgregar">Nombre Plato</label>
-                    <input id="inputAgregar" ref="nombrePlato" type="text" placeholder='Nombre Plato' maxLength='140' />
-                  </p>
-                  <p>
-                    <label id="labelAgregar">Precio</label>
-                    <input id="inputAgregar" ref="precioPlato" type="number" placeholder='Precio Plato' maxLength='140' />
-                  </p>
-                  <p>
-                    <label id="labelAgregar">URL De Imagen</label>
-                    <input id="inputAgregar" ref="imagenPlato" type="text" placeholder='https://www.google.com/' />
-                  </p>
-                  <p>
-                    <label id="labelAgregar">Descripción Plato</label>
-                    <textarea id="inputAgregar" ref="descriptionPlato" rows="5" placeholder='Enter Descripción Plato' maxLength='140'></textarea>
-                  </p>
-                  <p>
-                    <label id="labelAgregar">Tipo de Plato</label>
-                    <select name="tipoComida" id="tipoDeComida" ref="tipodeComida">
-                      <option value="Entree">Entree</option>
-                      <option value="Soup">Soup</option>
-                      <option value="Salad">Salad</option>
-                      <option value="Wrap">Wrap</option>
-                      <option value="LittleItaly">LittleItaly</option>
-                      <option value="Sandwich">Sandwich</option>
-                      <option value="SideDish">SideDish</option>
-                      <option value="Breakfast">Breakfast</option>
-                      <option value="Dessert">Dessert</option>
-                      <option value="Juice">Juice</option>
-                      <option value="Drink">Drink</option>
-                    </select>
-                  </p>
-                </div>
-                <div className="body2">
-                  {/*Nutritional Facts*/}
-                  <div className="nutritionLabel" id="nutrilabel" >
-                    <div className="yes">
-                      <div className="title">
-                        Nutritional Facts
+                <div className="flexModal">
+                  <div className="body1">
+                    <p>
+                      <label id="labelAgregar">Nombre Plato</label>
+                      <input id="inputAgregar" ref="nombrePlato" type="text" placeholder='Nombre Plato' maxLength='140' />
+                    </p>
+                    <p>
+                      <label id="labelAgregar">Precio</label>
+                      <input id="inputAgregar" ref="precioPlato" type="number" placeholder='Precio Plato' maxLength='140' />
+                    </p>
+                    <p>
+                      <label id="labelAgregar">URL De Imagen</label>
+                      <input id="inputAgregar" ref="imagenPlato" type="text" placeholder='https://www.google.com/' />
+                    </p>
+                    <p>
+                      <label id="labelAgregar">Descripción Plato</label>
+                      <textarea id="inputAgregar" ref="descriptionPlato" rows="5" placeholder='Enter Descripción Plato' maxLength='140'></textarea>
+                    </p>
+                    <p>
+                      <label id="labelAgregar">Tipo de Plato</label>
+                      <select name="tipoComida" id="tipoDeComida" ref="tipodeComida">
+                        <option value="Entree">Entree</option>
+                        <option value="Soup">Soup</option>
+                        <option value="Salad">Salad</option>
+                        <option value="Wrap">Wrap</option>
+                        <option value="LittleItaly">LittleItaly</option>
+                        <option value="Sandwich">Sandwich</option>
+                        <option value="SideDish">SideDish</option>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Dessert">Dessert</option>
+                        <option value="Juice">Juice</option>
+                        <option value="Drink">Drink</option>
+                      </select>
+                    </p>
+                  </div>
+                  <div className="body2">
+                    {/*Nutritional Facts*/}
+                    <div className="nutritionLabel" id="nutrilabel" >
+                      <div className="yes">
+                        <div className="title">
+                          Nutritional Facts
                     </div>
 
-                      <div className="serving">
-                        <div className="cf">
-                          <div className="servingSizeText fl">
-                            Serving Size
+                        <div className="serving">
+                          <div className="cf">
+                            <div className="servingSizeText fl">
+                              Serving Size
                         </div>
 
-                          <div className="servingUnitQuantity fl">
-                            1
+                            <div className="servingUnitQuantity fl">
+                              1
                         </div>
+                          </div>
                         </div>
-                      </div>
 
-                      <div className="bar1"></div>
+                        <div className="bar1"></div>
 
-                      <div className="line m" style={{ fontWeight: "bold" }}>
-                        Amount Per Serving
+                        <div className="line m" style={{ fontWeight: "bold" }}>
+                          Amount Per Serving
                     </div>
 
-                      <div className="line">
-                        <div className="fr">
-                          Calories from Fat 0
+                        <div className="line">
+                          <div className="fr">
+                            Calories from Fat 0
                       </div>
 
-                        <div>
-                          <b>Calories</b>
-                          <input id="inputCalorias" ref="calorias" type="number" placeholder='0' maxLength='140' />
+                          <div>
+                            <b>Calories</b>
+                            <input id="inputCalorias" ref="calorias" type="number" placeholder='0' maxLength='140' />
+                          </div>
                         </div>
-                      </div>
 
-                      <div className="bar2"></div>
+                        <div className="bar2"></div>
 
-                      <div className="line ar" style={{ fontWeight: "bold" }}>
-                        % Daily Value<sup>*</sup>
-                      </div>
+                        <div className="line ar" style={{ fontWeight: "bold" }}>
+                          % Daily Value<sup>*</sup>
+                        </div>
 
-                      <div className="line">
-                        <div className="dv">
-                          <b>0</b>%
+                        <div className="line">
+                          <div className="dv">
+                            <b>0</b>%
                       </div><b>Total Fat</b>  <input id="inputTotalFat" ref="totalFat" type="number" placeholder='0g' maxLength='140' />
-                      </div>
+                        </div>
 
-                      <div className="line indent">
-                        <div className="dv">
-                          <b>0</b>%
+                        <div className="line indent">
+                          <div className="dv">
+                            <b>0</b>%
                       </div>Saturated Fat  <input id="inputSaturatedFat" ref="saturatedFat" type="number" placeholder='0g' maxLength='140' />
-                      </div>
+                        </div>
 
-                      <div className="line indent">
-                        <i>Trans</i> Fat  <input id="inputTransFat" ref="transFat" type="number" placeholder='0g' maxLength='140' />
-                      </div>
+                        <div className="line indent">
+                          <i>Trans</i> Fat  <input id="inputTransFat" ref="transFat" type="number" placeholder='0g' maxLength='140' />
+                        </div>
 
 
-                      <div className="line">
-                        <div className="dv">
-                          <b>0</b>%
+                        <div className="line">
+                          <div className="dv">
+                            <b>0</b>%
                       </div><b>Cholesterol</b>  <input id="inputCholesterol" ref="cholesterol" type="number" placeholder='0mg' maxLength='140' />
-                      </div>
+                        </div>
 
-                      <div className="line">
-                        <div className="dv">
-                          <b>0</b>%
+                        <div className="line">
+                          <div className="dv">
+                            <b>0</b>%
                       </div><b>Sodium</b>  <input id="inputSodium" ref="sodium" type="number" placeholder='0mg' maxLength='140' />
-                      </div>
+                        </div>
 
-                      <div className="line">
-                        <div className="dv">
-                          <b>0</b>%
+                        <div className="line">
+                          <div className="dv">
+                            <b>0</b>%
                       </div><b>Total Carbohydrates</b>  <input id="inputTotalCarbs" ref="totalCarbohydrates" type="number" placeholder='0g' maxLength='140' />
-                      </div>
+                        </div>
 
-                      <div className="line indent">
-                        <div className="dv">
-                          <b>0</b>%
+                        <div className="line indent">
+                          <div className="dv">
+                            <b>0</b>%
                       </div>Dietary Fiber  <input id="inputDietaryFiber" ref="dietaryFibers" type="number" placeholder='0g' maxLength='140' />
-                      </div>
+                        </div>
 
-                      <div className="line indent">
-                        Sugars  <input id="inputSugars" ref="sugar" type="number" placeholder='0g' maxLength='140' />
-                      </div>
+                        <div className="line indent">
+                          Sugars  <input id="inputSugars" ref="sugar" type="number" placeholder='0g' maxLength='140' />
+                        </div>
 
-                      <div className="line">
-                        <b>Protein</b>  <input id="inputProtein" ref="protein" type="number" placeholder='0g' maxLength='140' />
-                      </div>
+                        <div className="line">
+                          <b>Protein</b>  <input id="inputProtein" ref="protein" type="number" placeholder='0g' maxLength='140' />
+                        </div>
 
-                      <div className="bar1"></div>
+                        <div className="bar1"></div>
 
-                      <div className="line vitaminA">
-                        <div className="dv">
-                          0%
+                        <div className="line vitaminA">
+                          <div className="dv">
+                            0%
                       </div>Vitamin A  <input id="inputVitaminA" ref="vitaminA" type="number" placeholder='0%' maxLength='140' />
-                      </div>
+                        </div>
 
-                      <div className="line vitaminC">
-                        <div className="dv">
-                          0%
+                        <div className="line vitaminC">
+                          <div className="dv">
+                            0%
                       </div>Vitamin C  <input id="inputVitaminC" ref="vitaminC" type="number" placeholder='0%' maxLength='140' />
-                      </div>
+                        </div>
 
-                      <div className="line calcium">
-                        <div className="dv">
-                          0%
+                        <div className="line calcium">
+                          <div className="dv">
+                            0%
                       </div>Calcium  <input id="inputCalcium" ref="calcium" type="number" placeholder='0%' maxLength='140' />
-                      </div>
+                        </div>
 
-                      <div className="line iron">
-                        <div className="dv">
-                          0%
+                        <div className="line iron">
+                          <div className="dv">
+                            0%
                       </div>Iron  <input id="inputIron" ref="iron" type="number" placeholder='0%' maxLength='140' />
-                      </div>
+                        </div>
 
-                      <div className="dvCalorieDiet line">
-                        <div className="calorieNote">
-                          <span className="star">*</span> Percent Daily Values are based on a 2000 calorie diet.<br />
-                          {/* <div className="ingredientListDiv">
+                        <div className="dvCalorieDiet line">
+                          <div className="calorieNote">
+                            <span className="star">*</span> Percent Daily Values are based on a 2000 calorie diet.<br />
+                            {/* <div className="ingredientListDiv">
                           <b className="active" id="ingredientList">INGREDIENTS:</b> None
                         </div> */}
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                <p id="bt_ModalAgregar">
+                  <button className="finalBtn" onClick={this.agregarFinal.bind(this)}>Agregar Plato</button>
+                </p>
+                <p id="bt_ModalEditar">
+                  <button className="finalBtn" onClick={this.editarFinal.bind(this)}>Editar Plato</button>
+                </p>
+                <div id="botonModalToast"></div>
               </form>
-              <p id="bt_ModalAgregar">
-                <button className="finalBtn" onClick={this.agregarFinal.bind(this)}>Agregar Plato</button>
-              </p>
-              <p id="bt_ModalEditar">
-                <button className="finalBtn" onClick={this.editarFinal.bind(this)}>Editar Plato</button>
-              </p>
-              <div id="botonModalToast"></div>
-
             </div>
             {/* Footer */}
             <div className="modal-footer"></div>

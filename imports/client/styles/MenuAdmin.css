@@ -467,7 +467,7 @@ button {
   animation: fadeInOut 3s;
 }
 
-.contactModal{
+.flexModal{
   display: flex;
 }
 
