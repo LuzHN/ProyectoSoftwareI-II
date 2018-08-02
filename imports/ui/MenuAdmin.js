@@ -368,17 +368,17 @@ export default class MenuAdmin extends Component {
                     <div className="line">
                       <div className="dv">
                         <b>0</b>%
-                      </div><b>Total Carbohydrates</b>  <input  id="inputTotalCarbs"  ref = "carbs" type="number" placeholder='0g' maxLength='140'/>
+                      </div><b>Total Carbohydrates</b>  <input  id="inputTotalCarbs"  ref = "totalCarbohydrates" type="number" placeholder='0g' maxLength='140'/>
                     </div>
 
                     <div className="line indent">
                       <div className="dv">
                         <b>0</b>%
-                      </div>Dietary Fiber  <input  id="inputDietaryFiber"  ref = "dietaryFiiber" type="number" placeholder='0g' maxLength='140'/>
+                      </div>Dietary Fiber  <input  id="inputDietaryFiber"  ref = "dietaryFibers" type="number" placeholder='0g' maxLength='140'/>
                     </div>
 
                     <div className="line indent">
-                      Sugars  <input  id="inputSugars"  ref = "sugars" type="number" placeholder='0g' maxLength='140'/>
+                      Sugars  <input  id="inputSugars"  ref = "sugar" type="number" placeholder='0g' maxLength='140'/>
                     </div>
 
                     <div className="line">
