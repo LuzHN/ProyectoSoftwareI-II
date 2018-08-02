@@ -10,11 +10,29 @@ import InputMask from 'react-input-mask';
 
 import './../client/styles/editEmpleado';
 
+let usuarios = [
+    {
+        name: 'Abe'
+    },
+    {
+        name: 'Adam'
+    },
+    {
+        name: 'Allan'
+    },
+    {
+        name: 'Bob'
+    },
+    {
+        name: 'Cathy'
+    }
+]
+
 export default class editarEmpleadoPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            usersFound: []
+            users: []
         }
     }
 
@@ -51,7 +69,7 @@ export default class editarEmpleadoPage extends React.Component {
 
 
 
-    filterNames() { 
+    filterNames() {
         //Get value of input
         let filterValue = document.getElementById('filterInput').value.toUpperCase();
 
@@ -77,10 +95,23 @@ export default class editarEmpleadoPage extends React.Component {
         }
     }
 
+    componentDidMount() {
+        this.usersTracker = Tracker.autorun(() => {
+            Meteor.subscribe('users');
+            const users = Meteor.users.find().fetch();
+            this.setState({ users });
+        });
+    }
+
+    componentWillUnmount() {
+        this.usersTracker.stop();
+      }
+
 
 
 
     render() {
+        console.log(this.state.users);
         return (
             <div className="EditarEmpleado">
                 <div className="containerPrincipal">
@@ -98,7 +129,7 @@ export default class editarEmpleadoPage extends React.Component {
                         <button className = "botonSearch" onClick={this.searchEmployeeSubmit.bind(this)}>Buscar</button> */}
                         <input type="text" id="filterInput" onKeyUp={this.filterNames.bind(this)} placeholder="Buscar Empleado..." />
                         <ul id="names" className="collection with-header">
-                            <li className="collection-header">
+                            {/* <li className="collection-header">
                                 <h5>A</h5>
                             </li>
                             <li className="collection-item">
@@ -141,7 +172,8 @@ export default class editarEmpleadoPage extends React.Component {
                             </li>
                             <li className="collection-item">
                                 <a href="#" className="hrefNombre">Courtney</a>
-                            </li>
+                            </li> */}
+                            {renderUser(this.state.users)}
 
                         </ul>
                     </div>
@@ -235,4 +267,14 @@ export default class editarEmpleadoPage extends React.Component {
         );
     }
 
+}
+
+const renderUser = (users) => {
+    return users.map((user) => {
+        return (
+            <li className="collection-item" key={user._id}>
+                <a href="#"  className="hrefNombre">{user.profile.firstName}</a>
+            </li>
+        )
+    });
 }
