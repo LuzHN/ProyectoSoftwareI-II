@@ -23,15 +23,19 @@ export default class editarEmpleadoPage extends React.Component {
        modal.style.display = 'block';
        const user = Meteor.users.findOne({_id:plate.userId});
        console.log(user);
-
     }
 
     onModificar() {
         console.log("Modifico");
+        var modal = document.getElementById('simpleModal2');
+        modal.style.display = 'block';
+        this.pasarInfo();
     }
 
     onEliminar() {
-        console.log("Elimino")
+        console.log("Elimino");
+        var modal = document.getElementById('simpleModal');
+        modal.style.display = 'block';
     }
 
     closeAgregar(){
@@ -141,8 +145,46 @@ export default class editarEmpleadoPage extends React.Component {
                             </div>
                             {/* Footer */}
                             <div className="modal-footer"></div>
+
+                            {/*Modal*/}
+                    <div id="simpleModal2" className="modal">
+                        <div className="modal-content">
+
+                            {/* Header */}
+                            <div className="modal-header">
+                                <div className="modal-header-Btn">
+                                    <span className="closeBtn" onClick={this.closeAgregar.bind(this)}>&times;</span>
+                                </div>
+                                <div className="modal-header-Name">
+                                    <h2>Modificar Empleado</h2>
+                                </div>
+                            </div>
+
+                            {/* Body */}
+                            <div className="modal-body">
+                                <form  className="agregarEmpleadoFormModal">
+                                    <div >
+                                        <div className = "container1">
+                                            <div className = "box1">
+                                                <p>
+                                                    <input className="searchBar" placeholder="Nombre Empleado" ref="srch" type="search" />
+                                                    <button className = "botonSearch" onClick={this.searchEmployeeSubmit.bind(this)}>Buscar</button>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        
+                                        <p>
+                                            <button className = "confirmarAdd" >Confirmar</button>
+                                        </p>
+                                    </div>       
+                                </form>
+                            </div>
+                            {/* Footer */}
+                            <div className="modal-footer"></div>
+                            </div>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         );
