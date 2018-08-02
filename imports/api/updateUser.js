@@ -1,4 +1,5 @@
 import { Accounts } from 'meteor/accounts-base';
+import { Meteor } from 'meteor/meteor';
 
 Meteor.methods({
   updateUser(user){
@@ -14,5 +15,9 @@ Meteor.methods({
       'profile.address3': user.address3,
       'profile.address4': user.address4,
     }})
+  },
+  'query.User'(firstName) {
+    console.log('enrtro');
+    return Meteor.users.find({"profile.firstName": firstName});
   }
 });
