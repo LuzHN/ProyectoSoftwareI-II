@@ -485,7 +485,7 @@ class ButtonPlato extends Component {
     Meteor.call('dishes.delete', id);
   }
   editDish(id){
-    var modal = document.getElementById('simpleModal');
+    let modal = document.getElementById('simpleModal');
     let title = document.getElementById("h2_ModalTitle");
     title.innerHTML = "Editar Plato"
     let botonAgregar = document.getElementById("bt_ModalAgregar");
