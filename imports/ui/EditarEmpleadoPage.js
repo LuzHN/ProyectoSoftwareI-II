@@ -207,7 +207,7 @@ export default class editarEmpleadoPage extends React.Component {
                                             <div className="box1">
                                                 <p>
                                                     <label>Email</label>
-                                                    <input ref="email" type="email" placeholder='Enter Email' maxLength='140' />
+                                                    <input id = "correo" ref="email" type="email" placeholder='Enter Email' maxLength='140' />
                                                 </p>
                                             </div>
                                         </div>
@@ -243,7 +243,7 @@ export default class editarEmpleadoPage extends React.Component {
                                             <div className="box1">
                                                 <p>
                                                     <label>Phone Number</label>
-                                                    <InputMask mask="9999-9999" ref="phoneNumber" placeholder='Enter Phone Number' />
+                                                    <InputMask id = "numero" mask="9999-9999" ref="phoneNumber" placeholder='Enter Phone Number' />
                                                 </p>
                                             </div>
                                         </div>

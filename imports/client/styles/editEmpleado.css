@@ -236,7 +236,6 @@ button:focus {
 
 .container1{
     color:  #514e4d;
-    display:flex;
     display: grid;
     grid-template-columns: 1fr 2fr;   
 
@@ -246,15 +245,32 @@ button:focus {
     color:  #514e4d;
     display: grid;
     grid-template-columns: 1fr 2fr;
-    margin-left: 50%;
-
+    width:45rem;
 }
-  
+
+.box1 input {
+    width: 45rem;
+    height: 3rem;
+}
+
+.box2 input {
+    width: 45rem;
+    height: 3rem;
+}
+
+.box1 textarea {
+    width: 90rem;
+}
+
+#correo, #numero {
+    width: 90rem;
+}
+
 .box2{
     color:  #514e4d;
     display: grid;
     grid-template-columns: 1fr 2fr;
-    margin-left: 50%;
+    width: 45rem;
 }
 
 .confirmarAdd {
