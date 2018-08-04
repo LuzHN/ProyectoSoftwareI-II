@@ -309,15 +309,15 @@ export default class editarEmpleadoPage extends React.Component {
                                                 <p>
                                                     <label>*Teléfono 1</label>
                                                     <InputMask ref="phoneNumber1" mask="9999-9999" placeholder='Ingrese su teléfono.'/>
-                                                    <label>*Teléfono 3</label>
+                                                    <label>Teléfono 3</label>
                                                     <InputMask ref="phoneNumber1" mask="9999-9999" placeholder='Ingrese su teléfono.'/>
                                                 </p>
                                             </div>
                                             <div className="box2">
                                                 <p>
-                                                    <label>*Teléfono 2</label>
+                                                    <label>Teléfono 2</label>
                                                     <InputMask ref="phoneNumber1" mask="9999-9999" placeholder='Ingrese su teléfono.'/>
-                                                    <label>*Teléfono 4</label>
+                                                    <label>Teléfono 4</label>
                                                     <InputMask ref="phoneNumber1" mask="9999-9999" placeholder='Ingrese su teléfono.'/>
                                                 </p>
                                             </div>
