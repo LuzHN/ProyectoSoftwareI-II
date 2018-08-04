@@ -1,0 +1,174 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: #37555A;
+    color: #87AAAA;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+input, button{
+    font-size: 1.3rem;
+    min-width: 6rem;
+    color: #000000;
+}
+
+/*Esta es la clase del Form que contiene 
+todos los elementos a ser editados.
+*/
+.editProfileForm {
+    background:#23363A;
+    display: grid;
+    grid-row-gap: 2rem;
+    margin: 2rem auto 2rem auto;
+    max-width: 60rem;
+    padding-bottom:3rem;
+    padding-top:3rem;
+}
+.editProfileForm h1{
+    color:#aacf37;
+}
+
+.containerBox {
+    background: #23363A;
+    display: flex;
+}
+
+.containerBox label {
+    display: block;
+    margin-right: 1rem;
+    display: flex;
+}
+
+.passBox {
+    display: flex;
+}
+
+.passBox label {
+    display: block;
+    margin-right: 1rem;
+}
+
+.oldPasswordBox { 
+    flex: 1;
+    order: 1;
+}
+
+.leftContainerBox {
+    flex: 1;
+    order: 2;
+}
+
+.rightContainerBox {
+    flex: 1;
+    order: 3;
+}
+
+/* Form Styles */
+.principalDiv form input, .principalDiv form textarea{
+    width: 100%;
+    padding: 1em;
+    color: #2b3e4b;
+  }
+
+  .principalDiv form{
+    display: grid;
+    grid-gap: 1rem;
+  }
+
+  .principalDiv form label{
+    display: block;
+  }
+  
+  .principalDiv form p{
+    margin: 0;
+  }
+ 
+   .principalDiv form .full{
+    grid-column: 1/3;
+  }
+    
+  .principalDiv > *{
+    padding: 2em;
+  }
+
+
+.Buttons {
+    cursor: pointer;
+    display: flex;
+    line-height: 1;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 3rem;
+}
+
+.disableAccBtn{ 
+    background: #e33444;
+    border:none;
+    border-radius: 8px;
+    color: white;
+    font: 'Paralucent Bold';
+    font-size: 1.7rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+    width: 10rem;    
+}
+
+.saveChangesBtn {
+    background: #4e873e;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font: 'Paralucent Bold';
+    font-size: 1.7rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 10rem;
+}
+
+.spaceLabel {
+    padding:1rem 1rem 0 1rem;
+}
+
+button:focus {
+    outline:0;
+}
+
+
+#oldPasswordError,#newPasswordError, #confirmPasswordError, #firstNameError, #lastNameError, #phoneNumberError, #addressError {
+    background-color: #e33444;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 17px;
+    left: 50%;
+    min-width: 250px;
+    padding: 16px;
+    position: fixed;
+    text-align: center;
+    transform: translate(-50%);
+    top: 0;
+    visibility: hidden;
+    z-index: 1;
+}
+
+#oldPasswordError.show,#newPasswordError.show, #confirmPasswordError.show, #firstNameError.show, #lastNameError.show, #phoneNumberError.show, #addressError.show {
+    visibility: visible;
+    animation: fadeInOut 3s;
+}
+
+
+
+
+@media screen and (max-width: 619px) {
+    .editProfileForm {
+        width: 70rem;
+        margin-top: 5rem;
+        margin-bottom: 1rem;
+    }
+}
