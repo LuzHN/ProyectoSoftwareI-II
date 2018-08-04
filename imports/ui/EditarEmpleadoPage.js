@@ -330,15 +330,15 @@ export default class editarEmpleadoPage extends React.Component {
                                                     <label>*Dirección 1</label>
                                                     <textarea ref="address1" id = "direction1TextArea" maxLength='140' rows="5" placeholder='Ingrese su dirección.'/>
                                                     <label>Dirección 3</label>
-                                                    <textarea ref="address1" id = "direction1TextArea" maxLength='140' rows="5" placeholder='Ingrese su dirección.'/>
+                                                    <textarea ref="address3" id = "direction3TextArea" maxLength='140' rows="5" placeholder='Ingrese su dirección.'/>
                                                 </p>
                                             </div>
                                             <div className="box2">
                                                 <p>
                                                     <label>Dirección 2</label>
-                                                    <textarea ref="address1" id = "direction1TextArea" maxLength='140' rows="5" placeholder='Ingrese su dirección.'/>
+                                                    <textarea ref="address2" id = "direction2TextArea" maxLength='140' rows="5" placeholder='Ingrese su dirección.'/>
                                                     <label>Dirección 4</label>
-                                                    <textarea ref="address1" id = "direction1TextArea" maxLength='140' rows="5" placeholder='Ingrese su dirección.'/>
+                                                    <textarea ref="address4" id = "direction4TextArea" maxLength='140' rows="5" placeholder='Ingrese su dirección.'/>
                                                 </p>
                                             </div>
                                         </div>
