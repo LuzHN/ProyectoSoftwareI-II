@@ -109,7 +109,7 @@ export default class editarEmpleadoPage extends React.Component {
                 <div className="containerPrincipal">
                     <div className="Buttons">
                         <button className="botonAgregar" onClick={this.onAgregar.bind(this)}>Agregar Empleado</button>
-                        <button className="botonModificar" onClick={this.onModificar.bind(this)}>Modifciar</button>
+                        <button className="botonModificar" onClick={this.onModificar.bind(this)}>Modificar</button>
 
                     </div>
 
