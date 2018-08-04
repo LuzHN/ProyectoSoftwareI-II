@@ -44,7 +44,7 @@ class EditProfilePage extends React.Component {
             validator=1;
             let firstNameError = this.refs.firstNameError;
             firstNameError.classList.add("show");
-            firstNameError.innerHTML = "Please enter a valid name.";
+            firstNameError.innerHTML = "Por favor ingrese un nombre válido.";
             setTimeout(function() {
                 firstNameError.classList.remove("show");
             }, 3000);
@@ -52,7 +52,7 @@ class EditProfilePage extends React.Component {
             validator=1;
             let lastNameError = this.refs.lastNameError;
             lastNameError.classList.add("show");
-            lastNameError.innerHTML = "Please enter a valid name.";
+            lastNameError.innerHTML = "Por favor ingrese un nombre válido.";
             setTimeout(function() {
                 lastNameError.classList.remove("show");
             }, 3000);
@@ -60,7 +60,7 @@ class EditProfilePage extends React.Component {
             validator=1;
             let oldPasswordError = this.refs.oldPasswordError;
             oldPasswordError.classList.add("show");
-            oldPasswordError.innerHTML = "Old password is missing.";
+            oldPasswordError.innerHTML = "No ingresó la clave vieja.";
             setTimeout(function() {
                 oldPasswordError.classList.remove("show");
             }, 3000);
@@ -68,7 +68,7 @@ class EditProfilePage extends React.Component {
             validator=1;
             let newPasswordError = this.refs.newPasswordError;
             newPasswordError.classList.add("show");
-            newPasswordError.innerHTML = "Password must be 9 digits long.";
+            newPasswordError.innerHTML = "La contraseña debe de ser de al menos 9 dígitos.";
             setTimeout(function() {
                 newPasswordError.classList.remove("show");
             }, 3000);
@@ -76,7 +76,7 @@ class EditProfilePage extends React.Component {
             validator=1;
             let confirmPasswordError = this.refs.confirmPasswordError;
             confirmPasswordError.classList.add("show");
-            confirmPasswordError.innerHTML = "New password does not match.";
+            confirmPasswordError.innerHTML = "Las claves no son las mismas.";
             setTimeout(function() {
                 confirmPasswordError.classList.remove("show");
             }, 3000);
@@ -84,7 +84,7 @@ class EditProfilePage extends React.Component {
             validator=1;
             let phoneNumberError = this.refs.phoneNumberError;
             phoneNumberError.classList.add("show");
-            phoneNumberError.innerHTML = "Please enter a valid phone number.";
+            phoneNumberError.innerHTML = "Por favor ingrese un número de teléfono válido.";
             setTimeout(function() {
                 phoneNumberError.classList.remove("show");
             }, 3000);
@@ -92,7 +92,7 @@ class EditProfilePage extends React.Component {
             validator=1;
             let phoneNumberError = this.refs.phoneNumberError;
             phoneNumberError.classList.add("show");
-            phoneNumberError.innerHTML = "Please enter a valid phone number.";
+            phoneNumberError.innerHTML = "Por favor ingrese un número de teléfono válido.";
             setTimeout(function() {
                 phoneNumberError.classList.remove("show");
             }, 3000);
@@ -100,7 +100,7 @@ class EditProfilePage extends React.Component {
             validator=1;
             let phoneNumberError = this.refs.phoneNumberError;
             phoneNumberError.classList.add("show");
-            phoneNumberError.innerHTML = "Please enter a valid phone number.";
+            phoneNumberError.innerHTML = "Por favor ingrese un número de teléfono válido.";
             setTimeout(function() {
                 phoneNumberError.classList.remove("show");
             }, 3000);
@@ -108,7 +108,7 @@ class EditProfilePage extends React.Component {
             validator=1;
             let addressError = this.refs.addressError;
             addressError.classList.add("show");
-            addressError.innerHTML = "Please enter a valid address.";
+            addressError.innerHTML = "Por favor ingrese una dirección válida.";
             setTimeout(function() {
                 addressError.classList.remove("show");
             }, 3000);
@@ -117,7 +117,7 @@ class EditProfilePage extends React.Component {
                 validator=1;
                 let phoneNumberError = this.refs.phoneNumberError;
                 phoneNumberError.classList.add("show");
-                phoneNumberError.innerHTML = "Additional phone number doesn't match the requirements.";
+                phoneNumberError.innerHTML = "El número adicional no cumple con los requerimientos.";
                 setTimeout(function() {
                     phoneNumberError.classList.remove("show");
                 }, 3000);
@@ -125,7 +125,7 @@ class EditProfilePage extends React.Component {
                 validator=1;
                 let phoneNumberError = this.refs.phoneNumberError;
                 phoneNumberError.classList.add("show");
-                phoneNumberError.innerHTML = "Additional phone number doesn't match the requirements.";
+                phoneNumberError.innerHTML = "El número adicional no cumple con los requerimientos.";
                 setTimeout(function() {
                     phoneNumberError.classList.remove("show");
                 }, 3000);
@@ -135,7 +135,7 @@ class EditProfilePage extends React.Component {
                 validator=1;
                 let phoneNumberError = this.refs.phoneNumberError;
                 phoneNumberError.classList.add("show");
-                phoneNumberError.innerHTML = "Additional phone number doesn't match the requirements.";
+                phoneNumberError.innerHTML = "El número adicional no cumple con los requerimientos.";
                 setTimeout(function() {
                     phoneNumberError.classList.remove("show");
                 }, 3000);
@@ -143,7 +143,7 @@ class EditProfilePage extends React.Component {
                 validator=1;
                 let phoneNumberError = this.refs.phoneNumberError;
                 phoneNumberError.classList.add("show");
-                phoneNumberError.innerHTML = "Additional phone number doesn't match the requirements.";
+                phoneNumberError.innerHTML = "El número adicional no cumple con los requerimientos.";
                 setTimeout(function() {
                     phoneNumberError.classList.remove("show");
                 }, 3000);
@@ -153,7 +153,7 @@ class EditProfilePage extends React.Component {
                 validator=1;
                 let phoneNumberError = this.refs.phoneNumberError;
                 phoneNumberError.classList.add("show");
-                phoneNumberError.innerHTML = "Additional phone number doesn't match the requirements.";
+                phoneNumberError.innerHTML = "El número adicional no cumple con los requerimientos.";
                 setTimeout(function() {
                     phoneNumberError.classList.remove("show");
                 }, 3000);
@@ -161,7 +161,7 @@ class EditProfilePage extends React.Component {
                 validator=1;
                 let phoneNumberError = this.refs.phoneNumberError;
                 phoneNumberError.classList.add("show");
-                phoneNumberError.innerHTML = "Additional phone number doesn't match the requirements.";
+                phoneNumberError.innerHTML = "El número adicional no cumple con los requerimientos.";
                 setTimeout(function() {
                     phoneNumberError.classList.remove("show");
                 }, 3000);
@@ -195,16 +195,16 @@ class EditProfilePage extends React.Component {
         return (
             <div className = "principalDiv">
                 <form className = "editProfileForm" onSubmit = {this.handleSubmit.bind(this)}>
-                <h1>Edit Profile</h1>
+                <h1>Editar Perfil</h1>
                     {/*First Name and Last Name inputs and labels.*/}
                     <div className = "containerBox">
                         <div className = "leftContainerBox">
-                            <label>First Name</label>
-                            <input ref = "firstName" id = "firstNameId" maxLength='140' placeholder='Enter First Name'/>
+                            <label>Primer Nombre</label>
+                            <input ref = "firstName" id = "firstNameId" maxLength='140' placeholder='Ingrese primer nombre.'/>
                         </div>
                         <div className = "rightContainerBox">
-                            <label>Last Name</label>
-                            <input ref="lastName" id = "passwordBox" maxLength='140' placeholder='Enter Last Name'/>
+                            <label>Apellido</label>
+                            <input ref="lastName" id = "passwordBox" maxLength='140' placeholder='Ingrese apellido.'/>
                         </div>
                     </div>
                     {/*First Name and Last Name inputs and labels ends here.*/}
@@ -212,17 +212,17 @@ class EditProfilePage extends React.Component {
                     <div className = "passBox">
 
                         <div className = "oldPasswordBox">
-                            <label>Old Password</label>
-                            <input ref="oldPassword" type="password" id = "oldPasswordId" placeholder='Old Password'/>
+                            <label>Contraseña Vieja</label>
+                            <input ref="oldPassword" type="password" id = "oldPasswordId" placeholder='Contraseña vieja.'/>
                         </div>
 
                         <div className = "leftContainerBox">
-                            <label>New Password</label>
-                            <input ref="newPassword" type="password" id = "newPasswordId" placeholder='New Password'/>
+                            <label>Contraseña Nueva</label>
+                            <input ref="newPassword" type="password" id = "newPasswordId" placeholder='Contraseña nueva.'/>
                         </div>
                         <div className = "rightContainerBox">
-                            <label>Confirm Password</label>
-                            <input ref="confirmPassword" type="password" id = "confirmPasswordId" placeholder='Confirm Password'/>
+                            <label>Confirmar Contraseña</label>
+                            <input ref="confirmPassword" type="password" id = "confirmPasswordId" placeholder='Confirmar contraseña.'/>
                         </div>
                     </div>
                     {/*New and Confirm Password inputs and labels end here.*/}
@@ -230,12 +230,12 @@ class EditProfilePage extends React.Component {
                     {/*First two phone numbers.*/}
                      <div className = "containerBox">
                         <div className = "leftContainerBox">
-                            <label>*Phone Number 1</label>
-                            <InputMask ref="phoneNumber1" mask="9999-9999" placeholder='Enter Phone Number'/>
+                            <label>*Teléfono 1</label>
+                            <InputMask ref="phoneNumber1" mask="9999-9999" placeholder='Ingrese su teléfono.'/>
                         </div>
                         <div className = "rightContainerBox">
-                            <label>Phone Number 2</label>
-                            <InputMask ref="phoneNumber2" mask="9999-9999" placeholder='Enter Phone Number'/>
+                            <label>Teléfono 2</label>
+                            <InputMask ref="phoneNumber2" mask="9999-9999" placeholder='Ingrese su teléfono.'/>
                         </div>
                     </div>
                     {/*First two phone numbers end here.*/}
@@ -243,12 +243,12 @@ class EditProfilePage extends React.Component {
                     {/*Last two phone numbers.*/}
                     <div className = "containerBox">
                         <div className = "leftContainerBox">
-                            <label>Phone Number 3</label>
-                            <InputMask ref="phoneNumber3" mask="9999-9999" placeholder='Enter Phone Number'/>
+                            <label>Teléfono 3</label>
+                            <InputMask ref="phoneNumber3" mask="9999-9999" placeholder='Ingrese su teléfono.'/>
                         </div>
                         <div className = "rightContainerBox">
-                            <label>Phone Number 4</label>
-                            <InputMask ref="phoneNumber4" mask="9999-9999" placeholder='Enter Phone Number'/>
+                            <label>Teléfono 4</label>
+                            <InputMask ref="phoneNumber4" mask="9999-9999" placeholder='Ingrese su teléfono.'/>
                         </div>
                     </div>
                     {/*Last two phone numbers end here.*/}
@@ -256,12 +256,12 @@ class EditProfilePage extends React.Component {
                     {/*First two directions text areas.*/}
                     <div className = "containerBox">
                         <div className = "leftContainerBox">
-                            <label>*Address 1</label>
-                            <textarea ref="address1" id = "direction1TextArea" maxLength='140' rows="5" placeholder='Enter Address'/>
+                            <label>*Dirección 1</label>
+                            <textarea ref="address1" id = "direction1TextArea" maxLength='140' rows="5" placeholder='Ingrese su dirección.'/>
                         </div>
                         <div className = "rightContainerBox">
-                            <label>Address 2</label>
-                            <textarea ref="address2" id = "direction2TextArea" maxLength='140' rows="5" placeholder='Enter Address'/>
+                            <label>Dirección 2</label>
+                            <textarea ref="address2" id = "direction2TextArea" maxLength='140' rows="5" placeholder='Ingrese su dirección.'/>
                         </div>
                     </div>
                     {/*First two directions text areas end here.*/}
@@ -269,20 +269,20 @@ class EditProfilePage extends React.Component {
                     {/*Last two directions text areas.*/}
                     <div className = "containerBox">
                         <div className = "leftContainerBox">
-                            <label>Address 3</label>
-                            <textarea ref="address3" id = "direction3TextArea" maxLength='140' rows="5" placeholder='Enter Address'/>
+                            <label>Dirección 3</label>
+                            <textarea ref="address3" id = "direction3TextArea" maxLength='140' rows="5" placeholder='Ingrese su dirección.'/>
                         </div>
                         <div className = "rightContainerBox">
-                            <label>Address 4</label>
-                            <textarea ref="address4" id = "direction4TextArea" maxLength='140' rows="5" placeholder='Enter Address'/>
+                            <label>Dirección 4</label>
+                            <textarea ref="address4" id = "direction4TextArea" maxLength='140' rows="5" placeholder='Ingrese su dirección.'/>
                         </div>
                     </div>
                     {/*Last two directions text areas end here.*/}
 
                      <div className = "Buttons">
-                            <button className = "disableAccBtn" onClick={this.disableAccount.bind(this)}>Disable Account</button>
+                            <button className = "disableAccBtn" onClick={this.disableAccount.bind(this)}>Desactivar Cuenta</button>
                             <label className = "spaceLabel"></label>
-                            <button className = "saveChangesBtn" onClick={this.onSubmit.bind(this)}>Save Changes</button>
+                            <button className = "saveChangesBtn" onClick={this.onSubmit.bind(this)}>Guardar Cambios</button>
                     </div>
 
 

@@ -19,7 +19,6 @@ export default class Register extends React.Component {
     let lastName = this.refs.lastName.value.trim();
     let phoneNumber1 = this.refs.phoneNumber.value.trim();
     let address1 = this.refs.address.value.trim();
-
     let profile = {
       firstName,
       lastName,
