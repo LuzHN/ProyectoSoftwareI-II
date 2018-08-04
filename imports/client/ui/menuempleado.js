@@ -7,26 +7,200 @@ import {
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/menu.css';
-import {Orders} from '../../api/orders'
+import { Orders } from '../../api/orders'
+
+
+window.onclick = function (event) {
+    if (event.target.className == "modal") {
+
+        var modal = document.getElementById('simpleModalEmp');
+        modal.style.display = "none";
+    }
+}
 
 export default class MenuEmployee extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      orders: []
+    constructor(props) {
+        super(props);
+        this.state = {
+            orders: []
+        }
     }
-  }
-  componentDidMount() {
-    this.ordersTracker = Tracker.autorun(() => {
-      Meteor.subscribe('orders');
-      const orders = Orders.find().fetch();
-      this.setState({ orders });
-    });
-  }
+    componentDidMount() {
+        this.ordersTracker = Tracker.autorun(() => {
+            Meteor.subscribe('orders');
+            const orders = Orders.find().fetch();
+            this.setState({ orders });
+        });
+    }
 
-  componentWillUnmount() {
-    this.ordersTracker.stop();
-  }
+    closeAgregar() {
+        var modal = document.getElementById('simpleModalEmp');
+        modal.style.display = 'none';
+    }
+
+    componentWillUnmount() {
+        this.ordersTracker.stop();
+    }
+
+    showModal = (Order) => { //Muestra el modal con la informacion de la orden
+        var modal = document.getElementById('simpleModalEmp');
+        let platillos = [];
+
+        platillos.push(<h1 className="black">{"Esta orden incluye lo siguiente:"}</h1>);
+
+        Order.products.map((product) => {
+
+            platillos.push(<li className="list-group-item black">{product.plato + " (" + product.cantidad + ")"}</li>);
+
+        });
+
+        ReactDOM.render(platillos, document.getElementById('ModalDescription'));
+        modal.style.display = 'block';
+
+    }
+
+    countPlates(Order) { //Cuenta cuantos platillos en total tiene una orden
+
+        let count = 0;
+
+        Order.products.map((product) => {
+            count += product.cantidad;
+        });
+
+        return count;
+    }
+
+    checkStatus(Order) {
+        if (Order.status == "InProgress") {
+            return "Ingresada";
+        } else if (Order.status = "Dispatched") {
+            return "Terminada";
+        } 
+    }
+
+
+
+    loadList(bool) { //Carga la tabla con las ordenes
+        return this.state.orders.map((order) => {
+
+            const user = Meteor.users.findOne({ _id: order.userId })
+            if (order.status == "") {
+                order.status = "Pending";
+            }
+
+            if (order.status == "Dispatched") {
+                //no mandar nada
+                if (bool == true) { //si la persona cambio a historial de ordenes
+                    
+                    return (
+
+                        <table className="EmployeeTable table table-hover table-blue table table-bordered text-center">
+                            <thead className="thead-dark">
+                                <tr>
+                                    <th scope="col">Nùmero Orden</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Cliente</th>
+                                    <th scope="col">Telèfono</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Ver más</th>
+                                    <th scope="col">Terminar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr key={order._id}>
+                                    <td>Orden X</td>
+                                    <td>{order.fecha}</td>
+                                    <td>{user.profile.firstName + " " + user.profile.lastName}</td>
+                                    <td>{user.profile.phoneNumber1}</td>
+                                    <td>{this.checkStatus(order)}</td>
+                                    <td>
+                                        <button id="btn-info" onClick={(e) => this.showModal(order)}>
+                                            <span className="spanEmployee">{"Ver Más"}</span>
+
+
+                                            <span className="badgeEmployee badge badge-primary badge-pill">{this.countPlates(order)}</span>
+                                        </button>
+                                    </td>
+
+                                    <td>
+                                        <button id="btn-empleado" onClick={function () {
+
+
+                                            Meteor.call('orders.delete', order._id)
+                                            toastr.success("La orden ha sido borrada del sistema.")
+
+
+                                        }}>Borrar de Sistema</button>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    );
+                }
+            } else {
+                return (
+
+                    <table className="EmployeeTable table table-hover table-blue table table-bordered text-center">
+                        <thead className="thead-dark">
+                            <tr>
+                                <th scope="col">Nùmero Orden</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Telèfono</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Ver más</th>
+                                <th scope="col">Ingresar</th>
+                                <th scope="col">Terminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr key={order._id}>
+                                <td>Orden X</td>
+                                <td>{order.fecha}</td>
+                                <td>{user.profile.firstName + " " + user.profile.lastName}</td>
+                                <td>{user.profile.phoneNumber1}</td>
+                                <td>{this.checkStatus(order)}</td>
+                                <td>
+                                    <button id="btn-info" onClick={(e) => this.showModal(order)}>
+                                        <span className="spanEmployee">{"Ver Más"}</span>
+
+
+                                        <span className="badgeEmployee badge badge-primary badge-pill">{this.countPlates(order)}</span>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button id="btn-empleado" onClick={function () {
+                                        if (order.status == "Pending") {
+                                            Meteor.call('orders.setInProgress', order._id)
+                                        }
+                                    }}>Cambiar a Ingresado</button>
+                                </td>
+                                <td>
+                                    <button id="btn-empleado" onClick={function () {
+                                        if (order.status == "InProgress" || order.status == "Dispatched") {
+
+                                            Meteor.call('orders.setDispatched', order._id)
+                                            toastr.success("La orden ha sido terminada y despachada!")
+
+                                        } else if (order.status == "Pending") {
+                                            toastr.warning("Primero tiene que estar ingresado.")
+                                        }
+                                    }}>Cambiar a Terminado</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                )
+            }
+
+
+
+
+        });
+    }
 
     render() {
         return (
@@ -39,9 +213,24 @@ export default class MenuEmployee extends React.Component {
 
                 <div className="pos-f-t "></div>
 
-                <section className="MenuEmployee" >
-                    <h3 id="titulodeorden"></h3>
-                    <MenuEmployeeComponent orders={this.state.orders}/>
+                <button id="btn-empleado" onClick={(e) => {
+                    { console.log("hola");  }
+                }}>Ver Historial de Ordenes</button>
+
+
+                <section id = "Sec" className="MenuEmployee" >
+
+
+                    {this.loadList(false)}
+
+                    <ul className="pagination justify-content-center">
+                        <li className="page-item"><a className="page-link" href="#">Previous</a></li>
+                        <li className="page-item"><a className="page-link" href="#">1</a></li>
+                        <li className="page-item active"><a class="page-link" href="#">2</a></li>
+                        <li className="page-item"><a className="page-link" href="#">3</a></li>
+                        <li className="page-item"><a className="page-link" href="#">Next</a></li>
+                    </ul>
+
                 </section>
 
                 <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg" />
@@ -62,72 +251,29 @@ export default class MenuEmployee extends React.Component {
                     </div>
                 </footer>
 
-            </div>
-        );
-    }
+                <div id="simpleModalEmp" className="modal">
+                    <div className="modal-content">
 
-}
-class MenuEmployeeComponent extends React.Component {
-    render() {
-        return (
-            <div className="card-columns EmployeeCardColumn">
-                {renderPlates(this.props.orders, this.cambiarEstado, this.deleteCard)}
-            </div>
-        );
-    }
-}
-AgregarHeader = (cliente, id) =>{
-  return (
-    <h3>Cliente: {cliente} -- ID de Orden: {id}</h3>
-  )
-}
-
-const renderPlates = (platesList) => { //metodo a usar con la base
-  console.log(platesList)
-
-    return platesList.map((plate) => {
-      // console.log(Meteor.users.findOne({_id: plate.userId}));
-      const user = Meteor.users.findOne({_id: plate.userId})
-        return (plate.products.map((product, i) => {
-            return (
-                <div className="card EmployeeCard " key={i}>
-                    <div className="card-body">
-                        <div>
-                            <h1 className="card-title">{`${product.plato} - Cantidad: ${product.cantidad}`}</h1>
-                            <h2 className="card-subtitle">Fecha ordenado: {plate.fecha} </h2>
-                            <hr></hr>
-                            <h2 id="InfoCliente" className="card-text">Cliente: {user.profile.firstName}</h2>
-                            <h2 id="InfoCliente" className="card-text">Teléfono: {user.profile.phoneNumber1}</h2>
-                            <h2 id="InfoCliente" className="card-text">Dirección: {user.profile.address1}</h2>
-                            <p id="ComentarioCliente" className="card-text">
-                                {product.descripcion}
-                            </p>
-                            <hr></hr>
+                        {/* Header */}
+                        <div className="modal-header">
+                            <div className="modal-header-Btn">
+                                <span className="closeBtn" onClick={this.closeAgregar.bind(this)}>&times;</span>
+                            </div>
+                            <div className="modal-header-Name">
+                                <h2>Información del plato</h2>
+                            </div>
                         </div>
-
-
-                        <div className="card-footer text-muted">
-                            <span className = "green">Estado: </span>
-                            <span className = "red">{plate.status}</span>
-                            <button className="ChangeState" id="ingresado" onClick= {function () {
-                                if (plate.status == "") {
-                                    Meteor.call('orders.setInProgress', plate._id)
-                                    this.document.getElementById("ingresado").setAttribute("disabled", "true");
-                                }
-                            }}>Cambiar a Ingresado</button>
-                            <button className="ChangeState" onClick={function () {
-                                if (plate.status == "InProgress") {
-                                    Meteor.call('orders.setDispatched', plate._id)
-                                } else if (plate.status == "") {
-                                    alert("Primero tiene que estar ingresado.")
-                                }
-                            }}>Cambiar a Terminado</button>
+                        {/* Body */}
+                        <div id="ModalDescription">
                         </div>
+                        {/* Footer */}
+                        <div className="modal-footer"></div>
                     </div>
                 </div>
+            </div>
+        );
+    }
 
-                
-            );
-        }));
-    });
 }
+
+
