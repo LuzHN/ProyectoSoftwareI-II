@@ -10,23 +10,6 @@ import InputMask from 'react-input-mask';
 
 import './../client/styles/editEmpleado';
 
-let usuarios = [
-    {
-        name: 'Abe'
-    },
-    {
-        name: 'Adam'
-    },
-    {
-        name: 'Allan'
-    },
-    {
-        name: 'Bob'
-    },
-    {
-        name: 'Cathy'
-    }
-]
 
 export default class editarEmpleadoPage extends React.Component {
     constructor(props) {
@@ -46,28 +29,29 @@ export default class editarEmpleadoPage extends React.Component {
     }
 
     onAgregar() {
-       console.log("Agrego");
        var modal = document.getElementById('simpleModal');
        modal.style.display = 'block';
-       const user = Meteor.users.findOne({_id:plate.userId});
-       console.log(user);
+       console.log("agrego");
     }
 
     onModificar() {
-        console.log("Modifico");
         var modal = document.getElementById('simpleModal2');
         modal.style.display = 'block';
-        this.pasarInfo();
+        console.log("Modifico");
     }
 
     onEliminar() {
-        console.log("Elimino");
         var modal = document.getElementById('simpleModal');
         modal.style.display = 'block';
     }
 
     closeAgregar() {
         var modal = document.getElementById('simpleModal');
+        modal.style.display = 'none';
+    }
+
+    closeModificar() {
+        var modal = document.getElementById('simpleModal2');
         modal.style.display = 'none';
     }
 
@@ -111,6 +95,10 @@ export default class editarEmpleadoPage extends React.Component {
         this.usersTracker.stop();
       }
 
+    handlex(e) {
+           console.log("hey");
+    }
+
 
 
 
@@ -121,8 +109,8 @@ export default class editarEmpleadoPage extends React.Component {
                 <div className="containerPrincipal">
                     <div className="Buttons">
                         <button className="botonAgregar" onClick={this.onAgregar.bind(this)}>Agregar Empleado</button>
-                        <button className="botonModificar" onClick={this.onModificar.bind(this)}>Modificar Empleado</button>
-                        <button className="botonEliminar" onClick={this.onEliminar.bind(this)}>Eliminar Empleado</button>
+                        <button className="botonModificar" onClick={this.onModificar.bind(this)}>Modifciar</button>
+
                     </div>
 
 
@@ -207,51 +195,51 @@ export default class editarEmpleadoPage extends React.Component {
                                             <div className="box1">
                                                 <p>
                                                     <label>Email</label>
-                                                    <input id = "correo" ref="email" type="email" placeholder='Enter Email' maxLength='140' />
+                                                    <input id = "correo" ref="email" type="email" placeholder='Ingrese su correo.' maxLength='140' />
                                                 </p>
                                             </div>
                                         </div>
                                         <div className="container1">
                                             <div className="box1">
                                                 <p>
-                                                    <label>Password</label>
-                                                    <input ref="password" type="password" placeholder='Enter Password' />
+                                                    <label>Contraseña</label>
+                                                    <input ref="password" type="password" placeholder='Ingrese su contraseña.' />
                                                 </p>
                                             </div>
                                             <div className="box2">
                                                 <p>
-                                                    <label>Confirm Password</label>
-                                                    <input ref="confirmPassword" type="password" placeholder='Confirm Password' />
+                                                    <label>Confirmar Contraseña</label>
+                                                    <input ref="confirmPassword" type="password" placeholder='Confirmar contraseña.' />
                                                 </p>
                                             </div>
                                         </div>
                                         <div className="container1">
                                             <div className="box1">
                                                 <p>
-                                                    <label>First Name</label>
-                                                    <input ref="firstName" type="text" placeholder='Enter First Name' maxLength='140' />
+                                                    <label>Primer Nombre</label>
+                                                    <input ref="firstName" type="text" placeholder='Ingrese su primer nombre.' maxLength='140' />
                                                 </p>
                                             </div>
                                             <div className="box2">
                                                 <p>
-                                                    <label>Last Name</label>
-                                                    <input ref="lastName" type="text" placeholder='Enter Last Name' maxLength='140' />
+                                                    <label>Apellido</label>
+                                                    <input ref="lastName" type="text" placeholder='Ingrese su apellido.' maxLength='140' />
                                                 </p>
                                             </div>
                                         </div>
                                         <div className="container1">
                                             <div className="box1">
                                                 <p>
-                                                    <label>Phone Number</label>
-                                                    <InputMask id = "numero" mask="9999-9999" ref="phoneNumber" placeholder='Enter Phone Number' />
+                                                    <label>Número de Teléfono</label>
+                                                    <InputMask id = "numero" mask="9999-9999" ref="phoneNumber" placeholder='Ingrese su número de teléfono.' />
                                                 </p>
                                             </div>
                                         </div>
                                         <div className="container1">
                                             <div className="box1">
                                                 <p>
-                                                    <label>Address</label>
-                                                    <textarea ref="address" rows="5" placeholder='Enter Address' maxLength='140'></textarea>
+                                                    <label>Dirección</label>
+                                                    <textarea ref="address" rows="5" placeholder='Ingrese su dirección.' maxLength='140'></textarea>
                                                 </p>
                                             </div>
                                         </div>
@@ -264,33 +252,99 @@ export default class editarEmpleadoPage extends React.Component {
                             </div>
                             {/* Footer */}
                             <div className="modal-footer"></div>
+                        </div>
+                    </div> {/*Termina MODAL AGREGAR*/}
 
-                            {/*Modal*/}
+                    {/*Modal*/}
                     <div id="simpleModal2" className="modal">
                         <div className="modal-content">
-
                             {/* Header */}
                             <div className="modal-header">
                                 <div className="modal-header-Btn">
-                                    <span className="closeBtn" onClick={this.closeAgregar.bind(this)}>&times;</span>
+                                    <span className="closeBtn" onClick={this.closeModificar.bind(this)}>&times;</span>
                                 </div>
                                 <div className="modal-header-Name">
                                     <h2>Modificar Empleado</h2>
                                 </div>
                             </div>
-
                             {/* Body */}
                             <div className="modal-body">
                                 <form  className="agregarEmpleadoFormModal">
-                                    <div >
+                                    <div>
                                         <div className = "container1">
                                             <div className = "box1">
                                                 <p>
-                                                    <input className="searchBar" placeholder="Nombre Empleado" ref="srch" type="search" />
-                                                    <button className = "botonSearch" onClick={this.searchEmployeeSubmit.bind(this)}>Buscar</button>
+                                                    <label>Primer Nombre</label>
+                                                    <input ref = "firstName" id = "firstNameId" maxLength='140' placeholder='Ingrese primer nombre.'/>
+                                                </p>
+                                            </div>
+                                            <div className="box2">
+                                                <p>
+                                                    <label>Apellido</label>
+                                                    <input ref="lastName" type="text" placeholder='Ingrese su apellido.' maxLength='140' />
                                                 </p>
                                             </div>
                                         </div>
+                                        <div className="container1">
+                                            
+                                            <div className="box1">
+                                                <p>
+                                                    <label>Contraseña Vieja</label>
+                                                    <input ref="oldPassword" type="password" placeholder='Ingrese la contraseña vieja.' />
+                                                    <label>Confirmar Contraseña</label>
+                                                    <input ref="confirmPassword" type="password" placeholder='Confirmar contraseña.' />
+                                                </p>
+                                            </div>
+                                            <div className="box2">
+                                                <p>
+                                                    <label>Contraseña Nueva</label>
+                                                    <input ref="password" type="password" placeholder='Ingrese la contraseña nueva.' />
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div className="container1">
+                                            
+                                            <div className="box1">
+                                                <p>
+                                                    <label>*Teléfono 1</label>
+                                                    <InputMask ref="phoneNumber1" mask="9999-9999" placeholder='Ingrese su teléfono.'/>
+                                                    <label>*Teléfono 3</label>
+                                                    <InputMask ref="phoneNumber1" mask="9999-9999" placeholder='Ingrese su teléfono.'/>
+                                                </p>
+                                            </div>
+                                            <div className="box2">
+                                                <p>
+                                                    <label>*Teléfono 2</label>
+                                                    <InputMask ref="phoneNumber1" mask="9999-9999" placeholder='Ingrese su teléfono.'/>
+                                                    <label>*Teléfono 4</label>
+                                                    <InputMask ref="phoneNumber1" mask="9999-9999" placeholder='Ingrese su teléfono.'/>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div className="container1">
+                                            
+                                            <div className="box1">
+                                                <p>
+                                                    <label>*Dirección 1</label>
+                                                    <textarea ref="address1" id = "direction1TextArea" maxLength='140' rows="5" placeholder='Ingrese su dirección.'/>
+                                                    <label>Dirección 3</label>
+                                                    <textarea ref="address1" id = "direction1TextArea" maxLength='140' rows="5" placeholder='Ingrese su dirección.'/>
+                                                </p>
+                                            </div>
+                                            <div className="box2">
+                                                <p>
+                                                    <label>Dirección 2</label>
+                                                    <textarea ref="address1" id = "direction1TextArea" maxLength='140' rows="5" placeholder='Ingrese su dirección.'/>
+                                                    <label>Dirección 4</label>
+                                                    <textarea ref="address1" id = "direction1TextArea" maxLength='140' rows="5" placeholder='Ingrese su dirección.'/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                        
                                         
                                         <p>
                                             <button className = "confirmarAdd" >Confirmar</button>
@@ -300,10 +354,9 @@ export default class editarEmpleadoPage extends React.Component {
                             </div>
                             {/* Footer */}
                             <div className="modal-footer"></div>
-                            </div>
                         </div>
-                    </div>
-                </div>
+                    </div>{/*Termina MODAL MODIFICAR*/}
+
                 </div>
             </div>
         );
@@ -314,7 +367,7 @@ export default class editarEmpleadoPage extends React.Component {
 const renderUser = (users) => {
     return users.map((user) => {
         return (
-            <li className="collection-item" key={user._id}>
+            <li  onClick={(e) => this.handlex(e)} className="collection-item" key={user._id}>
                 <a href="#"  className="hrefNombre">{user.profile.firstName}</a>
             </li>
         )

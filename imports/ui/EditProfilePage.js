@@ -200,11 +200,11 @@ class EditProfilePage extends React.Component {
                     <div className = "containerBox">
                         <div className = "leftContainerBox">
                             <label>Primer Nombre</label>
-                            <input ref = "firstName" id = "firstNameId" maxLength='140' placeholder='Enter First Name'/>
+                            <input ref = "firstName" id = "firstNameId" maxLength='140' placeholder='Ingrese primer nombre.'/>
                         </div>
                         <div className = "rightContainerBox">
                             <label>Apellido</label>
-                            <input ref="lastName" id = "passwordBox" maxLength='140' placeholder='Enter Last Name'/>
+                            <input ref="lastName" id = "passwordBox" maxLength='140' placeholder='Ingrese apellido.'/>
                         </div>
                     </div>
                     {/*First Name and Last Name inputs and labels ends here.*/}
@@ -212,17 +212,17 @@ class EditProfilePage extends React.Component {
                     <div className = "passBox">
 
                         <div className = "oldPasswordBox">
-                            <label>Clave Vieja</label>
-                            <input ref="oldPassword" type="password" id = "oldPasswordId" placeholder='Old Password'/>
+                            <label>Contraseña Vieja</label>
+                            <input ref="oldPassword" type="password" id = "oldPasswordId" placeholder='Contraseña vieja.'/>
                         </div>
 
                         <div className = "leftContainerBox">
-                            <label>Clave Nueva</label>
-                            <input ref="newPassword" type="password" id = "newPasswordId" placeholder='New Password'/>
+                            <label>Contraseña Nueva</label>
+                            <input ref="newPassword" type="password" id = "newPasswordId" placeholder='Contraseña nueva.'/>
                         </div>
                         <div className = "rightContainerBox">
-                            <label>Confirmar Clave</label>
-                            <input ref="confirmPassword" type="password" id = "confirmPasswordId" placeholder='Confirm Password'/>
+                            <label>Confirmar Contraseña</label>
+                            <input ref="confirmPassword" type="password" id = "confirmPasswordId" placeholder='Confirmar contraseña.'/>
                         </div>
                     </div>
                     {/*New and Confirm Password inputs and labels end here.*/}
@@ -231,11 +231,11 @@ class EditProfilePage extends React.Component {
                      <div className = "containerBox">
                         <div className = "leftContainerBox">
                             <label>*Teléfono 1</label>
-                            <InputMask ref="phoneNumber1" mask="9999-9999" placeholder='Enter Phone Number'/>
+                            <InputMask ref="phoneNumber1" mask="9999-9999" placeholder='Ingrese su teléfono.'/>
                         </div>
                         <div className = "rightContainerBox">
                             <label>Teléfono 2</label>
-                            <InputMask ref="phoneNumber2" mask="9999-9999" placeholder='Enter Phone Number'/>
+                            <InputMask ref="phoneNumber2" mask="9999-9999" placeholder='Ingrese su teléfono.'/>
                         </div>
                     </div>
                     {/*First two phone numbers end here.*/}
@@ -244,11 +244,11 @@ class EditProfilePage extends React.Component {
                     <div className = "containerBox">
                         <div className = "leftContainerBox">
                             <label>Teléfono 3</label>
-                            <InputMask ref="phoneNumber3" mask="9999-9999" placeholder='Enter Phone Number'/>
+                            <InputMask ref="phoneNumber3" mask="9999-9999" placeholder='Ingrese su teléfono.'/>
                         </div>
                         <div className = "rightContainerBox">
                             <label>Teléfono 4</label>
-                            <InputMask ref="phoneNumber4" mask="9999-9999" placeholder='Enter Phone Number'/>
+                            <InputMask ref="phoneNumber4" mask="9999-9999" placeholder='Ingrese su teléfono.'/>
                         </div>
                     </div>
                     {/*Last two phone numbers end here.*/}
@@ -257,11 +257,11 @@ class EditProfilePage extends React.Component {
                     <div className = "containerBox">
                         <div className = "leftContainerBox">
                             <label>*Dirección 1</label>
-                            <textarea ref="address1" id = "direction1TextArea" maxLength='140' rows="5" placeholder='Enter Address'/>
+                            <textarea ref="address1" id = "direction1TextArea" maxLength='140' rows="5" placeholder='Ingrese su dirección.'/>
                         </div>
                         <div className = "rightContainerBox">
                             <label>Dirección 2</label>
-                            <textarea ref="address2" id = "direction2TextArea" maxLength='140' rows="5" placeholder='Enter Address'/>
+                            <textarea ref="address2" id = "direction2TextArea" maxLength='140' rows="5" placeholder='Ingrese su dirección.'/>
                         </div>
                     </div>
                     {/*First two directions text areas end here.*/}
@@ -270,11 +270,11 @@ class EditProfilePage extends React.Component {
                     <div className = "containerBox">
                         <div className = "leftContainerBox">
                             <label>Dirección 3</label>
-                            <textarea ref="address3" id = "direction3TextArea" maxLength='140' rows="5" placeholder='Enter Address'/>
+                            <textarea ref="address3" id = "direction3TextArea" maxLength='140' rows="5" placeholder='Ingrese su dirección.'/>
                         </div>
                         <div className = "rightContainerBox">
                             <label>Dirección 4</label>
-                            <textarea ref="address4" id = "direction4TextArea" maxLength='140' rows="5" placeholder='Enter Address'/>
+                            <textarea ref="address4" id = "direction4TextArea" maxLength='140' rows="5" placeholder='Ingrese su dirección.'/>
                         </div>
                     </div>
                     {/*Last two directions text areas end here.*/}
