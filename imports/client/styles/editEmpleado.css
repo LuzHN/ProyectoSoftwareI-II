@@ -262,6 +262,11 @@ button:focus {
     width: 90rem;
 }
 
+#direction1TextArea, #direction2TextArea, #direction3TextArea,#direction4TextArea {
+    width: 45rem;
+
+}
+
 #correo, #numero {
     width: 90rem;
 }
