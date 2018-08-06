@@ -35,26 +35,38 @@
 
   .black{
     color: black;
+    padding: 10px;
+  }
+
+  .blue{
+    font-size: 20px;
+    font-weight: bold;
+    color: #37555A;
   }
 
   .red{
     color: #d86926;
-    font-size: 20px;
+    
   }
 
   #btn-empleado{
     background-color:  #d86926;
     border: none;
+    color: white;
     font-size: 1em !important;
     border-radius: 8px;
   }
 
   #btn-info{
     background-color: #d86926;
-    margin-left: 10px;
     border: none;
+    color: white;
     font-size: 1em !important;
     border-radius: 8px;
+  }
+
+  .btn-employeehistory{
+    margin-left: 10%;
   }
 
   .EmployeeTable{

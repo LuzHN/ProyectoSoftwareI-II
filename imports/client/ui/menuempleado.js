@@ -50,9 +50,25 @@ export default class MenuEmployee extends React.Component {
 
         Order.products.map((product) => {
 
-            platillos.push(<li className="list-group-item black">{product.plato + " (" + product.cantidad + ")"}</li>);
+            let comentario = "";
+            if (product.descripcion == "") {
+                comentario = <li className="list-group-item secondary red">{"Este platillo no tiene comentario del cliente."}</li>;
+            } else {
+                comentario = <li className="list-group-item secondary red">{"Comentario: " + product.descripcion}</li>;
+            }
+
+
+            platillos.push(
+            <ul>
+                <li className="list-group-item blue primary">{product.plato + " (" + product.cantidad + ")"}</li>
+                {comentario}
+            </ul>);
+
 
         });
+
+
+
 
         ReactDOM.render(platillos, document.getElementById('ModalDescription'));
         modal.style.display = 'block';
@@ -75,7 +91,7 @@ export default class MenuEmployee extends React.Component {
             return "Ingresada";
         } else if (Order.status == "Dispatched") {
             return "Terminada";
-        } else{
+        } else {
             return "Pendiente";
         }
     }
@@ -88,9 +104,7 @@ export default class MenuEmployee extends React.Component {
             const user = Meteor.users.findOne({ _id: order.userId });
 
             if (order.status == "") {
-                console.log("Prueba");
                 order.status = "Pending";
-                console.log(order.status);
             }
 
             if (order.status == "Dispatched") {
@@ -155,7 +169,7 @@ export default class MenuEmployee extends React.Component {
 
                 <div className="pos-f-t "></div>
 
-                <button id="btn-empleado" onClick={(e) => {
+                <button className= "btn-employeehistory" id="btn-empleado" onClick={(e) => {
                 }}>Ver Historial de Ordenes</button>
 
 
@@ -185,7 +199,7 @@ export default class MenuEmployee extends React.Component {
                     <ul className="pagination justify-content-center">
                         <li className="page-item"><a className="page-link" href="#">Previous</a></li>
                         <li className="page-item"><a className="page-link" href="#">1</a></li>
-                        <li className="page-item active"><a class="page-link" href="#">2</a></li>
+                        <li className="page-item active"><a className="page-link" href="#">2</a></li>
                         <li className="page-item"><a className="page-link" href="#">3</a></li>
                         <li className="page-item"><a className="page-link" href="#">Next</a></li>
                     </ul>
