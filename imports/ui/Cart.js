@@ -15,7 +15,7 @@ export default class Cart extends React.Component{
     super(props);
     this.state= {
       orders: [],
-      value : 0,
+      value : "De click para revisar entre 'Orden Actual' e 'Historial de Ordenes'",
       cart: [],
       orden:{
         estado: "",
@@ -66,7 +66,7 @@ export default class Cart extends React.Component{
     orden.products = [];
 
     let d = new Date();
-    let stringFecha = d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear() + " ," + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(); 
+    let stringFecha = d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear() + " ," + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
     orden.fecha = stringFecha;
 
     for (var i = 0; i < this.state.componentes.length; i++) {
@@ -122,7 +122,7 @@ export default class Cart extends React.Component{
         imagen={item.imagen}
         titulo={item.plato}
         precio={parseInt(item.precio).toFixed(2)}
-        cantidad={item.cantidad}/>
+        cantidad=<input type="number" placeholder={item.cantidad} min="1" max="10"/>/>
     );
 
     let newVal = (
@@ -139,7 +139,7 @@ export default class Cart extends React.Component{
           {rows}
         </tbody>
       </table>
-      <div>
+      <div className="total">
         <h3>Subtotal:Lps.{price.toFixed(2)}</h3>
         <h3>ISV: 15%</h3>
         <h2>Total:Lps.{((price*0.15)+price).toFixed(2)}</h2>
@@ -151,7 +151,23 @@ export default class Cart extends React.Component{
   }
 
   onHistory(){
-    let newVal = 2;
+    let newVal = (
+      <div>
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Orden</th>
+            <th scope="col">Items</th>
+            <th scope="col">Precio Total</th>
+            <th scope="col">Fecha</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+      </div>
+    );
     return this.setState({...this.state, value: newVal})
   }
 
