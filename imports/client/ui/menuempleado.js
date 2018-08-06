@@ -73,124 +73,66 @@ export default class MenuEmployee extends React.Component {
     checkStatus(Order) {
         if (Order.status == "InProgress") {
             return "Ingresada";
-        } else if (Order.status = "Dispatched") {
+        } else if (Order.status == "Dispatched") {
             return "Terminada";
-        } 
+        } else{
+            return "Pendiente";
+        }
     }
 
 
 
-    loadList(bool) { //Carga la tabla con las ordenes
+    loadList() { //Carga la tabla con las ordenes
         return this.state.orders.map((order) => {
 
-            const user = Meteor.users.findOne({ _id: order.userId })
+            const user = Meteor.users.findOne({ _id: order.userId });
+
             if (order.status == "") {
+                console.log("Prueba");
                 order.status = "Pending";
+                console.log(order.status);
             }
 
             if (order.status == "Dispatched") {
-                //no mandar nada
-                if (bool == true) { //si la persona cambio a historial de ordenes
-                    
-                    return (
-
-                        <table className="EmployeeTable table table-hover table-blue table table-bordered text-center">
-                            <thead className="thead-dark">
-                                <tr>
-                                    <th scope="col">Nùmero Orden</th>
-                                    <th scope="col">Fecha</th>
-                                    <th scope="col">Cliente</th>
-                                    <th scope="col">Telèfono</th>
-                                    <th scope="col">Estado</th>
-                                    <th scope="col">Ver más</th>
-                                    <th scope="col">Terminar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr key={order._id}>
-                                    <td>Orden X</td>
-                                    <td>{order.fecha}</td>
-                                    <td>{user.profile.firstName + " " + user.profile.lastName}</td>
-                                    <td>{user.profile.phoneNumber1}</td>
-                                    <td>{this.checkStatus(order)}</td>
-                                    <td>
-                                        <button id="btn-info" onClick={(e) => this.showModal(order)}>
-                                            <span className="spanEmployee">{"Ver Más"}</span>
-
-
-                                            <span className="badgeEmployee badge badge-primary badge-pill">{this.countPlates(order)}</span>
-                                        </button>
-                                    </td>
-
-                                    <td>
-                                        <button id="btn-empleado" onClick={function () {
-
-
-                                            Meteor.call('orders.delete', order._id)
-                                            toastr.success("La orden ha sido borrada del sistema.")
-
-
-                                        }}>Borrar de Sistema</button>
-                                    </td>
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    );
-                }
+                //no agrega nada
             } else {
                 return (
 
-                    <table className="EmployeeTable table table-hover table-blue table table-bordered text-center">
-                        <thead className="thead-dark">
-                            <tr>
-                                <th scope="col">Nùmero Orden</th>
-                                <th scope="col">Fecha</th>
-                                <th scope="col">Cliente</th>
-                                <th scope="col">Telèfono</th>
-                                <th scope="col">Estado</th>
-                                <th scope="col">Ver más</th>
-                                <th scope="col">Ingresar</th>
-                                <th scope="col">Terminar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr key={order._id}>
-                                <td>Orden X</td>
-                                <td>{order.fecha}</td>
-                                <td>{user.profile.firstName + " " + user.profile.lastName}</td>
-                                <td>{user.profile.phoneNumber1}</td>
-                                <td>{this.checkStatus(order)}</td>
-                                <td>
-                                    <button id="btn-info" onClick={(e) => this.showModal(order)}>
-                                        <span className="spanEmployee">{"Ver Más"}</span>
+
+                    <tr key={order._id}>
+                        <td>Orden X</td>
+                        <td>{order.fecha}</td>
+                        <td>{user.profile.firstName + " " + user.profile.lastName}</td>
+                        <td>{user.profile.phoneNumber1}</td>
+                        <td>{this.checkStatus(order)}</td>
+                        <td>
+                            <button id="btn-info" onClick={(e) => this.showModal(order)}>
+                                <span className="spanEmployee">{"Ver Más"}</span>
 
 
-                                        <span className="badgeEmployee badge badge-primary badge-pill">{this.countPlates(order)}</span>
-                                    </button>
-                                </td>
-                                <td>
-                                    <button id="btn-empleado" onClick={function () {
-                                        if (order.status == "Pending") {
-                                            Meteor.call('orders.setInProgress', order._id)
-                                        }
-                                    }}>Cambiar a Ingresado</button>
-                                </td>
-                                <td>
-                                    <button id="btn-empleado" onClick={function () {
-                                        if (order.status == "InProgress" || order.status == "Dispatched") {
+                                <span className="badgeEmployee badge badge-primary badge-pill">{this.countPlates(order)}</span>
+                            </button>
+                        </td>
+                        <td>
+                            <button id="btn-empleado" onClick={function () {
+                                if (order.status == "Pending") {
+                                    Meteor.call('orders.setInProgress', order._id)
+                                }
+                            }}>Cambiar a Ingresado</button>
+                        </td>
+                        <td>
+                            <button id="btn-empleado" onClick={function () {
+                                if (order.status == "InProgress" || order.status == "Dispatched") {
 
-                                            Meteor.call('orders.setDispatched', order._id)
-                                            toastr.success("La orden ha sido terminada y despachada!")
+                                    Meteor.call('orders.setDispatched', order._id)
+                                    toastr.success("La orden ha sido terminada y despachada!")
 
-                                        } else if (order.status == "Pending") {
-                                            toastr.warning("Primero tiene que estar ingresado.")
-                                        }
-                                    }}>Cambiar a Terminado</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                } else if (order.status == "Pending") {
+                                    toastr.warning("Primero tiene que estar ingresado.")
+                                }
+                            }}>Cambiar a Terminado</button>
+                        </td>
+                    </tr>
 
 
                 )
@@ -214,14 +156,31 @@ export default class MenuEmployee extends React.Component {
                 <div className="pos-f-t "></div>
 
                 <button id="btn-empleado" onClick={(e) => {
-                    { console.log("hola");  }
                 }}>Ver Historial de Ordenes</button>
 
 
-                <section id = "Sec" className="MenuEmployee" >
+                <section id="Sec" className="MenuEmployee" >
 
 
-                    {this.loadList(false)}
+
+
+                    <table className="EmployeeTable table table-hover table-blue table table-bordered text-center">
+                        <thead className="thead-dark">
+                            <tr>
+                                <th scope="col">Nùmero Orden</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Telèfono</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Ver más</th>
+                                <th scope="col">Ingresar</th>
+                                <th scope="col">Terminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.loadList()}
+                        </tbody>
+                    </table>
 
                     <ul className="pagination justify-content-center">
                         <li className="page-item"><a className="page-link" href="#">Previous</a></li>

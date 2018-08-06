@@ -1,5 +1,11 @@
 import { Accounts } from 'meteor/accounts-base';
+import { Meteor } from 'meteor/meteor';
 
+if (Meteor.isServer) {
+  Meteor.publish('users', function (){ 
+    return Meteor.users.find({});
+  });
+}
 Meteor.methods({
   updateUser(user){
     Meteor.users.update({_id: Meteor.userId}, {$set: {
@@ -14,5 +20,5 @@ Meteor.methods({
       'profile.address3': user.address3,
       'profile.address4': user.address4,
     }})
-  }
+  },
 });

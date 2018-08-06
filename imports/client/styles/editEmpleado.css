@@ -1,0 +1,315 @@
+* {
+    font-family: 'Paralucent Bold', 'Gotham Book', Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: #37555A;
+    color: #87AAAA;
+    font-family: 'Paralucent Bold', 'Gotham Book', Geneva, Verdana, sans-serif;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+input, button, select{
+    color: #cdcaa6;
+    color: black;
+}
+
+
+/*Esta es la clase del Form que contiene
+los elementos de emailInput, emailLabel,
+passwordInput y passwordLabel.
+*/
+.containerPrincipal {
+    background:#23363A;
+    display: grid;
+    grid-row-gap: 2rem;
+    margin-bottom: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10rem;
+    max-width: 90rem;
+    padding-bottom:3rem;
+    padding-top:1rem;
+}
+
+/*Este es la clase del Botón que dará
+acceso a la página principal del app.
+*/
+.botonAgregar{ 
+    background: #4e873e;
+    border:none;
+    border-radius: 8px;
+    color: white;
+    font: 'Paralucent Bold';
+    font-size: 1.3rem;
+    margin-left: auto;
+    margin-right: 20rem;
+    padding-right: 10rem;
+    text-align: center;
+    width: 10rem;    
+}
+
+.botonModificar {
+    background: #87aaaa;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font: 'Paralucent Bold';
+    font-size: 1.3rem;
+    margin-left: auto;
+    margin-right: 20rem;
+    padding-right: 11rem;
+    text-align: center;
+    width: 10rem;
+}
+
+.botonEliminar {
+    background: #E13232;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font: 'Paralucent Bold';
+    font-size: 1.3rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 10rem;
+    text-align: center;
+    width: 10rem;
+}
+
+.Buttons {
+    cursor: pointer;
+    display: flex;
+    line-height: 1;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 3rem;
+}
+/* Search bar */
+.searchBarDiv {
+    line-height: 1;
+    font-family: 'Paralucent Bold', 'Gotham Book', Geneva, Verdana, sans-serif;
+    margin-left: 5rem;
+    margin-right:5rem;
+    max-width:1280px;
+    width:90%;
+    
+}
+
+#filterInput{
+    width: 100%;
+    padding: 1em;
+ }
+
+ .collection.with-header .collection-header{
+    background-color:#fff;
+    border-bottom:1px solid #e0e0e0;
+    padding:10px 20px;
+   
+}
+.collection.with-header .collection-item{
+    padding-left:30px;
+}
+   
+.collection{margin:.5rem 0 1rem 0;
+    border:1px solid #e0e0e0;
+    border-radius:2px;
+    overflow:hidden;
+    position:relative;
+}
+.collection .collection-item{
+    background-color:#fff;
+    line-height:1.5rem;
+    padding:10px 20px;
+    margin:0;
+    border-bottom:1px solid #e0e0e0;
+}
+
+.hrefNombre{
+    
+    color:#26a69a;
+}
+
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
+}
+
+/* .hrefNombre:not(.active):hover{
+    background-color:#ddd
+} */
+
+/* End Search bar */
+
+button:focus {
+    outline:0;
+}
+
+
+.searchBar {
+    padding: 0.5rem;
+    margin-right: 1rem;
+    color: black;
+}
+
+.botonSearch {
+    background:  #eca597 ;
+    border:none;
+    border-radius: 8px;
+    color: black;
+    font: 'Paralucent Bold';
+    font-size: 1.3rem;
+    padding-right: 8rem;
+    padding-left: 2rem;
+    text-align: center;
+    width: 1rem;
+}
+
+/*MODAL*/
+.modal{
+    display:none;
+    position: fixed;
+    z-index:1;
+    left: 0;
+    top:0;
+    height: 100%;
+    width:100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+  
+.modal-content{
+    background-color:#efede6;
+    margin: 20% auto;
+    width:70%;
+    box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),0 7px 20px 0 rgba(0,0,0,0.17);
+    animation-name:modalopen;
+    animation-duration:1s;
+}
+  
+.modal-header{
+    background:#d86926;
+    color:#fff;
+    display: flex;
+}
+ 
+.modal-header-Btn{
+    flex:1;
+    order:2;
+}
+
+.modal-header-Name{
+    margin-top:1%;
+    flex:1;
+    order:1;
+    font-family: 'Paralucent Bold', 'Gotham Book', Geneva, Verdana, sans-serif;
+}
+  
+.closeBtn{
+    font-size:3rem;
+    color:#fff;
+    margin-left: 90%;
+    margin-bottom:5%;
+}
+  
+.closeBtn:hover,.closeBtn:focus{
+    color:#000;
+    text-decoration: none;
+    cursor:pointer;
+}
+  
+.modal-body{
+    padding:10px 20px;
+}
+  
+.modal-footer{
+    background:#d86926;
+    padding:2%;
+    color:#fff;
+}
+
+
+.container1{
+    color:  #514e4d;
+    display: grid;
+    grid-template-columns: 1fr 2fr;   
+
+}
+
+.box1{
+    color:  #514e4d;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    width:45rem;
+}
+
+.box1 input {
+    width: 45rem;
+    height: 3rem;
+}
+
+.box2 input {
+    width: 45rem;
+    height: 3rem;
+}
+
+.box1 textarea {
+    width: 90rem;
+}
+
+#direction1TextArea, #direction2TextArea, #direction3TextArea,#direction4TextArea {
+    width: 45rem;
+
+}
+
+#correo, #numero {
+    width: 90rem;
+}
+
+.box2{
+    color:  #514e4d;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    width: 45rem;
+}
+
+.confirmarAdd {
+    background: #4e873e;
+    border:none;
+    border-radius: 8px;
+    color: white;
+    font: 'Paralucent Bold';
+    font-size: 1.3rem;
+    margin-left: 45%;
+    margin-right: 55%;
+    padding-left: 1rem;
+    padding-right: 10rem;
+    width: 10rem;  
+}
+
+@keyframes fadeInOut {
+    5%,95%{opacity: 1; top: 38rem}
+    15%, 85%{opacity:1; top: 38rem} 
+}
+
+@media screen and (max-width: 90rem) {
+    .containerPrincipal {
+        width: 90rem;
+    }
+}
+
+@media screen and (max-width: 94.2rem) {
+    .modal-content {
+        width: 94.2rem;
+    }
+}
+
+@keyframes modalopen{
+    from{ opacity: 0}
+    to {opacity: 1}
+}

@@ -143,10 +143,8 @@ button:focus {
     15%, 85%{opacity:1; top: 38rem} 
 }
 
-@media screen and (max-width: 695px) {
+@media screen and (max-width: 69.5rem) {
     .userDataForm {
         width: 70rem;
-        margin-top: 5rem;
-        margin-bottom: 1rem;
     }
 }

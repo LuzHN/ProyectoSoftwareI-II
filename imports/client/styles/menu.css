@@ -464,7 +464,7 @@ button {
   transition: background-color 1s ease-out;
 }
 
-//Nutrition Facts
+/*Nutrition Facts*/
 
 .nutritionLabel .yes {
   border: 2px solid #000;
