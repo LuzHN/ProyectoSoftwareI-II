@@ -1,20 +1,29 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Card, Button, CardImg, CardTitle, CardText, CardBody, CardSubtitle, Container, Row, Col, CardDeck } from 'reactstrap';
+import {
+  Card,
+  Button,
+  CardImg,
+  CardTitle,
+  CardText,
+  CardBody,
+  CardSubtitle,
+  Container,
+  Row,
+  Col,
+  CardDeck
+} from 'reactstrap';
 import { Dishes } from '../api/dishes';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './../client/styles/MenuAdmin';
-
+import '../client/styles/MenuAdmin.css';
 
 export default class MenuAdmin extends Component {
   constructor(props) {
     super(props);
     this.state = {
       dishes: []
-    }
+    };
   }
-
-
 
   onSubmit(e) {
     e.preventDefault();
@@ -22,7 +31,8 @@ export default class MenuAdmin extends Component {
     let price = this.refs.precioPlato.value.trim();
     let image = this.refs.imagenPlato.value.trim();
     let description = this.refs.descriptionPlato.value.trim();
-    let type = this.refs.tipodeComida[this.refs.tipodeComida.selectedIndex].value;
+    let type = this.refs.tipodeComida[this.refs.tipodeComida.selectedIndex]
+      .value;
     let string = '';
     let calories = '';
     let totalFat = '';
@@ -38,7 +48,7 @@ export default class MenuAdmin extends Component {
     let vitaminC = '';
     let calcium = '';
     let iron = '';
-    if (name != "" && price != "" && description != "") {
+    if (name != '' && price != '' && description != '') {
       let dish = {
         name,
         price,
@@ -58,26 +68,24 @@ export default class MenuAdmin extends Component {
         vitaminC,
         calcium,
         iron
-      }
+      };
       Meteor.call('dishes.insert', dish);
-      let platoAgregado = document.getElementById("botonModalToast");
-      platoAgregado.classList.add("show");
-      platoAgregado.innerHTML = "Se ha agregado un plato nuevo."
-      setTimeout(function () {
-        platoAgregado.classList.remove("show");
+      let platoAgregado = document.getElementById('botonModalToast');
+      platoAgregado.classList.add('show');
+      platoAgregado.innerHTML = 'Se ha agregado un plato nuevo.';
+      setTimeout(function() {
+        platoAgregado.classList.remove('show');
         var modal = document.getElementById('simpleModal');
         modal.style.display = 'none';
       }, 3000);
     } else {
-
-      let platoAgregado = document.getElementById("botonModalToast");
-      platoAgregado.classList.add("show");
-      platoAgregado.innerHTML = "No ha ingresado todos los datos."
-      setTimeout(function () {
-        platoAgregado.classList.remove("show");
+      let platoAgregado = document.getElementById('botonModalToast');
+      platoAgregado.classList.add('show');
+      platoAgregado.innerHTML = 'No ha ingresado todos los datos.';
+      setTimeout(function() {
+        platoAgregado.classList.remove('show');
       }, 3000);
     }
-
   }
 
   componentDidMount() {
@@ -93,15 +101,15 @@ export default class MenuAdmin extends Component {
   }
 
   openAgregar() {
-    this.refs.nombrePlato.value = "";
-    this.refs.precioPlato.value = "";
-    this.refs.descriptionPlato.value = "";
-    let title = document.getElementById("h2_ModalTitle");
-    title.innerHTML = "Agregar Plato"
-    let botonEditar = document.getElementById("bt_ModalEditar");
-    botonEditar.style.display = "none";
-    let botonAgregar = document.getElementById("bt_ModalAgregar");
-    botonAgregar.style.display = "block";
+    this.refs.nombrePlato.value = '';
+    this.refs.precioPlato.value = '';
+    this.refs.descriptionPlato.value = '';
+    let title = document.getElementById('h2_ModalTitle');
+    title.innerHTML = 'Agregar Plato';
+    let botonEditar = document.getElementById('bt_ModalEditar');
+    botonEditar.style.display = 'none';
+    let botonAgregar = document.getElementById('bt_ModalAgregar');
+    botonAgregar.style.display = 'block';
     var modal = document.getElementById('simpleModal');
     modal.style.display = 'block';
   }
@@ -112,116 +120,176 @@ export default class MenuAdmin extends Component {
   }
 
   agregarFinal() {
-    let platoAgregado = document.getElementById("botonModalToast");
-    platoAgregado.classList.add("show");
-    platoAgregado.innerHTML = "Se ha agregado un plato nuevo."
+    let platoAgregado = document.getElementById('botonModalToast');
+    platoAgregado.classList.add('show');
+    platoAgregado.innerHTML = 'Se ha agregado un plato nuevo.';
     let name = this.refs.nombrePlato.value;
     let price = this.refs.precioPlato.value;
     let descript = this.refs.descriptionPlato.value;
     let type = this.refs.tipodeComida.selected;
     let image = this.refs.imagenPlato.value;
-    setTimeout(function () {
-      platoAgregado.classList.remove("show");
-      document.getElementById("myForm").reset(); //resets los inputs del form
-      name = "";
-      price = "";
-      descript = "";
+    setTimeout(function() {
+      platoAgregado.classList.remove('show');
+      document.getElementById('myForm').reset(); //resets los inputs del form
+      name = '';
+      price = '';
+      descript = '';
     }, 2000);
   }
 
   editarFinal() {
-    let platoAgregado = document.getElementById("botonModalToast");
-    platoAgregado.classList.add("show");
-    platoAgregado.innerHTML = "Se ha editado el plato."
+    let platoAgregado = document.getElementById('botonModalToast');
+    platoAgregado.classList.add('show');
+    platoAgregado.innerHTML = 'Se ha editado el plato.';
     let name = this.refs.nombrePlato.value;
     let price = this.refs.precioPlato.value;
     let descript = this.refs.descriptionPlato.value;
     let type = this.refs.tipodeComida.selected;
     let image = this.refs.imagenPlato.value;
-    setTimeout(function () {
-      platoAgregado.classList.remove("show");
-      document.getElementById("myForm").reset(); //resets los inputs del form
-      name = "";
-      price = "";
-      descript = "";
+    setTimeout(function() {
+      platoAgregado.classList.remove('show');
+      document.getElementById('myForm').reset(); //resets los inputs del form
+      name = '';
+      price = '';
+      descript = '';
     }, 2000);
-
   }
-
 
   render() {
     return (
       <div>
-        <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg" />
+        <img
+          id="ColorStrip"
+          src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg"
+        />
         <div className="pos-f-t ">
           <nav className="navbar navbar-dark bg-dark">
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span className="navbar-toggler-icon"></span>
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarToggleExternalContent"
+              aria-controls="navbarToggleExternalContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon" />
               <span> Menú </span>
             </button>
           </nav>
 
           <div className="collapse" id="navbarToggleExternalContent">
-            <div className="bg-dark p-4 d-flex justify-content-center" id="BackgroundNavBar">
+            <div
+              className="bg-dark p-4 d-flex justify-content-center"
+              id="BackgroundNavBar"
+            >
               <ul className="list-group" id="PlateList">
-                <a href="#SelectedMenu" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () { ReactDOM.render(<Entree />, document.getElementById('SelectedMenu')); }} >
+                <a
+                  href="#SelectedMenu"
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                  onClick={function() {
+                    ReactDOM.render(
+                      <Entree />,
+                      document.getElementById('SelectedMenu')
+                    );
+                  }}
+                >
                   Entradas
                 </a>
-                <a href="#SelectedMenu" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () { ReactDOM.render(renderPlatos("Soups"), document.getElementById('SelectedMenu')); }} >
+                <a
+                  href="#SelectedMenu"
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                  onClick={function() {
+                    ReactDOM.render(
+                      renderPlatos('Soups'),
+                      document.getElementById('SelectedMenu')
+                    );
+                  }}
+                >
                   Sopas
                 </a>
-                <a href="#SelectedMenu" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () { ReactDOM.render(renderPlatos("Salads"), document.getElementById('SelectedMenu')); }}>
+                <a
+                  href="#SelectedMenu"
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                  onClick={function() {
+                    ReactDOM.render(
+                      renderPlatos('Salads'),
+                      document.getElementById('SelectedMenu')
+                    );
+                  }}
+                >
                   Ensaladas
                 </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
+                <a
+                  href="#"
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                  onClick={function() {
                     //ReactDOM.render(<Wraps />, document.getElementById('SelectedMenu'));
-                  }}>
+                  }}
+                >
                   Wraps
                 </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
+                <a
+                  href="#"
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                  onClick={function() {
                     //ReactDOM.render(<LittleItaly />, document.getElementById('SelectedMenu'));
-                  }}>
+                  }}
+                >
                   Little Italy (Pastas & Pizettas)
                 </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
+                <a
+                  href="#"
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                  onClick={function() {
                     //ReactDOM.render(<Sandwiches />, document.getElementById('SelectedMenu'));
-                  }}>
+                  }}
+                >
                   Sándwiches
                 </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
+                <a
+                  href="#"
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                  onClick={function() {
                     //ReactDOM.render(<SideDish />, document.getElementById('SelectedMenu'));
-                  }}>
+                  }}
+                >
                   Acompañantes
                 </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
+                <a
+                  href="#"
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                  onClick={function() {
                     //ReactDOM.render(<Breakfasts />, document.getElementById('SelectedMenu'));
-                  }}>
+                  }}
+                >
                   Desayunos
                 </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
+                <a
+                  href="#"
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                  onClick={function() {
                     //ReactDOM.render(<Desserts />, document.getElementById('SelectedMenu'));
-                  }}>
+                  }}
+                >
                   Postres
                 </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
+                <a
+                  href="#"
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                  onClick={function() {
                     //ReactDOM.render(<Juices />, document.getElementById('SelectedMenu'));
-                  }}>
+                  }}
+                >
                   Jugos
                 </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
+                <a
+                  href="#"
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                  onClick={function() {
                     //ReactDOM.render(<Drinks />, document.getElementById('SelectedMenu'));
-                  }}>
+                  }}
+                >
                   Bebidas
                 </a>
               </ul>
@@ -229,12 +297,20 @@ export default class MenuAdmin extends Component {
           </div>
         </div>
 
-        <section id="Menu" >
-          <div id="SelectedMenu"><Entree dishes={this.state.dishes} /></div>
+        <section id="Menu">
+          <div id="SelectedMenu">
+            <Entree dishes={this.state.dishes} />
+          </div>
         </section>
 
         <div id="wrapper">
-          <button id="modalBtn" className="btn_Agregar" onClick={this.openAgregar.bind(this)}>Agregar Plato</button>
+          <button
+            id="modalBtn"
+            className="btn_Agregar"
+            onClick={this.openAgregar.bind(this)}
+          >
+            Agregar Plato
+          </button>
         </div>
 
         {/*Modal*/}
@@ -243,7 +319,12 @@ export default class MenuAdmin extends Component {
             {/* Header */}
             <div className="modal-header">
               <div className="modal-header-Btn">
-                <span className="closeBtn" onClick={this.closeAgregar.bind(this)}>&times;</span>
+                <span
+                  className="closeBtn"
+                  onClick={this.closeAgregar.bind(this)}
+                >
+                  &times;
+                </span>
               </div>
               <div className="modal-header-Name">
                 <h2 id="h2_ModalTitle">Agregar Plato</h2>
@@ -251,28 +332,59 @@ export default class MenuAdmin extends Component {
             </div>
             {/* Body */}
             <div className="modal-body">
-              <form id="myForm" className="contactModal" onSubmit={this.onSubmit.bind(this)}>
+              <form
+                id="myForm"
+                className="contactModal"
+                onSubmit={this.onSubmit.bind(this)}
+              >
                 <div className="flexModal">
                   <div className="body1">
                     <p>
                       <label id="labelAgregar">Nombre Plato</label>
-                      <input id="inputAgregar" ref="nombrePlato" type="text" placeholder='Nombre Plato' maxLength='140' />
+                      <input
+                        id="inputAgregar"
+                        ref="nombrePlato"
+                        type="text"
+                        placeholder="Nombre Plato"
+                        maxLength="140"
+                      />
                     </p>
                     <p>
                       <label id="labelAgregar">Precio</label>
-                      <input id="inputAgregar" ref="precioPlato" type="number" placeholder='Precio Plato' maxLength='140' />
+                      <input
+                        id="inputAgregar"
+                        ref="precioPlato"
+                        type="number"
+                        placeholder="Precio Plato"
+                        maxLength="140"
+                      />
                     </p>
                     <p>
                       <label id="labelAgregar">URL De Imagen</label>
-                      <input id="inputAgregar" ref="imagenPlato" type="text" placeholder='https://www.google.com/' />
+                      <input
+                        id="inputAgregar"
+                        ref="imagenPlato"
+                        type="text"
+                        placeholder="https://www.google.com/"
+                      />
                     </p>
                     <p>
                       <label id="labelAgregar">Descripción Plato</label>
-                      <textarea id="inputAgregar" ref="descriptionPlato" rows="5" placeholder='Enter Descripción Plato' maxLength='140'></textarea>
+                      <textarea
+                        id="inputAgregar"
+                        ref="descriptionPlato"
+                        rows="5"
+                        placeholder="Enter Descripción Plato"
+                        maxLength="140"
+                      />
                     </p>
                     <p>
                       <label id="labelAgregar">Tipo de Plato</label>
-                      <select name="tipoComida" id="tipoDeComida" ref="tipodeComida">
+                      <select
+                        name="tipoComida"
+                        id="tipoDeComida"
+                        ref="tipodeComida"
+                      >
                         <option value="Entree">Entree</option>
                         <option value="Soup">Soup</option>
                         <option value="Salad">Salad</option>
@@ -289,125 +401,212 @@ export default class MenuAdmin extends Component {
                   </div>
                   <div className="body2">
                     {/*Nutritional Facts*/}
-                    <div className="nutritionLabel" id="nutrilabel" >
+                    <div className="nutritionLabel" id="nutrilabel">
                       <div className="yes">
-                        <div className="title">
-                          Nutritional Facts
-                    </div>
+                        <div className="title">Nutritional Facts</div>
 
                         <div className="serving">
                           <div className="cf">
                             <div className="servingSizeText fl">
                               Serving Size
-                        </div>
+                            </div>
 
-                            <div className="servingUnitQuantity fl">
-                              1
-                        </div>
+                            <div className="servingUnitQuantity fl">1</div>
                           </div>
                         </div>
 
-                        <div className="bar1"></div>
+                        <div className="bar1" />
 
-                        <div className="line m" style={{ fontWeight: "bold" }}>
+                        <div className="line m" style={{ fontWeight: 'bold' }}>
                           Amount Per Serving
-                    </div>
+                        </div>
 
                         <div className="line">
-                          <div className="fr">
-                            Calories from Fat 0
-                      </div>
+                          <div className="fr">Calories from Fat 0</div>
 
                           <div>
                             <b>Calories</b>
-                            <input id="inputCalorias" ref="calorias" type="number" placeholder='0' maxLength='140' />
+                            <input
+                              id="inputCalorias"
+                              ref="calorias"
+                              type="number"
+                              placeholder="0"
+                              maxLength="140"
+                            />
                           </div>
                         </div>
 
-                        <div className="bar2"></div>
+                        <div className="bar2" />
 
-                        <div className="line ar" style={{ fontWeight: "bold" }}>
+                        <div className="line ar" style={{ fontWeight: 'bold' }}>
                           % Daily Value<sup>*</sup>
                         </div>
 
                         <div className="line">
                           <div className="dv">
                             <b>0</b>%
-                      </div><b>Total Fat</b>  <input id="inputTotalFat" ref="totalFat" type="number" placeholder='0g' maxLength='140' />
+                          </div>
+                          <b>Total Fat</b>{' '}
+                          <input
+                            id="inputTotalFat"
+                            ref="totalFat"
+                            type="number"
+                            placeholder="0g"
+                            maxLength="140"
+                          />
                         </div>
 
                         <div className="line indent">
                           <div className="dv">
                             <b>0</b>%
-                      </div>Saturated Fat  <input id="inputSaturatedFat" ref="saturatedFat" type="number" placeholder='0g' maxLength='140' />
+                          </div>Saturated Fat{' '}
+                          <input
+                            id="inputSaturatedFat"
+                            ref="saturatedFat"
+                            type="number"
+                            placeholder="0g"
+                            maxLength="140"
+                          />
                         </div>
 
                         <div className="line indent">
-                          <i>Trans</i> Fat  <input id="inputTransFat" ref="transFat" type="number" placeholder='0g' maxLength='140' />
-                        </div>
-
-
-                        <div className="line">
-                          <div className="dv">
-                            <b>0</b>%
-                      </div><b>Cholesterol</b>  <input id="inputCholesterol" ref="cholesterol" type="number" placeholder='0mg' maxLength='140' />
-                        </div>
-
-                        <div className="line">
-                          <div className="dv">
-                            <b>0</b>%
-                      </div><b>Sodium</b>  <input id="inputSodium" ref="sodium" type="number" placeholder='0mg' maxLength='140' />
+                          <i>Trans</i> Fat{' '}
+                          <input
+                            id="inputTransFat"
+                            ref="transFat"
+                            type="number"
+                            placeholder="0g"
+                            maxLength="140"
+                          />
                         </div>
 
                         <div className="line">
                           <div className="dv">
                             <b>0</b>%
-                      </div><b>Total Carbohydrates</b>  <input id="inputTotalCarbs" ref="totalCarbohydrates" type="number" placeholder='0g' maxLength='140' />
+                          </div>
+                          <b>Cholesterol</b>{' '}
+                          <input
+                            id="inputCholesterol"
+                            ref="cholesterol"
+                            type="number"
+                            placeholder="0mg"
+                            maxLength="140"
+                          />
+                        </div>
+
+                        <div className="line">
+                          <div className="dv">
+                            <b>0</b>%
+                          </div>
+                          <b>Sodium</b>{' '}
+                          <input
+                            id="inputSodium"
+                            ref="sodium"
+                            type="number"
+                            placeholder="0mg"
+                            maxLength="140"
+                          />
+                        </div>
+
+                        <div className="line">
+                          <div className="dv">
+                            <b>0</b>%
+                          </div>
+                          <b>Total Carbohydrates</b>{' '}
+                          <input
+                            id="inputTotalCarbs"
+                            ref="totalCarbohydrates"
+                            type="number"
+                            placeholder="0g"
+                            maxLength="140"
+                          />
                         </div>
 
                         <div className="line indent">
                           <div className="dv">
                             <b>0</b>%
-                      </div>Dietary Fiber  <input id="inputDietaryFiber" ref="dietaryFibers" type="number" placeholder='0g' maxLength='140' />
+                          </div>Dietary Fiber{' '}
+                          <input
+                            id="inputDietaryFiber"
+                            ref="dietaryFibers"
+                            type="number"
+                            placeholder="0g"
+                            maxLength="140"
+                          />
                         </div>
 
                         <div className="line indent">
-                          Sugars  <input id="inputSugars" ref="sugar" type="number" placeholder='0g' maxLength='140' />
+                          Sugars{' '}
+                          <input
+                            id="inputSugars"
+                            ref="sugar"
+                            type="number"
+                            placeholder="0g"
+                            maxLength="140"
+                          />
                         </div>
 
                         <div className="line">
-                          <b>Protein</b>  <input id="inputProtein" ref="protein" type="number" placeholder='0g' maxLength='140' />
+                          <b>Protein</b>{' '}
+                          <input
+                            id="inputProtein"
+                            ref="protein"
+                            type="number"
+                            placeholder="0g"
+                            maxLength="140"
+                          />
                         </div>
 
-                        <div className="bar1"></div>
+                        <div className="bar1" />
 
                         <div className="line vitaminA">
-                          <div className="dv">
-                            0%
-                      </div>Vitamin A  <input id="inputVitaminA" ref="vitaminA" type="number" placeholder='0%' maxLength='140' />
+                          <div className="dv">0%</div>Vitamin A{' '}
+                          <input
+                            id="inputVitaminA"
+                            ref="vitaminA"
+                            type="number"
+                            placeholder="0%"
+                            maxLength="140"
+                          />
                         </div>
 
                         <div className="line vitaminC">
-                          <div className="dv">
-                            0%
-                      </div>Vitamin C  <input id="inputVitaminC" ref="vitaminC" type="number" placeholder='0%' maxLength='140' />
+                          <div className="dv">0%</div>Vitamin C{' '}
+                          <input
+                            id="inputVitaminC"
+                            ref="vitaminC"
+                            type="number"
+                            placeholder="0%"
+                            maxLength="140"
+                          />
                         </div>
 
                         <div className="line calcium">
-                          <div className="dv">
-                            0%
-                      </div>Calcium  <input id="inputCalcium" ref="calcium" type="number" placeholder='0%' maxLength='140' />
+                          <div className="dv">0%</div>Calcium{' '}
+                          <input
+                            id="inputCalcium"
+                            ref="calcium"
+                            type="number"
+                            placeholder="0%"
+                            maxLength="140"
+                          />
                         </div>
 
                         <div className="line iron">
-                          <div className="dv">
-                            0%
-                      </div>Iron  <input id="inputIron" ref="iron" type="number" placeholder='0%' maxLength='140' />
+                          <div className="dv">0%</div>Iron{' '}
+                          <input
+                            id="inputIron"
+                            ref="iron"
+                            type="number"
+                            placeholder="0%"
+                            maxLength="140"
+                          />
                         </div>
 
                         <div className="dvCalorieDiet line">
                           <div className="calorieNote">
-                            <span className="star">*</span> Percent Daily Values are based on a 2000 calorie diet.<br />
+                            <span className="star">*</span> Percent Daily Values
+                            are based on a 2000 calorie diet.<br />
                             {/* <div className="ingredientListDiv">
                           <b className="active" id="ingredientList">INGREDIENTS:</b> None
                         </div> */}
@@ -418,28 +617,41 @@ export default class MenuAdmin extends Component {
                   </div>
                 </div>
                 <p id="bt_ModalAgregar">
-                  <button className="finalBtn" onClick={this.agregarFinal.bind(this)}>Agregar Plato</button>
+                  <button
+                    className="finalBtn"
+                    onClick={this.agregarFinal.bind(this)}
+                  >
+                    Agregar Plato
+                  </button>
                 </p>
                 <p id="bt_ModalEditar">
-                  <button className="finalBtn" onClick={this.editarFinal.bind(this)}>Editar Plato</button>
+                  <button
+                    className="finalBtn"
+                    onClick={this.editarFinal.bind(this)}
+                  >
+                    Editar Plato
+                  </button>
                 </p>
-                <div id="botonModalToast"></div>
+                <div id="botonModalToast" />
               </form>
             </div>
             {/* Footer */}
-            <div className="modal-footer"></div>
+            <div className="modal-footer" />
           </div>
         </div>
 
-
-
-        <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg" />
+        <img
+          id="ColorStrip"
+          src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg"
+        />
 
         <footer id="Footer">
-          <img className="LogoHK" src="http://www.healthkitchen.hn/static/media/hk-logo.b8b1c147.svg" alt="Logo" />
+          <img
+            className="LogoHK"
+            src="http://www.healthkitchen.hn/static/media/hk-logo.b8b1c147.svg"
+            alt="Logo"
+          />
         </footer>
-
-
       </div>
     );
   }
@@ -448,13 +660,10 @@ export default class MenuAdmin extends Component {
 class Entree extends Component {
   render() {
     return (
-      <div className="card-columnas">
-        {renderPlates(this.props.dishes)}
-      </div>
+      <div className="card-columnas">{renderPlates(this.props.dishes)}</div>
     );
   }
 }
-
 
 const renderPlates = (platesList) => {
   return platesList.map((dish) => {
@@ -466,13 +675,13 @@ const renderPlates = (platesList) => {
             <h3 className="card-titulo">{dish.name}</h3>
             <p className="card-price">L. {dish.price}</p>
             <p className="card-desc">{dish.description}</p>
-            <ButtonPlato id={dish._id}></ButtonPlato>
+            <ButtonPlato id={dish._id} />
           </div>
         </div>
       </div>
-    )
+    );
   });
-}
+};
 
 class ButtonPlato extends Component {
   deleteDish(id) {
@@ -480,12 +689,12 @@ class ButtonPlato extends Component {
   }
   editDish(id) {
     let modal = document.getElementById('simpleModal');
-    let title = document.getElementById("h2_ModalTitle");
-    title.innerHTML = "Editar Plato"
-    let botonAgregar = document.getElementById("bt_ModalAgregar");
-    botonAgregar.style.display = "none";
-    let botonEditar = document.getElementById("bt_ModalEditar");
-    botonEditar.style.display = "block";
+    let title = document.getElementById('h2_ModalTitle');
+    title.innerHTML = 'Editar Plato';
+    let botonAgregar = document.getElementById('bt_ModalAgregar');
+    botonAgregar.style.display = 'none';
+    let botonEditar = document.getElementById('bt_ModalEditar');
+    botonEditar.style.display = 'block';
     modal.style.display = 'block';
   }
   render() {
