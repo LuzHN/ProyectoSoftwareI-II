@@ -426,11 +426,15 @@ button {
   display: block;
 }
 
-.finalBtn, #inputAgregar{
+.finalBtn{
   width: 100%;
   padding: 1em;
 }
 
+.inputAgregar{
+  width: 100%;
+  padding: 1em;
+}
 .finalBtn{
   background: #4c8644;
   color: #fff;
