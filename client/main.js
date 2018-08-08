@@ -6,8 +6,10 @@ import { Router, browserHistory } from 'react-router';
 
 import '../imports/client/styles/menu.css';
 import '../imports/client/styles/menuempleado.css';
+import '../imports/client/styles/HistorialEmpleado.css';
 import Menu from '../imports/ui/menu';
 import MenuEmpleado from '../imports/ui/menuempleado';
+import HistorialEmpleado from '../imports/ui/HistorialEmpleado';
 
 import '../imports/client/styles/register';
 import NotFound from '../imports/ui/NotFound';
@@ -43,6 +45,7 @@ class Hk extends React.Component {
           />
           <Route path="/login" component={LoginPage} history={browserHistory} />
           <Route path="/cart" component={Cart} history={browserHistory} />
+          <Route path="/HistorialEmpleado" component={HistorialEmpleado} history={browserHistory} />
           <Route
             path="/editProfile"
             component={EditProfilePage}
