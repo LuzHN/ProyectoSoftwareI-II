@@ -187,7 +187,7 @@ export default class HistorialEmpleado extends React.Component {
         });
     }
 
-    render() {
+     render() {
         return (
             <div>
                 <header id="HeaderEmployee">
