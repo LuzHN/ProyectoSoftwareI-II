@@ -157,16 +157,13 @@ export default class HistorialEmpleado extends React.Component {
                                 }}
                             >
                                 Cambiar a Ingresado
-                  </button>
+                            </button>
                         </td>
                         <td>
                             <button
                                 id="btn-empleado"
                                 onClick={function () {
-                                    if (
-                                        order.status == 'InProgress' ||
-                                        order.status == 'Dispatched'
-                                    ) {
+                                    if (order.status == 'InProgress' || order.status == 'Dispatched') {
                                         Meteor.call('orders.setDispatched', order._id);
                                         toastr.success('La orden ha sido terminada y despachada!');
                                     } else if (order.status == 'Pending') {
@@ -175,7 +172,7 @@ export default class HistorialEmpleado extends React.Component {
                                 }}
                             >
                                 Cambiar a Terminado
-                  </button>
+                            </button>
                         </td>
                     </tr>
                 );
@@ -190,20 +187,13 @@ export default class HistorialEmpleado extends React.Component {
                     <h1 id="hk-logo-header" />
                 </header>
 
-                <img
-                    id="ColorStrip"
-                    src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg"
-                />
+                <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg"/>
 
                 <div className="pos-f-t " />
 
-                <button
-                    className="btn-employeehistory"
-                    id="btn-empleado"
-                    onClick={(e) => { }}
-                >
+                <button className="btn-employeehistory" id="btn-empleado" onClick={(e) => { }}>
                     Ver Historial de Ordenes
-        </button>
+                </button>
 
                 <section id="Sec" className="MenuEmployee">
                     <table className="EmployeeTable table table-hover table-blue table table-bordered text-center">
@@ -226,42 +216,35 @@ export default class HistorialEmpleado extends React.Component {
                         <li className="page-item">
                             <a className="page-link" href="#">
                                 Previous
-              </a>
+                            </a>
                         </li>
                         <li className="page-item">
                             <a className="page-link" href="#">
                                 1
-              </a>
+                            </a>
                         </li>
                         <li className="page-item active">
                             <a className="page-link" href="#">
                                 2
-              </a>
+                            </a>
                         </li>
                         <li className="page-item">
                             <a className="page-link" href="#">
                                 3
-              </a>
+                            </a>
                         </li>
                         <li className="page-item">
                             <a className="page-link" href="#">
                                 Next
-              </a>
+                            </a>
                         </li>
                     </ul>
                 </section>
 
-                <img
-                    id="ColorStrip"
-                    src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg"
-                />
+                <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg"/>
 
                 <footer id="Footer">
-                    <img
-                        className="LogoHK"
-                        src="http://www.healthkitchen.hn/static/media/hk-logo.b8b1c147.svg"
-                        alt="Logo"
-                    />
+                    <img className="LogoHK" src="http://www.healthkitchen.hn/static/media/hk-logo.b8b1c147.svg" alt="Logo"/>
                     <div className="FooterDescription">
                         <h3 className="green">
                             <b>Ubicanos</b>
@@ -271,10 +254,7 @@ export default class HistorialEmpleado extends React.Component {
                         <p className="olive">Segundo piso</p>
                         <p className="olive">Local C212, entre Nativo y Bistro</p>
                         <p className="FooterSN">
-                            <a
-                                target="_blank"
-                                href="https://www.instagram.com/healthkitchenhn/"
-                            >
+                            <a target="_blank" href="https://www.instagram.com/healthkitchenhn/">
                                 <ion-icon size="large" name="logo-instagram" />
                             </a>
                             <a target="_blank" href="https://fb.me/healthkitchenhn">
@@ -292,12 +272,9 @@ export default class HistorialEmpleado extends React.Component {
                         {/* Header */}
                         <div className="modal-header">
                             <div className="modal-header-Btn">
-                                <span
-                                    className="closeBtn"
-                                    onClick={this.closeAgregar.bind(this)}
-                                >
+                                <span className="closeBtn" onClick={this.closeAgregar.bind(this)}>
                                     &times;
-                </span>
+                                </span>
                             </div>
                             <div className="modal-header-Name">
                                 <h2>Información del plato</h2>
