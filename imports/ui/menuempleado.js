@@ -26,7 +26,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../client/styles/menuempleado.css';
 import { Orders } from '../api/orders';
 
-window.onclick = function(event) {
+window.onclick = function (event) {
   if (event.target.className == 'modal') {
     var modal = document.getElementById('simpleModalEmp');
     modal.style.display = 'none';
@@ -52,6 +52,10 @@ export default class MenuEmployee extends React.Component {
     var modal = document.getElementById('simpleModalEmp');
     modal.style.display = 'none';
   }
+
+  btnHistorial = () => {
+    this.props.history.push({ pathname: '/HistorialEmpleado' });
+  };
 
   componentWillUnmount() {
     this.ordersTracker.stop();
@@ -135,7 +139,7 @@ export default class MenuEmployee extends React.Component {
           <tr key={order._id}>
             <td>Orden X</td>
             <td>{order.fecha}</td>
-            <td>{user.profile.firstName  + ' ' + user.profile.lastName}</td>
+            <td>{user.profile.firstName + ' ' + user.profile.lastName}</td>
             <td>{user.profile.phoneNumber1}</td>
             <td>{this.checkStatus(order)}</td>
             <td>
@@ -150,7 +154,7 @@ export default class MenuEmployee extends React.Component {
             <td>
               <button
                 id="btn-empleado"
-                onClick={function() {
+                onClick={function () {
                   if (order.status == 'Pending') {
                     Meteor.call('orders.setInProgress', order._id);
                   }
@@ -162,7 +166,7 @@ export default class MenuEmployee extends React.Component {
             <td>
               <button
                 id="btn-empleado"
-                onClick={function() {
+                onClick={function () {
                   if (
                     order.status == 'InProgress' ||
                     order.status == 'Dispatched'
@@ -200,7 +204,7 @@ export default class MenuEmployee extends React.Component {
         <button
           className="btn-employeehistory"
           id="btn-empleado"
-          onClick={(e) => {}}
+          onClick={this.btnHistorial}
         >
           Ver Historial de Ordenes
         </button>

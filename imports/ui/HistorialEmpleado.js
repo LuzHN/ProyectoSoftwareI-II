@@ -56,6 +56,10 @@ export default class HistorialEmpleado extends React.Component {
     componentWillUnmount() {
         this.ordersTracker.stop();
     }
+    
+    btnHistorial = () => {
+        this.props.history.push({ pathname: '/menuempleado'});
+    };
 
     showModal = (Order) => {
         //Muestra el modal con la informacion de la orden
@@ -200,7 +204,7 @@ export default class HistorialEmpleado extends React.Component {
                 <button
                     className="btn-employeehistory"
                     id="btn-empleado"
-                    onClick={(e) => { }}
+                    onClick={this.btnHistorial}
                 >
                     Ver Historial de Ordenes
         </button>
