@@ -5,9 +5,10 @@
     "start": "meteor run"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.55",
+    "@babel/runtime": "^7.0.0-beta.56",
     "bcrypt": "^2.0.1",
     "bootstrap": "^4.1.3",
+    "jquery": "^1.9.1",
     "meteor-node-stubs": "^0.3.3",
     "mongo-object": "^0.1.2",
     "prop-types": "^15.6.2",

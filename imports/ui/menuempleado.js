@@ -122,6 +122,7 @@ export default class MenuEmployee extends React.Component {
     //Carga la tabla con las ordenes
     return this.state.orders.map((order) => {
       const user = Meteor.users.findOne({ _id: order.userId });
+      console.log(user)
 
       if (order.status == '') {
         order.status = 'Pending';
@@ -134,7 +135,7 @@ export default class MenuEmployee extends React.Component {
           <tr key={order._id}>
             <td>Orden X</td>
             <td>{order.fecha}</td>
-            <td>{user.profile.firstName + ' ' + user.profile.lastName}</td>
+            <td>{user.profile.firstName  + ' ' + user.profile.lastName}</td>
             <td>{user.profile.phoneNumber1}</td>
             <td>{this.checkStatus(order)}</td>
             <td>
