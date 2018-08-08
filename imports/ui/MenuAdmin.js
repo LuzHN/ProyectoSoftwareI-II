@@ -100,6 +100,8 @@ export default class MenuAdmin extends Component {
   }
 
   openAgregar() {
+    
+    document.getElementById('myForm').reset();
     this.refs.nombrePlato.value = '';
     this.refs.precioPlato.value = '';
     this.refs.descriptionPlato.value = '';
@@ -119,6 +121,7 @@ export default class MenuAdmin extends Component {
   }
 
   agregarFinal() {
+    
     let platoAgregado = document.getElementById('botonModalToast');
     platoAgregado.classList.add('show');
     platoAgregado.innerHTML = 'Se ha agregado un plato nuevo.';
@@ -544,6 +547,7 @@ class ButtonPlato extends Component {
     field = document.getElementById("inputIron");
     field.value = this.props.plato.nutritionFacts.iron;
   }
+
   editDish() {
     
     let modal = document.getElementById('simpleModal');
@@ -554,6 +558,7 @@ class ButtonPlato extends Component {
     botonAgregar.style.display = "none";
     let botonEditar = document.getElementById("bt_ModalEditar");
 
+    const dish = Dishes.findOne({ _id: this.props.plato._id });
 
     this.loadModal(); //carga el modal con toda la info del plato
 
