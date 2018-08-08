@@ -47,25 +47,10 @@ acceso a la página principal del app.
     color: white;
     font: 'Paralucent Bold';
     font-size: 1.3rem;
-    margin-left: auto;
-    margin-right: 20rem;
-    padding-right: 10rem;
     text-align: center;
-    width: 10rem;    
-}
-
-.botonModificar {
-    background: #87aaaa;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font: 'Paralucent Bold';
-    font-size: 1.3rem;
     margin-left: auto;
-    margin-right: 20rem;
-    padding-right: 11rem;
-    text-align: center;
-    width: 10rem;
+    margin-right: auto;
+    width: 80rem;    
 }
 
 .botonEliminar {
@@ -94,11 +79,10 @@ acceso a la página principal del app.
 .searchBarDiv {
     line-height: 1;
     font-family: 'Paralucent Bold', 'Gotham Book', Geneva, Verdana, sans-serif;
-    margin-left: 5rem;
-    margin-right:5rem;
-    max-width:1280px;
-    width:90%;
-    
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 128rem;
+    width: 80rem;
 }
 
 #filterInput{
@@ -150,24 +134,10 @@ button:focus {
     outline:0;
 }
 
-
 .searchBar {
     padding: 0.5rem;
     margin-right: 1rem;
     color: black;
-}
-
-.botonSearch {
-    background:  #eca597 ;
-    border:none;
-    border-radius: 8px;
-    color: black;
-    font: 'Paralucent Bold';
-    font-size: 1.3rem;
-    padding-right: 8rem;
-    padding-left: 2rem;
-    text-align: center;
-    width: 1rem;
 }
 
 /*MODAL*/
@@ -233,12 +203,10 @@ button:focus {
     color:#fff;
 }
 
-
 .container1{
     color:  #514e4d;
     display: grid;
     grid-template-columns: 1fr 2fr;   
-
 }
 
 .box1{
@@ -264,7 +232,6 @@ button:focus {
 
 #direction1TextArea, #direction2TextArea, #direction3TextArea,#direction4TextArea {
     width: 45rem;
-
 }
 
 #correo, #numero {
@@ -278,18 +245,36 @@ button:focus {
     width: 45rem;
 }
 
-.confirmarAdd {
+.confirmarAdd{
     background: #4e873e;
     border:none;
     border-radius: 8px;
     color: white;
     font: 'Paralucent Bold';
     font-size: 1.3rem;
-    margin-left: 45%;
-    margin-right: 55%;
-    padding-left: 1rem;
-    padding-right: 10rem;
-    width: 10rem;  
+    width: 90rem;  
+}
+
+.confirmarModificar {
+    background: #4e873e;
+    border:none;
+    border-radius: 8px;
+    color: white;
+    font: 'Paralucent Bold';
+    font-size: 1.3rem;
+    margin-left: 2rem;
+    width: 40rem;  
+}
+
+.confirmarDesactivar {
+    background: #E13232;
+    border:none;
+    border-radius: 8px;
+    color: white;
+    font: 'Paralucent Bold';
+    font-size: 1.3rem;
+    margin-left: 2rem;
+    width: 40rem;  
 }
 
 @keyframes fadeInOut {
