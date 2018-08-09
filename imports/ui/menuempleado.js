@@ -157,6 +157,7 @@ export default class MenuEmployee extends React.Component {
                 onClick={function () {
                   if (order.status == 'Pending') {
                     Meteor.call('orders.setInProgress', order._id);
+                    toastr.success('La orden ha sido cambiada a Ingresada');
                   }
                 }}
               >
