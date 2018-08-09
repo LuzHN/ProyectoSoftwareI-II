@@ -133,8 +133,6 @@ export default class HistorialEmpleado extends React.Component {
             }
 
             if (order.status == 'Dispatched') {
-                //no agrega nada
-            } else {
                 return (
                     <tr key={order._id}>
                         <td>Orden X</td>
@@ -155,31 +153,19 @@ export default class HistorialEmpleado extends React.Component {
                             <button
                                 id="btn-empleado"
                                 onClick={function () {
-                                    if (order.status == 'Pending') {
-                                        Meteor.call('orders.setInProgress', order._id);
+                                    if (order.status == 'Dispatched') {
+                                        Meteor.call('orders.delete', order._id);
                                     }
                                 }}
                             >
-                                Cambiar a Ingresado
+                               Borrar
                             </button>
                         </td>
-                        <td>
-                            <button
-                                id="btn-empleado"
-                                onClick={function () {
-                                    if (order.status == 'InProgress' || order.status == 'Dispatched') {
-                                        Meteor.call('orders.setDispatched', order._id);
-                                        toastr.success('La orden ha sido terminada y despachada!');
-                                    } else if (order.status == 'Pending') {
-                                        toastr.warning('Primero tiene que estar ingresado.');
-                                    }
-                                }}
-                            >
-                                Cambiar a Terminado
-                            </button>
-                        </td>
+                        
                     </tr>
                 );
+            } else {
+                //otras ordenes
             }
         });
     }
@@ -213,8 +199,7 @@ export default class HistorialEmpleado extends React.Component {
                                 <th scope="col">Telèfono</th>
                                 <th scope="col">Estado</th>
                                 <th scope="col">Ver más</th>
-                                <th scope="col">Ingresar</th>
-                                <th scope="col">Terminar</th>
+                                <th scope="col">Borrar de Sistema</th>
                             </tr>
                         </thead>
                         <tbody>{this.loadList()}</tbody>
