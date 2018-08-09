@@ -155,6 +155,7 @@ export default class HistorialEmpleado extends React.Component {
                                 onClick={function () {
                                     if (order.status == 'Dispatched') {
                                         Meteor.call('orders.delete', order._id);
+                                        toastr.success('La orden ha sido eliminada exitosamente del sistema!');
                                     }
                                 }}
                             >
