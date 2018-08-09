@@ -51,6 +51,7 @@ export default class Menu extends Component {
   };
 
   componentDidMount() {
+    console.log(Roles.userIsInRole( Meteor.userId(), 'user' ));
     this.dishesTracker = Tracker.autorun(() => {
       Meteor.subscribe('dishes');
       const dishes = Dishes.find().fetch();

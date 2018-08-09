@@ -12,3 +12,10 @@ Accounts.validateNewUser((user) => {
   }).validate({ email });
   return true;
 });
+
+Accounts.onCreateUser( function (options, user) {
+  if ( options.profile )
+    user.profile = options.profile;
+  Roles.addUsersToRoles( user._id, 'user' );
+  return user;
+});
