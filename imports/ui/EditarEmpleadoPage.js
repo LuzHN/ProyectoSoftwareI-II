@@ -279,7 +279,7 @@ const renderUser = (users) => {
                 var modal = document.getElementById('simpleModal2');
                 modal.style.display = 'block';x
             }} className="collection-item" key={user._id}>
-                <a href="#"  className="hrefNombre">{user.profile.firstName}</a>
+                <a href="#"  className="hrefNombre">{user.profile.firstName} {user.profile.lastName}</a>
             </li>
         )
     });
