@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import InputMask from 'react-input-mask';
 import {
   Card,
   Button,
@@ -27,6 +28,116 @@ export default class MenuAdmin extends Component {
 
   onSubmit(e) {
     e.preventDefault();
+  }
+
+  componentDidMount() {
+    this.dishesTracker = Tracker.autorun(() => {
+      Meteor.subscribe('dishes');
+      const dishes = Dishes.find().fetch();
+      this.setState({ dishes });
+    });
+  }
+
+  componentWillUnmount() {
+    this.dishesTracker.stop();
+  }
+
+  openAgregar() {
+
+    document.getElementById('myForm').reset();
+    this.refs.nombrePlato.value = '';
+    this.refs.precioPlato.value = '';
+    this.refs.descriptionPlato.value = '';
+    let title = document.getElementById('h2_ModalTitle');
+    title.innerHTML = 'Agregar Plato';
+    let botonEditar = document.getElementById('bt_ModalEditar');
+    botonEditar.style.display = 'none';
+    let botonAgregar = document.getElementById('bt_ModalAgregar');
+    botonAgregar.style.display = 'block';
+    var modal = document.getElementById('simpleModal');
+    modal.style.display = 'block';
+  }
+
+  closeAgregar() {
+    var modal = document.getElementById('simpleModal');
+    modal.style.display = 'none';
+  }
+
+  agregarFinal() {
+    let name = this.refs.nombrePlato.value.trim();
+    let price = this.refs.precioPlato.value.trim();
+    price = parseFloat(price).toFixed(2);
+    let image = this.refs.imagenPlato.value.trim();
+    let description = this.refs.descriptionPlato.value.trim();
+    let type = this.refs.tipodeComida[this.refs.tipodeComida.selectedIndex].value;
+    let calories = this.refs.calorias.value.trim();
+    let totalFat = this.refs.totalFat.value.trim();
+    let saturatedFat = this.refs.saturatedFat.value.trim();
+    let transFat = this.refs.transFat.value.trim();
+    let cholesterol = this.refs.cholesterol.value.trim();
+    let sodium = this.refs.sodium.value.trim();
+    let totalCarbohydrates = this.refs.totalCarbohydrates.value.trim();
+    let dietaryFibers = this.refs.dietaryFibers.value.trim();
+    let sugar = this.refs.sugar.value.trim();
+    let protein = this.refs.protein.value.trim();
+    let vitaminA = this.refs.vitaminA.value.trim();
+    let vitaminC = this.refs.vitaminC.value.trim();
+    let calcium = this.refs.calcium.value.trim();
+    let iron = this.refs.iron.value.trim();
+    if (name != '' && price > 0 && description != '') {
+      let dish = {
+        name,
+        price,
+        description,
+        type,
+        image,
+        calories,
+        totalFat,
+        saturatedFat,
+        transFat,
+        cholesterol,
+        sodium,
+        totalCarbohydrates,
+        dietaryFibers,
+        sugar,
+        protein,
+        vitaminA,
+        vitaminC,
+        calcium,
+        iron
+      };
+      Meteor.call('dishes.insert', dish);
+      let platoAgregado = document.getElementById('botonModalToast');
+      platoAgregado.classList.add('show');
+      platoAgregado.innerHTML = 'Se ha agregado un plato nuevo.';
+
+      setTimeout(function () {
+        platoAgregado.classList.remove('show');
+        document.getElementById('myForm').reset(); //resets los inputs del form
+        var modal = document.getElementById('simpleModal');
+        modal.style.display = 'none';
+      }, 3000);
+    } else {
+      if (price <= 0) {
+        let platoAgregado = document.getElementById('botonModalToast');
+        platoAgregado.classList.add('show');
+        platoAgregado.innerHTML = 'Precio no válido.';
+        setTimeout(function () {
+          platoAgregado.classList.remove('show');
+        }, 3000);
+      } else {
+        let platoAgregado = document.getElementById('botonModalToast');
+        platoAgregado.classList.add('show');
+        platoAgregado.innerHTML = 'No ha ingresado todos los datos.';
+        setTimeout(function () {
+          platoAgregado.classList.remove('show');
+        }, 3000);
+      }
+
+    }
+  }
+
+  editarFinal() {
     let name = this.refs.nombrePlato.value.trim();
     let price = this.refs.precioPlato.value.trim();
     let image = this.refs.imagenPlato.value.trim();
@@ -68,12 +179,15 @@ export default class MenuAdmin extends Component {
         calcium,
         iron
       };
-      Meteor.call('dishes.insert', dish);
+      // Meteor.call('dishes.update', dish);
+
       let platoAgregado = document.getElementById('botonModalToast');
       platoAgregado.classList.add('show');
-      platoAgregado.innerHTML = 'Se ha agregado un plato nuevo.';
-      setTimeout(function() {
+      platoAgregado.innerHTML = 'Se ha editado el plato.';
+
+      setTimeout(function () {
         platoAgregado.classList.remove('show');
+        document.getElementById('myForm').reset(); //resets los inputs del form
         var modal = document.getElementById('simpleModal');
         modal.style.display = 'none';
       }, 3000);
@@ -81,80 +195,11 @@ export default class MenuAdmin extends Component {
       let platoAgregado = document.getElementById('botonModalToast');
       platoAgregado.classList.add('show');
       platoAgregado.innerHTML = 'No ha ingresado todos los datos.';
-      setTimeout(function() {
+      setTimeout(function () {
         platoAgregado.classList.remove('show');
       }, 3000);
     }
-  }
 
-  componentDidMount() {
-    this.dishesTracker = Tracker.autorun(() => {
-      Meteor.subscribe('dishes');
-      const dishes = Dishes.find().fetch();
-      this.setState({ dishes });
-    });
-  }
-
-  componentWillUnmount() {
-    this.dishesTracker.stop();
-  }
-
-  openAgregar() {
-    
-    document.getElementById('myForm').reset();
-    this.refs.nombrePlato.value = '';
-    this.refs.precioPlato.value = '';
-    this.refs.descriptionPlato.value = '';
-    let title = document.getElementById('h2_ModalTitle');
-    title.innerHTML = 'Agregar Plato';
-    let botonEditar = document.getElementById('bt_ModalEditar');
-    botonEditar.style.display = 'none';
-    let botonAgregar = document.getElementById('bt_ModalAgregar');
-    botonAgregar.style.display = 'block';
-    var modal = document.getElementById('simpleModal');
-    modal.style.display = 'block';
-  }
-
-  closeAgregar() {
-    var modal = document.getElementById('simpleModal');
-    modal.style.display = 'none';
-  }
-
-  agregarFinal() {
-    
-    let platoAgregado = document.getElementById('botonModalToast');
-    platoAgregado.classList.add('show');
-    platoAgregado.innerHTML = 'Se ha agregado un plato nuevo.';
-    let name = this.refs.nombrePlato.value;
-    let price = this.refs.precioPlato.value;
-    let descript = this.refs.descriptionPlato.value;
-    let type = this.refs.tipodeComida.selected;
-    let image = this.refs.imagenPlato.value;
-    setTimeout(function() {
-      platoAgregado.classList.remove('show');
-      document.getElementById('myForm').reset(); //resets los inputs del form
-      name = '';
-      price = '';
-      descript = '';
-    }, 2000);
-  }
-
-  editarFinal() {
-    let platoAgregado = document.getElementById('botonModalToast');
-    platoAgregado.classList.add('show');
-    platoAgregado.innerHTML = 'Se ha editado el plato.';
-    let name = this.refs.nombrePlato.value;
-    let price = this.refs.precioPlato.value;
-    let descript = this.refs.descriptionPlato.value;
-    let type = this.refs.tipodeComida.selected;
-    let image = this.refs.imagenPlato.value;
-    setTimeout(function() {
-      platoAgregado.classList.remove('show');
-      document.getElementById('myForm').reset(); //resets los inputs del form
-      name = '';
-      price = '';
-      descript = '';
-    }, 2000);
   }
 
   render() {
@@ -264,19 +309,19 @@ export default class MenuAdmin extends Component {
                   <div className="body1">
                     <p>
                       <label id="labelAgregar">Nombre Plato</label>
-                      <input className = "inputAgregar" id="inputPlato" ref="nombrePlato" type="text" placeholder='Nombre Plato' maxLength='140' />
+                      <input className="inputAgregar" id="inputPlato" ref="nombrePlato" type="text" placeholder='Nombre Plato' maxLength='140' />
                     </p>
                     <p>
                       <label id="labelAgregar">Precio</label>
-                      <input className = "inputAgregar" id="inputPrecio" ref="precioPlato" type="number" placeholder='Precio Plato' maxLength='140' />
+                      <input className="inputAgregar" id="inputPrecio" ref="precioPlato" type="number" step="any" placeholder='Precio Plato'  maxLength="5"/>
                     </p>
                     <p>
                       <label id="labelAgregar">URL De Imagen</label>
-                      <input className = "inputAgregar" id="inputURL" ref="imagenPlato" type="text" placeholder='https://www.google.com/' />
+                      <input className="inputAgregar" id="inputURL" ref="imagenPlato" type="text" placeholder='https://www.google.com/' />
                     </p>
                     <p>
                       <label id="labelAgregar">Descripción Plato</label>
-                      <textarea className = "inputAgregar" id="inputDescripcion" ref="descriptionPlato" rows="5" placeholder='Enter Descripción Plato' maxLength='140'></textarea>
+                      <textarea className="inputAgregar" id="inputDescripcion" ref="descriptionPlato" rows="5" placeholder='Enter Descripción Plato' maxLength='140'></textarea>
                     </p>
                     <p>
                       <label id="labelAgregar">Tipo de Plato</label>
@@ -324,11 +369,17 @@ export default class MenuAdmin extends Component {
                         <div className="line">
                           <div className="fr">
                             Calories from Fat 0
-                      </div>
+                          </div>
 
                           <div>
                             <b>Calories</b>
-                            <input id="inputCalorias" ref="calorias" type="number" placeholder='0' maxLength='140' />
+                            <input id="inputCalorias" ref="calorias" type="number" step="any" placeholder='0' maxLength='3' />
+                            {/* <InputMask
+                              id="inputCalorias"
+                              ref="calorias"
+                              mask="999"
+                              placeholder="0"
+                            /> */}
                           </div>
                         </div>
 
@@ -341,50 +392,50 @@ export default class MenuAdmin extends Component {
                         <div className="line">
                           <div className="dv">
                             <b>0</b>%
-                      </div><b>Total Fat</b>  <input id="inputTotalFat" ref="totalFat" type="number" placeholder='0g' maxLength='140' />
+                      </div><b>Total Fat</b>  <input id="inputTotalFat" ref="totalFat" type="number" step="any" placeholder='0g' maxLength='3' />
                         </div>
 
                         <div className="line indent">
                           <div className="dv">
                             <b>0</b>%
-                      </div>Saturated Fat  <input id="inputSaturatedFat" ref="saturatedFat" type="number" placeholder='0g' maxLength='140' />
+                      </div>Saturated Fat  <input id="inputSaturatedFat" ref="saturatedFat" type="number" step="any" placeholder='0g' maxLength='3' />
                         </div>
 
                         <div className="line indent">
-                          <i>Trans</i> Fat  <input id="inputTransFat" ref="transFat" type="number" placeholder='0g' maxLength='140' />
+                          <i>Trans</i> Fat  <input id="inputTransFat" ref="transFat" type="number" step="any" placeholder='0g' maxLength='3' />
                         </div>
 
 
                         <div className="line">
                           <div className="dv">
                             <b>0</b>%
-                      </div><b>Cholesterol</b>  <input id="inputCholesterol" ref="cholesterol" type="number" placeholder='0mg' maxLength='140' />
+                      </div><b>Cholesterol</b>  <input id="inputCholesterol" ref="cholesterol" type="number" step="any" placeholder='0mg' maxLength='3' />
                         </div>
 
                         <div className="line">
                           <div className="dv">
                             <b>0</b>%
-                      </div><b>Sodium</b>  <input id="inputSodium" ref="sodium" type="number" placeholder='0mg' maxLength='140' />
+                      </div><b>Sodium</b>  <input id="inputSodium" ref="sodium" type="number" step="any" placeholder='0mg' maxLength='3' />
                         </div>
 
                         <div className="line">
                           <div className="dv">
                             <b>0</b>%
-                      </div><b>Total Carbohydrates</b>  <input id="inputTotalCarbs" ref="totalCarbohydrates" type="number" placeholder='0g' maxLength='140' />
+                      </div><b>Total Carbohydrates</b>  <input id="inputTotalCarbs" ref="totalCarbohydrates" type="number" step="any" placeholder='0g' maxLength='140' />
                         </div>
 
                         <div className="line indent">
                           <div className="dv">
                             <b>0</b>%
-                      </div>Dietary Fiber  <input id="inputDietaryFiber" ref="dietaryFibers" type="number" placeholder='0g' maxLength='140' />
+                      </div>Dietary Fiber  <input id="inputDietaryFiber" ref="dietaryFibers" type="number" step="any" placeholder='0g' maxLength='3' />
                         </div>
 
                         <div className="line indent">
-                          Sugars  <input id="inputSugars" ref="sugar" type="number" placeholder='0g' maxLength='140' />
+                          Sugars  <input id="inputSugars" ref="sugar" type="number" step="any" placeholder='0g' maxLength='3' />
                         </div>
 
                         <div className="line">
-                          <b>Protein</b>  <input id="inputProtein" ref="protein" type="number" placeholder='0g' maxLength='140' />
+                          <b>Protein</b>  <input id="inputProtein" ref="protein" step="any" type="number" placeholder='0g' maxLength='3' />
                         </div>
 
                         <div className="bar1"></div>
@@ -392,25 +443,25 @@ export default class MenuAdmin extends Component {
                         <div className="line vitaminA">
                           <div className="dv">
                             0%
-                      </div>Vitamin A  <input id="inputVitaminA" ref="vitaminA" type="number" placeholder='0%' maxLength='140' />
+                      </div>Vitamin A  <input id="inputVitaminA" ref="vitaminA" type="number" step="any" placeholder='0%' maxLength='3' />
                         </div>
 
                         <div className="line vitaminC">
                           <div className="dv">
                             0%
-                      </div>Vitamin C  <input id="inputVitaminC" ref="vitaminC" type="number" placeholder='0%' maxLength='140' />
+                      </div>Vitamin C  <input id="inputVitaminC" ref="vitaminC" type="number" step="any" placeholder='0%' maxLength='3' />
                         </div>
 
                         <div className="line calcium">
                           <div className="dv">
                             0%
-                      </div>Calcium  <input id="inputCalcium" ref="calcium" type="number" placeholder='0%' maxLength='140' />
+                      </div>Calcium  <input id="inputCalcium" ref="calcium" type="number" step="any" placeholder='0%' maxLength='3' />
                         </div>
 
                         <div className="line iron">
                           <div className="dv">
                             0%
-                      </div>Iron  <input id="inputIron" ref="iron" type="number" placeholder='0%' maxLength='140' />
+                      </div>Iron  <input id="inputIron" ref="iron" type="number" step="any" placeholder='0%' maxLength='3' />
                         </div>
 
                         <div className="dvCalorieDiet line">
@@ -484,12 +535,13 @@ const renderPlates = (platesList) => {
 
 class ButtonPlato extends Component {
 
-  
+
   deleteDish() {
+
     Meteor.call('dishes.delete', this.props.plato._id);
   }
 
-  loadModal(){
+  loadModal() {
     let field = document.getElementById("inputPlato");
     field.value = this.props.plato.name;
 
@@ -549,7 +601,8 @@ class ButtonPlato extends Component {
   }
 
   editDish() {
-    
+
+    document.getElementById('myForm').reset(); //resets los inputs del form
     let modal = document.getElementById('simpleModal');
     let title = document.getElementById("h2_ModalTitle");
     title.innerHTML = "Editar Plato"
@@ -575,6 +628,7 @@ class ButtonPlato extends Component {
           <button onClick={() => this.deleteDish()}>Delete</button>
         </div>
       </div>
+      
     );
   }
 }
