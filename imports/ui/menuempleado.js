@@ -24,7 +24,7 @@ import {
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../client/styles/menuempleado.css';
-import { Orders } from '../api/orders';
+import { Orders } from '../api/orders';   
 
 window.onclick = function (event) {
   if (event.target.className == 'modal') {
@@ -37,9 +37,10 @@ export default class MenuEmployee extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      orders: []
+      orders: [],
     };
   }
+
   componentDidMount() {
     this.ordersTracker = Tracker.autorun(() => {
       Meteor.subscribe('orders');
