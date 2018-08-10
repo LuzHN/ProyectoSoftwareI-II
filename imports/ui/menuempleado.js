@@ -56,6 +56,7 @@ export default class MenuEmployee extends React.Component {
 
   btnHistorial = () => {
     this.props.history.push({ pathname: '/HistorialEmpleado' });
+    
   };
 
   componentWillUnmount() {
@@ -168,10 +169,8 @@ export default class MenuEmployee extends React.Component {
               <button
                 id="btn-empleado"
                 onClick={function () {
-                  if (
-                    order.status == 'InProgress' ||
-                    order.status == 'Dispatched'
-                  ) {
+                  if (order.status == 'InProgress' && 
+                    window.confirm('¿Esta seguro de cambiar esta orden a terminada?') ) {
                     Meteor.call('orders.setDispatched', order._id);
                     toastr.success('La orden ha sido terminada y despachada!');
                   } else if (order.status == 'Pending') {

@@ -59,6 +59,7 @@ export default class HistorialEmpleado extends React.Component {
     
     btnHistorial = () => {
         this.props.history.push({ pathname: '/menuempleado'});
+        
     };
 
     showModal = (Order) => {
@@ -152,7 +153,7 @@ export default class HistorialEmpleado extends React.Component {
                             <button
                                 id="btn-empleado"
                                 onClick={function () {
-                                    if (order.status == 'Dispatched') {
+                                    if (window.confirm('¿Esta seguro de borrar esta orden permanentemente?')) {
                                         Meteor.call('orders.delete', order._id);
                                         toastr.success('La orden ha sido eliminada exitosamente del sistema!');
                                     }
@@ -186,7 +187,7 @@ export default class HistorialEmpleado extends React.Component {
                     id="btn-empleado"
                     onClick={this.btnHistorial}
                 >
-                    Ver Historial de Ordenes
+                    Ver Ordenes Pendientes
                 </button>
 
                 <section id="Sec" className="MenuEmployee">
