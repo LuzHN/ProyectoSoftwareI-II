@@ -67,6 +67,48 @@ acceso a la página principal del app.
     width: 10rem;
 }
 
+.botonAdmin {
+    background: #87AAAA;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font: 'Paralucent Bold';
+    font-size: 1.3rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 10rem;
+    text-align: center;
+    width: 10rem;
+}
+
+.botonModAdmin {
+    background: #87AAAA;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font: 'Paralucent Bold';
+    font-size: 1.3rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 10rem;
+    text-align: center;
+    width: 10rem;
+}
+
+.botonAgregarUsuario {
+    background: #87AAAA;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font: 'Paralucent Bold';
+    font-size: 1.3rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 10rem;
+    text-align: center;
+    width: 10rem;
+}
+
 .Buttons {
     cursor: pointer;
     display: flex;
@@ -167,7 +209,43 @@ button:focus {
     color:#fff;
     display: flex;
 }
- 
+
+#ModalAgregarAdministrador .modal-header {
+    background:#87AAAA;
+    color:#fff;
+    display: flex;
+}
+
+#ModalAgregarAdministrador .modal-footer{
+    background:#87AAAA;
+    padding:2%;
+    color:#fff;
+}
+
+#ModalModificarAdministrador .modal-header {
+    background:#87AAAA;
+    color:#fff;
+    display: flex;
+}
+
+#ModalModificarAdministrador .modal-footer{
+    background:#87AAAA;
+    padding:2%;
+    color:#fff;
+}
+
+#ModalAgregarUsuario .modal-header {
+    background:#CDCAA6;
+    color:#fff;
+    display: flex;
+}
+
+#ModalAgregarUsuario .modal-footer{
+    background: #CDCAA6;
+    padding:2%;
+    color:#fff;
+}
+
 .modal-header-Btn{
     flex:1;
     order:2;
