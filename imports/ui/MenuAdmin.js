@@ -63,6 +63,11 @@ export default class MenuAdmin extends Component {
     modal.style.display = 'none';
   }
 
+  closeDeleteModal() {
+    var modal = document.getElementById('exampleModal');
+    modal.style.display = 'none';
+  }
+
   agregarFinal() {
     let name = this.refs.nombrePlato.value.trim();
     let price = this.refs.precioPlato.value.trim();
@@ -109,11 +114,10 @@ export default class MenuAdmin extends Component {
       Meteor.call('dishes.insert', dish);
       let platoAgregado = document.getElementById('botonModalToast');
       platoAgregado.classList.add('show');
+      document.getElementById('myForm').reset(); //resets los inputs del form
       platoAgregado.innerHTML = 'Se ha agregado un plato nuevo.';
-
       setTimeout(function () {
         platoAgregado.classList.remove('show');
-        document.getElementById('myForm').reset(); //resets los inputs del form
         var modal = document.getElementById('simpleModal');
         modal.style.display = 'none';
       }, 3000);
@@ -313,7 +317,7 @@ export default class MenuAdmin extends Component {
                     </p>
                     <p>
                       <label id="labelAgregar">Precio</label>
-                      <input className="inputAgregar" id="inputPrecio" ref="precioPlato" type="number" step="any" placeholder='Precio Plato'  maxLength="5"/>
+                      <input className="inputAgregar" id="inputPrecio" ref="precioPlato" type="number" step="any" placeholder='Precio Plato' maxLength="5" />
                     </p>
                     <p>
                       <label id="labelAgregar">URL De Imagen</label>
@@ -492,6 +496,29 @@ export default class MenuAdmin extends Component {
 
 
 
+
+        {/* <!-- Modal --> */}
+        <div className="modal" id="exampleModal">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">Confirmar</h5>
+                <button className="close">
+                  <span onClick={this.closeDeleteModal.bind(this)}>&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <p>¿Desea Borrar Platillo?</p>
+              </div>
+              <div class="modal-footer">
+                <button className="btn btn-primary" onClick={this.closeDeleteModal.bind(this)}>Cancelar</button>
+                <button className="btn btn-danger">Borrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
         <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg" />
 
         <footer id="Footer">
@@ -534,13 +561,6 @@ const renderPlates = (platesList) => {
 }
 
 class ButtonPlato extends Component {
-
-
-  deleteDish() {
-
-    Meteor.call('dishes.delete', this.props.plato._id);
-  }
-
   loadModal() {
     let field = document.getElementById("inputPlato");
     field.value = this.props.plato.name;
@@ -618,6 +638,16 @@ class ButtonPlato extends Component {
     botonEditar.style.display = "block";
     modal.style.display = 'block';
   }
+
+
+  deleteDish() {
+
+    var modal = document.getElementById('exampleModal');
+    modal.style.display = 'block';
+    // Meteor.call('dishes.delete', this.props.plato._id);
+  }
+
+
   render() {
     return (
       <div className="btn-bg bg-2">
@@ -625,10 +655,11 @@ class ButtonPlato extends Component {
           <button onClick={() => this.editDish()}>Edit</button>
         </div>
         <div className="btn btn-2">
-          <button onClick={() => this.deleteDish()}>Delete</button>
+          <button
+            onClick={() => this.deleteDish()}>Delete</button>
         </div>
       </div>
-      
+
     );
   }
 }
