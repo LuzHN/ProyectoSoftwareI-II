@@ -235,13 +235,13 @@ button:focus {
 }
 
 #ModalAgregarUsuario .modal-header {
-    background:#CDCAA6;
+    background:#d86926;
     color:#fff;
     display: flex;
 }
 
 #ModalAgregarUsuario .modal-footer{
-    background: #CDCAA6;
+    background: #d86926;
     padding:2%;
     color:#fff;
 }
