@@ -18,6 +18,8 @@ import { Dishes } from '../api/dishes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../client/styles/MenuAdmin.css';
 
+let dishToDeleteId;
+
 export default class MenuAdmin extends Component {
   constructor(props) {
     super(props);
@@ -66,6 +68,12 @@ export default class MenuAdmin extends Component {
   closeDeleteModal() {
     var modal = document.getElementById('exampleModal');
     modal.style.display = 'none';
+  }
+
+  deletePlateFinal() {
+    Meteor.call('dishes.delete', dishToDeleteId);
+    dishToDeleteId = '';
+    this.closeDeleteModal();
   }
 
   agregarFinal() {
@@ -512,7 +520,7 @@ export default class MenuAdmin extends Component {
               </div>
               <div class="modal-footer">
                 <button className="btn btn-primary" onClick={this.closeDeleteModal.bind(this)}>Cancelar</button>
-                <button className="btn btn-danger">Borrar</button>
+                <button className="btn btn-danger" onClick={this.deletePlateFinal.bind(this)}>Borrar</button>
               </div>
             </div>
           </div>
@@ -559,6 +567,7 @@ const renderPlates = (platesList) => {
     )
   });
 }
+
 
 class ButtonPlato extends Component {
   loadModal() {
@@ -642,6 +651,7 @@ class ButtonPlato extends Component {
 
   deleteDish() {
 
+    dishToDeleteId = this.props.plato._id;
     var modal = document.getElementById('exampleModal');
     modal.style.display = 'block';
     // Meteor.call('dishes.delete', this.props.plato._id);
@@ -655,8 +665,7 @@ class ButtonPlato extends Component {
           <button onClick={() => this.editDish()}>Edit</button>
         </div>
         <div className="btn btn-2">
-          <button
-            onClick={() => this.deleteDish()}>Delete</button>
+          <button onClick={() => this.deleteDish()}>Delete</button>
         </div>
       </div>
 
