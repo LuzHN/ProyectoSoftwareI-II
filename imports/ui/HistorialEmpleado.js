@@ -25,6 +25,7 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../client/styles/menuempleado.css';
 import { Orders } from '../api/orders';
+import Pager from 'react-pager';
 
 window.onclick = function (event) {
     if (event.target.className == 'modal') {
@@ -36,8 +37,13 @@ window.onclick = function (event) {
 export default class HistorialEmpleado extends React.Component {
     constructor(props) {
         super(props);
+        this.handlePageChanged = this.handlePageChanged.bind(this);
         this.state = {
-            orders: []
+            orders: [],
+            total:       11,
+			current:     7,
+			visiblePage: 3,
+
         };
     }
     componentDidMount() {
