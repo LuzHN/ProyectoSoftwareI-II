@@ -170,37 +170,65 @@ export default class MenuAdmin extends Component {
     let vitaminCNew = this.refs.vitaminC.value.trim();
     let calciumNew = this.refs.calcium.value.trim();
     let ironNew = this.refs.iron.value.trim();
+    let id = dishID;
 
     if (nameNew != '' && priceNew != '' && descriptionNew != '' && priceNew > 0) {
 
-      Dishes.update({ _id: dishID },
-        {
-          $set:
-            {
-              name: nameNew,
-              price: priceNew,
-              image: imageNew,
-              description: descriptionNew,
-              type: typeNew,
-              nutritionFacts: {
-                calories: caloriesNew,
-                totalFat: totalFatNew,
-                saturatedFat: saturatedFatNew,
-                transFat: transFatNew,
-                cholesterol: cholesterolNew,
-                sodium: sodiumNew,
-                totalCarbohydrates: totalCarbohydratesNew,
-                sugar: sugarNew,
-                protein: proteinNew,
-                vitaminA: vitaminANew,
-                vitaminC: vitaminCNew,
-                calcium: calciumNew,
-                iron: ironNew
-              }
-            }
-        }
+      // Dishes.update({ _id: dishID },
+      //   {
+      //     $set:
+      //       {
+      //         name: nameNew,
+      //         price: priceNew,
+      //         image: imageNew,
+      //         description: descriptionNew,
+      //         type: typeNew,
+      //         nutritionFacts: {
+      //           calories: caloriesNew,
+      //           totalFat: totalFatNew,
+      //           saturatedFat: saturatedFatNew,
+      //           transFat: transFatNew,
+      //           cholesterol: cholesterolNew,
+      //           sodium: sodiumNew,
+      //           totalCarbohydrates: totalCarbohydratesNew,
+      //           dietaryFibers: dietaryFibersNew,
+      //           sugar: sugarNew,
+      //           protein: proteinNew,
+      //           vitaminA: vitaminANew,
+      //           vitaminC: vitaminCNew,
+      //           calcium: calciumNew,
+      //           iron: ironNew
+      //         }
+      //       }
+      //   }
 
-      );
+      // );
+
+      let dish = {
+        id,
+        nameNew,
+        priceNew,
+        descriptionNew,
+        typeNew,
+        imageNew,
+        caloriesNew,
+        totalFatNew,
+        saturatedFatNew,
+        transFatNew,
+        cholesterolNew,
+        sodiumNew,
+        totalCarbohydratesNew,
+        dietaryFibersNew,
+        sugarNew,
+        proteinNew,
+        vitaminANew,
+        vitaminCNew,
+        calciumNew,
+        ironNew
+      };
+      Meteor.call('dishes.update', dish);
+
+
 
       let platoAgregado = document.getElementById('botonModalToast');
       platoAgregado.classList.add('show');
