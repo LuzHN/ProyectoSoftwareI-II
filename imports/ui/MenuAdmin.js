@@ -172,7 +172,9 @@ export default class MenuAdmin extends Component {
     let ironNew = this.refs.iron.value.trim();
     let id = dishID;
 
+
     if (nameNew != '' && priceNew != '' && descriptionNew != '' && priceNew > 0) {
+
       let dish = {
         id,
         nameNew,
@@ -392,12 +394,6 @@ export default class MenuAdmin extends Component {
                           <div>
                             <b>Calories</b>
                             <input id="inputCalorias" ref="calorias" type="number" step="any" placeholder='0' maxLength='3' />
-                            {/* <InputMask
-                              id="inputCalorias"
-                              ref="calorias"
-                              mask="999"
-                              placeholder="0"
-                            /> */}
                           </div>
                         </div>
 
@@ -409,13 +405,13 @@ export default class MenuAdmin extends Component {
 
                         <div className="line">
                           <div className="dv">
-                            <b>0</b>%
+                            <b id="TotalFatPercentage">0</b>%
                       </div><b>Total Fat</b>  <input id="inputTotalFat" ref="totalFat" type="number" step="any" placeholder='0g' maxLength='3' />
                         </div>
 
                         <div className="line indent">
                           <div className="dv">
-                            <b>0</b>%
+                            <b id="TotalSatFatPercentage">0</b>%
                       </div>Saturated Fat  <input id="inputSaturatedFat" ref="saturatedFat" type="number" step="any" placeholder='0g' maxLength='3' />
                         </div>
 
@@ -426,60 +422,83 @@ export default class MenuAdmin extends Component {
 
                         <div className="line">
                           <div className="dv">
-                            <b>0</b>%
-                      </div><b>Cholesterol</b>  <input id="inputCholesterol" ref="cholesterol" type="number" step="any" placeholder='0mg' maxLength='3' />
+                            <b id="CholesterolPercentage">0</b>%
+                      </div>
+                          <b>Cholesterol</b>
+                          <input id="inputCholesterol" ref="cholesterol" type="number" step="any" placeholder='0mg' maxLength='3' />
                         </div>
 
                         <div className="line">
                           <div className="dv">
-                            <b>0</b>%
-                      </div><b>Sodium</b>  <input id="inputSodium" ref="sodium" type="number" step="any" placeholder='0mg' maxLength='3' />
+                            <b id="SodiumPercentage" >0</b>%
+                      </div>
+                          <b>Sodium</b>
+                          <input id="inputSodium" ref="sodium" type="number" step="any" placeholder='0mg' maxLength='3' />
                         </div>
 
                         <div className="line">
                           <div className="dv">
-                            <b>0</b>%
-                      </div><b>Total Carbohydrates</b>  <input id="inputTotalCarbs" ref="totalCarbohydrates" type="number" step="any" placeholder='0g' maxLength='140' />
+                            <b id="CarbsPercentage" >0</b>%
+                      </div>
+                          <b>Total Carbohydrates</b>
+                          <input id="inputTotalCarbs" ref="totalCarbohydrates" type="number" step="any" placeholder='0g' maxLength='140' />
                         </div>
 
                         <div className="line indent">
                           <div className="dv">
-                            <b>0</b>%
-                      </div>Dietary Fiber  <input id="inputDietaryFiber" ref="dietaryFibers" type="number" step="any" placeholder='0g' maxLength='3' />
+                            <b id="DietaryFiberPercentage">0</b>%
+                          </div>
+                          Dietary Fiber
+                      <input id="inputDietaryFiber" ref="dietaryFibers" type="number" step="any" placeholder='0g' maxLength='3' />
                         </div>
 
                         <div className="line indent">
+                          <div className="dv">
+                            <b id="SugarPercentage">0</b>%
+                          </div>
                           Sugars  <input id="inputSugars" ref="sugar" type="number" step="any" placeholder='0g' maxLength='3' />
                         </div>
 
                         <div className="line">
-                          <b>Protein</b>  <input id="inputProtein" ref="protein" step="any" type="number" placeholder='0g' maxLength='3' />
+                          <div className="dv">
+                            <b id="ProteinPercentage">0</b>%
+                          </div>
+                          <b>Protein</b>
+                          <input id="inputProtein" ref="protein" step="any" type="number" placeholder='0g' maxLength='3' />
                         </div>
 
                         <div className="bar1"></div>
 
                         <div className="line vitaminA">
                           <div className="dv">
-                            0%
-                      </div>Vitamin A  <input id="inputVitaminA" ref="vitaminA" type="number" step="any" placeholder='0%' maxLength='3' />
+                            <b id="VitaminAPercentage">0</b>%
+                      </div>
+                          Vitamin A
+                      <input id="inputVitaminA" ref="vitaminA" type="number" step="any" placeholder='0%' maxLength='3' />
                         </div>
 
                         <div className="line vitaminC">
                           <div className="dv">
-                            0%
-                      </div>Vitamin C  <input id="inputVitaminC" ref="vitaminC" type="number" step="any" placeholder='0%' maxLength='3' />
+                            <b id="VitaminCPercentage">0</b>%
+                      </div>
+                          Vitamin C
+                      <input id="inputVitaminC" ref="vitaminC" type="number" step="any" placeholder='0%' maxLength='3' />
                         </div>
 
                         <div className="line calcium">
                           <div className="dv">
-                            0%
-                      </div>Calcium  <input id="inputCalcium" ref="calcium" type="number" step="any" placeholder='0%' maxLength='3' />
+                            <b id="CalciumPercentage">0</b>%
+                      </div>
+                          Calcium
+                      <input id="inputCalcium" ref="calcium" type="number" step="any" placeholder='0%' maxLength='3' />
                         </div>
 
                         <div className="line iron">
                           <div className="dv">
-                            0%
-                      </div>Iron  <input id="inputIron" ref="iron" type="number" step="any" placeholder='0%' maxLength='3' />
+                            <b id="IronPercentage">0</b>%
+                      </div>
+                          Iron
+                      <input id="inputIron" ref="iron" type="number" step="any" placeholder='0%' maxLength='3' />
                         </div>
 
                         <div className="dvCalorieDiet line">
@@ -578,7 +597,29 @@ const renderPlates = (platesList) => {
 class ButtonPlato extends Component {
 
 
+  loadNutritionalFacts(){
+
+    $('#TotalFatPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.totalFat) / 65.0 ) * 100).toFixed(2));
+    $('#TotalSatFatPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.saturatedFat) / 20.0 ) * 100).toFixed(2));
+    $('#CholesterolPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.cholesterol) / 300.0 ) * 100).toFixed(2));
+    $('#SodiumPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.sodium) / 2400.0 ) * 100).toFixed(2));
+    $('#ProteinPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.protein) / 50.0 ) * 100).toFixed(2));
+    $('#CarbsPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.totalCarbohydrates) / 300.0 ) * 100).toFixed(2));
+    $('#DietaryFiberPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.dietaryFibers) / 25.0 ) * 100).toFixed(2));
+    $('#SugarPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.sugar) / 50.0 ) * 100).toFixed(2));
+    $('#VitaminAPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.vitaminA) / 1000.0 ) * 100).toFixed(2));
+    $('#VitaminCPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.vitaminC) / 60.0 ) * 100).toFixed(2));
+    $('#IronPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.iron) / 14.0 ) * 100).toFixed(2));
+    $('#CalciumPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.calcium) / 1100.0 ) * 100).toFixed(2));
+  }
+
+
   loadModal() {
+
+    //faltaria cargar porcentajes aqui!
+    
+    this.loadNutritionalFacts();
+    
     let field = document.getElementById("inputPlato");
     field.value = this.props.plato.name;
 
