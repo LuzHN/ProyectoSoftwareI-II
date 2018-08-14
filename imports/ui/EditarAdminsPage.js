@@ -7,7 +7,7 @@ import { Router, Route, browserHistory } from 'react-router';
 import { withRouter } from "react-router-dom";
 import { Redirect } from 'react-router'
 import InputMask from 'react-input-mask';
-import '../client/styles/editEmpleado';
+import '../client/styles/editAdmins';
 
 export default class editarEmpleadoPage extends React.Component {
   constructor(props) {
@@ -24,23 +24,30 @@ export default class editarEmpleadoPage extends React.Component {
     const usersFound = Meteor.call('query.User', parameters);
     console.log(usersFound);
     this.setState({ usersFound });
-  }
+    }
 
-  onAgregar() {
-    var modal = document.getElementById('ModalAgregarEmpleado');
+  onModAdmin() {
+    var modal = document.getElementById('ModalModificarAdministrador');
     modal.style.display = 'block';
   }
 
-  closeAgregar() {
-    var modal = document.getElementById('ModalAgregarEmpleado');
+  
+  onCloseModAdmin() {
+    var modal = document.getElementById('ModalModificarAdministrador');
     modal.style.display = 'none';
   }
 
-  closeModificar() {
-    var modal = document.getElementById('ModalModificarEmpleado');
+  onAgregarAdmin() {
+    var modal = document.getElementById('ModalAgregarAdministrador');
+    modal.style.display = 'block';
+  }
+
+  closeAdmin() {
+    var modal = document.getElementById('ModalAgregarAdministrador');
     modal.style.display = 'none';
   }
-    
+
+  
   filterNames() {
     //Get value of input
     let filterValue = document.getElementById('filterInput').value.toUpperCase();
@@ -76,49 +83,49 @@ export default class editarEmpleadoPage extends React.Component {
     this.usersTracker.stop();
   }
 
-  onAdmins() {
-    this.props.history.push('/editAdmins');
-  }
-
   onUsuarios() {
       this.props.history.push('/editUsuarios');
+  }
+
+  onEmpleados() {
+      this.props.history.push('/editEmpleado');
   }
 
   render() {
     console.log(this.state.users);
     return (
-      <div className="EditarEmpleado">
+      <div className="EditarAdmins">
         <div className="containerPrincipal">
         
           <div className = "ComboBox">
             <select>
-              <option value="Empleados">Empleados</option>
-              <option value="Administradores" onClick={this.onAdmins.bind(this)}>Administradores</option>
+              <option value="Administradores">Administradores</option>
+              <option value="Empleados" onClick={this.onEmpleados.bind(this)}>Empleados</option>
               <option value="Usuarios" onClick={this.onUsuarios.bind(this)}>Usuarios</option>
             </select>
           </div>
 
           <div className="Buttons">
-            <button className="botonAgregar" onClick={this.onAgregar.bind(this)}>Agregar Empleado</button>
+            <button className="botonAgregar" onClick={this.onAgregarAdmin.bind(this)}>Agregar Administrador</button>
           </div>  
 
           <div className="searchBarDiv">   
-            <input id="filterInput" onKeyUp={this.filterNames.bind(this)} placeholder="Buscar Empleado..." type="text"/>
+            <input id="filterInput" onKeyUp={this.filterNames.bind(this)} placeholder="Buscar Administrador..." type="text"/>
             <ul className="collection with-header" id="names">
               {renderUser(this.state.users)}
             </ul>
           </div>
 
-          {/*Modal Agregar Empleado*/}
-          <div className="modal" id="ModalAgregarEmpleado">
+          {/*Modal Agregar ADMIN*/}
+          <div id="ModalAgregarAdministrador" className="modal">
             <div className="modal-content">
               {/* Header */}
               <div className="modal-header">
                 <div className="modal-header-Btn">
-                  <span className="closeBtn" onClick={this.closeAgregar.bind(this)}>&times;</span>
+                  <span className="closeBtn" onClick={this.closeAdmin.bind(this)}>&times;</span>
                 </div>
                 <div className="modal-header-Name">
-                  <h2>Agregar Empleado</h2>
+                  <h2>Agregar Administrador</h2>
                 </div>
               </div>
               {/* Body */}
@@ -186,18 +193,18 @@ export default class editarEmpleadoPage extends React.Component {
               {/* Footer */}
               <div className="modal-footer"></div>
             </div>
-          </div> {/*Termina MODAL AGREGAR*/}
+          </div> {/*Termina MODAL AGREGAR ADMIN*/}
 
-          {/*Modal de Modificar Empleado*/}
-          <div id="ModalModificarEmpleado" className="modal">
+          {/*Modal de Modificar Administrador*/}
+          <div id="ModalModificarAdministrador" className="modal">
             <div className="modal-content">
               {/* Header */}
               <div className="modal-header">
                 <div className="modal-header-Btn">
-                  <span className="closeBtn" onClick={this.closeModificar.bind(this)}>&times;</span>
+                  <span className="closeBtn" onClick={this.onCloseModAdmin.bind(this)}>&times;</span>
                 </div>
                 <div className="modal-header-Name">
-                  <h2>Modificar Empleado</h2>
+                  <h2>Modificar Administrador</h2>
                 </div>
               </div>
               {/* Body */}
@@ -262,7 +269,7 @@ export default class editarEmpleadoPage extends React.Component {
                       </div>
                       <div className="box2">
                         <p>
-                          <button className = "confirmarDesactivar" >Desactivar Empleado</button>
+                          <button className = "confirmarDesactivar" >Desactivar Administrador</button>
                         </p>
                       </div>
                     </div>     
@@ -272,21 +279,22 @@ export default class editarEmpleadoPage extends React.Component {
               {/* Footer */}
               <div className="modal-footer"></div>
             </div>
-          </div>{/*Termina MODAL MODIFICAR EMPLEADO*/}
+          </div>{/*Termina MODAL MODIFICAR Administrador*/}
         </div>
       </div>
-    );}
+      );
   }
+}
 
-  const renderUser = (users) => {
-    return users.map((user) => {
-      return (
-        <li  onClick={function () {
-          var modal = document.getElementById('ModalModificarEmpleado');
-          modal.style.display = 'block';
-          }} className="collection-item" key={user._id}>
-          <a href="#"  className="hrefNombre">{user.profile.firstName} {user.profile.lastName}</a>
-        </li>
-      )
-    });
+const renderUser = (users) => {
+  return users.map((user) => {
+    return (
+      <li  onClick={function () {
+        var modal = document.getElementById('ModalModificarAdministrador');
+        modal.style.display = 'block';
+        }} className="collection-item" key={user._id}>
+        <a href="#"  className="hrefNombre">{user.profile.firstName} {user.profile.lastName}</a>
+      </li>
+    )
+  });
 }
