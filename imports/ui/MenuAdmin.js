@@ -18,7 +18,7 @@ import { Dishes } from '../api/dishes';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../client/styles/MenuAdmin.css';
 
-let dishToDeleteId;
+let dishID;
 
 export default class MenuAdmin extends Component {
   constructor(props) {
@@ -71,8 +71,8 @@ export default class MenuAdmin extends Component {
   }
 
   deletePlateFinal() {
-    Meteor.call('dishes.delete', dishToDeleteId);
-    dishToDeleteId = '';
+    Meteor.call('dishes.delete', dishID);
+    dishID = '';
     this.closeDeleteModal();
   }
 
@@ -97,7 +97,7 @@ export default class MenuAdmin extends Component {
     let vitaminC = this.refs.vitaminC.value.trim();
     let calcium = this.refs.calcium.value.trim();
     let iron = this.refs.iron.value.trim();
-    if (name != '' && price > 0 && description != '') {
+    if (name != '' && price > 0 && description != '' && price > 0) {
       let dish = {
         name,
         price,
@@ -150,48 +150,57 @@ export default class MenuAdmin extends Component {
   }
 
   editarFinal() {
-    let name = this.refs.nombrePlato.value.trim();
-    let price = this.refs.precioPlato.value.trim();
-    let image = this.refs.imagenPlato.value.trim();
-    let description = this.refs.descriptionPlato.value.trim();
-    let type = this.refs.tipodeComida[this.refs.tipodeComida.selectedIndex].value;
-    let calories = this.refs.calorias.value.trim();
-    let totalFat = this.refs.totalFat.value.trim();
-    let saturatedFat = this.refs.saturatedFat.value.trim();
-    let transFat = this.refs.transFat.value.trim();
-    let cholesterol = this.refs.cholesterol.value.trim();
-    let sodium = this.refs.sodium.value.trim();
-    let totalCarbohydrates = this.refs.totalCarbohydrates.value.trim();
-    let dietaryFibers = this.refs.dietaryFibers.value.trim();
-    let sugar = this.refs.sugar.value.trim();
-    let protein = this.refs.protein.value.trim();
-    let vitaminA = this.refs.vitaminA.value.trim();
-    let vitaminC = this.refs.vitaminC.value.trim();
-    let calcium = this.refs.calcium.value.trim();
-    let iron = this.refs.iron.value.trim();
-    if (name != '' && price != '' && description != '') {
-      let dish = {
-        name,
-        price,
-        description,
-        type,
-        image,
-        calories,
-        totalFat,
-        saturatedFat,
-        transFat,
-        cholesterol,
-        sodium,
-        totalCarbohydrates,
-        dietaryFibers,
-        sugar,
-        protein,
-        vitaminA,
-        vitaminC,
-        calcium,
-        iron
-      };
-      // Meteor.call('dishes.update', dish);
+    let nameNew = this.refs.nombrePlato.value.trim();
+    let priceNew = this.refs.precioPlato.value.trim();
+    priceNew = parseFloat(priceNew).toFixed(2);
+    let imageNew = this.refs.imagenPlato.value.trim();
+    let descriptionNew = this.refs.descriptionPlato.value.trim();
+    let typeNew = this.refs.tipodeComida[this.refs.tipodeComida.selectedIndex].value;
+    let caloriesNew = this.refs.calorias.value.trim();
+    let totalFatNew = this.refs.totalFat.value.trim();
+    let saturatedFatNew = this.refs.saturatedFat.value.trim();
+    let transFatNew = this.refs.transFat.value.trim();
+    let cholesterolNew = this.refs.cholesterol.value.trim();
+    let sodiumNew = this.refs.sodium.value.trim();
+    let totalCarbohydratesNew = this.refs.totalCarbohydrates.value.trim();
+    let dietaryFibersNew = this.refs.dietaryFibers.value.trim();
+    let sugarNew = this.refs.sugar.value.trim();
+    let proteinNew = this.refs.protein.value.trim();
+    let vitaminANew = this.refs.vitaminA.value.trim();
+    let vitaminCNew = this.refs.vitaminC.value.trim();
+    let calciumNew = this.refs.calcium.value.trim();
+    let ironNew = this.refs.iron.value.trim();
+
+    if (nameNew != '' && priceNew != '' && descriptionNew != '' && priceNew > 0) {
+
+      Dishes.update({ _id: dishID },
+        {
+          $set:
+            {
+              name: nameNew,
+              price: priceNew,
+              image: imageNew,
+              description: descriptionNew,
+              type: typeNew,
+              nutritionFacts: {
+                calories: caloriesNew,
+                totalFat: totalFatNew,
+                saturatedFat: saturatedFatNew,
+                transFat: transFatNew,
+                cholesterol: cholesterolNew,
+                sodium: sodiumNew,
+                totalCarbohydrates: totalCarbohydratesNew,
+                sugar: sugarNew,
+                protein: proteinNew,
+                vitaminA: vitaminANew,
+                vitaminC: vitaminCNew,
+                calcium: calciumNew,
+                iron: ironNew
+              }
+            }
+        }
+
+      );
 
       let platoAgregado = document.getElementById('botonModalToast');
       platoAgregado.classList.add('show');
@@ -570,6 +579,8 @@ const renderPlates = (platesList) => {
 
 
 class ButtonPlato extends Component {
+
+
   loadModal() {
     let field = document.getElementById("inputPlato");
     field.value = this.props.plato.name;
@@ -631,6 +642,7 @@ class ButtonPlato extends Component {
 
   editDish() {
 
+    dishID = this.props.plato._id;
     document.getElementById('myForm').reset(); //resets los inputs del form
     let modal = document.getElementById('simpleModal');
     let title = document.getElementById("h2_ModalTitle");
@@ -651,12 +663,11 @@ class ButtonPlato extends Component {
 
   deleteDish() {
 
-    dishToDeleteId = this.props.plato._id;
+    dishID = this.props.plato._id;
     var modal = document.getElementById('exampleModal');
     modal.style.display = 'block';
     // Meteor.call('dishes.delete', this.props.plato._id);
   }
-
 
   render() {
     return (
