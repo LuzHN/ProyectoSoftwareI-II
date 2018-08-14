@@ -128,7 +128,7 @@ export default class MenuAdmin extends Component {
         platoAgregado.classList.remove('show');
         var modal = document.getElementById('simpleModal');
         modal.style.display = 'none';
-      }, 3000);
+      }, 2000);
     } else {
       if (price <= 0) {
         let platoAgregado = document.getElementById('botonModalToast');
@@ -136,14 +136,14 @@ export default class MenuAdmin extends Component {
         platoAgregado.innerHTML = 'Precio no válido.';
         setTimeout(function () {
           platoAgregado.classList.remove('show');
-        }, 3000);
+        }, 2000);
       } else {
         let platoAgregado = document.getElementById('botonModalToast');
         platoAgregado.classList.add('show');
         platoAgregado.innerHTML = 'No ha ingresado todos los datos.';
         setTimeout(function () {
           platoAgregado.classList.remove('show');
-        }, 3000);
+        }, 2000);
       }
 
     }
@@ -208,14 +208,14 @@ export default class MenuAdmin extends Component {
         document.getElementById('myForm').reset(); //resets los inputs del form
         var modal = document.getElementById('simpleModal');
         modal.style.display = 'none';
-      }, 3000);
+      }, 2000);
     } else {
       let platoAgregado = document.getElementById('botonModalToast');
       platoAgregado.classList.add('show');
       platoAgregado.innerHTML = 'No ha ingresado todos los datos.';
       setTimeout(function () {
         platoAgregado.classList.remove('show');
-      }, 3000);
+      }, 2000);
     }
 
   }
