@@ -173,37 +173,6 @@ export default class MenuAdmin extends Component {
     let id = dishID;
 
     if (nameNew != '' && priceNew != '' && descriptionNew != '' && priceNew > 0) {
-
-      // Dishes.update({ _id: dishID },
-      //   {
-      //     $set:
-      //       {
-      //         name: nameNew,
-      //         price: priceNew,
-      //         image: imageNew,
-      //         description: descriptionNew,
-      //         type: typeNew,
-      //         nutritionFacts: {
-      //           calories: caloriesNew,
-      //           totalFat: totalFatNew,
-      //           saturatedFat: saturatedFatNew,
-      //           transFat: transFatNew,
-      //           cholesterol: cholesterolNew,
-      //           sodium: sodiumNew,
-      //           totalCarbohydrates: totalCarbohydratesNew,
-      //           dietaryFibers: dietaryFibersNew,
-      //           sugar: sugarNew,
-      //           protein: proteinNew,
-      //           vitaminA: vitaminANew,
-      //           vitaminC: vitaminCNew,
-      //           calcium: calciumNew,
-      //           iron: ironNew
-      //         }
-      //       }
-      //   }
-
-      // );
-
       let dish = {
         id,
         nameNew,
