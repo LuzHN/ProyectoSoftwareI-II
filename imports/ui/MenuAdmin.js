@@ -20,13 +20,43 @@ import '../client/styles/MenuAdmin.css';
 
 let dishID;
 
+window.onclick = function (event) {
+  if (event.target.className == 'modal') {
+    var modal = document.getElementById('simpleModal');
+    modal.style.display = 'none';
+  }
+};
+
 export default class MenuAdmin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dishes: []
+      dishes: [],
+      platosMostrados: [],
+      cantEntree: 0,
+      cantSoup: 0,
+      cantEnsalada: 0,
+      cantWrap: 0,
+      cantPasta: 0,
+      cantSandwich: 0,
+      cantAcompañante: 0,
+      cantDesayuno: 0,
+      cantPostre: 0,
+      cantJugo: 0,
+      cantBebida: 0
+
     };
   }
+
+  renderPlatos = (nombrePlato) => {
+    const platosMostrar = [];
+    for (var i = 0; i < this.state.dishes.length; i++) {
+      if (this.state.dishes[i].type === nombrePlato) {
+        platosMostrar.push(this.state.dishes[i]);
+      }
+    }
+    this.setState({...this.state,platosMostrados: platosMostrar });
+  };
 
   onSubmit(e) {
     e.preventDefault();
@@ -36,7 +66,57 @@ export default class MenuAdmin extends Component {
     this.dishesTracker = Tracker.autorun(() => {
       Meteor.subscribe('dishes');
       const dishes = Dishes.find().fetch();
-      this.setState({ dishes });
+      let cantEntree = 0,
+        cantSoup = 0,
+        cantEnsalada = 0,
+        cantWrap = 0,
+        cantPasta = 0,
+        cantSandwich = 0,
+        cantAcompañante = 0,
+        cantDesayuno = 0,
+        cantPostre = 0,
+        cantJugo = 0,
+        cantBebida = 0;
+      for (var i = 0; i < dishes.length; i++) {
+        if (dishes[i].type === 'Entree') {
+          cantEntree++;
+        } else if (dishes[i].type === 'Soup') {
+          cantSoup++;
+        } else if (dishes[i].type === 'Salad') {
+          cantEnsalada++;
+        } else if (dishes[i].type === 'Wrap') {
+          cantWrap++;
+        } else if (dishes[i].type === 'LittleItaly') {
+          cantPasta++;
+        } else if (dishes[i].type === 'Sandwich') {
+          cantSandwich++;
+        } else if (dishes[i].type === 'SideDish') {
+          cantAcompañante++;
+        } else if (dishes[i].type === 'Breakfast') {
+          cantDesayuno++;
+        } else if (dishes[i].type === 'Dessert') {
+          cantPostre++;
+        } else if (dishes[i].type === 'Juice') {
+          cantJugo++;
+        } else if (dishes[i].type === 'Drink') {
+          cantBebida++;
+        }
+      }
+      this.setState({
+        dishes,
+        platosMostrados: dishes,
+        cantEntree,
+        cantSoup,
+        cantEnsalada,
+        cantWrap,
+        cantPasta,
+        cantSandwich,
+        cantAcompañante,
+        cantDesayuno,
+        cantPostre,
+        cantJugo,
+        cantBebida
+      });
     });
   }
 
@@ -72,6 +152,7 @@ export default class MenuAdmin extends Component {
 
   deletePlateFinal() {
     Meteor.call('dishes.delete', dishID);
+
     dishID = '';
     this.closeDeleteModal();
   }
@@ -83,20 +164,23 @@ export default class MenuAdmin extends Component {
     let image = this.refs.imagenPlato.value.trim();
     let description = this.refs.descriptionPlato.value.trim();
     let type = this.refs.tipodeComida[this.refs.tipodeComida.selectedIndex].value;
-    let calories = this.refs.calorias.value.trim();
-    let totalFat = this.refs.totalFat.value.trim();
-    let saturatedFat = this.refs.saturatedFat.value.trim();
-    let transFat = this.refs.transFat.value.trim();
-    let cholesterol = this.refs.cholesterol.value.trim();
-    let sodium = this.refs.sodium.value.trim();
-    let totalCarbohydrates = this.refs.totalCarbohydrates.value.trim();
-    let dietaryFibers = this.refs.dietaryFibers.value.trim();
-    let sugar = this.refs.sugar.value.trim();
-    let protein = this.refs.protein.value.trim();
-    let vitaminA = this.refs.vitaminA.value.trim();
-    let vitaminC = this.refs.vitaminC.value.trim();
-    let calcium = this.refs.calcium.value.trim();
-    let iron = this.refs.iron.value.trim();
+
+    let calories = this.refs.calorias.value.trim() || "0";
+    let totalFat = this.refs.totalFat.value.trim() || "0";
+    let saturatedFat = this.refs.saturatedFat.value.trim() || "0";
+    let transFat = this.refs.transFat.value.trim() || "0";
+    let cholesterol = this.refs.cholesterol.value.trim() || "0";
+    let sodium = this.refs.sodium.value.trim() || "0";
+    let totalCarbohydrates = this.refs.totalCarbohydrates.value.trim() || "0";
+    let dietaryFibers = this.refs.dietaryFibers.value.trim() || "0";
+    let sugar = this.refs.sugar.value.trim() || "0";
+    let protein = this.refs.protein.value.trim() || "0";
+    let vitaminA = this.refs.vitaminA.value.trim() || "0";
+    let vitaminC = this.refs.vitaminC.value.trim() || "0";
+    let calcium = this.refs.calcium.value.trim() || "0";
+    let iron = this.refs.iron.value.trim() || "0";
+
+
     if (name != '' && price > 0 && description != '' && price > 0) {
       let dish = {
         name,
@@ -120,6 +204,7 @@ export default class MenuAdmin extends Component {
         iron
       };
       Meteor.call('dishes.insert', dish);
+
       let platoAgregado = document.getElementById('botonModalToast');
       platoAgregado.classList.add('show');
       document.getElementById('myForm').reset(); //resets los inputs del form
@@ -156,20 +241,22 @@ export default class MenuAdmin extends Component {
     let imageNew = this.refs.imagenPlato.value.trim();
     let descriptionNew = this.refs.descriptionPlato.value.trim();
     let typeNew = this.refs.tipodeComida[this.refs.tipodeComida.selectedIndex].value;
-    let caloriesNew = this.refs.calorias.value.trim();
-    let totalFatNew = this.refs.totalFat.value.trim();
-    let saturatedFatNew = this.refs.saturatedFat.value.trim();
-    let transFatNew = this.refs.transFat.value.trim();
-    let cholesterolNew = this.refs.cholesterol.value.trim();
-    let sodiumNew = this.refs.sodium.value.trim();
-    let totalCarbohydratesNew = this.refs.totalCarbohydrates.value.trim();
-    let dietaryFibersNew = this.refs.dietaryFibers.value.trim();
-    let sugarNew = this.refs.sugar.value.trim();
-    let proteinNew = this.refs.protein.value.trim();
-    let vitaminANew = this.refs.vitaminA.value.trim();
-    let vitaminCNew = this.refs.vitaminC.value.trim();
-    let calciumNew = this.refs.calcium.value.trim();
-    let ironNew = this.refs.iron.value.trim();
+
+    let caloriesNew = this.refs.calorias.value.trim() || "0";
+    let totalFatNew = this.refs.totalFat.value.trim() || "0";
+    let saturatedFatNew = this.refs.saturatedFat.value.trim() || "0";
+    let transFatNew = this.refs.transFat.value.trim() || "0";
+    let cholesterolNew = this.refs.cholesterol.value.trim() || "0";
+    let sodiumNew = this.refs.sodium.value.trim() || "0";
+    let totalCarbohydratesNew = this.refs.totalCarbohydrates.value.trim() || "0";
+    let dietaryFibersNew = this.refs.dietaryFibers.value.trim() || "0";
+    let sugarNew = this.refs.sugar.value.trim() || "0";
+    let proteinNew = this.refs.protein.value.trim() || "0";
+    let vitaminANew = this.refs.vitaminA.value.trim() || "0";
+    let vitaminCNew = this.refs.vitaminC.value.trim() || "0";
+    let calciumNew = this.refs.calcium.value.trim() || "0";
+    let ironNew = this.refs.iron.value.trim() || "0";
+
     let id = dishID;
 
 
@@ -199,8 +286,6 @@ export default class MenuAdmin extends Component {
       };
       Meteor.call('dishes.update', dish);
 
-
-
       let platoAgregado = document.getElementById('botonModalToast');
       platoAgregado.classList.add('show');
       platoAgregado.innerHTML = 'Se ha editado el plato.';
@@ -225,77 +310,144 @@ export default class MenuAdmin extends Component {
   render() {
     return (
       <div>
+
+        <header id="Header">
+          <h1 id="hk-logo-header" />
+        </header>
+
         <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg" />
         <div className="pos-f-t ">
           <nav className="navbar navbar-dark bg-dark">
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span className="navbar-toggler-icon"></span>
-              <span> Menú </span>
+            <button
+              className="navbar-toggler btn-menu"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarToggleExternalContent"
+              aria-controls="navbarToggleExternalContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon" />
+              <span> Menú</span>
             </button>
+
           </nav>
 
           <div className="collapse" id="navbarToggleExternalContent">
-            <div className="bg-dark p-4 d-flex justify-content-center" id="BackgroundNavBar">
+            <div
+              className="bg-dark p-4 d-flex justify-content-center"
+              id="BackgroundNavBar"
+            >
               <ul className="list-group" id="PlateList">
-                <a href="#SelectedMenu" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () { ReactDOM.render(<Entree />, document.getElementById('SelectedMenu')); }} >
+                <a
+                  href="#SelectedMenu"
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                  onClick={(e) => this.renderPlatos('Entree')}
+                >
                   Entradas
+                  <span className="badge badge-primary badge-pill">
+                    {this.state.cantEntree}
+                  </span>
                 </a>
-                <a href="#SelectedMenu" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () { ReactDOM.render(renderPlatos("Soups"), document.getElementById('SelectedMenu')); }} >
+                <a
+                  href="#SelectedMenu"
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                  onClick={(e) => this.renderPlatos('Soup')}
+                >
                   Sopas
+                  <span className="badge badge-primary badge-pill">
+                    {this.state.cantSoup}
+                  </span>
                 </a>
-                <a href="#SelectedMenu" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () { ReactDOM.render(renderPlatos("Salads"), document.getElementById('SelectedMenu')); }}>
+                <a
+                  href="#SelectedMenu"
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                  onClick={(e) => this.renderPlatos('Salad')}
+                >
                   Ensaladas
+                  <span className="badge badge-primary badge-pill">
+                    {this.state.cantEnsalada}
+                  </span>
                 </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
-                    //ReactDOM.render(<Wraps />, document.getElementById('SelectedMenu'));
-                  }}>
+                <a
+                  href="#"
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                  onClick={(e) => this.renderPlatos('Wrap')}
+                >
                   Wraps
+                  <span className="badge badge-primary badge-pill">
+                    {this.state.cantWrap}
+                  </span>
                 </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
-                    //ReactDOM.render(<LittleItaly />, document.getElementById('SelectedMenu'));
-                  }}>
+                <a
+                  href="#"
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                  onClick={(e) => this.renderPlatos('LittleItaly')}
+                >
                   Little Italy (Pastas & Pizettas)
+                  <span className="badge badge-primary badge-pill">
+                    {this.state.cantPasta}
+                  </span>
                 </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
-                    //ReactDOM.render(<Sandwiches />, document.getElementById('SelectedMenu'));
-                  }}>
+                <a
+                  href="#"
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                  onClick={(e) => this.renderPlatos('Sandwich')}
+                >
                   Sándwiches
+                  <span className="badge badge-primary badge-pill">
+                    {this.state.cantSandwich}
+                  </span>
                 </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
-                    //ReactDOM.render(<SideDish />, document.getElementById('SelectedMenu'));
-                  }}>
+                <a
+                  href="#"
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                  onClick={(e) => this.renderPlatos('SideDish')}
+                >
                   Acompañantes
+                  <span className="badge badge-primary badge-pill">
+                    {this.state.cantAcompañante}
+                  </span>
                 </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
-                    //ReactDOM.render(<Breakfasts />, document.getElementById('SelectedMenu'));
-                  }}>
+                <a
+                  href="#"
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                  onClick={(e) => this.renderPlatos('Breakfast')}
+                >
                   Desayunos
+                  <span className="badge badge-primary badge-pill">
+                    {this.state.cantDesayuno}
+                  </span>
                 </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
-                    //ReactDOM.render(<Desserts />, document.getElementById('SelectedMenu'));
-                  }}>
+                <a
+                  href="#"
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                  onClick={(e) => this.renderPlatos('Dessert')}
+                >
                   Postres
+                  <span className="badge badge-primary badge-pill">
+                    {this.state.cantPostre}
+                  </span>
                 </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
-                    //ReactDOM.render(<Juices />, document.getElementById('SelectedMenu'));
-                  }}>
+                <a
+                  href="#"
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                  onClick={(e) => this.renderPlatos('Juice')}
+                >
                   Jugos
+                  <span className="badge badge-primary badge-pill">
+                    {this.state.cantJugo}
+                  </span>
                 </a>
-                <a href="#" className="list-group-item d-flex justify-content-between align-items-center"
-                  onClick={function () {
-                    //ReactDOM.render(<Drinks />, document.getElementById('SelectedMenu'));
-                  }}>
+                <a
+                  href="#"
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                  onClick={(e) => this.renderPlatos('Drink')}
+                >
                   Bebidas
+                  <span className="badge badge-primary badge-pill">
+                    {this.state.cantBebida}
+                  </span>
                 </a>
               </ul>
             </div>
@@ -303,7 +455,7 @@ export default class MenuAdmin extends Component {
         </div>
 
         <section id="Menu" >
-          <div id="SelectedMenu"><Entree dishes={this.state.dishes} /></div>
+          <div id="SelectedMenu"><Entree dishes={this.state.platosMostrados} /></div>
         </section>
 
         <div id="wrapper">
@@ -504,9 +656,6 @@ export default class MenuAdmin extends Component {
                         <div className="dvCalorieDiet line">
                           <div className="calorieNote">
                             <span className="star">*</span> Percent Daily Values are based on a 2000 calorie diet.<br />
-                            {/* <div className="ingredientListDiv">
-                          <b className="active" id="ingredientList">INGREDIENTS:</b> None
-                        </div> */}
                           </div>
                         </div>
                       </div>
@@ -543,7 +692,7 @@ export default class MenuAdmin extends Component {
               <div className="modal-body">
                 <p>¿Desea Borrar Platillo?</p>
               </div>
-              <div class="modal-footer">
+              <div className="modal-footer">
                 <button className="btn btn-primary" onClick={this.closeDeleteModal.bind(this)}>Cancelar</button>
                 <button className="btn btn-danger" onClick={this.deletePlateFinal.bind(this)}>Borrar</button>
               </div>
@@ -597,29 +746,28 @@ const renderPlates = (platesList) => {
 class ButtonPlato extends Component {
 
 
-  loadNutritionalFacts(){
+  loadNutritionalFacts() { //carga los nutritional facts del platillo
 
-    $('#TotalFatPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.totalFat) / 65.0 ) * 100).toFixed(1));
-    $('#TotalSatFatPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.saturatedFat) / 20.0 ) * 100).toFixed(1));
-    $('#CholesterolPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.cholesterol) / 300.0 ) * 100).toFixed(1));
-    $('#SodiumPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.sodium) / 2400.0 ) * 100).toFixed(1));
-    $('#ProteinPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.protein) / 50.0 ) * 100).toFixed(1));
-    $('#CarbsPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.totalCarbohydrates) / 300.0 ) * 100).toFixed(1));
-    $('#DietaryFiberPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.dietaryFibers) / 25.0 ) * 100).toFixed(1));
-    $('#SugarPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.sugar) / 50.0 ) * 100).toFixed(1));
-    $('#VitaminAPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.vitaminA) / 1000.0 ) * 100).toFixed(1));
-    $('#VitaminCPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.vitaminC) / 60.0 ) * 100).toFixed(1));
-    $('#IronPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.iron) / 14.0 ) * 100).toFixed(1));
-    $('#CalciumPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.calcium) / 1100.0 ) * 100).toFixed(1));
+    $('#TotalFatPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.totalFat) / 65.0) * 100).toFixed(1));
+    $('#TotalSatFatPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.saturatedFat) / 20.0) * 100).toFixed(1));
+    $('#CholesterolPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.cholesterol) / 300.0) * 100).toFixed(1));
+    $('#SodiumPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.sodium) / 2400.0) * 100).toFixed(1));
+    $('#ProteinPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.protein) / 50.0) * 100).toFixed(1));
+    $('#CarbsPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.totalCarbohydrates) / 300.0) * 100).toFixed(1));
+    $('#DietaryFiberPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.dietaryFibers) / 25.0) * 100).toFixed(1));
+    $('#SugarPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.sugar) / 50.0) * 100).toFixed(1));
+    $('#VitaminAPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.vitaminA) / 1000.0) * 100).toFixed(1));
+    $('#VitaminCPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.vitaminC) / 60.0) * 100).toFixed(1));
+    $('#IronPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.iron) / 14.0) * 100).toFixed(1));
+    $('#CalciumPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.calcium) / 1100.0) * 100).toFixed(1));
   }
 
 
-  loadModal() {
+  loadModal() { //llena el modal de editar platillo con la información debida
 
-    //faltaria cargar porcentajes aqui!
-    
+
     this.loadNutritionalFacts();
-    
+
     let field = document.getElementById("inputPlato");
     field.value = this.props.plato.name;
 
