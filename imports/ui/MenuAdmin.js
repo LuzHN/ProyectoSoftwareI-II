@@ -599,18 +599,18 @@ class ButtonPlato extends Component {
 
   loadNutritionalFacts(){
 
-    $('#TotalFatPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.totalFat) / 65.0 ) * 100).toFixed(2));
-    $('#TotalSatFatPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.saturatedFat) / 20.0 ) * 100).toFixed(2));
-    $('#CholesterolPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.cholesterol) / 300.0 ) * 100).toFixed(2));
-    $('#SodiumPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.sodium) / 2400.0 ) * 100).toFixed(2));
-    $('#ProteinPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.protein) / 50.0 ) * 100).toFixed(2));
-    $('#CarbsPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.totalCarbohydrates) / 300.0 ) * 100).toFixed(2));
-    $('#DietaryFiberPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.dietaryFibers) / 25.0 ) * 100).toFixed(2));
-    $('#SugarPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.sugar) / 50.0 ) * 100).toFixed(2));
-    $('#VitaminAPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.vitaminA) / 1000.0 ) * 100).toFixed(2));
-    $('#VitaminCPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.vitaminC) / 60.0 ) * 100).toFixed(2));
-    $('#IronPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.iron) / 14.0 ) * 100).toFixed(2));
-    $('#CalciumPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.calcium) / 1100.0 ) * 100).toFixed(2));
+    $('#TotalFatPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.totalFat) / 65.0 ) * 100).toFixed(1));
+    $('#TotalSatFatPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.saturatedFat) / 20.0 ) * 100).toFixed(1));
+    $('#CholesterolPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.cholesterol) / 300.0 ) * 100).toFixed(1));
+    $('#SodiumPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.sodium) / 2400.0 ) * 100).toFixed(1));
+    $('#ProteinPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.protein) / 50.0 ) * 100).toFixed(1));
+    $('#CarbsPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.totalCarbohydrates) / 300.0 ) * 100).toFixed(1));
+    $('#DietaryFiberPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.dietaryFibers) / 25.0 ) * 100).toFixed(1));
+    $('#SugarPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.sugar) / 50.0 ) * 100).toFixed(1));
+    $('#VitaminAPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.vitaminA) / 1000.0 ) * 100).toFixed(1));
+    $('#VitaminCPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.vitaminC) / 60.0 ) * 100).toFixed(1));
+    $('#IronPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.iron) / 14.0 ) * 100).toFixed(1));
+    $('#CalciumPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.calcium) / 1100.0 ) * 100).toFixed(1));
   }
 
 
