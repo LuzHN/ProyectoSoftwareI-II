@@ -83,13 +83,110 @@ export default class editarEmpleadoPage extends React.Component {
     this.usersTracker.stop();
   }
 
-  onUsuarios() {
+  handleChange(e) {
+    var index = e.nativeEvent.target.selectedIndex;
+    if (index == 1) {
+      this.props.history.push('/editEmpleado');
+    } 
+    if (index == 2) {
       this.props.history.push('/editUsuarios');
+    }
   }
 
-  onEmpleados() {
-      this.props.history.push('/editEmpleado');
+  onSubmitAgregar() {
+    let email = this.refs.email.value.trim();
+    let password = this.refs.passwordAgregar.value.trim();
+    let confirmPassword = this.refs.confirmPasswordAgregar.value.trim();
+    let firstName = this.refs.firstNameAgregar.value.trim();
+    let lastName = this.refs.lastNameAgregar.value.trim();
+    let phoneNumber1 = this.refs.phoneNumberAgregar.value.trim();
+    let address1 = this.refs.addressAgregar.value.trim();
+    let profile = {
+      firstName,
+      lastName,
+      phoneNumber1,
+      phoneNumber2: '',
+      phoneNumber3: '',
+      phoneNumber4: '',
+      address1,
+      address2: '',
+      address3: '',
+      address4: '',
+    };
+
+    //Validaciones
+    let validator = 0;
+    //Validar email
+    if (email == '') {
+      validator = 1;
+      toastr.warning('Por favor ingrese un correo válido.');
+    } else if (email.indexOf('@') <= 0) {
+      validator = 1;
+      toastr.warning('Por favor ingrese un correo válido.');
+    } else if (
+      email.charAt(email.length - 4) != '.' &&
+      email.charAt(email.length - 3) != '.'
+    ) {
+      validator = 1;
+      toastr.warning('Por favor ingrese un correo válido.');
+    } else if (password == '') {
+      validator = 1;
+      toastr.warning('La contraseña debe de ser de al menos 9 dígitos.');
+    } else if (password.length < 9) {
+      validator = 1;
+      toastr.warning('La contraseña debe de ser de al menos 9 dígitos.');
+    } else if (confirmPassword != password) {
+      validator = 1;
+      toastr.warning('Las contraseñas no son iguales.');
+    } else if (firstName == '' || firstName.match(/[^a-z]/gi)) {
+      validator = 1;
+      toastr.warning('Por favor ingrese un nombre válido.');
+    } else if (lastName == '' || lastName.match(/[^a-z]/gi)) {
+      validator = 1;
+      toastr.warning('Por favor ingrese un apellido válido.');
+    } else if (phoneNumber1 == '') {
+      validator = 1;
+      toastr.warning('Por favor ingrese un número de teléfono válido.');
+    } else if (phoneNumber1.length < 8) {
+      validator = 1;
+      toastr.warning('Por favor ingrese un número de teléfono válido.');
+    } else if (
+      phoneNumber1.charAt(0) != '9' &&
+      phoneNumber1.charAt(0) != '3' &&
+      phoneNumber1.charAt(0) != '8' &&
+      phoneNumber1.charAt(0) != '7' &&
+      phoneNumber1.charAt(0) != '2'
+    ) {
+      validator = 1;
+      toastr.warning('Por favor ingrese un número de teléfono válido.');
+    } else if (address1 == '') {
+      validator = 1;
+      toastr.warning('Por favor ingrese una dirección válida.');
+    }
+
+    if (!validator) {
+      Accounts.createUser({ email, password, profile }, (err) => {
+        if (err) {
+          alert(err.reason);
+        } else {
+          console.log(Meteor.userId);
+          toastr.success('Se ha registrado el usuario exitosamente.');
+          this.refs.email.value = "";
+          this.refs.passwordAgregar.value = "";
+          this.refs.confirmPasswordAgregar.value = "";
+          this.refs.firstNameAgregar.value = "";
+          this.refs.lastNameAgregar.value = "";
+          this.refs.phoneNumberAgregar.value = "";
+          this.refs.addressAgregar.value = "";
+          
+        }
+      });
+    }
   }
+
+  handleSubmit(e) {
+    e.preventDefault();
+}
 
   render() {
     console.log(this.state.users);
@@ -98,10 +195,10 @@ export default class editarEmpleadoPage extends React.Component {
         <div className="containerPrincipal">
         
           <div className = "ComboBox">
-            <select>
+            <select onChange ={this.handleChange.bind(this)}>
               <option value="Administradores">Administradores</option>
-              <option value="Empleados" onClick={this.onEmpleados.bind(this)}>Empleados</option>
-              <option value="Usuarios" onClick={this.onUsuarios.bind(this)}>Usuarios</option>
+              <option value="Empleados">Empleados</option>
+              <option value="Usuarios">Usuarios</option>
             </select>
           </div>
 
@@ -130,13 +227,13 @@ export default class editarEmpleadoPage extends React.Component {
               </div>
               {/* Body */}
               <div className="modal-body">
-                <form className="agregarEmpleadoFormModal">
+                <form className="agregarEmpleadoFormModal" onSubmit={this.handleSubmit.bind(this)}>
                   <div>
                     <div className="container1">
                       <div className="box1">
                         <p>
                           <label>Email</label>
-                          <input id = "correo" maxLength='140' placeholder='Ingrese su correo.'  type="email"/>
+                          <input ref = "email" id = "correo" maxLength='140' placeholder='Ingrese su correo.'  type="email"/>
                         </p>
                       </div>
                     </div>
@@ -144,13 +241,13 @@ export default class editarEmpleadoPage extends React.Component {
                       <div className="box1">
                         <p>
                           <label>Contraseña</label>
-                          <input placeholder='Ingrese su contraseña.'  type="password"/>
+                          <input ref = "passwordAgregar" placeholder='Ingrese su contraseña.'  type="password"/>
                         </p>
                       </div>
                       <div className="box2">
                         <p>
                           <label>Confirmar Contraseña</label>
-                          <input placeholder='Confirmar contraseña.' ref="confirmPassword" type="password"/>
+                          <input placeholder='Confirmar contraseña.' ref="confirmPasswordAgregar" type="password"/>
                         </p>
                       </div>
                     </div>
@@ -158,13 +255,13 @@ export default class editarEmpleadoPage extends React.Component {
                       <div className="box1">
                         <p>
                           <label>Primer Nombre</label>
-                          <input maxLength='140' placeholder='Ingrese su primer nombre.' ref="firstName" type="text" />
+                          <input maxLength='140' placeholder='Ingrese su primer nombre.' ref="firstNameAgregar" type="text" />
                         </p>
                       </div>
                       <div className="box2">
                         <p>
                           <label>Apellido</label>
-                          <input maxLength='140' placeholder='Ingrese su apellido.' ref="lastName" type="text"/>
+                          <input maxLength='140' placeholder='Ingrese su apellido.' ref="lastNameAgregar" type="text"/>
                         </p>
                       </div>
                     </div>
@@ -172,7 +269,7 @@ export default class editarEmpleadoPage extends React.Component {
                       <div className="box1">
                         <p>
                           <label>Número de Teléfono</label>
-                          <InputMask id = "numero" mask="9999-9999" placeholder='Ingrese su número de teléfono.' ref="phoneNumber"/>
+                          <InputMask id = "numero" mask="9999-9999" placeholder='Ingrese su número de teléfono.' ref="phoneNumberAgregar"/>
                         </p>
                       </div>
                     </div>
@@ -180,12 +277,12 @@ export default class editarEmpleadoPage extends React.Component {
                       <div className="box1">
                         <p>
                           <label>Dirección</label>
-                          <textarea maxLength='140' placeholder='Ingrese su dirección.' ref="address" rows="5"></textarea>
+                          <textarea maxLength='140' placeholder='Ingrese su dirección.' ref="addressAgregar" rows="5"></textarea>
                         </p>
                       </div>
                     </div>
                     <p>
-                      <button className="confirmarAdd" >Confirmar</button>
+                      <button className="confirmarAdd" onClick={this.onSubmitAgregar.bind(this)}>Confirmar</button>
                     </p>
                   </div>
                 </form>
