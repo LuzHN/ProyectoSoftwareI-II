@@ -15,7 +15,7 @@ export default class MenuEmployee extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      orders: []
+      orders: [],
     };
   }
 

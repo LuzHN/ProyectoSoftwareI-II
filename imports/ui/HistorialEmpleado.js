@@ -16,7 +16,7 @@ export default class HistorialEmpleado extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            orders: []
+            orders: [],
 
         };
     }
