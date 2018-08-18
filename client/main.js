@@ -20,6 +20,8 @@ import MenuAdmin from '../imports/ui/MenuAdmin';
 import '../imports/client/styles/cart.css';
 import Cart from '../imports/ui/Cart';
 import editarEmpleadoPage from '../imports/ui/EditarEmpleadoPage';
+import editarAdminsPage from '../imports/ui/EditarAdminsPage';
+import editarUsuariosPage from '../imports/ui/EditarUsuariosPage';
 
 class Hk extends React.Component {
   constructor(props) {
@@ -58,6 +60,8 @@ class Hk extends React.Component {
             component={editarEmpleadoPage}
             history={browserHistory}
           />
+          <Route path = "/editAdmins" component = {editarAdminsPage} history = {browserHistory}/>
+          <Route path = "/editUsuarios" component = {editarUsuariosPage} history = {browserHistory}/>
           <Route path="/" exact component={Menu} history={browserHistory} />
           <Route path="*" component={NotFound} history={browserHistory} />
         </Switch>

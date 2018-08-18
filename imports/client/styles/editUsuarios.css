@@ -284,6 +284,45 @@ button:focus {
     margin-left: 2rem;
     width: 40rem;  
 }
+.contraBox{
+    display: flex;
+}
+
+.contraBox label {
+    display: block;
+    margin-right: 1rem;
+    color:#514e4d;
+}
+
+.oldContraBox { 
+    flex: 1;
+    order: 1;
+}
+
+.leftContainerBoxUsers {
+    flex: 1;
+    order: 2;
+}
+
+.leftContainerBoxUsers input {
+    width: 30rem;
+    height: 3rem;
+}
+
+.rightContainerBoxUsers {
+    flex: 1;
+    order: 3;
+}
+
+.rightContainerBoxUsers input {
+    width: 30rem;
+    height: 3rem;
+}
+
+.oldContraBox input {
+    width: 30rem;
+    height: 3rem;
+}
 
 @keyframes fadeInOut {
     5%,95%{opacity: 1; top: 38rem}

@@ -53,20 +53,6 @@ acceso a la página principal del app.
     width: 80rem;    
 }
 
-.botonEliminar {
-    background: #E13232;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font: 'Paralucent Bold';
-    font-size: 1.3rem;
-    margin-left: auto;
-    margin-right: auto;
-    padding-right: 10rem;
-    text-align: center;
-    width: 10rem;
-}
-
 .ComboBox {
     cursor: pointer;
     display: flex;
@@ -124,6 +110,7 @@ acceso a la página principal del app.
 }
 
 .hrefNombre{
+    
     color:#26a69a;
 }
 
@@ -174,6 +161,30 @@ button:focus {
     background:#d86926;
     color:#fff;
     display: flex;
+}
+
+#ModalAgregarAdministrador .modal-header {
+    background:#87AAAA;
+    color:#fff;
+    display: flex;
+}
+
+#ModalAgregarAdministrador .modal-footer{
+    background:#87AAAA;
+    padding:2%;
+    color:#fff;
+}
+
+#ModalModificarAdministrador .modal-header {
+    background:#87AAAA;
+    color:#fff;
+    display: flex;
+}
+
+#ModalModificarAdministrador .modal-footer{
+    background:#87AAAA;
+    padding:2%;
+    color:#fff;
 }
 
 .modal-header-Btn{

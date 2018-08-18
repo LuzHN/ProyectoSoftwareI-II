@@ -51,10 +51,10 @@ export default class Menu extends Component {
   };
 
   componentDidMount() {
+    Meteor.call('check.Role',);
     this.dishesTracker = Tracker.autorun(() => {
       Meteor.subscribe('dishes');
       const dishes = Dishes.find().fetch();
-      console.log(dishes);
       let cantEntree = 0,
         cantSoup = 0,
         cantEnsalada = 0,

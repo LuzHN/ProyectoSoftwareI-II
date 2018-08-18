@@ -12,3 +12,16 @@ Accounts.validateNewUser((user) => {
   }).validate({ email });
   return true;
 });
+
+Meteor.methods({
+  'initialize.User'(){
+    console.log(Meteor.userId());
+    Roles.addUsersToRoles(Meteor.userId(), 'normal-user');
+  },
+  'initialize.Employee'(){
+    Roles.addUsersToRoles(Meteor.userId(), 'employee');
+  },
+  'check.Role'() {
+    console.log(Roles.userIsInRole(Meteor.userId(), 'normal-user'));
+  }
+});

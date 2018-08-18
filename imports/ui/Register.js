@@ -28,7 +28,6 @@ export default class Register extends React.Component {
       address2: '',
       address3: '',
       address4: '',
-      role: 'user'
     };
 
     //Validaciones
@@ -154,6 +153,7 @@ export default class Register extends React.Component {
           let registerSuccessful = document.getElementById(
             'successfulRegister'
           );
+          console.log(Meteor.userId);
           registerSuccessful.classList.add('show');
           registerSuccessful.innerHTML = 'Se registró el usuario exitosamente.';
           setTimeout(function() {
@@ -161,6 +161,8 @@ export default class Register extends React.Component {
           }, 4000);
         }
       });
+      console.log(Meteor.userId());
+      Meteor.call('initialize.User',);
     }
   }
 
