@@ -40,5 +40,38 @@ Meteor.methods({
   },
   'dishes.delete'(id) {
     Dishes.remove(id);
+  },
+  'dishes.update'(dish) {
+    Dishes.update({ _id: dish.id },
+      {
+        $set:
+        {
+          name: dish.nameNew,
+          price: dish.priceNew,
+          description: dish.descriptionNew,
+          image: dish.imageNew,
+          type: dish.typeNew,
+          nutritionFacts: {
+            calories: dish.caloriesNew,
+            totalFat: dish.totalFatNew,
+            saturatedFat: dish.saturatedFatNew,
+            transFat: dish.transFatNew,
+            cholesterol: dish.cholesterolNew,
+            sodium: dish.sodiumNew,
+            totalCarbohydrates: dish.totalCarbohydratesNew,
+            dietaryFibers: dish.dietaryFibersNew,
+            sugar: dish.sugarNew,
+            protein: dish.proteinNew,
+            vitaminA: dish.vitaminANew,
+            vitaminC: dish.vitaminCNew,
+            calcium: dish.calciumNew,
+            iron: dish.ironNew
+          }
+        }
+      }
+
+    );
+
   }
+
 });
