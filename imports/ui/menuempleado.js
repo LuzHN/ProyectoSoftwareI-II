@@ -1,10 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {
+  Card,
+  Button,
+  CardImg,
+  CardTitle,
+  CardText,
+  CardColumns,
+  CardSubtitle,
+  CardBody,
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  ListGroup,
+  ListGroupItem,
+  Badge,
+  CardDeck,
+  CardGroup
+} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../client/styles/menuempleado.css';
-import { Orders } from '../api/orders';   
+import { Orders } from '../api/orders';
 
-window.onclick = function (event) { //cerrar modal si la persona clickea afuera
+window.onclick = function(event) {
   if (event.target.className == 'modal') {
     var modal = document.getElementById('simpleModalEmp');
     modal.style.display = 'none';
@@ -15,10 +37,9 @@ export default class MenuEmployee extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      orders: [],
+      orders: []
     };
   }
-
   componentDidMount() {
     this.ordersTracker = Tracker.autorun(() => {
       Meteor.subscribe('orders');
@@ -27,15 +48,10 @@ export default class MenuEmployee extends React.Component {
     });
   }
 
-  closeAgregar() { //cerrar modal
+  closeAgregar() {
     var modal = document.getElementById('simpleModalEmp');
     modal.style.display = 'none';
   }
-
-  btnHistorial = () => { //irse a pagina de historial
-    this.props.history.push({ pathname: '/HistorialEmpleado' });
-    
-  };
 
   componentWillUnmount() {
     this.ordersTracker.stop();
@@ -106,6 +122,7 @@ export default class MenuEmployee extends React.Component {
     //Carga la tabla con las ordenes
     return this.state.orders.map((order) => {
       const user = Meteor.users.findOne({ _id: order.userId });
+
       if (order.status == '') {
         order.status = 'Pending';
       }
@@ -132,10 +149,9 @@ export default class MenuEmployee extends React.Component {
             <td>
               <button
                 id="btn-empleado"
-                onClick={function () {
+                onClick={function() {
                   if (order.status == 'Pending') {
                     Meteor.call('orders.setInProgress', order._id);
-                    toastr.success('La orden ha sido cambiada a Ingresada');
                   }
                 }}
               >
@@ -145,9 +161,11 @@ export default class MenuEmployee extends React.Component {
             <td>
               <button
                 id="btn-empleado"
-                onClick={function () {
-                  if (order.status == 'InProgress' && 
-                    window.confirm('¿Esta seguro de cambiar esta orden a terminada?') ) {
+                onClick={function() {
+                  if (
+                    order.status == 'InProgress' ||
+                    order.status == 'Dispatched'
+                  ) {
                     Meteor.call('orders.setDispatched', order._id);
                     toastr.success('La orden ha sido terminada y despachada!');
                   } else if (order.status == 'Pending') {
@@ -181,7 +199,7 @@ export default class MenuEmployee extends React.Component {
         <button
           className="btn-employeehistory"
           id="btn-empleado"
-          onClick={this.btnHistorial}
+          onClick={(e) => {}}
         >
           Ver Historial de Ordenes
         </button>
@@ -202,6 +220,34 @@ export default class MenuEmployee extends React.Component {
             </thead>
             <tbody>{this.loadList()}</tbody>
           </table>
+
+          <ul className="pagination justify-content-center">
+            <li className="page-item">
+              <a className="page-link" href="#">
+                Previous
+              </a>
+            </li>
+            <li className="page-item">
+              <a className="page-link" href="#">
+                1
+              </a>
+            </li>
+            <li className="page-item active">
+              <a className="page-link" href="#">
+                2
+              </a>
+            </li>
+            <li className="page-item">
+              <a className="page-link" href="#">
+                3
+              </a>
+            </li>
+            <li className="page-item">
+              <a className="page-link" href="#">
+                Next
+              </a>
+            </li>
+          </ul>
         </section>
 
         <img
