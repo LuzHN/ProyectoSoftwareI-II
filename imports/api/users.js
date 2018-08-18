@@ -13,9 +13,12 @@ Accounts.validateNewUser((user) => {
   return true;
 });
 
-Accounts.onCreateUser( function (options, user) {
-  if ( options.profile )
-    user.profile = options.profile;
-  Roles.addUsersToRoles( user._id, 'user' );
-  return user;
+Meteor.methods({
+  'initialize.User'(){
+    console.log(Meteor.userId());
+    Roles.addUsersToRoles(Meteor.userId(), 'normal-user');
+  },
+  'check.Role'() {
+    console.log(Roles.userIsInRole(Meteor.userId(), 'normal-user'));
+  }
 });
