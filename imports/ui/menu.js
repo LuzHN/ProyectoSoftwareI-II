@@ -14,8 +14,11 @@ import {
   Col,
   CardDeck
 } from 'reactstrap';
+import SweetAlert from 'sweetalert-react';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../client/styles/menu.css';
+import '../client/styles/sweetalert.css';
 
 //Components
 import ModalNutritional from './modal';
@@ -50,8 +53,20 @@ export default class Menu extends Component {
     cantBebida: 0
   };
 
+  showRight = () => {
+    this.refs.right.show();
+    this.setState({ rightVisible: true });
+  };
+
+  hideRight = () => {
+    this.refs.right.hide();
+    this.setState({ rightVisible: false });
+  };
+
+  handleClick = () => (this.state.rightVisible ? this.hideRight() : false);
+
   componentDidMount() {
-    Meteor.call('check.Role',);
+    Meteor.call('check.Role');
     this.dishesTracker = Tracker.autorun(() => {
       Meteor.subscribe('dishes');
       const dishes = Dishes.find().fetch();
@@ -166,8 +181,35 @@ export default class Menu extends Component {
   }
 
   render() {
+    const menuItems = this.state.cart.platos.map((item, i) => (
+      <div key={i}>
+        <img src={item.imagen} alt="Imagen del platillo" />
+        <a
+          imagen={item.imagen}
+          titulo={item.plato}
+          precio={parseInt(item.precio).toFixed(2)}
+          cantidad={item.cantidad}
+        >
+          {item.plato}
+        </a>
+        <a className="menuItemCant">Cant: {item.cantidad}</a>
+      </div>
+      // <OrdenPlato
+      //   ref={(ref) => {
+      //     let componentes = this.state.componentes;
+      //     componentes.push(ref);
+      //     this.setState({ ...this.state, componentes });
+      //   }}
+      //   key={i}
+      //   imagen={item.imagen}
+      //   titulo={item.plato}
+      //   precio={parseInt(item.precio).toFixed(2)}
+      //   cantidad={item.cantidad}
+      // />
+    ));
+
     return (
-      <div>
+      <div onClick={this.handleClick}>
         <header id="Header">
           <h1 id="hk-logo-header" />
         </header>
@@ -192,7 +234,8 @@ export default class Menu extends Component {
             </button>
             <button
               className="navbar-toggler carrito-btn"
-              onClick={this.btnCart}
+              // onClick={this.btnCart}
+              onClick={this.showRight}
             >
               Cart{' '}
               <span className="carrito-cant">{this.state.cantidadOrden}</span>
@@ -426,7 +469,8 @@ export default class Menu extends Component {
                 <div className="bar2" />
 
                 <div className="line ar" style={{ fontWeight: 'bold' }}>
-                  % Daily Value<sup>*</sup>
+                  % Daily Value
+                  <sup>*</sup>
                 </div>
 
                 <div className="line">
@@ -439,7 +483,8 @@ export default class Menu extends Component {
                 <div className="line indent">
                   <div className="dv">
                     <b>0</b>%
-                  </div>Saturated Fat 0g
+                  </div>
+                  Saturated Fat 0g
                 </div>
 
                 <div className="line indent">
@@ -470,7 +515,8 @@ export default class Menu extends Component {
                 <div className="line indent">
                   <div className="dv">
                     <b>0</b>%
-                  </div>Dietary Fiber 0g
+                  </div>
+                  Dietary Fiber 0g
                 </div>
 
                 <div className="line indent">Sugars 0g</div>
@@ -482,25 +528,30 @@ export default class Menu extends Component {
                 <div className="bar1" />
 
                 <div className="line vitaminA">
-                  <div className="dv">0%</div>Vitamin A
+                  <div className="dv">0%</div>
+                  Vitamin A
                 </div>
 
                 <div className="line vitaminC">
-                  <div className="dv">0%</div>Vitamin C
+                  <div className="dv">0%</div>
+                  Vitamin C
                 </div>
 
                 <div className="line calcium">
-                  <div className="dv">0%</div>Calcium
+                  <div className="dv">0%</div>
+                  Calcium
                 </div>
 
                 <div className="line iron">
-                  <div className="dv">0%</div>Iron
+                  <div className="dv">0%</div>
+                  Iron
                 </div>
 
                 <div className="dvCalorieDiet line">
                   <div className="calorieNote">
                     <span className="star">*</span> Percent Daily Values are
-                    based on a 2000 calorie diet.<br />
+                    based on a 2000 calorie diet.
+                    <br />
                     <div className="ingredientListDiv">
                       <b className="active" id="ingredientList">
                         INGREDIENTS:
@@ -515,7 +566,102 @@ export default class Menu extends Component {
             </div>
           </div>
         </div>
+        <MenuSide ref="right" alignment="right" platos={this.state.cart}>
+          {menuItems}
+        </MenuSide>
       </div>
     );
   }
 }
+
+class MenuSide extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: false
+    };
+  }
+
+  show = () => {
+    this.setState({ visible: true });
+  };
+
+  hide = () => {
+    this.setState({ visible: false });
+  };
+
+  isVisible = () => {
+    return `${this.state.visible ? 'visible' : ''} ${this.props.alignment}`;
+  };
+
+  calcularPrecio() {
+    let price = 0;
+    let getPrice = this.props.platos.platos.forEach((item) => {
+      price += item.precio * item.cantidad;
+    });
+    return price;
+  }
+
+  confirmar = (evt) => {
+    let orden = this.props.platos;
+    orden.estado = 'Preorden';
+    orden.platos = [...this.props.platos.platos];
+    orden.products = [];
+
+    let d = new Date();
+    let stringFecha =
+      d.getDate() +
+      '/' +
+      d.getMonth() +
+      '/' +
+      d.getFullYear() +
+      ' ,' +
+      d.getHours() +
+      ':' +
+      d.getMinutes() +
+      ':' +
+      d.getSeconds();
+    orden.fecha = stringFecha;
+
+    for (let index = 0; index < this.props.platos.platos; index++) {
+      orden.products.push({
+        cantidad: this.props.platos.platos[i].cantidad,
+        descripcion: this.props.platos.platos[i].descripcion,
+        imagen: this.props.platos.platos[i].imagen,
+        plato: this.props.platos.platos[i].titulo,
+        precio: this.props.platos.platos[i].precio
+      });
+    }
+
+    orden.products = orden.platos;
+
+    orden.cliente = Meteor.user().profile.firstName;
+    console.log(orden);
+    Meteor.call('orders.insert', orden);
+    orden = {
+      estado: '',
+      platos: []
+    };
+    this.setState({ ...this.state, orden });
+  };
+
+  render() {
+    return (
+      <div className="menuSide">
+        <div className={this.isVisible()}>
+          {this.props.children}
+          <span className="menuSideTotal">
+            Sub Total: {this.calcularPrecio()}
+          </span>
+          <span className="menuSideTotal">ISV: 15%</span>
+          <span className="menuSideTotal">
+            Sub Total: {this.calcularPrecio() * 0.15 + this.calcularPrecio()}
+          </span>
+          <ButtonPlato texto="Comprar" onClick={this.confirmar} />
+        </div>
+      </div>
+    );
+  }
+}
+
+const MenuItem = (props) => <span>{props.children}</span>;
