@@ -26,7 +26,7 @@ todos los elementos a ser editados.
     display: grid;
     grid-row-gap: 2rem;
     margin: 7.5rem auto 5rem auto;
-    max-width: 63%;
+    max-width: 95rem;
     padding-bottom:3rem;
     padding-top:3rem;
 }
