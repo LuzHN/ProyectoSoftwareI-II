@@ -1,31 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-    Card,
-    Button,
-    CardImg,
-    CardTitle,
-    CardText,
-    CardColumns,
-    CardSubtitle,
-    CardBody,
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem,
-    NavLink,
-    ListGroup,
-    ListGroupItem,
-    Badge,
-    CardDeck,
-    CardGroup
-} from 'reactstrap';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../client/styles/menuempleado.css';
 import { Orders } from '../api/orders';
-import Pager from 'react-pager';
 
 window.onclick = function (event) {
     if (event.target.className == 'modal') {
@@ -37,7 +15,6 @@ window.onclick = function (event) {
 export default class HistorialEmpleado extends React.Component {
     constructor(props) {
         super(props);
-        this.handlePageChanged = this.handlePageChanged.bind(this);
         this.state = {
             orders: [],
             total:       11,
@@ -63,7 +40,7 @@ export default class HistorialEmpleado extends React.Component {
         this.ordersTracker.stop();
     }
     
-    btnHistorial = () => {
+    btnHistorial = () => { //moverse al Menu normal
         this.props.history.push({ pathname: '/menuempleado'});
         
     };
@@ -77,7 +54,7 @@ export default class HistorialEmpleado extends React.Component {
             <h1 className="black">{'Esta orden incluye lo siguiente:'}</h1>
         );
 
-        Order.products.map((product) => {
+        Order.products.map((product) => { 
             let comentario = '';
             if (product.descripcion == '') {
                 comentario = (
@@ -119,7 +96,7 @@ export default class HistorialEmpleado extends React.Component {
         return count;
     }
 
-    checkStatus(Order) {
+    checkStatus(Order) { //revisa el estado de orden 
         if (Order.status == 'InProgress') {
             return 'Ingresada';
         } else if (Order.status == 'Dispatched') {
@@ -177,7 +154,7 @@ export default class HistorialEmpleado extends React.Component {
         });
     }
 
-     render() {
+     render() { //cargar pagina
         return (
             <div>
                 <header id="HeaderEmployee">
@@ -211,34 +188,6 @@ export default class HistorialEmpleado extends React.Component {
                         </thead>
                         <tbody>{this.loadList()}</tbody>
                     </table>
-
-                    <ul className="pagination justify-content-center">
-                        <li className="page-item">
-                            <a className="page-link" href="#">
-                                Previous
-                            </a>
-                        </li>
-                        <li className="page-item">
-                            <a className="page-link" href="#">
-                                1
-                            </a>
-                        </li>
-                        <li className="page-item active">
-                            <a className="page-link" href="#">
-                                2
-                            </a>
-                        </li>
-                        <li className="page-item">
-                            <a className="page-link" href="#">
-                                3
-                            </a>
-                        </li>
-                        <li className="page-item">
-                            <a className="page-link" href="#">
-                                Next
-                            </a>
-                        </li>
-                    </ul>
                 </section>
 
                 <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg"/>
