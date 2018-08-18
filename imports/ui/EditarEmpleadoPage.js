@@ -178,6 +178,7 @@ export default class editarEmpleadoPage extends React.Component {
           
         }
       });
+      Meteor.call('initialize.Employee',);
     }
   }
 
