@@ -124,8 +124,25 @@ export default class MenuAdmin extends Component {
     this.dishesTracker.stop();
   }
 
+  setNutritionalFactsToZero(){ //Limpia el Nutritional Facts Percentages
+    document.getElementById('TotalFatPercentage').innerHTML = 0;
+    document.getElementById('CholesterolPercentage').innerHTML = 0;
+    document.getElementById('SodiumPercentage').innerHTML = 0;
+    document.getElementById('ProteinPercentage').innerHTML = 0;
+    document.getElementById('CarbsPercentage').innerHTML = 0;
+    document.getElementById('DietaryFiberPercentage').innerHTML = 0;
+    document.getElementById('SugarPercentage').innerHTML = 0;
+    document.getElementById('VitaminAPercentage').innerHTML = 0;
+    document.getElementById('VitaminAPercentage').innerHTML = 0;
+    document.getElementById('VitaminCPercentage').innerHTML = 0;
+    document.getElementById('IronPercentage').innerHTML = 0;
+    document.getElementById('CalciumPercentage').innerHTML = 0;
+    document.getElementById('TotalSatFatPercentage').innerHTML = 0;
+  }
+
   openAgregar() {
 
+    this.setNutritionalFactsToZero();
     document.getElementById('myForm').reset();
     this.refs.nombrePlato.value = '';
     this.refs.precioPlato.value = '';
@@ -762,7 +779,7 @@ class ButtonPlato extends Component {
     $('#CalciumPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.calcium) / 1100.0) * 100).toFixed(1));
   }
 
-
+  
   loadModal() { //llena el modal de editar platillo con la información debida
 
 
