@@ -49,20 +49,20 @@ export default class LoginPage extends React.Component {
         <form className="userDataForm" onSubmit={this.handleSubmit.bind(this)}>
           <div className="Image" />
 
-          <label className="emailLabel">Email</label>
+          <label className="emailLabel">Correo Electrónico</label>
           <input
             className="emailInput"
-            placeholder="Email"
+            placeholder="Ingrese su correo electrónico."
             id="emailBox"
             type="email"
             pattern="[^ @]*@[^ @]*"
             ref="email"
           />
 
-          <label className="passwordLabel">Password</label>
+          <label className="passwordLabel">Contraseña</label>
           <input
             className="passwordInput"
-            placeholder="Password"
+            placeholder="Ingrese su contraseña."
             id="passwordBox"
             type="password"
             ref="password"
@@ -72,12 +72,12 @@ export default class LoginPage extends React.Component {
             <button className="loginButton" onClick={this.onLogin.bind(this)}>
               Login
             </button>
-            <label className="orLabel">OR</label>
+            <label className="orLabel">O</label>
             <button
               className="registerButton"
               onClick={this.onRegister.bind(this)}
             >
-              Register
+              Registrarse
             </button>
           </div>
         </form>

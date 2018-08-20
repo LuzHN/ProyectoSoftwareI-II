@@ -107,32 +107,32 @@ export default class Register extends React.Component {
             <div className="image" />​
             <form onSubmit={this.handleSubmit.bind(this)}>
               <p>
-                <label>Email</label>
+                <label>Correo Electrónico</label>
                 <input
                   ref="email"
                   type="email"
-                  placeholder="Enter Email"
+                  placeholder="Ingrese su correo electrónico."
                   maxLength="140"
                 />
               </p>
               <div className="container-1">
                 <div className="box-1">
                   <p>
-                    <label>Password</label>
+                    <label>Contraseña</label>
                     <input
                       ref="password"
                       type="password"
-                      placeholder="Enter Password"
+                      placeholder="Ingrese su contraseña."
                     />
                   </p>
                 </div>
                 <div className="box-2">
                   <p>
-                    <label>Confirm Password</label>
+                    <label>Confirmar Contraseña</label>
                     <input
                       ref="confirmPassword"
                       type="password"
-                      placeholder="Confirm Password"
+                      placeholder="Confirme su contraseña."
                     />
                   </p>
                 </div>
@@ -140,46 +140,46 @@ export default class Register extends React.Component {
               <div className="container-1">
                 <div className="box-1">
                   <p>
-                    <label>First Name</label>
+                    <label>Primer Nombre</label>
                     <input
                       ref="firstName"
                       type="text"
-                      placeholder="Enter First Name"
+                      placeholder="Ingrese su primer nombre."
                       maxLength="140"
                     />
                   </p>
                 </div>
                 <div className="box-2">
                   <p>
-                    <label>Last Name</label>
+                    <label>Apellido</label>
                     <input
                       ref="lastName"
                       type="text"
-                      placeholder="Enter Last Name"
+                      placeholder="Ingrese su apellido."
                       maxLength="140"
                     />
                   </p>
                 </div>
               </div>
               <p>
-                <label>Phone Number</label>
+                <label>Número de Teléfono</label>
                 <InputMask
                   mask="9999-9999"
                   ref="phoneNumber"
-                  placeholder="Enter Phone Number"
+                  placeholder="Ingrese su número de teléfono."
                 />
               </p>
               <p>
-                <label>Address</label>
+                <label>Dirección</label>
                 <textarea
                   ref="address"
                   rows="5"
-                  placeholder="Enter Address"
+                  placeholder="Ingrese su dirección."
                   maxLength="140"
                 />
               </p>
               <p>
-                <button onClick={this.onSubmit.bind(this)}>Register</button>
+                <button onClick={this.onSubmit.bind(this)}>Registrarse</button>
               </p>
               
             </form>
