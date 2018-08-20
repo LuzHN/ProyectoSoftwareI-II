@@ -74,29 +74,28 @@ todos los elementos a ser editados.
     width: 100%;
     padding: 1em;
     color: #2b3e4b;
-  }
+}
 
-  .principalDiv form{
+.principalDiv form{
     display: grid;
     grid-gap: 1rem;
-  }
+}
 
-  .principalDiv form label{
+.principalDiv form label{
     display: block;
-  }
+}
   
-  .principalDiv form p{
+.principalDiv form p{
     margin: 0;
-  }
+}
  
-   .principalDiv form .full{
+.principalDiv form .full{
     grid-column: 1/3;
-  }
+}
     
-  .principalDiv > *{
+.principalDiv > *{
     padding: 2em;
-  }
-
+}
 
 .Buttons {
     cursor: pointer;
@@ -139,31 +138,6 @@ todos los elementos a ser editados.
 button:focus {
     outline:0;
 }
-
-
-#oldPasswordError,#newPasswordError, #confirmPasswordError, #firstNameError, #lastNameError, #phoneNumberError, #addressError {
-    background-color: #e33444;
-    border-radius: 4px;
-    color: #fff;
-    font-size: 17px;
-    left: 50%;
-    min-width: 250px;
-    padding: 16px;
-    position: fixed;
-    text-align: center;
-    transform: translate(-50%);
-    top: 0;
-    visibility: hidden;
-    z-index: 1;
-}
-
-#oldPasswordError.show,#newPasswordError.show, #confirmPasswordError.show, #firstNameError.show, #lastNameError.show, #phoneNumberError.show, #addressError.show {
-    visibility: visible;
-    animation: fadeInOut 3s;
-}
-
-
-
 
 @media screen and (max-width: 619px) {
     .editProfileForm {

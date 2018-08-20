@@ -222,32 +222,14 @@ export default class MenuAdmin extends Component {
       };
       Meteor.call('dishes.insert', dish);
 
-      let platoAgregado = document.getElementById('botonModalToast');
-      platoAgregado.classList.add('show');
       document.getElementById('myForm').reset(); //resets los inputs del form
-      platoAgregado.innerHTML = 'Se ha agregado un plato nuevo.';
-      setTimeout(function () {
-        platoAgregado.classList.remove('show');
-        var modal = document.getElementById('simpleModal');
-        modal.style.display = 'none';
-      }, 3000);
+      toastr.success('Se ha agregado un plato nuevo.');
     } else {
       if (price <= 0) {
-        let platoAgregado = document.getElementById('botonModalToast');
-        platoAgregado.classList.add('show');
-        platoAgregado.innerHTML = 'Precio no válido.';
-        setTimeout(function () {
-          platoAgregado.classList.remove('show');
-        }, 3000);
+        toastr.warning('Precio no válido.');
       } else {
-        let platoAgregado = document.getElementById('botonModalToast');
-        platoAgregado.classList.add('show');
-        platoAgregado.innerHTML = 'No ha ingresado todos los datos.';
-        setTimeout(function () {
-          platoAgregado.classList.remove('show');
-        }, 3000);
+        toastr.warning('No ha ingresado todos los datos.');
       }
-
     }
   }
 
@@ -303,25 +285,12 @@ export default class MenuAdmin extends Component {
       };
       Meteor.call('dishes.update', dish);
 
-      let platoAgregado = document.getElementById('botonModalToast');
-      platoAgregado.classList.add('show');
-      platoAgregado.innerHTML = 'Se ha editado el plato.';
+      toastr.success('Se ha editado el plato.');
+      document.getElementById('myForm').reset(); //resets los inputs del form
 
-      setTimeout(function () {
-        platoAgregado.classList.remove('show');
-        document.getElementById('myForm').reset(); //resets los inputs del form
-        var modal = document.getElementById('simpleModal');
-        modal.style.display = 'none';
-      }, 3000);
     } else {
-      let platoAgregado = document.getElementById('botonModalToast');
-      platoAgregado.classList.add('show');
-      platoAgregado.innerHTML = 'No ha ingresado todos los datos.';
-      setTimeout(function () {
-        platoAgregado.classList.remove('show');
-      }, 3000);
+      toastr.warning('No ha ingresado todos los datos.');
     }
-
   }
 
   render() {
@@ -685,7 +654,6 @@ export default class MenuAdmin extends Component {
                 <p id="bt_ModalEditar">
                   <button className="finalBtn" onClick={this.editarFinal.bind(this)}>Editar Plato</button>
                 </p>
-                <div id="botonModalToast"></div>
               </form>
             </div>
             {/* Footer */}

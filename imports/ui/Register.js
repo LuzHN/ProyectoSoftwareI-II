@@ -35,91 +35,37 @@ export default class Register extends React.Component {
     //Validar email
     if (email == '') {
       validator = 1;
-      let emailError = this.refs.emailError;
-      emailError.classList.add('show');
-      emailError.innerHTML = 'Por favor ingrese un correo válido.';
-      setTimeout(function() {
-        emailError.classList.remove('show');
-      }, 3000);
+      toastr.warning('Por favor ingrese un correo válido.');
     } else if (email.indexOf('@') <= 0) {
       validator = 1;
-      let emailError = this.refs.emailError;
-      emailError.classList.add('show');
-      emailError.innerHTML = 'Por favor ingrese un correo válido.';
-      setTimeout(function() {
-        emailError.classList.remove('show');
-      }, 3000);
+      toastr.warning('Por favor ingrese un correo válido.');
     } else if (
       email.charAt(email.length - 4) != '.' &&
       email.charAt(email.length - 3) != '.'
     ) {
       validator = 1;
-      let emailError = this.refs.emailError;
-      emailError.classList.add('show');
-      emailError.innerHTML = 'Por favor ingrese un correo válido.';
-      setTimeout(function() {
-        emailError.classList.remove('show');
-      }, 3000);
+      toastr.warning('Por favor ingrese un correo válido.');
     } else if (password == '') {
       validator = 1;
-      let passwordError = this.refs.passwordError;
-      passwordError.classList.add('show');
-      passwordError.innerHTML =
-        'La contraseña debe de ser de al menos 9 dígitos.';
-      setTimeout(function() {
-        passwordError.classList.remove('show');
-      }, 3000);
+      toastr.warning('La contraseña debe de ser de al menos 9 dígitos.');
     } else if (password.length < 9) {
       validator = 1;
-      let passwordError = this.refs.passwordError;
-      passwordError.classList.add('show');
-      passwordError.innerHTML =
-        'La contraseña debe de ser de al menos 9 dígitos.';
-      setTimeout(function() {
-        passwordError.classList.remove('show');
-      }, 3000);
+      toastr.warning('La contraseña debe de ser de al menos 9 dígitos.');
     } else if (confirmPassword != password) {
       validator = 1;
-      let passwordError = this.refs.passwordError;
-      passwordError.classList.add('show');
-      passwordError.innerHTML = 'Las contraseñas no son iguales.';
-      setTimeout(function() {
-        passwordError.classList.remove('show');
-      }, 3000);
+      toastr.warning('Las contraseñas no son iguales.');
     } else if (firstName == '' || firstName.match(/[^a-z]/gi)) {
       validator = 1;
-      let firstNameError = this.refs.firstNameError;
-      firstNameError.classList.add('show');
-      firstNameError.innerHTML = 'Por favor ingrese un nombre válido.';
-      setTimeout(function() {
-        firstNameError.classList.remove('show');
-      }, 3000);
+      toastr.warning('Por favor ingrese un nombre válido.');
     } else if (lastName == '' || lastName.match(/[^a-z]/gi)) {
       validator = 1;
-      let lastNameError = this.refs.lastNameError;
-      lastNameError.classList.add('show');
-      lastNameError.innerHTML = 'Por favor ingrese un nombre válido.';
-      setTimeout(function() {
-        lastNameError.classList.remove('show');
-      }, 3000);
+      toastr.warning('Por favor ingrese un apellido válido.');
     } else if (phoneNumber1 == '') {
       validator = 1;
-      let phoneNumberError = this.refs.phoneNumberError;
-      phoneNumberError.classList.add('show');
-      phoneNumberError.innerHTML =
-        'Por favor ingrese un número de teléfono válido.';
-      setTimeout(function() {
-        phoneNumberError.classList.remove('show');
-      }, 3000);
+      toastr.warning('Por favor ingrese un número de teléfono válido.');
     } else if (phoneNumber1.length < 8) {
       validator = 1;
-      let phoneNumberError = this.refs.phoneNumberError;
-      phoneNumberError.classList.add('show');
-      phoneNumberError.innerHTML =
-        'Por favor ingrese un número de teléfono válido.';
-      setTimeout(function() {
-        phoneNumberError.classList.remove('show');
-      }, 3000);
+      toastr.warning('Por favor ingrese un número de teléfono válido.');
     } else if (
       phoneNumber1.charAt(0) != '9' &&
       phoneNumber1.charAt(0) != '3' &&
@@ -128,21 +74,10 @@ export default class Register extends React.Component {
       phoneNumber1.charAt(0) != '2'
     ) {
       validator = 1;
-      let phoneNumberError = this.refs.phoneNumberError;
-      phoneNumberError.classList.add('show');
-      phoneNumberError.innerHTML =
-        'Por favor ingrese un número de teléfono válido.';
-      setTimeout(function() {
-        phoneNumberError.classList.remove('show');
-      }, 3000);
+      toastr.warning('Por favor ingrese un número de teléfono válido.');
     } else if (address1 == '') {
       validator = 1;
-      let addressError = this.refs.addressError;
-      addressError.classList.add('show');
-      addressError.innerHTML = 'Por favor ingrese una dirección válida.';
-      setTimeout(function() {
-        addressError.classList.remove('show');
-      }, 3000);
+      toastr.warning('Por favor ingrese una dirección válida.');
     }
 
     if (!validator) {
@@ -150,15 +85,9 @@ export default class Register extends React.Component {
         if (err) {
           alert(err.reason);
         } else {
-          let registerSuccessful = document.getElementById(
-            'successfulRegister'
-          );
+          toastr.success('Se registró el usuario exitosamente.');
           console.log(Meteor.userId);
-          registerSuccessful.classList.add('show');
-          registerSuccessful.innerHTML = 'Se registró el usuario exitosamente.';
-          setTimeout(function() {
-            registerSuccessful.classList.remove('show');
-          }, 4000);
+          this.changeToLogin();
         }
       });
       console.log(Meteor.userId());
@@ -252,18 +181,7 @@ export default class Register extends React.Component {
               <p>
                 <button onClick={this.onSubmit.bind(this)}>Register</button>
               </p>
-
-              <div ref="emailError" id="emailError" />
-              <div ref="passwordError" id="passwordError" />
-              <div ref="confirmPasswordError" id="confirmPasswordError" />
-              <div ref="firstNameError" id="firstNameError" />
-              <div ref="lastNameError" id="lastNameError" />
-              <div ref="phoneNumberError" id="phoneNumberError" />
-              <div ref="addressError" id="addressError" />
-              <div
-                id="successfulRegister"
-                onAnimationEnd={this.changeToLogin.bind(this)}
-              />
+              
             </form>
           </div>
         </div>

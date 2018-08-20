@@ -26,44 +26,18 @@ export default class LoginPage extends React.Component {
     Meteor.loginWithPassword({ email }, password, (err) => {
       if (err) {
         if (email == '' && password == '') {
-          let loginEmpty = document.getElementById('emptyLogin');
-          loginEmpty.classList.add('show');
-          loginEmpty.innerHTML = 'Please enter your information.';
-          setTimeout(function() {
-            loginEmpty.classList.remove('show');
-          }, 3000);
+          toastr.warning('Por favor ingrese sus datos.');
         } else if (email == '') {
-          let emailEmpty = document.getElementById('emailEmpty');
-          emailEmpty.classList.add('show');
-          emailEmpty.innerHTML = 'Please enter your email.';
-          setTimeout(function() {
-            emailEmpty.classList.remove('show');
-          }, 3000);
+          toastr.warning('Por favor ingrese su correo electrónico.');
         } else if (password == '') {
-          let passwordEmpty = document.getElementById('passwordEmpty');
-          passwordEmpty.classList.add('show');
-          passwordEmpty.innerHTML = 'Please enter your password.';
-          setTimeout(function() {
-            passwordEmpty.classList.remove('show');
-          }, 3000);
+          toastr.warning('Por favor ingrese su contraseña.');
         } else {
-          let errorLogin = document.getElementById('loginError');
-          errorLogin.classList.add('show');
-          errorLogin.innerHTML = 'Unable to log in. Check your information.';
-          setTimeout(function() {
-            errorLogin.classList.remove('show');
-          }, 3000);
+          toastr.warning('Error de confirmación. Por favor ingrese sus datos correctamente.');
         } //Fin del if anidado
       } else {
-        let loginSuccessful = document.getElementById('successfulLogin');
-        loginSuccessful.classList.add('show');
-        loginSuccessful.innerHTML = 'Logged in successfully.';
-        setTimeout(function() {
-          loginSuccessful.classList.remove('show');
-        }, 3000);
+        toastr.success('Se ha logueado exitosamente.');
         email = '';
         password = '';
-        
         this.props.history.push('/');
       }
     });
@@ -106,11 +80,6 @@ export default class LoginPage extends React.Component {
               Register
             </button>
           </div>
-          <div id="emptyLogin" />
-          <div id="emailEmpty" />
-          <div id="passwordEmpty" />
-          <div id="loginError" />
-          <div id="successfulLogin" />
         </form>
       </div>
     );
