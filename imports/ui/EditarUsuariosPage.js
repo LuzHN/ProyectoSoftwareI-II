@@ -315,7 +315,7 @@ render() {
                         </p>
                       </div>
                     </div>
-                    <div className="contraBox">
+                    {/*<div className="contraBox">
                         <div className="oldContraBox">
                             <label>Contraseña Vieja</label>
                             <input ref="oldPassword" type="password" id="oldPasswordId" placeholder="Contraseña vieja."/>
@@ -328,7 +328,7 @@ render() {
                             <label>Confirmar Contraseña</label>
                             <input ref="confirmPassword" type="password" id="confirmPasswordId" placeholder="Confirmar contraseña."/>
                         </div>
-                    </div>
+                    </div>*/}
 
                     <div className="container1">
                       <div className="box1">
