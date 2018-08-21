@@ -175,7 +175,7 @@ export default class HistorialEmpleado extends React.Component {
                         <thead className="thead-dark">
                             <tr>
                                 <th scope="col">N�mero Orden</th>
-                                <th scope="col">Fecha</th>
+                                <th scope="col">Fecha </th>
                                 <th scope="col">Cliente</th>
                                 <th scope="col">Tel�fono</th>
                                 <th scope="col">Estado</th>

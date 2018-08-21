@@ -116,7 +116,7 @@ export default class MenuEmployee extends React.Component {
         return (
           <tr key={order._id}>
             <td>Orden X</td>
-            <td>{order.fecha}</td>
+            <td>{order.fechaEntrada}</td>
             <td>{user.profile.firstName + ' ' + user.profile.lastName}</td>
             <td>{user.profile.phoneNumber1}</td>
             <td>{this.checkStatus(order)}</td>

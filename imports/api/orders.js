@@ -23,7 +23,8 @@ Meteor.methods({
       price: order.price,
       userId: this.userId,
       cliente: order.cliente,
-      fecha: order.fecha
+      fechaEntrada: order.fechaEntrada,
+      fechaDespachada: order.fechaDespachada
     });
   },
   'orders.setDispatched'(id) {
