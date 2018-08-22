@@ -42,57 +42,6 @@ export default class HistorialEmpleado extends React.Component {
 
     };
 
-    showModal = (Order) => {
-        //Muestra el modal con la informacion de la orden
-        var modal = document.getElementById('simpleModalEmp');
-        let platillos = [];
-
-        platillos.push(
-            <h1 className="black">{'Esta orden incluye lo siguiente:'}</h1>
-        );
-
-        Order.products.map((product) => {
-            let comentario = '';
-            if (product.descripcion == '') {
-                comentario = (
-                    <li className="list-group-item secondary red">
-                        {'Este platillo no tiene comentario del cliente.'}
-                    </li>
-                );
-            } else {
-                comentario = (
-                    <li className="list-group-item secondary red">
-                        {'Comentario: ' + product.descripcion}
-                    </li>
-                );
-            }
-
-            platillos.push(
-                <ul>
-                    <li className="list-group-item blue primary">
-                        {product.plato + ' (' + product.cantidad + ')'}
-                    </li>
-                    {comentario}
-                </ul>
-            );
-        });
-
-        ReactDOM.render(platillos, document.getElementById('ModalDescription'));
-        modal.style.display = 'block';
-    };
-
-    countPlates(Order) {
-        //Cuenta cuantos platillos en total tiene una orden
-
-        let count = 0;
-
-        Order.products.map((product) => {
-            count += product.cantidad;
-        });
-
-        return count;
-    }
-
     checkStatus(Order) { //revisa el estado de orden 
         if (Order.status == 'InProgress') {
             return 'Ingresada';
