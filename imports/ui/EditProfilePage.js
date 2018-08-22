@@ -55,7 +55,7 @@ class EditProfilePage extends React.Component {
     } else if (lastName == '' || lastName.match(/[^a-z]/gi)) {
       validator = 1;
       toastr.warning('Por favor ingrese un nombre válido.');
-    } 
+    }
     // else if (newPassword != '' && oldPassword == '') {
     //   validator = 1;
     //   toastr.warning('No ingresó la clave vieja.');
@@ -89,7 +89,7 @@ class EditProfilePage extends React.Component {
     } else if (phoneNumber2 != '') {
       if (phoneNumber2.length < 8) {
         validator = 1;
-        toastr.warning('El número adicional no cumple con los requerimientos.');  
+        toastr.warning('El número adicional no cumple con los requerimientos.');
       } else if (
         phoneNumber2.charAt(0) != '9' &&
         phoneNumber2.charAt(0) != '3' &&
@@ -139,9 +139,25 @@ class EditProfilePage extends React.Component {
   }
 
   disableAccount() {
+    var modal = document.getElementById('exampleModal');
+    modal.style.display = 'block';
     /**
      * TODO: Desabilitar Account
      */
+  }
+
+  deleteUserFinal() {
+    //Meteor.call('dishes.delete', dishID);
+
+    //dishID = '';
+    toastr.error('Cuenta Desactivada.');
+    this.props.history.push('/');
+    this.closeDeleteModal();
+  }
+
+  closeDeleteModal() {
+    var modal = document.getElementById('exampleModal');
+    modal.style.display = 'none';
   }
 
   render() {
@@ -318,6 +334,28 @@ class EditProfilePage extends React.Component {
             </button>
           </div>
         </form>
+
+        {/* <!-- Modal --> */}
+        <div className="modal" id="exampleModal">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">Confirmar</h5>
+                <button className="close">
+                  <span onClick={this.closeDeleteModal.bind(this)}>&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <p>¿Desea Desactivar Cuenta?</p>
+              </div>
+              <div className="modal-footer">
+                <button className="btn btn-primary" onClick={this.closeDeleteModal.bind(this)}>Cancelar</button>
+                <button className="btn btn-danger" onClick={this.deleteUserFinal.bind(this)} >Borrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     );
   }

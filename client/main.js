@@ -134,6 +134,13 @@ class Hk extends React.Component {
           <a
             className="nav-link"
             style={{ display: 'inline' }}
+            href="/editProfile"
+          >
+            EditProfile
+          </a>
+          <a
+            className="nav-link"
+            style={{ display: 'inline' }}
             onClick={this.showRight}
           >
             Cart
