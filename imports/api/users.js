@@ -13,15 +13,72 @@ Accounts.validateNewUser((user) => {
   return true;
 });
 
-Meteor.methods({
-  'initialize.User'(){
-    console.log(Meteor.userId());
-    Roles.addUsersToRoles(Meteor.userId(), 'normal-user');
-  },
-  'initialize.Employee'(){
-    Roles.addUsersToRoles(Meteor.userId(), 'employee');
-  },
-  'check.Role'() {
-    console.log(Roles.userIsInRole(Meteor.userId(), 'normal-user'));
-  }
-});
+if (Meteor.isServer) {
+  Meteor.publish('user.getClients', () => { 
+    if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+      return Meteor.users.find(
+        {
+         "roles": "client"
+        }, 
+        {
+          "services": 0
+        }
+      );
+    }
+  });
+
+  Meteor.publish('user.getEmployees', () => {
+    if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+      return Meteor.users.find(
+        {
+         "roles": "employee"
+        }, 
+        {
+          "services": 0
+        }
+      );
+    }
+  });
+
+  Meteor.methods({
+    'user.initializeClient'(){
+      console.log(Meteor.userId());
+      Roles.addUsersToRoles(Meteor.userId(), 'normal-user');
+    },
+    'user.initializeEmployee'(){
+      Roles.addUsersToRoles(Meteor.userId(), 'employee');
+    },
+    'user.initializeAdministrator'(){
+      Roles.addUsersToRoles(Meteor.userId(), 'administrator');
+    },
+    async 'user.isClient'(){
+      return await Roles.userIsInRole(Meteor.userId(), 'client');
+    },
+    async 'user.isAdmin'(){
+      return await Roles.userIsInRole(Meteor.userId(), 'employee');
+    },
+    async 'user.isEmployee'(){
+      return await Roles.userIsInRole(Meteor.userId(), 'administrator');
+    },
+    'user.updateProfileSelf'(user){
+      Meteor.users.update({_id: Meteor.userId()}, {$set: 
+        user
+      });
+    },
+    'user.deleteSelf'(){
+      Meteor.users.remove({ _id:  Meteor.userId()});
+    },
+    'user.delete'(_id){
+      if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+        Meteor.users.remove({ _id });
+      }
+    },
+    'user.update'(_id){
+      if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+        Meteor.users.update({_id: Meteor.userId()}, {$set: 
+          user
+        });
+      }
+    }
+  });
+}

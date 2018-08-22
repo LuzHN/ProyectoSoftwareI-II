@@ -91,7 +91,7 @@ export default class Register extends React.Component {
         }
       });
       console.log(Meteor.userId());
-      Meteor.call('initialize.User',);
+      Meteor.call('user.initializeEmployee',);
     }
   }
 
