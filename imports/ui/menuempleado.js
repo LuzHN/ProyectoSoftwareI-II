@@ -34,7 +34,6 @@ export default class MenuEmployee extends React.Component {
 
   btnHistorial = () => { //irse a pagina de historial
     this.props.history.push({ pathname: '/HistorialEmpleado' });
-
   };
 
   componentWillUnmount() {
@@ -65,7 +64,6 @@ export default class MenuEmployee extends React.Component {
           </li>
         );
       }
-
       platillos.push(
         <ul>
           <li className="list-group-item blue primary">
@@ -75,7 +73,6 @@ export default class MenuEmployee extends React.Component {
         </ul>
       );
     });
-
     ReactDOM.render(platillos, document.getElementById('ModalDescription'));
     modal.style.display = 'block';
   };
@@ -88,7 +85,6 @@ export default class MenuEmployee extends React.Component {
     Order.products.map((product) => {
       count += product.cantidad;
     });
-
     return count;
   }
 
@@ -235,8 +231,6 @@ export default class MenuEmployee extends React.Component {
           id = "btn-empleado"
           onClick={this.btnHistorial}
         >
-
-
           Ver Historial de Ordenes Terminadas
         </button>
 
@@ -275,7 +269,6 @@ export default class MenuEmployee extends React.Component {
             </p>
           </div>
         </footer>
-
         <div id="simpleModalEmp" className="modal">
           <div className="modal-content">
             {/* Header */}

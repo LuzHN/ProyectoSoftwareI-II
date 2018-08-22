@@ -24,11 +24,8 @@
   /* Menu */
 
   .MenuEmployee{
-
-
     
     background: url(http://www.healthkitchen.hn/static/media/icon-wall.471f8b8e.svg);
-
     background-color: #325157;
     
   }
@@ -47,10 +44,6 @@
   .red{
     color: #d86926;
     
-  }
-
-  .blue-icon{
-    color: #5b8c96;;
   }
 
   .blueMarine{
@@ -97,20 +90,22 @@
   }
 
   @media only screen and (max-width: 600px){
-    #btn-info{
-      width: 50% !important;
-    }
     #btn-empleado{
       width: 50% !important;
+    }
+    .EmployeeTable{
+      width: 50% !important;
+     
     }
   }
   
   @media only screen and (min-width: 600px){
-    #btn-info{
-      width: 80% !important;
-    }
     #btn-empleado{
       width: 80% !important;
+    }
+    .EmployeeTable{
+      width: 99% !important;
+      
     }
   }
 

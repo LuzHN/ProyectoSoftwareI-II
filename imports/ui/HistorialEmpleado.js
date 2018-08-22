@@ -129,7 +129,7 @@ export default class HistorialEmpleado extends React.Component {
                                     }
                                 }}
                             >
-                                Borrar
+                                Esconder
                             </button>
                         </td>
 
