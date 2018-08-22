@@ -49,6 +49,14 @@
     
   }
 
+  .blue-icon{
+    color: #5b8c96;;
+  }
+
+  .blueMarine{
+    background-color: #5b8c96 !important;
+  }
+
   #btn-empleado{
     background-color:  #d86926;
     border: none;
@@ -57,16 +65,19 @@
     border-radius: 8px;
   }
 
-  #btn-info{
-    background-color: #d86926;
-    border: none;
-    color: white;
-    font-size: 1em !important;
-    border-radius: 8px;
+  .headerEmpleado{
+    text-decoration: underline;
+    display: flex;
+    justify-content: center;
+    font-weight: bolder;
+    margin-top: 2%;
+    margin-bottom: 2%;
   }
 
   .btn-employeehistory{
     margin-left: 10%;
+    margin-top: 1%;
+    margin-bottom: 1%;
   }
 
   .EmployeeTable{

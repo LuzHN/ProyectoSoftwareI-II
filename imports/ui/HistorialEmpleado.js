@@ -36,10 +36,10 @@ export default class HistorialEmpleado extends React.Component {
     componentWillUnmount() {
         this.ordersTracker.stop();
     }
-    
+
     btnHistorial = () => { //moverse al Menu normal
-        this.props.history.push({ pathname: '/menuempleado'});
-        
+        this.props.history.push({ pathname: '/menuempleado' });
+
     };
 
     showModal = (Order) => {
@@ -51,7 +51,7 @@ export default class HistorialEmpleado extends React.Component {
             <h1 className="black">{'Esta orden incluye lo siguiente:'}</h1>
         );
 
-        Order.products.map((product) => { 
+        Order.products.map((product) => {
             let comentario = '';
             if (product.descripcion == '') {
                 comentario = (
@@ -97,7 +97,7 @@ export default class HistorialEmpleado extends React.Component {
         if (Order.status == 'InProgress') {
             return 'Ingresada';
         } else if (Order.status == 'Dispatched') {
-            return 'Terminada';
+            return 'TERMINADA';
         } else {
             return 'Pendiente';
         }
@@ -108,41 +108,31 @@ export default class HistorialEmpleado extends React.Component {
         return this.state.orders.map((order) => {
             const user = Meteor.users.findOne({ _id: order.userId });
 
-            if (order.status == '') {
-                order.status = 'Pending';
-            }
-
             if (order.status == 'Dispatched') {
                 return (
                     <tr key={order._id}>
                         <td>Orden X</td>
-                        <td>{order.fecha}</td>
+                        <td>{order.fechaEntrada}</td>
+                        <td>{order.fechaDespacho}</td>
                         <td>{user.profile.firstName + ' ' + user.profile.lastName}</td>
                         <td>{user.profile.phoneNumber1}</td>
+                        <td>{user.profile.address1}</td>
                         <td>{this.checkStatus(order)}</td>
-                        <td>
-                            <button id="btn-info" onClick={(e) => this.showModal(order)}>
-                                <span className="spanEmployee">{'Ver M�s'}</span>
-
-                                <span className="badgeEmployee badge badge-primary badge-pill">
-                                    {this.countPlates(order)}
-                                </span>
-                            </button>
-                        </td>
                         <td>
                             <button
                                 id="btn-empleado"
                                 onClick={function () {
-                                    if (window.confirm('�Esta seguro de borrar esta orden permanentemente?')) {
-                                        Meteor.call('orders.delete', order._id);
-                                        toastr.success('La orden ha sido eliminada exitosamente del sistema!');
+                                    if (window.confirm('Esta segur@ de esconder esta orden del sistema?')) {
+                                        //Meteor.call('orders.delete', order._id);
+                                        Meteor.call('orders.setHidden', order._id);
+                                        toastr.success('La orden ha sido escondida exitosamente del sistema!');
                                     }
                                 }}
                             >
-                               Borrar
+                                Borrar
                             </button>
                         </td>
-                        
+
                     </tr>
                 );
             } else {
@@ -151,46 +141,51 @@ export default class HistorialEmpleado extends React.Component {
         });
     }
 
-     render() { //cargar pagina
+    render() { //cargar pagina
         return (
             <div>
                 <header id="HeaderEmployee">
                     <h1 id="hk-logo-header" />
                 </header>
 
-                <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg"/>
+                <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg" />
 
                 <div className="pos-f-t " />
 
-                <button
-                    className="btn-employeehistory"
-                    id="btn-empleado"
-                    onClick={this.btnHistorial}
-                >
-                    Ver Ordenes Pendientes
-                </button>
+                <h1 className="headerEmpleado">
+                    Historial de Ordenes Terminadas
+                </h1>
 
                 <section id="Sec" className="MenuEmployee">
                     <table className="EmployeeTable table table-hover table-blue table table-bordered text-center">
                         <thead className="thead-dark">
                             <tr>
                                 <th scope="col">N�mero Orden</th>
-                                <th scope="col">Fecha </th>
+                                <th scope="col">Fecha de Entrada </th>
+                                <th scope="col">Fecha de Despacho </th>
                                 <th scope="col">Cliente</th>
                                 <th scope="col">Tel�fono</th>
+                                <th scope="col">Dirección</th>
                                 <th scope="col">Estado</th>
-                                <th scope="col">Ver m�s</th>
-                                <th scope="col">Borrar de Sistema</th>
+                                <th scope="col">Esconder</th>
                             </tr>
                         </thead>
                         <tbody>{this.loadList()}</tbody>
                     </table>
                 </section>
 
-                <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg"/>
+                <button
+                    className="btn-employeehistory"
+                    onClick={this.btnHistorial}
+                    id = "btn-empleado"
+                >
+                    Ver Ordenes Pendientes
+                </button>
+
+                <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg" />
 
                 <footer id="Footer">
-                    <img className="LogoHK" src="http://www.healthkitchen.hn/static/media/hk-logo.b8b1c147.svg" alt="Logo"/>
+                    <img className="LogoHK" src="http://www.healthkitchen.hn/static/media/hk-logo.b8b1c147.svg" alt="Logo" />
                     <div className="FooterDescription">
                         <h3 className="green">
                             <b>Ubicanos</b>

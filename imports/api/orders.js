@@ -24,11 +24,17 @@ Meteor.methods({
       userId: this.userId,
       cliente: order.cliente,
       fechaEntrada: order.fechaEntrada,
-      fechaDespachada: order.fechaDespachada
+      fechaDespacho: order.fechaDespacho
     });
   },
   'orders.setDispatched'(id) {
     Orders.update(id, {$set: { status: 'Dispatched'}});
+  },
+  'orders.cambiarFechaDespacho'(id, fecha) {
+    Orders.update(id, {$set: { fechaDespacho: fecha}});
+  },
+  'orders.setHidden'(id) {
+    Orders.update(id, {$set: { status: 'Hidden'}});
   },
   'orders.setPending'(id) {
     Orders.update(id, {$set: { status: 'Pending'}});

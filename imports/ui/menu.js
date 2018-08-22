@@ -612,7 +612,7 @@ class MenuSide extends React.Component {
     let stringFecha =
       d.getDate() +
       '/' +
-      d.getMonth() +
+      (d.getMonth() + 1) +
       '/' +
       d.getFullYear() +
       ', ' +
@@ -623,6 +623,7 @@ class MenuSide extends React.Component {
       d.getSeconds();
     //luis - cambie de fecha a fechaentrada
     orden.fechaEntrada = stringFecha;
+    orden.fechaDespacho = "";
 
     for (let index = 0; index < this.props.platos.platos; index++) {
       orden.products.push({
