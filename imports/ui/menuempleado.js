@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../client/styles/menuempleado.css';
-import { Orders } from '../api/orders';   
+import { Orders } from '../api/orders';
 
 window.onclick = function (event) { //cerrar modal si la persona clickea afuera
   if (event.target.className == 'modal') {
@@ -34,7 +34,6 @@ export default class MenuEmployee extends React.Component {
 
   btnHistorial = () => { //irse a pagina de historial
     this.props.history.push({ pathname: '/HistorialEmpleado' });
-    
   };
 
   componentWillUnmount() {
@@ -52,7 +51,7 @@ export default class MenuEmployee extends React.Component {
 
     Order.products.map((product) => {
       let comentario = '';
-      if (product.descripcion == '') {
+      if (product.descripcion == '' || typeof product.descripcion === undefined) {
         comentario = (
           <li className="list-group-item secondary red">
             {'Este platillo no tiene comentario del cliente.'}
@@ -65,7 +64,6 @@ export default class MenuEmployee extends React.Component {
           </li>
         );
       }
-
       platillos.push(
         <ul>
           <li className="list-group-item blue primary">
@@ -75,7 +73,6 @@ export default class MenuEmployee extends React.Component {
         </ul>
       );
     });
-
     ReactDOM.render(platillos, document.getElementById('ModalDescription'));
     modal.style.display = 'block';
   };
@@ -88,17 +85,24 @@ export default class MenuEmployee extends React.Component {
     Order.products.map((product) => {
       count += product.cantidad;
     });
-
     return count;
   }
 
   checkStatus(Order) {
+    let jsx = ""
     if (Order.status == 'InProgress') {
-      return 'Ingresada';
+
+      return "INGRESADA";
     } else if (Order.status == 'Dispatched') {
       return 'Terminada';
     } else {
-      return 'Pendiente';
+      jsx =
+        <span>
+          {"PENDIENTE "}
+          <i class="fas fa-exclamation-triangle fa-2x red"></i>
+        </span>
+
+      return jsx;
     }
   }
 
@@ -109,17 +113,20 @@ export default class MenuEmployee extends React.Component {
       if (order.status == '') {
         order.status = 'Pending';
       }
-
-      if (order.status == 'Dispatched') {
+      if (order.status == 'Dispatched' || order.status == 'Hidden') {
         //no agrega nada
-      } else {
+      }
+      else {
         return (
           <tr key={order._id}>
             <td>Orden X</td>
-            <td>{order.fecha}</td>
+            <td>{order.fechaEntrada}</td>
             <td>{user.profile.firstName + ' ' + user.profile.lastName}</td>
             <td>{user.profile.phoneNumber1}</td>
-            <td>{this.checkStatus(order)}</td>
+            <td>{user.profile.address1}</td>
+            <td>
+              {this.checkStatus(order)}
+            </td>
             <td>
               <button id="btn-info" onClick={(e) => this.showModal(order)}>
                 <span className="spanEmployee">{'Ver Más'}</span>
@@ -136,6 +143,8 @@ export default class MenuEmployee extends React.Component {
                   if (order.status == 'Pending') {
                     Meteor.call('orders.setInProgress', order._id);
                     toastr.success('La orden ha sido cambiada a Ingresada');
+                  } else if(order.status == 'InProgress'){
+                    toastr.warning('La orden ya esta en estado Ingresada');
                   }
                 }}
               >
@@ -146,9 +155,25 @@ export default class MenuEmployee extends React.Component {
               <button
                 id="btn-empleado"
                 onClick={function () {
-                  if (order.status == 'InProgress' && 
-                    window.confirm('¿Esta seguro de cambiar esta orden a terminada?') ) {
+                  if (order.status == 'InProgress' &&
+                    window.confirm('¿Esta seguro de cambiar esta orden a terminada?')) {
+                    let d = new Date();
+                    let stringFecha =
+                      d.getDate() +
+                      '/' +
+                      (d.getMonth() + 1) +
+                      '/' +
+                      d.getFullYear() +
+                      ', ' +
+                      d.getHours() +
+                      ':' +
+                      d.getMinutes() +
+                      ':' +
+                      d.getSeconds();
+
+                    Meteor.call('orders.cambiarFechaDespacho', order._id, stringFecha);
                     Meteor.call('orders.setDispatched', order._id);
+
                     toastr.success('La orden ha sido terminada y despachada!');
                   } else if (order.status == 'Pending') {
                     toastr.warning('Primero tiene que estar ingresado.');
@@ -178,13 +203,10 @@ export default class MenuEmployee extends React.Component {
 
         <div className="pos-f-t " />
 
-        <button
-          className="btn-employeehistory"
-          id="btn-empleado"
-          onClick={this.btnHistorial}
-        >
-          Ver Historial de Ordenes
-        </button>
+
+        <h1 className="headerEmpleado">
+          Historial de Ordenes Pendientes e Ingresadas
+        </h1>
 
         <section id="Sec" className="MenuEmployee">
           <table className="EmployeeTable table table-hover table-blue table table-bordered text-center">
@@ -194,6 +216,7 @@ export default class MenuEmployee extends React.Component {
                 <th scope="col">Fecha</th>
                 <th scope="col">Cliente</th>
                 <th scope="col">Telèfono</th>
+                <th scope="col">Dirección</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Ver más</th>
                 <th scope="col">Ingresar</th>
@@ -203,6 +226,13 @@ export default class MenuEmployee extends React.Component {
             <tbody>{this.loadList()}</tbody>
           </table>
         </section>
+        <button
+          className="btn-employeehistory blueMarine"
+          id = "btn-empleado"
+          onClick={this.btnHistorial}
+        >
+          Ver Historial de Ordenes Terminadas
+        </button>
 
         <img
           id="ColorStrip"
@@ -239,7 +269,6 @@ export default class MenuEmployee extends React.Component {
             </p>
           </div>
         </footer>
-
         <div id="simpleModalEmp" className="modal">
           <div className="modal-content">
             {/* Header */}

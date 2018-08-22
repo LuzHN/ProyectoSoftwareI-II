@@ -631,7 +631,7 @@ class MenuSide extends React.Component {
 
   confirmar = (evt) => {
     let orden = this.props.platos;
-    orden.estado = 'Preorden';
+    //luis - quite una linea de status
     orden.platos = [...this.props.platos.platos];
     orden.products = [];
 
@@ -639,16 +639,18 @@ class MenuSide extends React.Component {
     let stringFecha =
       d.getDate() +
       '/' +
-      d.getMonth() +
+      (d.getMonth() + 1) +
       '/' +
       d.getFullYear() +
-      ' ,' +
+      ', ' +
       d.getHours() +
       ':' +
       d.getMinutes() +
       ':' +
       d.getSeconds();
-    orden.fecha = stringFecha;
+    //luis - cambie de fecha a fechaentrada
+    orden.fechaEntrada = stringFecha;
+    orden.fechaDespacho = "";
 
     for (let index = 0; index < this.props.platos.platos; index++) {
       orden.products.push({
