@@ -32,6 +32,10 @@ export default class Menu extends Component {
   defaultMenu = 'Entree';
 
   state = {
+    swal: {
+      show: false,
+      index: 0
+    },
     selectedFood: this.defaultMenu,
     dishes: [],
     cart: {
@@ -139,11 +143,12 @@ export default class Menu extends Component {
     this.setState({ ...this.state, platosMostrados: platosMostrar });
   };
 
-  clickComida = (plato, precio, imagen) => {
+  clickComida = (plato, precio, imagen, description = '') => {
     const platoOrdenado = {
       plato,
       precio,
-      imagen
+      imagen,
+      description
     };
 
     const platosOrdenados = this.state.cart.platos;
@@ -181,8 +186,30 @@ export default class Menu extends Component {
   }
 
   render() {
+    const swal = (
+      <div>
+        // <button onClick={() => this.setState({ show: true })}>Alert</button>
+        <SweetAlert
+          show={this.state.swal.show}
+          title="Comentario"
+          text="Agregue un comentario para su platillo"
+          type="input"
+          // inputType="password"
+          inputPlaceholder="Ej. Quiero mi carne con mucha sal"
+          onConfirm={(inputValue) => {
+            let platos = [...this.state.platos];
+            platos[this.state.swal.index].descripcion = inputValue;
+            this.setState({
+              swal: { show: false, index: 0 },
+              platos: platos
+            });
+          }}
+        />
+      </div>
+    );
+
     const menuItems = this.state.cart.platos.map((item, i) => (
-      <div key={i}>
+      <div key={i} className="platoOrdenado">
         <img src={item.imagen} alt="Imagen del platillo" />
         <a
           imagen={item.imagen}
@@ -193,19 +220,19 @@ export default class Menu extends Component {
           {item.plato}
         </a>
         <a className="menuItemCant">Cant: {item.cantidad}</a>
+
+        <a
+          className="button-comentario"
+          href="#"
+          role="button"
+          onClick={() => this.setState({ swal: { show: true, index: i } })}
+        >
+          <span />
+          <div className="icon">
+            <i className="far fa-comment-dots" />
+          </div>
+        </a>
       </div>
-      // <OrdenPlato
-      //   ref={(ref) => {
-      //     let componentes = this.state.componentes;
-      //     componentes.push(ref);
-      //     this.setState({ ...this.state, componentes });
-      //   }}
-      //   key={i}
-      //   imagen={item.imagen}
-      //   titulo={item.plato}
-      //   precio={parseInt(item.precio).toFixed(2)}
-      //   cantidad={item.cantidad}
-      // />
     ));
 
     return (
@@ -569,6 +596,7 @@ export default class Menu extends Component {
         <MenuSide ref="right" alignment="right" platos={this.state.cart}>
           {menuItems}
         </MenuSide>
+        {swal}
       </div>
     );
   }
@@ -651,11 +679,13 @@ class MenuSide extends React.Component {
         <div className={this.isVisible()}>
           {this.props.children}
           <span className="menuSideTotal">
-            Sub Total: {this.calcularPrecio()}
+            Sub Total: L. {this.calcularPrecio()}
           </span>
-          <span className="menuSideTotal">ISV: 15%</span>
           <span className="menuSideTotal">
-            Sub Total: {this.calcularPrecio() * 0.15 + this.calcularPrecio()}
+            ISV: L. {this.calcularPrecio() * 0.15} (15%)
+          </span>
+          <span className="menuSideTotal">
+            Sub Total: L. {this.calcularPrecio() * 0.15 + this.calcularPrecio()}
           </span>
           <ButtonPlato texto="Comprar" onClick={this.confirmar} />
         </div>

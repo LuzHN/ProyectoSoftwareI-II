@@ -73,3 +73,57 @@
 .menuSide > div div:hover {
   color: #f0f0f0;
 }
+
+/* Main Styles */
+.button-comentario {
+  background-color: #4c8644;
+  width: 30px;
+  height: 30px;
+  line-height: 100px;
+  color: #fff;
+
+  position: absolute;
+  top: 50%;
+  bottom: 0;
+  right: 0;
+  transform: translate(-50%, 0%);
+
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+}
+
+.button-comentario .icon {
+  display: block;
+  height: 100%;
+  text-align: center;
+  position: absolute;
+  top: 0;
+}
+
+.button-comentario .icon {
+  width: 30px;
+  right: 5px;
+  top: -2.5px;
+}
+
+.button-comentario .icon .far {
+  font-size: 30px;
+  vertical-align: middle;
+}
+
+.button-comentario .icon .fa-comment-dots {
+  height: 36px;
+  position: absolute;
+  top: 0;
+  color: #fff;
+}
+
+.button-comentario:active {
+  opacity: 1;
+}
+
+.platoOrdenado {
+  position: relative;
+}
