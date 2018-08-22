@@ -188,7 +188,6 @@ export default class Menu extends Component {
   render() {
     const swal = (
       <div>
-        // <button onClick={() => this.setState({ show: true })}>Alert</button>
         <SweetAlert
           show={this.state.swal.show}
           title="Comentario"
