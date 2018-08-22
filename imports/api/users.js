@@ -42,7 +42,6 @@ if (Meteor.isServer) {
 
   Meteor.methods({
     'user.initializeClient'(){
-      console.log(Meteor.userId());
       Roles.addUsersToRoles(Meteor.userId(), 'normal-user');
     },
     'user.initializeEmployee'(){
