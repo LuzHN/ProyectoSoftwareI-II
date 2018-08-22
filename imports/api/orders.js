@@ -5,18 +5,15 @@ import SimpleSchema from 'simpl-schema';
 export const Orders = new Mongo.Collection('orders');
 
 if (Meteor.isServer) {
-  Meteor.publish('client-orders', function () {
+  Meteor.publish('client-orders', () => {
     return Orders.find({ userId: this.userId });
   });
-  Meteor.publish('orders', function () {
+  Meteor.publish('orders', () => {
     return Orders.find({});
   });
 }
 Meteor.methods({
   'orders.insert'(order) {
-    // if (!this.userId) {
-    //   throw new Meteor.Error('not-authorized');
-    // }
     Orders.insert({
       status: '',
       products: order.products,
