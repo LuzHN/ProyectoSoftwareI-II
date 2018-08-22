@@ -55,16 +55,20 @@ class EditProfilePage extends React.Component {
     } else if (lastName == '' || lastName.match(/[^a-z]/gi)) {
       validator = 1;
       toastr.warning('Por favor ingrese un nombre válido.');
-    } else if (newPassword != '' && oldPassword == '') {
-      validator = 1;
-      toastr.warning('No ingresó la clave vieja.');
-    } else if (newPassword.length < 9 && oldPassword != '') {
-      validator = 1;
-      toastr.warning('La contraseña debe de ser de al menos 9 dígitos.');
-    } else if (confirmPassword != newPassword && oldPassword != '') {
-      validator = 1;
-      toastr.warning('Las claves no son las mismas.')
-    } else if (phoneNumber1 == '') {
+    } 
+    // else if (newPassword != '' && oldPassword == '') {
+    //   validator = 1;
+    //   toastr.warning('No ingresó la clave vieja.');
+    // } 
+    // else if (newPassword.length < 9 && oldPassword != '') {
+    //   validator = 1;
+    //   toastr.warning('La contraseña debe de ser de al menos 9 dígitos.');
+    // } 
+    // else if (confirmPassword != newPassword && oldPassword != '') {
+    //   validator = 1;
+    //   toastr.warning('Las claves no son las mismas.')
+    // } 
+    else if (phoneNumber1 == '') {
       validator = 1;
       toastr.warning('Por favor ingrese un número de teléfono válido.');
     } else if (phoneNumber1.length < 8) {
@@ -154,7 +158,7 @@ class EditProfilePage extends React.Component {
           {/*First Name and Last Name inputs and labels.*/}
           <div className="containerBox">
             <div className="leftContainerBox">
-              <label>Primer Nombre</label>
+              <label>Nombre</label>
               <input
                 ref="firstName"
                 id="firstNameId"
@@ -174,7 +178,7 @@ class EditProfilePage extends React.Component {
           </div>
           {/*First Name and Last Name inputs and labels ends here.*/}
           {/*New and Confirm Password inputs and labels.*/}
-          <div className="passBox">
+          {/* <div className="passBox">
             <div className="oldPasswordBox">
               <label>Contraseña Vieja</label>
               <input
@@ -203,7 +207,7 @@ class EditProfilePage extends React.Component {
                 placeholder="Confirmar contraseña."
               />
             </div>
-          </div>
+          </div> */}
           {/*New and Confirm Password inputs and labels end here.*/}
 
           {/*First two phone numbers.*/}
