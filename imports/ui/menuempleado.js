@@ -51,7 +51,7 @@ export default class MenuEmployee extends React.Component {
 
     Order.products.map((product) => {
       let comentario = '';
-      if (product.descripcion == '' || product.descripcion === undefined) {
+      if (product.descripcion == '' || typeof product.descripcion === undefined) {
         comentario = (
           <li className="list-group-item secondary red">
             {'Este platillo no tiene comentario del cliente.'}
