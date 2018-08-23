@@ -119,7 +119,7 @@ export default class MenuEmployee extends React.Component {
       else {
         return (
           <tr key={order._id}>
-            <td>Orden X</td>
+            <td>{order._id}</td>
             <td>{order.fechaEntrada}</td>
             <td>{user.profile.firstName + ' ' + user.profile.lastName}</td>
             <td>{user.profile.phoneNumber1}</td>
@@ -212,7 +212,7 @@ export default class MenuEmployee extends React.Component {
           <table className="EmployeeTable table table-hover table-blue table table-bordered text-center">
             <thead className="thead-dark">
               <tr>
-                <th scope="col">Nùmero Orden</th>
+                <th scope="col">ID Orden</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Cliente</th>
                 <th scope="col">Telèfono</th>

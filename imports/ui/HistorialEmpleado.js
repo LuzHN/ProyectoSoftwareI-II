@@ -60,7 +60,7 @@ export default class HistorialEmpleado extends React.Component {
             if (order.status == 'Dispatched') {
                 return (
                     <tr key={order._id}>
-                        <td>Orden X</td>
+                        <td>{order._id}</td>
                         <td>{order.fechaEntrada}</td>
                         <td>{order.fechaDespacho}</td>
                         <td>{user.profile.firstName + ' ' + user.profile.lastName}</td>
@@ -109,7 +109,7 @@ export default class HistorialEmpleado extends React.Component {
                     <table className="EmployeeTable table table-hover table-blue table table-bordered text-center">
                         <thead className="thead-dark">
                             <tr>
-                                <th scope="col">N�mero Orden</th>
+                                <th scope="col">ID Orden</th>
                                 <th scope="col">Fecha de Entrada </th>
                                 <th scope="col">Fecha de Despacho </th>
                                 <th scope="col">Cliente</th>
