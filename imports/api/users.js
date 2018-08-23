@@ -61,7 +61,7 @@ if (Meteor.isServer) {
     },
     'user.updateProfileSelf'(user){
       Meteor.users.update({_id: Meteor.userId()}, {$set: 
-        user
+        {profile: user}
       });
     },
     'user.deleteSelf'(){

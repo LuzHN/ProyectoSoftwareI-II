@@ -18,9 +18,9 @@ class EditProfilePage extends React.Component {
   onSubmit() {
     let firstName = this.refs.firstName.value.trim();
     let lastName = this.refs.lastName.value.trim();
-    let oldPassword = this.refs.oldPassword.value.trim();
-    let newPassword = this.refs.newPassword.value.trim();
-    let confirmPassword = this.refs.confirmPassword.value.trim();
+    // let oldPassword = this.refs.oldPassword.value.trim();
+    // let newPassword = this.refs.newPassword.value.trim();
+    // let confirmPassword = this.refs.confirmPassword.value.trim();
     let phoneNumber1 = this.refs.phoneNumber1.value.trim();
     let phoneNumber2 = this.refs.phoneNumber2.value.trim();
     let phoneNumber3 = this.refs.phoneNumber3.value.trim();
@@ -30,18 +30,7 @@ class EditProfilePage extends React.Component {
     let address3 = this.refs.address3.value.trim();
     let address4 = this.refs.address4.value.trim();
 
-    Meteor.call('updateUser', {
-      firstName,
-      lastName,
-      phoneNumber1,
-      phoneNumber2,
-      phoneNumber3,
-      phoneNumber4,
-      address1,
-      address2,
-      address3,
-      address4
-    });
+
     /**
      * Nota: Falta validar que la vieja contraseña sea la misma que tenia antes
      */
@@ -130,10 +119,24 @@ class EditProfilePage extends React.Component {
       }
     }
 
+    let profile = {
+      firstName,
+      lastName,
+      phoneNumber1,
+      phoneNumber2,
+      phoneNumber3,
+      phoneNumber4,
+      address1,
+      address2,
+      address3,
+      address4
+    }
+
     if (!validator) {
-      /**
-       * TODO: Modifcar Perfil
-       */
+      Meteor.call('user.updateProfileSelf', {
+        profile
+      });
+      toastr.success('Perfil Modificado.');
       this.props.history.push('/');
     }
   }
@@ -141,15 +144,10 @@ class EditProfilePage extends React.Component {
   disableAccount() {
     var modal = document.getElementById('exampleModal');
     modal.style.display = 'block';
-    /**
-     * TODO: Desabilitar Account
-     */
   }
 
   deleteUserFinal() {
-    //Meteor.call('dishes.delete', dishID);
-
-    //dishID = '';
+    Meteor.call('user.deleteSelf');
     toastr.error('Cuenta Desactivada.');
     this.props.history.push('/');
     this.closeDeleteModal();
