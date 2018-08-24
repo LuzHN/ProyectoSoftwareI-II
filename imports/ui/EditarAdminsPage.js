@@ -181,6 +181,7 @@ export default class editarEmpleadoPage extends React.Component {
           
         }
       });
+      Meteor.call('user.initializeAdministrator');
     }
   }
 
@@ -189,7 +190,7 @@ export default class editarEmpleadoPage extends React.Component {
 }
 
   render() {
-    console.log(this.state.users);
+
     return (
       <div className="EditarAdmins">
         <div className="containerPrincipal">
@@ -390,7 +391,7 @@ const renderUser = (users) => {
         var modal = document.getElementById('ModalModificarAdministrador');
         modal.style.display = 'block';
         }} className="collection-item" key={user._id}>
-        <a href="#"  className="hrefNombre">{user.profile.firstName} {user.profile.lastName}</a>
+        <a href="#"  className="hrefNombre">{}</a>
       </li>
     )
   });

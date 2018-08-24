@@ -18,7 +18,7 @@ if (Meteor.isServer) {
     if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
       return Meteor.users.find(
         {
-         "roles": "client"
+         "roles": "normal-user"
         }, 
         {
           "services": 0
@@ -43,9 +43,11 @@ if (Meteor.isServer) {
   Meteor.methods({
     'user.initializeClient'(){
       Roles.addUsersToRoles(Meteor.userId(), 'normal-user');
+      console.log('Cliente inicializado');
     },
     'user.initializeEmployee'(){
       Roles.addUsersToRoles(Meteor.userId(), 'employee');
+      console.log('Employee inicializado');
     },
     'user.initializeAdministrator'(){
       if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
