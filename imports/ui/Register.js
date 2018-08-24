@@ -18,6 +18,8 @@ export default class Register extends React.Component {
     let phoneNumber1 = this.refs.phoneNumber.value.trim();
     let address1 = this.refs.address.value.trim();
     let profile = {
+      email,
+      password,
       firstName,
       lastName,
       phoneNumber1,
@@ -81,17 +83,10 @@ export default class Register extends React.Component {
     }
 
     if (!validator) {
-      Accounts.createUser({ email, password, profile }, (err) => {
-        if (err) {
-          alert(err.reason);
-        } else {
-          toastr.success('Se registró el usuario exitosamente.');
-          console.log(Meteor.userId);
-          this.changeToLogin();
-        }
-      });
+      Meteor.call('users.initializeClient',profile);
+      toastr.success('Se registró el usuario exitosamente.');
       console.log(Meteor.userId());
-      Meteor.call('user.initializeClient',);
+      this.changeToLogin();
     }
   }
 

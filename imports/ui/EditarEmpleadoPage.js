@@ -66,7 +66,7 @@ export default class editarEmpleadoPage extends React.Component {
 
   componentDidMount() {
     this.usersTracker = Tracker.autorun(() => {
-      Meteor.subscribe('user.getEmployees');
+      Meteor.subscribe('users.getEmployees');
       const users = Meteor.users.find().fetch();
       this.setState({ users });
     });
@@ -167,12 +167,27 @@ export default class editarEmpleadoPage extends React.Component {
         password, 
         profile 
       };
-      Meteor.call('user.initializeEmployee', user);
+      Meteor.call('users.initializeEmployee', user, (err, returnValue) => {
+        console.log(returnValue);
+        if (returnValue == 1) {
+          console.log(Meteor.userId);
+          this.refs.email.value = "";
+          this.refs.passwordAgregar.value = "";
+          this.refs.confirmPasswordAgregar.value = "";
+          this.refs.firstNameAgregar.value = "";
+          this.refs.lastNameAgregar.value = "";
+          this.refs.phoneNumberAgregar.value = "";
+          this.refs.addressAgregar.value = ""; 
+        } else {
+          console.log('Editar Empleado page error');
+        }
+        
+      });
     }
+
   }
 
-
-
+  
   
   render() {
     console.log(this.state.users);
@@ -371,11 +386,12 @@ export default class editarEmpleadoPage extends React.Component {
   const renderUser = (users) => {
     return users.map((user) => {
       return (
+        
         <li  onClick={function () {
           var modal = document.getElementById('ModalModificarEmpleado');
           modal.style.display = 'block';
           }} className="collection-item" key={user._id}>
-          <a href="#"  className="hrefNombre">{user.getEmployees}</a>
+          <a href="#"  className="hrefNombre">{users.getEmployees}</a>
         </li>
       )
     });

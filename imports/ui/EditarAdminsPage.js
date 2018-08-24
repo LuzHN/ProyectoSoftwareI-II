@@ -102,6 +102,8 @@ export default class editarEmpleadoPage extends React.Component {
     let phoneNumber1 = this.refs.phoneNumberAgregar.value.trim();
     let address1 = this.refs.addressAgregar.value.trim();
     let profile = {
+      email,
+      password,
       firstName,
       lastName,
       phoneNumber1,
@@ -165,23 +167,16 @@ export default class editarEmpleadoPage extends React.Component {
     }
 
     if (!validator) {
-      Accounts.createUser({ email, password, profile }, (err) => {
-        if (err) {
-          alert(err.reason);
-        } else {
-          console.log(Meteor.userId);
-          toastr.success('Se ha registrado el usuario exitosamente.');
-          this.refs.email.value = "";
-          this.refs.passwordAgregar.value = "";
-          this.refs.confirmPasswordAgregar.value = "";
-          this.refs.firstNameAgregar.value = "";
-          this.refs.lastNameAgregar.value = "";
-          this.refs.phoneNumberAgregar.value = "";
-          this.refs.addressAgregar.value = "";
-          
-        }
-      });
-      Meteor.call('user.initializeAdministrator');
+      Meteor.call('users.initializeAdministrator', profile);
+      console.log(Meteor.userId);
+      toastr.success('Se ha registrado el usuario exitosamente.');
+      this.refs.email.value = "";
+      this.refs.passwordAgregar.value = "";
+      this.refs.confirmPasswordAgregar.value = "";
+      this.refs.firstNameAgregar.value = "";
+      this.refs.lastNameAgregar.value = "";
+      this.refs.phoneNumberAgregar.value = "";
+      this.refs.addressAgregar.value = "";
     }
   }
 
@@ -190,7 +185,7 @@ export default class editarEmpleadoPage extends React.Component {
 }
 
   render() {
-
+    console.log(this.state.users);
     return (
       <div className="EditarAdmins">
         <div className="containerPrincipal">

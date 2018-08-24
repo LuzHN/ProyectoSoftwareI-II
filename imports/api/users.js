@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import { Accounts } from 'meteor/accounts-base';
 
+
 Accounts.validateNewUser((user) => {
   const email = user.emails[0].address;
   new SimpleSchema({
@@ -41,17 +42,24 @@ if (Meteor.isServer) {
   });
 
   Meteor.methods({
-    'users.initializeClient'(){
-      Roles.addUsersToRoles(Meteor.userId(), 'client');
+    'users.initializeClient'(user){
+      Roles.addUsersToRoles(Accounts.createUser(user), 'client');
+      console.log('Se inicializo un cliente.');
     },
     'users.initializeEmployee'(user){
       if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
         Roles.addUsersToRoles(Accounts.createUser(user), 'employee');
+        console.log('Se inicializo un empleado.');
+        return 1;
+      } else {
+        console.log('No es administrador para inicializar un empleado.');
+        return 0;
       }
     },
-    'users.initializeAdministrator'(){
+    'users.initializeAdministrator'(user){
       if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
-        Roles.addUsersToRoles(Accounts.createUser(user), 'employee');
+        Roles.addUsersToRoles(Accounts.createUser(user), 'administrator');
+        console.log('Se inicializo un adminsitrador');
       }
     },
     async 'users.isClient'(){

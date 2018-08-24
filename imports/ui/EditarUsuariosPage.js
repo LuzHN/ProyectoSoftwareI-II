@@ -66,7 +66,7 @@ filterNames() {
 
 componentDidMount() {
     this.usersTracker = Tracker.autorun(() => {
-        Meteor.subscribe('user.getClients');
+        Meteor.subscribe('users.getClients');
         const users = Meteor.users.find().fetch();
         this.setState({ users });
     });
@@ -99,16 +99,18 @@ onSubmitAgregar() {
     let phoneNumber1 = this.refs.phoneNumberAgregar.value.trim();
     let address1 = this.refs.addressAgregar.value.trim();
     let profile = {
-      firstName,
-      lastName,
-      phoneNumber1,
-      phoneNumber2: '',
-      phoneNumber3: '',
-      phoneNumber4: '',
-      address1,
-      address2: '',
-      address3: '',
-      address4: '',
+        email,
+        password,
+        firstName,
+        lastName,
+        phoneNumber1,
+        phoneNumber2: '',
+        phoneNumber3: '',
+        phoneNumber4: '',
+        address1,
+        address2: '',
+        address3: '',
+        address4: '',
     };
 
     //Validaciones
@@ -162,29 +164,23 @@ onSubmitAgregar() {
     }
 
     if (!validator) {
-      Accounts.createUser({ email, password, profile }, (err) => {
-        if (err) {
-          alert(err.reason);
-        } else {
-          console.log(Meteor.userId);
-          toastr.success('Se ha registrado el usuario exitosamente.');
-          this.refs.email.value = "";
-          this.refs.passwordAgregar.value = "";
-          this.refs.confirmPasswordAgregar.value = "";
-          this.refs.firstNameAgregar.value = "";
-          this.refs.lastNameAgregar.value = "";
-          this.refs.phoneNumberAgregar.value = "";
-          this.refs.addressAgregar.value = "";
-        }
-      });
-      Meteor.call('user.initializeClient');
+        Meteor.call('users.initializeClient', profile);
+        console.log(Meteor.userId);
+        toastr.success('Se ha registrado el usuario exitosamente.');
+        this.refs.email.value = "";
+        this.refs.passwordAgregar.value = "";
+        this.refs.confirmPasswordAgregar.value = "";
+        this.refs.firstNameAgregar.value = "";
+        this.refs.lastNameAgregar.value = "";
+        this.refs.phoneNumberAgregar.value = "";
+        this.refs.addressAgregar.value = "";
     }
   }
 
 
 
 render() {
-
+    console.log(this.state.users);
     return (
         <div className="EditarUsuarios">
             <div className="containerPrincipal">
@@ -399,7 +395,7 @@ const renderUser = (users) => {
         modal.style.display = 'block';
         }} className="collection-item" key={user._id}>
         {user.getClientes}
-        <a href="#"  className="hrefNombre">{user.getClients}</a>
+        <a href="#"  className="hrefNombre"></a>
       </li>
     )
   });
