@@ -66,7 +66,7 @@ filterNames() {
 
 componentDidMount() {
     this.usersTracker = Tracker.autorun(() => {
-        Meteor.subscribe('users');
+        Meteor.subscribe('user.getClients');
         const users = Meteor.users.find().fetch();
         this.setState({ users });
     });
@@ -175,16 +175,16 @@ onSubmitAgregar() {
           this.refs.lastNameAgregar.value = "";
           this.refs.phoneNumberAgregar.value = "";
           this.refs.addressAgregar.value = "";
-          
         }
       });
+      Meteor.call('user.initializeClient');
     }
   }
 
 
 
 render() {
-    console.log(this.state.users);
+
     return (
         <div className="EditarUsuarios">
             <div className="containerPrincipal">
@@ -398,7 +398,8 @@ const renderUser = (users) => {
         var modal = document.getElementById('ModalModificarUsuario');
         modal.style.display = 'block';
         }} className="collection-item" key={user._id}>
-        <a href="#"  className="hrefNombre">{user.profile.firstName} {user.profile.lastName}</a>
+        {user.getClientes}
+        <a href="#"  className="hrefNombre">{user.getClients}</a>
       </li>
     )
   });
