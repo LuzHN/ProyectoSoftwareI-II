@@ -162,22 +162,12 @@ export default class editarEmpleadoPage extends React.Component {
     }
 
     if (!validator) {
-      Accounts.createUser({ email, password, profile }, (err) => {
-        if (err) {
-          alert(err.reason);
-        } else {
-          console.log(Meteor.userId);
-          toastr.success('Se ha registrado el usuario exitosamente.');
-          this.refs.email.value = "";
-          this.refs.passwordAgregar.value = "";
-          this.refs.confirmPasswordAgregar.value = "";
-          this.refs.firstNameAgregar.value = "";
-          this.refs.lastNameAgregar.value = "";
-          this.refs.phoneNumberAgregar.value = "";
-          this.refs.addressAgregar.value = "";
-        }
-      });
-      Meteor.call('user.initializeEmployee');
+      let user = { 
+        email, 
+        password, 
+        profile 
+      };
+      Meteor.call('user.initializeEmployee', user);
     }
   }
 
