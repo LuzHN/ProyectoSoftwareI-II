@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import ReactDOM from 'react-dom';
 import {
   Card,
@@ -33,6 +34,10 @@ export default class Menu extends Component {
 
   state = {
     swal: {
+      show: false,
+      index: 0
+    },
+    swaldir: {
       show: false,
       index: 0
     },
@@ -201,6 +206,27 @@ export default class Menu extends Component {
             this.setState({
               swal: { show: false, index: 0 },
               platos: platos
+            });
+          }}
+        />
+      </div>
+    );
+
+    const swaldir = (
+      <div>
+        <SweetAlert
+          show={this.state.swaldir.show}
+          title="Metodo de Pago & Direcciones"
+          text="Seleccione su metodo de pago y direccion de entrega:"
+          type="input"
+          // inputType="password"
+          //inputPlaceholder="Ej. Quiero mi carne con mucha sal"
+          onConfirm={(inputValue) => {
+            //let platos = [...this.state.platos];
+            //platos[this.state.swal.index].descripcion = inputValue;
+            this.setState({
+              swaldir: { show: false, index: 0 },
+              //platos: platos
             });
           }}
         />
@@ -592,10 +618,11 @@ export default class Menu extends Component {
             </div>
           </div>
         </div>
-        <MenuSide ref="right" alignment="right" platos={this.state.cart}>
+        <MenuSide swal={this.state.swaldir} ref="right" alignment="right" platos={this.state.cart}>
           {menuItems}
         </MenuSide>
         {swal}
+
       </div>
     );
   }
@@ -605,6 +632,7 @@ class MenuSide extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      swal: this.props.swal,
       visible: false
     };
   }
@@ -630,7 +658,7 @@ class MenuSide extends React.Component {
   }
 
   confirmar = (evt) => {
-    let orden = this.props.platos;
+    /*let orden = this.props.platos;
     //luis - quite una linea de status
     orden.platos = [...this.props.platos.platos];
     orden.products = [];
@@ -672,9 +700,61 @@ class MenuSide extends React.Component {
       platos: []
     };
     this.setState({ ...this.state, orden });
+    */
+
   };
 
   render() {
+    const swal = (
+      <div>
+        <SweetAlert
+          show={this.state.swal.show}
+          showCancelButton = {true}
+          title="Metodo de Pago & Direcciones"
+          html text={
+
+            renderToStaticMarkup(
+              <div>
+                <span>Seleccione su metodo de pago y direcciones: </span>
+                <label id="labelAgregar">Tipo de Plato</label>
+                <select name="tipoComida" id="tipoDeComida" ref="tipodeComida">
+                  <option value="Entree">Entree</option>
+                  <option value="Soup">Soup</option>
+                  <option value="Salad">Salad</option>
+                  <option value="Wrap">Wrap</option>
+                  <option value="LittleItaly">LittleItaly</option>
+                  <option value="Sandwich">Sandwich</option>
+                  <option value="SideDish">SideDish</option>
+                  <option value="Breakfast">Breakfast</option>
+                  <option value="Dessert">Dessert</option>
+                  <option value="Juice">Juice</option>
+                  <option value="Drink">Drink</option>
+                </select>
+              </div>
+            )
+          }
+          
+          // inputType="password"
+          //inputPlaceholder="Ej. Quiero mi carne con mucha sal"
+          onConfirm={() => {
+            //let platos = [...this.state.platos];
+            //platos[this.state.swal.index].descripcion = inputValue;
+            console.log("acepto");
+            this.setState({
+              swal: { show: false, index: 0 },
+              //platos: platos
+            });
+          }}
+          onCancel={() =>{
+            console.log("cancelar");
+            this.setState({
+              swal: { show: false, index: 0 },
+
+            });
+          }}
+        />
+      </div>
+    );
     return (
       <div className="menuSide">
         <div className={this.isVisible()}>
@@ -688,7 +768,11 @@ class MenuSide extends React.Component {
           <span className="menuSideTotal">
             Sub Total: L. {this.calcularPrecio() * 0.15 + this.calcularPrecio()}
           </span>
-          <ButtonPlato texto="Comprar" onClick={this.confirmar} />
+          <ButtonPlato texto="Comprar" onClick={
+            () =>
+              this.setState({ swal: { show: true, index: 0 } })
+          } />
+          {swal}
         </div>
       </div>
     );
