@@ -48,7 +48,9 @@ if (Meteor.isServer) {
       Roles.addUsersToRoles(Meteor.userId(), 'employee');
     },
     'user.initializeAdministrator'(){
-      Roles.addUsersToRoles(Meteor.userId(), 'administrator');
+      if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+        Roles.addUsersToRoles(Meteor.userId(), 'administrator');
+      }
     },
     async 'user.isClient'(){
       return await Roles.userIsInRole(Meteor.userId(), 'client');
