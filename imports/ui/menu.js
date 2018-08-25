@@ -658,8 +658,7 @@ class MenuSide extends React.Component {
   }
 
   confirmar = (evt) => {
-    /*let orden = this.props.platos;
-    //luis - quite una linea de status
+    let orden = this.props.platos;
     orden.platos = [...this.props.platos.platos];
     orden.products = [];
 
@@ -676,7 +675,6 @@ class MenuSide extends React.Component {
       d.getMinutes() +
       ':' +
       d.getSeconds();
-    //luis - cambie de fecha a fechaentrada
     orden.fechaEntrada = stringFecha;
     orden.fechaDespacho = "";
 
@@ -700,7 +698,7 @@ class MenuSide extends React.Component {
       platos: []
     };
     this.setState({ ...this.state, orden });
-    */
+    
 
   };
 
@@ -712,44 +710,28 @@ class MenuSide extends React.Component {
           showCancelButton = {true}
           title="Metodo de Pago & Direcciones"
           html text={
-
             renderToStaticMarkup(
               <div>
                 <span>Seleccione su metodo de pago y direcciones: </span>
-                <label id="labelAgregar">Tipo de Plato</label>
+                <label id="labelAgregar">Direcciones Disponibles</label>
                 <select name="tipoComida" id="tipoDeComida" ref="tipodeComida">
-                  <option value="Entree">Entree</option>
-                  <option value="Soup">Soup</option>
-                  <option value="Salad">Salad</option>
-                  <option value="Wrap">Wrap</option>
-                  <option value="LittleItaly">LittleItaly</option>
-                  <option value="Sandwich">Sandwich</option>
-                  <option value="SideDish">SideDish</option>
-                  <option value="Breakfast">Breakfast</option>
-                  <option value="Dessert">Dessert</option>
-                  <option value="Juice">Juice</option>
-                  <option value="Drink">Drink</option>
+                  <option value="Direccion1">{}</option>
+                  <option value="Direccion2">{}</option>
+                  <option value="Direccion3">{}</option>
+                  <option value="Direccion4">{}</option>
                 </select>
               </div>
             )
           }
-          
-          // inputType="password"
-          //inputPlaceholder="Ej. Quiero mi carne con mucha sal"
           onConfirm={() => {
-            //let platos = [...this.state.platos];
-            //platos[this.state.swal.index].descripcion = inputValue;
-            console.log("acepto");
+            this.confirmar();
             this.setState({
               swal: { show: false, index: 0 },
-              //platos: platos
             });
           }}
           onCancel={() =>{
-            console.log("cancelar");
             this.setState({
               swal: { show: false, index: 0 },
-
             });
           }}
         />
