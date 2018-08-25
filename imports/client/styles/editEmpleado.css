@@ -171,7 +171,7 @@ button:focus {
 }
   
 .modal-header{
-    background:#d86926;
+    background:#87AAAA;
     color:#fff;
     display: flex;
 }
@@ -206,7 +206,7 @@ button:focus {
 }
   
 .modal-footer{
-    background:#d86926;
+    background:#87AAAA;
     padding:2%;
     color:#fff;
 }

@@ -38,6 +38,13 @@ export default class editarEmpleadoPage extends React.Component {
   }
 
   onAgregarAdmin() {
+    this.refs.email.value = "";
+    this.refs.passwordAgregar.value = "";
+    this.refs.confirmPasswordAgregar.value = "";
+    this.refs.firstNameAgregar.value = "";
+    this.refs.lastNameAgregar.value = "";
+    this.refs.phoneNumberAgregar.value = "";
+    this.refs.addressAgregar.value = ""; 
     var modal = document.getElementById('ModalAgregarAdministrador');
     modal.style.display = 'block';
   }
@@ -73,7 +80,7 @@ export default class editarEmpleadoPage extends React.Component {
 
   componentDidMount() {
     this.usersTracker = Tracker.autorun(() => {
-      Meteor.subscribe('users');
+      Meteor.subscribe('users.getAdmins');
       const users = Meteor.users.find().fetch();
       this.setState({ users });
     });
@@ -167,16 +174,21 @@ export default class editarEmpleadoPage extends React.Component {
     }
 
     if (!validator) {
-      Meteor.call('users.initializeAdministrator', profile);
-      console.log(Meteor.userId);
-      toastr.success('Se ha registrado el usuario exitosamente.');
-      this.refs.email.value = "";
-      this.refs.passwordAgregar.value = "";
-      this.refs.confirmPasswordAgregar.value = "";
-      this.refs.firstNameAgregar.value = "";
-      this.refs.lastNameAgregar.value = "";
-      this.refs.phoneNumberAgregar.value = "";
-      this.refs.addressAgregar.value = "";
+      Meteor.call('users.initializeAdministrator', profile, (err, returnValue) => {
+        if (returnValue == 1) {
+          console.log(Meteor.userId);
+          toastr.success('Se ha agregado el administrador exitosamente.');
+          this.refs.email.value = "";
+          this.refs.passwordAgregar.value = "";
+          this.refs.confirmPasswordAgregar.value = "";
+          this.refs.firstNameAgregar.value = "";
+          this.refs.lastNameAgregar.value = "";
+          this.refs.phoneNumberAgregar.value = "";
+          this.refs.addressAgregar.value = ""; 
+        } else {
+          toastr.warning('No tiene privilegios de administrador. No se ha creado el administrador.');       
+        }     
+      });
     }
   }
 
@@ -194,7 +206,7 @@ export default class editarEmpleadoPage extends React.Component {
             <select onChange ={this.handleChange.bind(this)}>
               <option value="Administradores">Administradores</option>
               <option value="Empleados">Empleados</option>
-              <option value="Usuarios">Usuarios</option>
+              <option value="Usuarios">Clientes</option>
             </select>
           </div>
 
@@ -308,13 +320,13 @@ export default class editarEmpleadoPage extends React.Component {
                       <div className = "box1">
                         <p>
                           <label>Primer Nombre</label>
-                          <input id = "firstNameId" maxLength='140' placeholder='Ingrese primer nombre.' ref = "firstName"/>
+                          <input id = "firstNameId" maxLength='140' placeholder='Ingrese primer nombre.' ref = "firstNameMod"/>
                         </p>
                       </div>
                       <div className="box2">
                         <p>
                           <label>Apellido</label>
-                          <input maxLength='140' placeholder='Ingrese su apellido.' ref="lastName" type="text"/>
+                          <input maxLength='140' placeholder='Ingrese su apellido.' ref="lastNameMod" type="text"/>
                         </p>
                       </div>
                     </div>
@@ -322,17 +334,17 @@ export default class editarEmpleadoPage extends React.Component {
                       <div className="box1">
                         <p>
                           <label>*Teléfono 1</label>
-                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber1"/>
+                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber1Mod"/>
                           <label>Teléfono 3</label>
-                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber3"/>
+                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber3Mod"/>
                         </p>
                       </div>
                       <div className="box2">
                         <p>
                           <label>Teléfono 2</label>
-                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber2"/>
+                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber2Mod"/>
                           <label>Teléfono 4</label>
-                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber4"/>
+                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber4Mod"/>
                         </p>
                       </div>
                     </div>
@@ -340,17 +352,17 @@ export default class editarEmpleadoPage extends React.Component {
                       <div className="box1">
                         <p>
                           <label>*Dirección 1</label>
-                          <textarea id = "direction1TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address1" rows="5"/>
+                          <textarea id = "direction1TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address1Mod" rows="5"/>
                           <label>Dirección 3</label>
-                          <textarea id = "direction3TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address3" rows="5"/>
+                          <textarea id = "direction3TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address3Mod" rows="5"/>
                         </p>
                       </div>
                       <div className="box2">
                         <p>
                           <label>Dirección 2</label>
-                          <textarea id = "direction2TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address2" rows="5"/>
+                          <textarea id = "direction2TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address2Mod" rows="5"/>
                           <label>Dirección 4</label>
-                          <textarea id = "direction4TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address4" rows="5"/>
+                          <textarea id = "direction4TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address4Mod" rows="5"/>
                         </p>
                       </div>
                     </div>  
@@ -362,7 +374,7 @@ export default class editarEmpleadoPage extends React.Component {
                       </div>
                       <div className="box2">
                         <p>
-                          <button className = "confirmarDesactivar" >Desactivar Administrador</button>
+                          <button className = "confirmarDesactivar" >Borrar Administrador</button>
                         </p>
                       </div>
                     </div>     
