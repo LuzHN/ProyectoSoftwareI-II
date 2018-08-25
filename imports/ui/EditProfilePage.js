@@ -8,13 +8,28 @@ import { withRouter } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import InputMask from 'react-input-mask';
 import { createContainer } from 'meteor/react-meteor-data';
-
 import '../client/styles/EditProfile.css';
+
 
 class EditProfilePage extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
   }
+
+  componentDidMount(){
+    console.log(Meteor.user() ? Meteor.user().profile : '');    
+    // const user = Meteor.users.findOne({_id: user._id});
+    // console.log(user)
+    
+      // const userr = Meteor.users.findOne({ _id: user._id});
+      // console.log(userr);
+   
+  }
+
+  componentWillUnmount() {
+    this.usersTracker.stop();
+  }
+
   onSubmit() {
     let firstName = this.refs.firstName.value.trim();
     let lastName = this.refs.lastName.value.trim();
@@ -162,6 +177,7 @@ class EditProfilePage extends React.Component {
     /**
      * TODO: Importar de la DB la info actual del usuario
      */
+    console.log(Meteor.user() ? Meteor.user().profile : '');
     return (
       <div className="principalDiv">
         <form
