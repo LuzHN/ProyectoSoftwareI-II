@@ -211,28 +211,6 @@ export default class Menu extends Component {
         />
       </div>
     );
-
-    const swaldir = (
-      <div>
-        <SweetAlert
-          show={this.state.swaldir.show}
-          title="Metodo de Pago & Direcciones"
-          text="Seleccione su metodo de pago y direccion de entrega:"
-          type="input"
-          // inputType="password"
-          //inputPlaceholder="Ej. Quiero mi carne con mucha sal"
-          onConfirm={(inputValue) => {
-            //let platos = [...this.state.platos];
-            //platos[this.state.swal.index].descripcion = inputValue;
-            this.setState({
-              swaldir: { show: false, index: 0 },
-              //platos: platos
-            });
-          }}
-        />
-      </div>
-    );
-
     const menuItems = this.state.cart.platos.map((item, i) => (
       <div key={i} className="platoOrdenado">
         <img src={item.imagen} alt="Imagen del platillo" />
@@ -618,7 +596,7 @@ export default class Menu extends Component {
             </div>
           </div>
         </div>
-        <MenuSide swal={this.state.swaldir} ref="right" alignment="right" platos={this.state.cart}>
+        <MenuSide ref="right" alignment="right" platos={this.state.cart}>
           {menuItems}
         </MenuSide>
         {swal}
@@ -632,8 +610,9 @@ class MenuSide extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      swal: this.props.swal,
-      visible: false
+      swal: {},
+      visible: false,
+      user: {}
     };
   }
 
@@ -657,11 +636,37 @@ class MenuSide extends React.Component {
     return price;
   }
 
-  confirmar = (evt) => {
+  confirmar() {
+
+    let userprofile = Meteor.user() ? Meteor.user().profile : '';
+
     let orden = this.props.platos;
     orden.platos = [...this.props.platos.platos];
     orden.products = [];
 
+    var cbo = document.getElementById("dirCliente");
+    const dirSeleccionada =  cbo.selectedIndex;
+    switch(dirSeleccionada){
+      case 0:{
+        orden.direccion = userprofile.address1;
+        break;
+      }
+      case 1:{
+        orden.direccion = userprofile.address2;
+        break;
+      }
+      case 2:{
+        orden.direccion = userprofile.address3;
+        break;
+      }
+      case 3:{
+        orden.direccion = userprofile.address4;
+        break;
+      }
+      default:{
+
+      }
+    }
     let d = new Date();
     let stringFecha =
       d.getDate() +
@@ -691,36 +696,63 @@ class MenuSide extends React.Component {
     orden.products = orden.platos;
 
     orden.cliente = Meteor.user().profile.firstName;
-    console.log(orden);
     Meteor.call('orders.insert', orden);
     orden = {
       estado: '',
       platos: []
     };
     this.setState({ ...this.state, orden });
-    
-
   };
 
+  onSubmit(e) {
+    this.confirmar.bind(this);
+  }
+
+  loadBox() { //carga el combobox con las direcciones
+
+    let userprofile = Meteor.user() ? Meteor.user().profile : '';
+
+    let dir1 = userprofile.address1;
+    let dir2 = userprofile.address2;
+    let dir3 = userprofile.address3;
+    let dir4 = userprofile.address4;
+
+    var selectTag = "<select id = \"dirCliente\"><option>" + dir1 + "</option>";
+
+    if (dir2 !== "") {
+      selectTag+= "<option>" + dir2 + "</option>";
+    }
+
+    if (dir3 !== "") {
+      selectTag+= "<option>" + dir3 + "</option>";
+    }
+
+    if (dir4 !== "") {
+      selectTag+= "<option>" + dir4 + "</option>";
+    }
+    selectTag += "</select>"
+    return (
+      <form id="myForm" className="contactModal" onSubmit={this.onSubmit.bind(this)}>
+        <span>Seleccione su metodo de pago y direcciones: </span>
+        <label id="labelAgregar">Direcciones Disponibles</label>
+        <div dangerouslySetInnerHTML={{ __html: selectTag }}>
+        </div>
+      </form>
+    );
+  }
+
   render() {
-    const swal = (
+
+    //sweetalert de direcciones/pago
+    let swal = (
       <div>
         <SweetAlert
           show={this.state.swal.show}
-          showCancelButton = {true}
           title="Metodo de Pago & Direcciones"
+          showCancelButton
           html text={
             renderToStaticMarkup(
-              <div>
-                <span>Seleccione su metodo de pago y direcciones: </span>
-                <label id="labelAgregar">Direcciones Disponibles</label>
-                <select name="tipoComida" id="tipoDeComida" ref="tipodeComida">
-                  <option value="Direccion1">{}</option>
-                  <option value="Direccion2">{}</option>
-                  <option value="Direccion3">{}</option>
-                  <option value="Direccion4">{}</option>
-                </select>
-              </div>
+              this.loadBox()
             )
           }
           onConfirm={() => {
@@ -728,10 +760,17 @@ class MenuSide extends React.Component {
             this.setState({
               swal: { show: false, index: 0 },
             });
+            toastr.success('La orden ha sido pedida');
           }}
-          onCancel={() =>{
+
+          onCancel={() => {
             this.setState({
               swal: { show: false, index: 0 },
+            });
+          }}
+          onOutsideClick={() => {
+            this.setState({
+              swal: { show: false },
             });
           }}
         />
@@ -750,10 +789,15 @@ class MenuSide extends React.Component {
           <span className="menuSideTotal">
             Sub Total: L. {this.calcularPrecio() * 0.15 + this.calcularPrecio()}
           </span>
-          <ButtonPlato texto="Comprar" onClick={
-            () =>
-              this.setState({ swal: { show: true, index: 0 } })
-          } />
+          <ButtonPlato texto="Comprar" onClick=
+            {
+              (e) => {
+                this.setState({
+                  swal: { show: true, index: 0 },
+                })
+              }
+            }
+          />
           {swal}
         </div>
       </div>

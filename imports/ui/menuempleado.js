@@ -123,7 +123,7 @@ export default class MenuEmployee extends React.Component {
             <td>{order.fechaEntrada}</td>
             <td>{user.profile.firstName + ' ' + user.profile.lastName}</td>
             <td>{user.profile.phoneNumber1}</td>
-            <td>{user.profile.address1}</td>
+            <td>{order.direccion}</td>
             <td>
               {this.checkStatus(order)}
             </td>
