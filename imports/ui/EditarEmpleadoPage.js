@@ -74,7 +74,7 @@ export default class editarEmpleadoPage extends React.Component {
   componentDidMount() {
     this.usersTracker = Tracker.autorun(() => {
       Meteor.subscribe('users.getEmployees');
-      const users = Meteor.users.find().fetch();
+      const users = Meteor.users.find({_id: {$not: Meteor.userId()}}).fetch();
       this.setState({users});
     });
   }
@@ -99,8 +99,14 @@ export default class editarEmpleadoPage extends React.Component {
 
   loadList() {
     return this.state.users.map((user) => {
-      const userr = Meteor.users.findOne({ _id: user._id});
-      console.log(userr);
+      return (
+        <li  onClick={function () {
+          var modal = document.getElementById('ModalModificarEmpleado');
+          modal.style.display = 'block';
+          }} className="collection-item" key={user._id}>
+          <a href="#"  className="hrefNombre">{user.profile}</a>
+        </li>
+      )
     })
   }
 
@@ -221,7 +227,7 @@ export default class editarEmpleadoPage extends React.Component {
           <div className="searchBarDiv">   
             <input id="filterInput" onKeyUp={this.filterNames.bind(this)} placeholder="Buscar Empleado..." type="text"/>
             <ul className="collection with-header" id="names">
-              {renderUser(this.state.users)}
+              {/*{renderUser(this.state.users)}*/}
               {this.loadList()}
             </ul>
           </div>
