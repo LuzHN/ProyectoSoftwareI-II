@@ -397,16 +397,6 @@ export default class Menu extends Component {
           <div id="SelectedMenu">
             <Entree
               hola="simon"
-              // Platos={
-              //   [{"type":"Entree","name":"Cauliflower Nuggets","price":"129","description":"Empanizado con panco acompañado con una salsa fresca de tomate y Tzatziki","image":"http://cdn1-www.momtastic.com/assets/uploads/2016/06/Cauliflower-Nuggets-4.jpg","nutricional":""},
-              //   {"type":"Entree","name":"Montaditos","price":"99","description":"Cuatro tostadas de pan de hierbas; atún, vegetales asados, pollo al pesto, y carne de berenjena","image":"https://www.philadelphia.com.mx/modx/assets/img/revision2016/images/recetas/montaditos_fuerza_roja.jpg","nutricional":""},
-              //   {"type":"Entree","name":"Croquetas de Vegetales","price":"99","description":"Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki","image":"https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg","nutricional":""},
-              //   {"type":"Entree","name":"Palitos de Camote","price":"49","description":"Camotes a la francesa, acompañado de aderezo Tzatziki.","image":"http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg","nutricional":""},
-              //   {"type":"Entree","name":"Aros de Cebolla HK","price":"89","description":"5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.","image":"http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg","nutricional":""},
-              //   {"type":"Entree","name":"Palitos de Camote","price":"49","description":"Camotes a la francesa, acompañado de aderezo Tzatziki.","image":"http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg","nutricional":""},
-              //   {"type":"Entree","name":"Aros de Cebolla HK","price":"89","description":"5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.","image":"http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg","nutricional":""},
-              //   {"type":"Entree","name":"Croquetas de Vegetales","price":"99","description":"Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki","image":"https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg","nutricional":""}]
-              // }
               Platos={this.state.platosMostrados}
               onClick={this.clickComida}
               modal={this.openModal}
@@ -569,35 +559,30 @@ export default class Menu extends Component {
                 </div>
 
                 <div className="bar1" />
-
                 <div className="line vitaminA">
                   <div className="dv">
                     <b id="VitaminAPercentage">0</b>%
                   </div>
                   Vitamin A
                 </div>
-
                 <div className="line vitaminC">
                   <div className="dv">
                     <b id="VitaminCPercentage">0</b>%
                   </div>
                   Vitamin C
                 </div>
-
                 <div className="line calcium">
                   <div className="dv">
                     <b id="CalciumPercentage">0</b>%
                   </div>
                   Calcium
                 </div>
-
                 <div className="line iron">
                   <div className="dv">
                     <b id="IronPercentage">0</b>%
                   </div>
                   Iron
                 </div>
-
                 <div className="dvCalorieDiet line">
                   <div className="calorieNote">
                     <span className="star">*</span> Percent Daily Values are
@@ -620,9 +605,7 @@ export default class Menu extends Component {
         <MenuSide ref="right" alignment="right" platos={this.state.cart}>
           {menuItems}
         </MenuSide>
-      </div> 
       {swal}
-
       </div>
     );
   }
