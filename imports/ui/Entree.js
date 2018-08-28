@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 
 import ButtonPlato from './ButtonPlato';
+import { Dishes } from '../api/dishes';
+import menu from './menu';
 
 renderPlates = (props) => {
   const plat = props.Platos;
@@ -14,7 +16,7 @@ renderPlates = (props) => {
             <h3 className="card-titulo">{plate.name}</h3>
             <p className="card-price">L. {plate.price}</p>
             <p className="card-desc">{plate.description}</p>
-            <ButtonPlato texto="Informacion Nutricional" onClick={props.modal}></ButtonPlato>
+            <ButtonPlato plato = {plate} texto="Informacion Nutricional" onClick={props.modal} onclick={this.getDish}></ButtonPlato>
             <ButtonPlato texto="Agregar a Carrito" onClick={props.onClick} plato={plate.name} precio={plate.price} imagen={plate.image}></ButtonPlato>
           </div>
         </div>

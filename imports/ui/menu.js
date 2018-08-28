@@ -462,23 +462,25 @@ export default class Menu extends Component {
                 </span>
               </div>
               <div className="modal-header-Name">
-                <h2>Agregar Plato</h2>
+                <h2>Nutritional Facts</h2>
               </div>
             </div>
             {/* Body */}
-            <div
-              className="nutritionLabel"
-              id="nutrilabel"
-              style={{ widh: '50%' }}
-            >
+
+            <div className="nutritionLabel" id="nutrilabel" >
               <div className="yes">
-                <div className="title">Nutrition Facts</div>
+                <div className="title">
+                  Nutritional Facts
+                </div>
 
                 <div className="serving">
                   <div className="cf">
-                    <div className="servingSizeText fl">Serving Size</div>
-
-                    <div className="servingUnitQuantity fl">1</div>
+                    <div className="servingSizeText fl">
+                      Serving Size
+                        </div>
+                    <div className="servingUnitQuantity fl">
+                      1
+                        </div>
                   </div>
                 </div>
 
@@ -489,10 +491,12 @@ export default class Menu extends Component {
                 </div>
 
                 <div className="line">
-                  <div className="fr">Calories from Fat 0</div>
+                  <div className="fr">
+                    Calories from Fat 0
+                  </div>
 
                   <div>
-                    <b>Calories</b> 0
+                    <b>Calories</b>
                   </div>
                 </div>
 
@@ -505,75 +509,92 @@ export default class Menu extends Component {
 
                 <div className="line">
                   <div className="dv">
-                    <b>0</b>%
+                    <b id="TotalFatPercentage">0</b>%
                   </div>
-                  <b>Total Fat</b> 0g
+                  <b>Total Fat</b>
                 </div>
 
                 <div className="line indent">
                   <div className="dv">
-                    <b>0</b>%
+                    <b id="TotalSatFatPercentage">0</b>%
                   </div>
-                  Saturated Fat 0g
+                  Saturated Fat
+                </div>
+
+
+                <div className="line indent">
+                  <i>Trans</i> Fat
+                </div>
+
+                <div className="line">
+                  <div className="dv">
+                    <b id="CholesterolPercentage">0</b>%
+                  </div>
+                  <b>Cholesterol</b>
+                </div>
+
+                <div className="line">
+                  <div className="dv">
+                    <b id="SodiumPercentage" >0</b>%
+                  </div>
+                  <b>Sodium</b>
+                </div>
+
+                <div className="line">
+                  <div className="dv">
+                    <b id="CarbsPercentage" >0</b>%
+                  </div>
+                  <b>Total Carbohydrates</b>
                 </div>
 
                 <div className="line indent">
-                  <i>Trans</i> Fat 0g
-                </div>
-
-                <div className="line">
                   <div className="dv">
-                    <b>0</b>%
+                    <b id="DietaryFiberPercentage">0</b>%
                   </div>
-                  <b>Cholesterol</b> 0mg
-                </div>
-
-                <div className="line">
-                  <div className="dv">
-                    <b>0</b>%
-                  </div>
-                  <b>Sodium</b> 0mg
-                </div>
-
-                <div className="line">
-                  <div className="dv">
-                    <b>0</b>%
-                  </div>
-                  <b>Total Carbohydrates</b> 0g
+                  Dietary Fiber
                 </div>
 
                 <div className="line indent">
                   <div className="dv">
-                    <b>0</b>%
+                    <b id="SugarPercentage">0</b>%
                   </div>
-                  Dietary Fiber 0g
+                  Sugars                 
                 </div>
 
-                <div className="line indent">Sugars 0g</div>
-
                 <div className="line">
-                  <b>Protein</b> 0g
+                  <div className="dv">
+                    <b id="ProteinPercentage">0</b>%
+                  </div>
+                  <b>Protein</b>
                 </div>
 
                 <div className="bar1" />
 
                 <div className="line vitaminA">
-                  <div className="dv">0%</div>
+                  <div className="dv">
+                    <b id="VitaminAPercentage">0</b>%
+                  </div>
                   Vitamin A
                 </div>
 
                 <div className="line vitaminC">
-                  <div className="dv">0%</div>
+                  <div className="dv">
+                    <b id="VitaminCPercentage">0</b>%
+                  </div>
                   Vitamin C
                 </div>
 
                 <div className="line calcium">
-                  <div className="dv">0%</div>
+                  <div className="dv">
+                    <b id="CalciumPercentage">0</b>%
+                  </div>
                   Calcium
                 </div>
 
                 <div className="line iron">
-                  <div className="dv">0%</div>
+                  <div className="dv">
+                    <b id="IronPercentage">0</b>%
+                  </div>
                   Iron
                 </div>
 
@@ -595,11 +616,12 @@ export default class Menu extends Component {
               <div className="modal-footer" />
             </div>
           </div>
-        </div>
+        </div> //cierra modal
         <MenuSide ref="right" alignment="right" platos={this.state.cart}>
           {menuItems}
         </MenuSide>
-        {swal}
+      </div> 
+      {swal}
 
       </div>
     );
