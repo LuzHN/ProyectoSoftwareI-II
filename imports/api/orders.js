@@ -9,7 +9,9 @@ if (Meteor.isServer) {
     return Orders.find({ userId: this.userId });
   });
   Meteor.publish('orders', () => {
-    return Orders.find({});
+    if (Roles.userIsInRole(Meteor.userId(), 'employee') || Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+      return Orders.find({}); 
+    }
   });
 }
 Meteor.methods({
@@ -24,18 +26,28 @@ Meteor.methods({
     });
   },
   'orders.setDispatched'(id) {
-    Orders.update(id, {$set: { status: 'Dispatched'}});
+    if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+      Orders.update(id, {$set: { status: 'Dispatched'}}); 
+    }
   },
   'orders.setPending'(id) {
-    Orders.update(id, {$set: { status: 'Pending'}});
+    if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+      Orders.update(id, {$set: { status: 'Pending'}}); 
+    }
   },
   'orders.setPreOrder'(id) {
-    Orders.update(id, {$set: { status: 'PreOrder'}});
+    if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+      Orders.update(id, {$set: { status: 'PreOrder'}}); 
+    }
   },
   'orders.setInProgress'(id) {
-    Orders.update(id, {$set: { status: 'InProgress'}});
+    if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+      Orders.update(id, {$set: { status: 'InProgress'}}); 
+    }
   },
   'orders.delete'(id) {
-    Orders.remove(id);
+    if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+      Orders.remove(id); 
+    }
   }
 });
