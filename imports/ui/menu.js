@@ -487,6 +487,8 @@ export default class Menu extends Component {
 
                   <div>
                     <b>Calories</b>
+                    &nbsp;
+                    <span id="TotalCalories"></span>
                   </div>
                 </div>
 
@@ -502,6 +504,8 @@ export default class Menu extends Component {
                     <b id="TotalFatPercentage">0</b>%
                   </div>
                   <b>Total Fat</b>
+                  &nbsp;
+                  <span id="TotalFat"></span>g
                 </div>
 
                 <div className="line indent">
@@ -509,11 +513,15 @@ export default class Menu extends Component {
                     <b id="TotalSatFatPercentage">0</b>%
                   </div>
                   Saturated Fat
+                  &nbsp;
+                  <span id="TotalSatFat"></span>g
                 </div>
 
 
                 <div className="line indent">
                   <i>Trans</i> Fat
+                  &nbsp;
+                  <span id="TotalTrans"></span> 
                 </div>
 
                 <div className="line">
@@ -521,6 +529,8 @@ export default class Menu extends Component {
                     <b id="CholesterolPercentage">0</b>%
                   </div>
                   <b>Cholesterol</b>
+                  &nbsp;
+                  <span id="TotalCholesterol"></span>mg
                 </div>
 
                 <div className="line">
@@ -528,6 +538,8 @@ export default class Menu extends Component {
                     <b id="SodiumPercentage" >0</b>%
                   </div>
                   <b>Sodium</b>
+                  &nbsp;
+                  <span id="TotalSodium"></span>mg
                 </div>
 
                 <div className="line">
@@ -535,6 +547,8 @@ export default class Menu extends Component {
                     <b id="CarbsPercentage" >0</b>%
                   </div>
                   <b>Total Carbohydrates</b>
+                  &nbsp;
+                  <span id="TotalCarbs"></span>g
                 </div>
 
                 <div className="line indent">
@@ -542,13 +556,16 @@ export default class Menu extends Component {
                     <b id="DietaryFiberPercentage">0</b>%
                   </div>
                   Dietary Fiber
+                  &nbsp;
+                  <span id="TotalDietaryFiber"></span>g
                 </div>
 
                 <div className="line indent">
-                  <div className="dv">
+                  <div className="dv">                
                     <b id="SugarPercentage">0</b>%
                   </div>
-                  Sugars                 
+                  Sugars   
+                  <span id="TotalSugar"></span>g         
                 </div>
 
                 <div className="line">
@@ -556,6 +573,8 @@ export default class Menu extends Component {
                     <b id="ProteinPercentage">0</b>%
                   </div>
                   <b>Protein</b>
+                  &nbsp;
+                  <span id="TotalProtein"></span>g
                 </div>
 
                 <div className="bar1" />
@@ -564,24 +583,32 @@ export default class Menu extends Component {
                     <b id="VitaminAPercentage">0</b>%
                   </div>
                   Vitamin A
+                  &nbsp;
+                  <span id="TotalVitaminA"></span>%
                 </div>
                 <div className="line vitaminC">
                   <div className="dv">
                     <b id="VitaminCPercentage">0</b>%
                   </div>
                   Vitamin C
+                  &nbsp;
+                  <span id="TotalVitaminC"></span>%
                 </div>
                 <div className="line calcium">
                   <div className="dv">
                     <b id="CalciumPercentage">0</b>%
                   </div>
                   Calcium
+                  &nbsp;
+                  <span id="TotalCalcium"></span>%
                 </div>
                 <div className="line iron">
                   <div className="dv">
                     <b id="IronPercentage">0</b>%
                   </div>
                   Iron
+                  &nbsp;
+                  <span id="TotalIron"></span>%
                 </div>
                 <div className="dvCalorieDiet line">
                   <div className="calorieNote">
