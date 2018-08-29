@@ -17,15 +17,6 @@ export default class editarEmpleadoPage extends React.Component {
       }
   }
 
-  searchEmployeeSubmit(e) {
-    e.preventDefault();
-    console.log("Search Employee");
-    let parameters = this.refs.valueToQuery.value;
-    const usersFound = Meteor.call('query.User', parameters);
-    console.log(usersFound);
-    this.setState({ usersFound });
-    }
-
   onModAdmin() {
     var modal = document.getElementById('ModalModificarAdministrador');
     modal.style.display = 'block';

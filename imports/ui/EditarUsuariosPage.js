@@ -13,20 +13,18 @@ export default class editarEmpleadoPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-        users: []
+        users: [],
     }
 }
 
-searchEmployeeSubmit(e) {
-    e.preventDefault();
-    console.log("Search Employee");
-    let parameters = this.refs.valueToQuery.value;
-    const usersFound = Meteor.call('query.User', parameters);
-    console.log(usersFound);
-    this.setState({ usersFound });
-}
-
 onAgregarUsuario() {
+    this.refs.email.value = "";
+    this.refs.passwordAgregar.value = "";
+    this.refs.confirmPasswordAgregar.value = "";
+    this.refs.firstNameAgregar.value = "";
+    this.refs.lastNameAgregar.value = "";
+    this.refs.phoneNumberAgregar.value = "";
+    this.refs.addressAgregar.value = ""; 
     var modal = document.getElementById('ModalAgregarUsuario');
     modal.style.display = 'block';
 }
@@ -39,6 +37,16 @@ closeAgregarUsuario() {
 closeModificarUsuario() {
     var modal = document.getElementById('ModalModificarUsuario');
     modal.style.display = 'none';
+    this.refs.firstNameMod.value = '';
+    this.refs.lastNameMod.value = '';
+    this.refs.phoneNumber1Mod.value = '';
+    this.refs.phoneNumber2Mod.value = '';
+    this.refs.phoneNumber3Mod.value = '';
+    this.refs.phoneNumber4Mod.value = '';
+    this.refs.address1Mod.value = '';
+    this.refs.address2Mod.value = '';
+    this.refs.address3Mod.value = '';
+    this.refs.address4Mod.value = '';
 }
   
 filterNames() {
@@ -67,13 +75,17 @@ filterNames() {
 componentDidMount() {
     this.usersTracker = Tracker.autorun(() => {
         Meteor.subscribe('users.getClients');
-        const users = Meteor.users.find().fetch();
-        this.setState({ users });
+        const users = Meteor.users.find({_id: {$not: Meteor.userId()}}).fetch();
+        this.setState({users});
     });
 }
 
 componentWillUnmount() {
     this.usersTracker.stop();
+}
+
+handleSubmit(e) {
+    e.preventDefault();
 }
 
 handleChange(e) {
@@ -86,9 +98,36 @@ handleChange(e) {
     }
 }
 
-handleSubmit(e) {
-    e.preventDefault();
+loadList() {
+    return this.state.users.map((user) => {
+      return (
+        <li  onClick={(e) => {
+          this.cargarInfo(user);
+        }} className="collection-item" key={user._id}>
+          <a href="#"  className="hrefNombre">{user.profile.firstName + ' ' + user.profile.lastName}</a>
+        </li>
+      )
+    })
 }
+
+cargarInfo(user) {
+    $('#phoneNumber1Mod').val(user.profile.phoneNumber1);
+    $('#phoneNumber2Mod').val(user.profile.phoneNumber1);
+    $('#phoneNumber3Mod').val(user.profile.phoneNumber1);
+    $('#phoneNumber4Mod').val(user.profile.phoneNumber1);
+    this.refs.firstNameMod.value = user.profile.firstName;
+    this.refs.lastNameMod.value = user.profile.lastName;
+    this.refs.phoneNumber1Mod.value = user.profile.phoneNumber1;
+    this.refs.phoneNumber2Mod.value = user.profile.phoneNumber2;
+    this.refs.phoneNumber3Mod.value = user.profile.phoneNumber3;
+    this.refs.phoneNumber4Mod.value = user.profile.phoneNumber4;
+    this.refs.address1Mod.value = user.profile.address1;
+    this.refs.address2Mod.value = user.profile.address2;
+    this.refs.address3Mod.value = user.profile.address3;
+    this.refs.address4Mod.value = user.profile.address4;
+    var modal = document.getElementById('ModalModificarUsuario');
+    modal.style.display = 'block';
+  }
 
 onSubmitAgregar() {
     let email = this.refs.email.value.trim();
@@ -99,8 +138,6 @@ onSubmitAgregar() {
     let phoneNumber1 = this.refs.phoneNumberAgregar.value.trim();
     let address1 = this.refs.addressAgregar.value.trim();
     let profile = {
-        email,
-        password,
         firstName,
         lastName,
         phoneNumber1,
@@ -164,7 +201,12 @@ onSubmitAgregar() {
     }
 
     if (!validator) {
-        Meteor.call('users.initializeClientEnAdmin', profile, (err, returnValue) => {
+        let user = { 
+            email, 
+            password, 
+            profile 
+        };
+        Meteor.call('users.initializeClientEnAdmin', user, (err, returnValue) => {
             if (returnValue == 1) {
                 console.log(Meteor.userId);
                 toastr.success('Se ha registrado el cliente exitosamente.');
@@ -203,7 +245,7 @@ render() {
                 <div className="searchBarDiv">   
                     <input id="filterInput" onKeyUp={this.filterNames.bind(this)} placeholder="Buscar Usuario..." type="text"/>
                     <ul className="collection with-header" id="names">
-                        {renderUser(this.state.users)}
+                        {this.loadList()}
                     </ul>
                 </div>
                 {/*Modal Agregar Usuario*/}
@@ -286,120 +328,106 @@ render() {
                 </div> {/*Termina MODAL AGREGAR USUARIO*/}
 
                 <div id="ModalModificarUsuario" className="modal">
-            <div className="modal-content">
-              {/* Header */}
-              <div className="modal-header">
-                <div className="modal-header-Btn">
-                  <span className="closeBtn" onClick={this.closeModificarUsuario.bind(this)}>&times;</span>
-                </div>
-                <div className="modal-header-Name">
-                  <h2>Modificar Cliente</h2>
-                </div>
-              </div>
-              {/* Body */}
-              <div className="modal-body">
-                <form  className="agregarEmpleadoFormModal">
-                  <div>
-                    <div className = "container1">
-                      <div className = "box1">
-                        <p>
-                          <label>Primer Nombre</label>
-                          <input id = "firstNameId" maxLength='140' placeholder='Ingrese primer nombre.' ref = "firstNameMod"/>
-                        </p>
-                      </div>
-                      <div className="box2">
-                        <p>
-                          <label>Apellido</label>
-                          <input maxLength='140' placeholder='Ingrese su apellido.' ref="lastNameMod" type="text"/>
-                        </p>
-                      </div>
-                    </div>
-                    {/*<div className="contraBox">
-                        <div className="oldContraBox">
-                            <label>Contraseña Vieja</label>
-                            <input ref="oldPassword" type="password" id="oldPasswordId" placeholder="Contraseña vieja."/>
+                    <div className="modal-content">
+                        {/* Header */}
+                        <div className="modal-header">
+                            <div className="modal-header-Btn">
+                                <span className="closeBtn" onClick={this.closeModificarUsuario.bind(this)}>&times;</span>
+                            </div>
+                            <div className="modal-header-Name">
+                                <h2>Modificar Cliente</h2>
+                            </div>
                         </div>
-                        <div className="leftContainerBoxUsers">
-                            <label>Contraseña Nueva</label>
-                            <input ref="newPassword" type="password" id="newPasswordId" placeholder="Contraseña nueva."/>
-                        </div>
-                        <div className="rightContainerBoxUsers">
-                            <label>Confirmar Contraseña</label>
-                            <input ref="confirmPassword" type="password" id="confirmPasswordId" placeholder="Confirmar contraseña."/>
-                        </div>
-                    </div>*/}
+                         {/* Body */}
+                        <div className="modal-body">
+                            <form  className="agregarEmpleadoFormModal">
+                                <div>
+                                    <div className = "container1">
+                                        <div className = "box1">
+                                            <p>
+                                                <label>Primer Nombre</label>
+                                                <input id = "firstNameId" maxLength='140' placeholder='Ingrese primer nombre.' ref = "firstNameMod"/>
+                                            </p>
+                                        </div>
+                                        <div className="box2">
+                                            <p>
+                                                <label>Apellido</label>
+                                                <input maxLength='140' placeholder='Ingrese su apellido.' ref="lastNameMod" type="text"/>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    {/*<div className="contraBox">
+                                        <div className="oldContraBox">
+                                            <label>Contraseña Vieja</label>
+                                            <input ref="oldPassword" type="password" id="oldPasswordId" placeholder="Contraseña vieja."/>
+                                        </div>
+                                        <div className="leftContainerBoxUsers">
+                                            <label>Contraseña Nueva</label>
+                                            <input ref="newPassword" type="password" id="newPasswordId" placeholder="Contraseña nueva."/>
+                                        </div>
+                                        <div className="rightContainerBoxUsers">
+                                            <label>Confirmar Contraseña</label>
+                                            <input ref="confirmPassword" type="password" id="confirmPasswordId" placeholder="Confirmar contraseña."/>
+                                        </div>
+                                    </div>*/}
 
-                    <div className="container1">
-                      <div className="box1">
-                        <p>
-                          <label>*Teléfono 1</label>
-                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber1Mod"/>
-                          <label>Teléfono 3</label>
-                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber3Mod"/>
-                        </p>
-                      </div>
-                      <div className="box2">
-                        <p>
-                          <label>Teléfono 2</label>
-                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber2Mod"/>
-                          <label>Teléfono 4</label>
-                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber4Mod"/>
-                        </p>
-                      </div>
+                                    <div className="container1">
+                                        <div className="box1">
+                                            <p>
+                                                <label>*Teléfono 1</label>
+                                                <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber1Mod" id = "phoneNumber1Mod"/>
+                                                <label>Teléfono 3</label>
+                                                <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber3Mod" id = "phoneNumber3Mod"/>
+                                            </p>
+                                        </div>
+                                        <div className="box2">
+                                            <p>
+                                                <label>Teléfono 2</label>
+                                                <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber2Mod" id = "phoneNumber2Mod"/>
+                                                <label>Teléfono 4</label>
+                                                <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber4Mod" id = "phoneNumber4Mod"/>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="container1">
+                                        <div className="box1">
+                                            <p>
+                                                <label>*Dirección 1</label>
+                                                <textarea id = "direction1TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address1Mod" rows="5"/>
+                                                <label>Dirección 3</label>
+                                                <textarea id = "direction3TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address3Mod" rows="5"/>
+                                            </p>
+                                        </div>
+                                        <div className="box2">
+                                            <p>
+                                                <label>Dirección 2</label>
+                                                <textarea id = "direction2TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address2Mod" rows="5"/>
+                                                <label>Dirección 4</label>
+                                                <textarea id = "direction4TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address4Mod" rows="5"/>
+                                            </p>
+                                        </div>
+                                    </div>  
+                                    <div className="container1">
+                                        <div className="box1">
+                                            <p>
+                                                <button className = "confirmarModificar" >Confirmar Cambios</button>
+                                            </p>
+                                        </div>
+                                        <div className="box2">
+                                            <p>
+                                                <button className = "confirmarDesactivar" >Borrar Cliente</button>
+                                            </p>
+                                        </div>
+                                    </div>     
+                                </div>       
+                            </form>
+                        </div>
+                        {/* Footer */}
+                        <div className="modal-footer"></div>
                     </div>
-                    <div className="container1">
-                      <div className="box1">
-                        <p>
-                          <label>*Dirección 1</label>
-                          <textarea id = "direction1TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address1Mod" rows="5"/>
-                          <label>Dirección 3</label>
-                          <textarea id = "direction3TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address3Mod" rows="5"/>
-                        </p>
-                      </div>
-                      <div className="box2">
-                        <p>
-                          <label>Dirección 2</label>
-                          <textarea id = "direction2TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address2Mod" rows="5"/>
-                          <label>Dirección 4</label>
-                          <textarea id = "direction4TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address4Mod" rows="5"/>
-                        </p>
-                      </div>
-                    </div>  
-                    <div className="container1">
-                      <div className="box1">
-                        <p>
-                          <button className = "confirmarModificar" >Confirmar Cambios</button>
-                        </p>
-                      </div>
-                      <div className="box2">
-                        <p>
-                          <button className = "confirmarDesactivar" >Borrar Cliente</button>
-                        </p>
-                      </div>
-                    </div>     
-                  </div>       
-                </form>
-              </div>
-              {/* Footer */}
-              <div className="modal-footer"></div>
-            </div>
-          </div>{/*Termina MODAL MODIFICAR Administrador*/}
+                </div>{/*Termina MODAL MODIFICAR Administrador*/}
             </div>
         </div>
     );
   }
-}
-
-const renderUser = (users) => {
-  return users.map((user) => {
-    return (
-      <li  onClick={function () {
-        var modal = document.getElementById('ModalModificarUsuario');
-        modal.style.display = 'block';
-        }} className="collection-item" key={user._id}>
-        {user.getClientes}
-        <a href="#"  className="hrefNombre"></a>
-      </li>
-    )
-  });
 }

@@ -17,15 +17,6 @@ export default class editarEmpleadoPage extends React.Component {
       }
   }
 
-  searchEmployeeSubmit(e) {
-    e.preventDefault();
-    console.log("Search Employee");
-    let parameters = this.refs.valueToQuery.value;
-    const usersFound = Meteor.call('query.User', parameters);
-    console.log(usersFound);
-    this.setState({ usersFound });
-  }
-
   onAgregar() {
     this.refs.email.value = "";
     this.refs.passwordAgregar.value = "";
@@ -46,6 +37,16 @@ export default class editarEmpleadoPage extends React.Component {
   closeModificar() {
     var modal = document.getElementById('ModalModificarEmpleado');
     modal.style.display = 'none';
+    this.refs.firstNameMod.value = '';
+    this.refs.lastNameMod.value = '';
+    this.refs.phoneNumber1Mod.value = '';
+    this.refs.phoneNumber2Mod.value = '';
+    this.refs.phoneNumber3Mod.value = '';
+    this.refs.phoneNumber4Mod.value = '';
+    this.refs.address1Mod.value = '';
+    this.refs.address2Mod.value = '';
+    this.refs.address3Mod.value = '';
+    this.refs.address4Mod.value = '';
   }
     
   filterNames() {
@@ -100,14 +101,32 @@ export default class editarEmpleadoPage extends React.Component {
   loadList() {
     return this.state.users.map((user) => {
       return (
-        <li  onClick={function () {
-          var modal = document.getElementById('ModalModificarEmpleado');
-          modal.style.display = 'block';
-          }} className="collection-item" key={user._id}>
-          <a href="#"  className="hrefNombre">{user.profile}</a>
+        <li  onClick={(e) => {
+          this.cargarInfo(user);
+        }} className="collection-item" key={user._id}>
+          <a href="#"  className="hrefNombre">{user.profile.firstName + ' ' + user.profile.lastName}</a>
         </li>
       )
     })
+  }
+
+  cargarInfo(user) {
+    $('#phoneNumber1Mod').val(user.profile.phoneNumber1);
+    $('#phoneNumber2Mod').val(user.profile.phoneNumber1);
+    $('#phoneNumber3Mod').val(user.profile.phoneNumber1);
+    $('#phoneNumber4Mod').val(user.profile.phoneNumber1);
+    this.refs.firstNameMod.value = user.profile.firstName;
+    this.refs.lastNameMod.value = user.profile.lastName;
+    this.refs.phoneNumber1Mod.value = user.profile.phoneNumber1;
+    this.refs.phoneNumber2Mod.value = user.profile.phoneNumber2;
+    this.refs.phoneNumber3Mod.value = user.profile.phoneNumber3;
+    this.refs.phoneNumber4Mod.value = user.profile.phoneNumber4;
+    this.refs.address1Mod.value = user.profile.address1;
+    this.refs.address2Mod.value = user.profile.address2;
+    this.refs.address3Mod.value = user.profile.address3;
+    this.refs.address4Mod.value = user.profile.address4;
+    var modal = document.getElementById('ModalModificarEmpleado');
+    modal.style.display = 'block';
   }
 
   onSubmitAgregar() {
@@ -208,7 +227,6 @@ export default class editarEmpleadoPage extends React.Component {
   render() {
     console.log(this.state.users);
     return (
-      
       <div className="EditarEmpleado">
         <div className="containerPrincipal">
         
@@ -227,7 +245,6 @@ export default class editarEmpleadoPage extends React.Component {
           <div className="searchBarDiv">   
             <input id="filterInput" onKeyUp={this.filterNames.bind(this)} placeholder="Buscar Empleado..." type="text"/>
             <ul className="collection with-header" id="names">
-              {/*{renderUser(this.state.users)}*/}
               {this.loadList()}
             </ul>
           </div>
@@ -344,18 +361,20 @@ export default class editarEmpleadoPage extends React.Component {
                     <div className="container1">
                       <div className="box1">
                         <p>
+                          
                           <label>*Teléfono 1</label>
-                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber1Mod"/>
+                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber1Mod" id = "phoneNumber1Mod"/>
+                         
                           <label>Teléfono 3</label>
-                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber3Mod"/>
+                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber3Mod" id = "phoneNumber3Mod"/>
                         </p>
                       </div>
                       <div className="box2">
                         <p>
                           <label>Teléfono 2</label>
-                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber2Mod"/>
+                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber2Mod" id = "phoneNumber2Mod"/>
                           <label>Teléfono 4</label>
-                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber4Mod"/>
+                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber4Mod" id = "phoneNumber4Mod"/>
                         </p>
                       </div>
                     </div>
@@ -400,18 +419,3 @@ export default class editarEmpleadoPage extends React.Component {
       </div>
     );}
   }
-
-  const renderUser = (users) => {
-    return users.map((user) => {
-      return (
-        <li  onClick={function () {
-          var modal = document.getElementById('ModalModificarEmpleado');
-          modal.style.display = 'block';
-          }} className="collection-item" key={user._id}>
-          <a href="#"  className="hrefNombre">{user.firstName}</a>
-        </li>
-      )
-    });
-}
-
-
