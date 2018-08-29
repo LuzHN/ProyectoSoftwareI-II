@@ -73,15 +73,13 @@ export default class editarEmpleadoPage extends React.Component {
   }
 
   componentDidMount() {
-    
     setTimeout(() => {
       this.usersTracker = Tracker.autorun(() => {
         Meteor.subscribe('users.getEmployees');
         const users = Meteor.users.find({_id: {$not: Meteor.userId()}}).fetch();
         this.setState({users});
       });
-
-    }, 1000);
+    }, 3000);
   }
 
   componentWillUnmount() {

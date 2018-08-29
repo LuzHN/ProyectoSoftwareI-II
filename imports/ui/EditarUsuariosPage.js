@@ -9,7 +9,7 @@ import { Redirect } from 'react-router'
 import InputMask from 'react-input-mask';
 import '../client/styles/editUsuarios';
 
-export default class editarEmpleadoPage extends React.Component {
+export default class editarUsuariosPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -83,7 +83,7 @@ componentDidMount() {
             this.setState({users});
         });
   
-      }, 1000);
+      }, 3000);
 }
 
 componentWillUnmount() {
