@@ -24,7 +24,7 @@ export default class editarAdminsPage extends React.Component {
     this.refs.firstNameAgregar.value = "";
     this.refs.lastNameAgregar.value = "";
     this.refs.phoneNumberAgregar.value = "";
-    this.refs.addressAgregar.value = ""; 
+    this.refs.addressAgregar.value = "";
     var modal = document.getElementById('ModalAgregarAdministrador');
     modal.style.display = 'block';
   }
@@ -95,7 +95,7 @@ export default class editarAdminsPage extends React.Component {
     console.log("index" + index);
     if (index == 1) {
       this.props.history.push('/editEmpleado');
-    } 
+    }
     if (index == 2) {
       this.props.history.push('/editUsuarios');
     }
@@ -219,22 +219,22 @@ export default class editarAdminsPage extends React.Component {
           this.refs.firstNameAgregar.value = "";
           this.refs.lastNameAgregar.value = "";
           this.refs.phoneNumberAgregar.value = "";
-          this.refs.addressAgregar.value = ""; 
+          this.refs.addressAgregar.value = "";
         } else {
-          toastr.warning('No tiene privilegios de administrador. No se ha creado el administrador.');       
-        }     
+          toastr.warning('No tiene privilegios de administrador. No se ha creado el administrador.');
+        }
       });
     }
   }
 
   render() {
-    console.log(this.state.users);
+    // console.log(this.state.users);
     return (
       <div className="EditarAdmins">
         <div className="containerPrincipal">
-        
-          <div className = "ComboBox">
-            <select onChange ={this.handleChange.bind(this)}>
+
+          <div className="ComboBox">
+            <select onChange={this.handleChange.bind(this)}>
               <option value="Administradores">Administradores</option>
               <option value="Empleados">Empleados</option>
               <option value="Usuarios">Clientes</option>
@@ -243,10 +243,10 @@ export default class editarAdminsPage extends React.Component {
 
           <div className="Buttons">
             <button className="botonAgregar" onClick={this.onAgregarAdmin.bind(this)}>Agregar Administrador</button>
-          </div>  
+          </div>
 
-          <div className="searchBarDiv">   
-            <input id="filterInput" onKeyUp={this.filterNames.bind(this)} placeholder="Buscar Administrador..." type="text"/>
+          <div className="searchBarDiv">
+            <input id="filterInput" onKeyUp={this.filterNames.bind(this)} placeholder="Buscar Administrador..." type="text" />
             <ul className="collection with-header" id="names">
               {this.loadList()}
             </ul>
@@ -272,7 +272,7 @@ export default class editarAdminsPage extends React.Component {
                       <div className="box1">
                         <p>
                           <label>Email</label>
-                          <input ref = "email" id = "correo" maxLength='140' placeholder='Ingrese su correo.'  type="email"/>
+                          <input ref="email" id="correo" maxLength='140' placeholder='Ingrese su correo.' type="email" />
                         </p>
                       </div>
                     </div>
@@ -280,13 +280,13 @@ export default class editarAdminsPage extends React.Component {
                       <div className="box1">
                         <p>
                           <label>Contraseña</label>
-                          <input ref = "passwordAgregar" placeholder='Ingrese su contraseña.'  type="password"/>
+                          <input ref="passwordAgregar" placeholder='Ingrese su contraseña.' type="password" />
                         </p>
                       </div>
                       <div className="box2">
                         <p>
                           <label>Confirmar Contraseña</label>
-                          <input placeholder='Confirmar contraseña.' ref="confirmPasswordAgregar" type="password"/>
+                          <input placeholder='Confirmar contraseña.' ref="confirmPasswordAgregar" type="password" />
                         </p>
                       </div>
                     </div>
@@ -300,7 +300,7 @@ export default class editarAdminsPage extends React.Component {
                       <div className="box2">
                         <p>
                           <label>Apellido</label>
-                          <input maxLength='140' placeholder='Ingrese su apellido.' ref="lastNameAgregar" type="text"/>
+                          <input maxLength='140' placeholder='Ingrese su apellido.' ref="lastNameAgregar" type="text" />
                         </p>
                       </div>
                     </div>
@@ -308,7 +308,7 @@ export default class editarAdminsPage extends React.Component {
                       <div className="box1">
                         <p>
                           <label>Número de Teléfono</label>
-                          <InputMask id = "numero" mask="9999-9999" placeholder='Ingrese su número de teléfono.' ref="phoneNumberAgregar"/>
+                          <InputMask id="numero" mask="9999-9999" placeholder='Ingrese su número de teléfono.' ref="phoneNumberAgregar" />
                         </p>
                       </div>
                     </div>
@@ -345,19 +345,19 @@ export default class editarAdminsPage extends React.Component {
               </div>
               {/* Body */}
               <div className="modal-body">
-                <form  className="agregarEmpleadoFormModal">
+                <form className="agregarEmpleadoFormModal">
                   <div>
-                    <div className = "container1">
-                      <div className = "box1">
+                    <div className="container1">
+                      <div className="box1">
                         <p>
                           <label>Primer Nombre</label>
-                          <input id = "firstNameId" maxLength='140' placeholder='Ingrese primer nombre.' ref = "firstNameMod"/>
+                          <input id="firstNameId" maxLength='140' placeholder='Ingrese primer nombre.' ref="firstNameMod" />
                         </p>
                       </div>
                       <div className="box2">
                         <p>
                           <label>Apellido</label>
-                          <input maxLength='140' placeholder='Ingrese su apellido.' ref="lastNameMod" type="text"/>
+                          <input maxLength='140' placeholder='Ingrese su apellido.' ref="lastNameMod" type="text" />
                         </p>
                       </div>
                     </div>
@@ -383,33 +383,33 @@ export default class editarAdminsPage extends React.Component {
                       <div className="box1">
                         <p>
                           <label>*Dirección 1</label>
-                          <textarea id = "direction1TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address1Mod" rows="5"/>
+                          <textarea id="direction1TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address1Mod" rows="5" />
                           <label>Dirección 3</label>
-                          <textarea id = "direction3TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address3Mod" rows="5"/>
+                          <textarea id="direction3TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address3Mod" rows="5" />
                         </p>
                       </div>
                       <div className="box2">
                         <p>
                           <label>Dirección 2</label>
-                          <textarea id = "direction2TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address2Mod" rows="5"/>
+                          <textarea id="direction2TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address2Mod" rows="5" />
                           <label>Dirección 4</label>
-                          <textarea id = "direction4TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address4Mod" rows="5"/>
+                          <textarea id="direction4TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address4Mod" rows="5" />
                         </p>
                       </div>
-                    </div>  
+                    </div>
                     <div className="container1">
                       <div className="box1">
                         <p>
-                          <button className = "confirmarModificar" >Confirmar Cambios</button>
+                          <button className="confirmarModificar" >Confirmar Cambios</button>
                         </p>
                       </div>
                       <div className="box2">
                         <p>
-                          <button className = "confirmarDesactivar" >Borrar Administrador</button>
+                          <button className="confirmarDesactivar" >Borrar Administrador</button>
                         </p>
                       </div>
-                    </div>     
-                  </div>       
+                    </div>
+                  </div>
                 </form>
               </div>
               {/* Footer */}
@@ -418,6 +418,6 @@ export default class editarAdminsPage extends React.Component {
           </div>{/*Termina MODAL MODIFICAR Administrador*/}
         </div>
       </div>
-      );
+    );
   }
 }
