@@ -112,9 +112,9 @@ export default class editarEmpleadoPage extends React.Component {
 
   cargarInfo(user) {
     $('#phoneNumber1Mod').val(user.profile.phoneNumber1);
-    $('#phoneNumber2Mod').val(user.profile.phoneNumber1);
-    $('#phoneNumber3Mod').val(user.profile.phoneNumber1);
-    $('#phoneNumber4Mod').val(user.profile.phoneNumber1);
+    $('#phoneNumber2Mod').val(user.profile.phoneNumber2);
+    $('#phoneNumber3Mod').val(user.profile.phoneNumber3);
+    $('#phoneNumber4Mod').val(user.profile.phoneNumber4);
     this.refs.firstNameMod.value = user.profile.firstName;
     this.refs.lastNameMod.value = user.profile.lastName;
     this.refs.phoneNumber1Mod.value = user.profile.phoneNumber1;
