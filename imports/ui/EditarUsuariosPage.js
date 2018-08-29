@@ -73,11 +73,17 @@ filterNames() {
 }
 
 componentDidMount() {
-    this.usersTracker = Tracker.autorun(() => {
-        Meteor.subscribe('users.getClients');
-        const users = Meteor.users.find({_id: {$not: Meteor.userId()}}).fetch();
-        this.setState({users});
-    });
+
+    
+
+    setTimeout(() => {
+        this.usersTracker = Tracker.autorun(() => {
+            Meteor.subscribe('users.getClients');
+            const users = Meteor.users.find({_id: {$not: Meteor.userId()}}).fetch();
+            this.setState({users});
+        });
+  
+      }, 1000);
 }
 
 componentWillUnmount() {

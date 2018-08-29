@@ -73,11 +73,15 @@ export default class editarEmpleadoPage extends React.Component {
   }
 
   componentDidMount() {
-    this.usersTracker = Tracker.autorun(() => {
-      Meteor.subscribe('users.getEmployees');
-      const users = Meteor.users.find({_id: {$not: Meteor.userId()}}).fetch();
-      this.setState({users});
-    });
+    
+    setTimeout(() => {
+      this.usersTracker = Tracker.autorun(() => {
+        Meteor.subscribe('users.getEmployees');
+        const users = Meteor.users.find({_id: {$not: Meteor.userId()}}).fetch();
+        this.setState({users});
+      });
+
+    }, 1000);
   }
 
   componentWillUnmount() {
@@ -90,6 +94,7 @@ export default class editarEmpleadoPage extends React.Component {
 
   handleChange(e) {
     var index = e.nativeEvent.target.selectedIndex;
+    console.log("index" + index);
     if (index == 1) {
       this.props.history.push('/editAdmins');
     } 
