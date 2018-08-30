@@ -615,12 +615,6 @@ export default class Menu extends Component {
                     <span className="star">*</span> Percent Daily Values are
                     based on a 2000 calorie diet.
                     <br />
-                    <div className="ingredientListDiv">
-                      <b className="active" id="ingredientList">
-                        INGREDIENTS:
-                      </b>{' '}
-                      None
-                    </div>
                   </div>
                 </div>
               </div>
