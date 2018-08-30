@@ -168,7 +168,7 @@ export default class MenuAdmin extends Component {
   }
 
   deletePlateFinal() {
-    Meteor.call('dishes.delete', dishID);
+    Meteor.call('dishes.Delete', dishID);
     dishID = '';
     this.closeDeleteModal();
   }
@@ -219,7 +219,7 @@ export default class MenuAdmin extends Component {
         calcium,
         iron
       };
-      Meteor.call('dishes.insert', dish);
+      Meteor.call('dishes.Insert', dish);
 
       document.getElementById('myForm').reset(); //resets los inputs del form
       toastr.success('Se ha agregado un plato nuevo.');
@@ -336,7 +336,7 @@ export default class MenuAdmin extends Component {
         calciumNew,
         ironNew
       };
-      Meteor.call('dishes.update', dish);
+      Meteor.call('dishes.Update', dishID, dish);
 
       toastr.success('Se ha editado el plato.');
       document.getElementById('myForm').reset(); //resets los inputs del form
