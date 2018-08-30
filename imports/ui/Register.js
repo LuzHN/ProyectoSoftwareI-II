@@ -63,7 +63,7 @@ export default class Register extends React.Component {
     } else if (phoneNumber1 == '') {
       validator = 1;
       toastr.warning('Por favor ingrese un número de teléfono válido.');
-    } else if (phoneNumber1.length < 8) {
+    } else if (phoneNumber1.includes('_')) {
       validator = 1;
       toastr.warning('Por favor ingrese un número de teléfono válido.');
     } else if (
@@ -81,17 +81,28 @@ export default class Register extends React.Component {
     }
 
     if (!validator) {
-      Accounts.createUser({ email, password, profile }, (err) => {
+      let user = {
+        email,
+        password,
+        profile
+      };
+      Meteor.call('users.initializeClient', user, (err) => {
         if (err) {
-          alert(err.reason);
+          // alert(err.reason);  
+          if(err.reason.includes("Email already exists")){
+            toastr.warning(err.reason);
+          }else{
+            toastr.warning('Hubo un problema al momento de crear su cuenta.');
+          }
+          
+          
         } else {
           toastr.success('Se registró el usuario exitosamente.');
-          console.log(Meteor.userId);
+          console.log(Meteor.userId());
           this.changeToLogin();
         }
       });
-      console.log(Meteor.userId());
-      Meteor.call('initialize.User',);
+
     }
   }
 
@@ -104,7 +115,7 @@ export default class Register extends React.Component {
       <div className="container">
         <div className="wrapper">
           <div className="contact">
-            <div className="image" />​
+            <div className="image" />
             <form onSubmit={this.handleSubmit.bind(this)}>
               <p>
                 <label>Correo Electrónico</label>
@@ -181,7 +192,7 @@ export default class Register extends React.Component {
               <p>
                 <button onClick={this.onSubmit.bind(this)}>Registrarse</button>
               </p>
-              
+
             </form>
           </div>
         </div>

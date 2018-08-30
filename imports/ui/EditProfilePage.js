@@ -132,7 +132,8 @@ class EditProfilePage extends React.Component {
     else if (phoneNumber1 == '') {
       validator = 1;
       toastr.warning('Por favor ingrese un número de teléfono válido.');
-    } else if (phoneNumber1.length < 8) {
+    } else if (phoneNumber1.includes('_')) {
+
       validator = 1;
       toastr.warning('Por favor ingrese un número de teléfono válido.');
     } else if (
@@ -147,8 +148,10 @@ class EditProfilePage extends React.Component {
     } else if (address1 == '') {
       validator = 1;
       toastr.warning('Por favor ingrese una dirección válida.');
-    } else if (phoneNumber2 != '') {
-      if (phoneNumber2.length < 8) {
+    }
+    if (phoneNumber2 != '') {
+      if (phoneNumber2.includes('_')) {
+
         validator = 1;
         toastr.warning('El número adicional no cumple con los requerimientos.');
       } else if (
@@ -161,8 +164,10 @@ class EditProfilePage extends React.Component {
         validator = 1;
         toastr.warning('El número adicional no cumple con los requerimientos.');
       }
-    } else if (phoneNumber3 != '') {
-      if (phoneNumber3.length < 8) {
+    }
+    if (phoneNumber3 != '') {
+      console.log("entra");
+      if (phoneNumber3.includes('_')) {
         validator = 1;
         toastr.warning('El número adicional no cumple con los requerimientos.');
       } else if (
@@ -175,8 +180,9 @@ class EditProfilePage extends React.Component {
         validator = 1;
         toastr.warning('El número adicional no cumple con los requerimientos.');
       }
-    } else if (phoneNumber4 != '') {
-      if (phoneNumber4.length < 8) {
+    }
+    if (phoneNumber4 != '') {
+      if (phoneNumber4.includes('_')) {
         validator = 1;
         toastr.warning('El número adicional no cumple con los requerimientos.');
       } else if (
@@ -191,7 +197,7 @@ class EditProfilePage extends React.Component {
       }
     }
 
-   
+
     if (!validator) {
       Meteor.call('users.updateProfileSelf', {
         firstName,
