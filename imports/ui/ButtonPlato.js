@@ -11,7 +11,10 @@ class ButtonPlato extends Component {
               e.preventDefault();
               if (this.props.texto === 'Informacion Nutricional') {
                 this.props.onClick();
-              } else if (this.props.texto === 'Comprar') {
+              } else if (
+                this.props.texto === 'Comprar' ||
+                this.props.text === 'Historial'
+              ) {
                 this.props.onClick();
               } else {
                 this.props.onClick(
