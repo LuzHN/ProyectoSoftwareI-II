@@ -5,10 +5,10 @@ import SimpleSchema from 'simpl-schema';
 export const Orders = new Mongo.Collection('orders');
 
 if (Meteor.isServer) {
-  Meteor.publish('client-orders', function () {
+  Meteor.publish('orders.getClientOrders', function() {
     return Orders.find({ userId: this.userId });
   });
-  Meteor.publish('orders', function () {
+  Meteor.publish('orders', function() {
     return Orders.find({});
   });
 }
@@ -28,22 +28,22 @@ Meteor.methods({
     });
   },
   'orders.setDispatched'(id) {
-    Orders.update(id, {$set: { status: 'Dispatched'}});
+    Orders.update(id, { $set: { status: 'Dispatched' } });
   },
   'orders.cambiarFechaDespacho'(id, fecha) {
-    Orders.update(id, {$set: { fechaDespacho: fecha}});
+    Orders.update(id, { $set: { fechaDespacho: fecha } });
   },
   'orders.setHidden'(id) {
-    Orders.update(id, {$set: { status: 'Hidden'}});
+    Orders.update(id, { $set: { status: 'Hidden' } });
   },
   'orders.setPending'(id) {
-    Orders.update(id, {$set: { status: 'Pending'}});
+    Orders.update(id, { $set: { status: 'Pending' } });
   },
   'orders.setPreOrder'(id) {
-    Orders.update(id, {$set: { status: 'PreOrder'}});
+    Orders.update(id, { $set: { status: 'PreOrder' } });
   },
   'orders.setInProgress'(id) {
-    Orders.update(id, {$set: { status: 'InProgress'}});
+    Orders.update(id, { $set: { status: 'InProgress' } });
   },
   'orders.delete'(id) {
     Orders.remove(id);

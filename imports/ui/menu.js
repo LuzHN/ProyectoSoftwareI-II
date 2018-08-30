@@ -27,6 +27,7 @@ import ButtonPlato from './ButtonPlato';
 
 //Schemas
 import { Dishes } from '../api/dishes';
+import { Orders } from '../api/orders';
 
 export default class Menu extends Component {
   defaultMenu = 'Entree';
@@ -127,6 +128,21 @@ export default class Menu extends Component {
         cantBebida
       });
     });
+
+    if (this.props.history.location.state) {
+      let cant = 0;
+      this.props.history.location.state.map((orden) => {
+        cant += orden.cantidad;
+      });
+      this.setState({
+        ...this.state,
+        cantidadOrden: cant,
+        cart: {
+          estado: 'Preorden',
+          platos: [...this.props.history.location.state]
+        }
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -592,7 +608,12 @@ export default class Menu extends Component {
             </div>
           </div>
         </div>
-        <MenuSide ref="right" alignment="right" platos={this.state.cart}>
+        <MenuSide
+          ref="right"
+          alignment="right"
+          platos={this.state.cart}
+          history={this.props.history}
+        >
           {menuItems}
         </MenuSide>
         {swal}
@@ -629,6 +650,18 @@ class MenuSide extends React.Component {
     return price;
   }
 
+  componentDidMount() {
+    Meteor.subscribe('orders.getClientOrders');
+  }
+
+  historial = () => {
+    const orders = Orders.find({ userId: Meteor.userId() }).fetch();
+    // this.setState({ orders });
+    console.log(orders);
+    console.log(this.context.history);
+    this.props.history.push({ pathname: '/historial', state: orders });
+  };
+
   confirmar = (evt) => {
     let orden = this.props.platos;
     //luis - quite una linea de status
@@ -650,7 +683,7 @@ class MenuSide extends React.Component {
       d.getSeconds();
     //luis - cambie de fecha a fechaentrada
     orden.fechaEntrada = stringFecha;
-    orden.fechaDespacho = "";
+    orden.fechaDespacho = '';
 
     for (let index = 0; index < this.props.platos.platos; index++) {
       orden.products.push({
@@ -689,6 +722,7 @@ class MenuSide extends React.Component {
             Sub Total: L. {this.calcularPrecio() * 0.15 + this.calcularPrecio()}
           </span>
           <ButtonPlato texto="Comprar" onClick={this.confirmar} />
+          <ButtonPlato texto="Historial" onClick={this.historial} />
         </div>
       </div>
     );
