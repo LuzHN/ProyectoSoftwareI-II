@@ -15,8 +15,8 @@ Accounts.validateNewUser((user) => {
 });
 
 if (Meteor.isServer) {
-  Meteor.publish('users.getClients', () => { 
-    if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+  Meteor.publish('users.getClients', () => {
+    /*if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
       return Meteor.users.find(
         {
           "roles": "client"
@@ -26,41 +26,69 @@ if (Meteor.isServer) {
         }
       );
     }
+    */
+    return Meteor.users.find(
+      {
+        "roles": "client"
+      },
+      {
+        "services": 0
+      }
+    );
   });
 
   Meteor.publish('users.getAdmins', () => {
-    if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+    /*if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
       return Meteor.users.find(
         {
-         "roles": "administrator"
-        }, 
+          "roles": "administrator"
+        },
         {
           "services": 0
         }
       );
     }
+    */
+    return Meteor.users.find(
+      {
+        "roles": "administrator"
+      },
+      {
+        "services": 0
+      }
+    );
+
   });
 
   Meteor.publish('users.getEmployees', () => {
-    if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+    /*if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
       return Meteor.users.find(
         {
-         "roles": "employee"
-        }, 
+          "roles": "employee"
+        },
         {
           "services": 0
         }
       );
     }
+    */
+    return Meteor.users.find(
+      {
+        "roles": "employee"
+      },
+      {
+        "services": 0
+      }
+    );
   });
 
   Meteor.methods({
-    'users.initializeClient'(user){
+    'users.initializeClient'(user) {
       Roles.addUsersToRoles(Accounts.createUser(user), 'client');
       console.log('Se inicializo un cliente.');
     },
-    'users.initializeClientEnAdmin'(user){
-      if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+    'users.initializeClientEnAdmin'(user) {
+      /*if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
         Roles.addUsersToRoles(Accounts.createUser(user), 'client');
         console.log('Se inicializo un cliente.');
         return 1;
@@ -68,9 +96,13 @@ if (Meteor.isServer) {
         console.log('No es administrador para inicializar clientes.');
         return 0;
       }
+      */
+      Roles.addUsersToRoles(Accounts.createUser(user), 'client');
+      console.log('Se inicializo un cliente.');
+      return 1;
     },
-    'users.initializeEmployee'(user){
-      if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+    'users.initializeEmployee'(user) {
+      /*if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
         Roles.addUsersToRoles(Accounts.createUser(user), 'employee');
         console.log('Se inicializo un empleado.');
         return 1;
@@ -78,9 +110,14 @@ if (Meteor.isServer) {
         console.log('No es administrador para inicializar un empleado.');
         return 0;
       }
+      */
+      Roles.addUsersToRoles(Accounts.createUser(user), 'employee');
+      console.log('Se inicializo un empleado.');
+      return 1;
+
     },
-    'users.initializeAdministrator'(user){
-      if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+    'users.initializeAdministrator'(user) {
+      /*if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
         Roles.addUsersToRoles(Accounts.createUser(user), 'administrator');
         console.log('Se inicializo un adminsitrador');
         return 1;
@@ -88,33 +125,39 @@ if (Meteor.isServer) {
         console.log('Nos es administrador para inicializar administradores');
         return 0;
       }
+      */
+      Roles.addUsersToRoles(Accounts.createUser(user), 'administrator');
+      console.log('Se inicializo un adminsitrador');
+      return 1;
     },
-    async 'users.isClient'(){
+    async 'users.isClient'() {
       return await Roles.userIsInRole(Meteor.userId(), 'client');
     },
-    async 'users.isAdministrator'(){
+    async 'users.isAdministrator'() {
       return await Roles.userIsInRole(Meteor.userId(), 'employee');
     },
-    async 'users.isEmployee'(){
+    async 'users.isEmployee'() {
       return await Roles.userIsInRole(Meteor.userId(), 'administrator');
     },
-    'users.updateProfileSelf'(user){
-      Meteor.users.update({_id: Meteor.userId()}, {$set: 
-        user
+    'users.updateProfileSelf'(user) {
+      Meteor.users.update({ _id: Meteor.userId() }, {
+        $set:
+          user
       });
     },
-    'users.deleteSelf'(){
-      Meteor.users.remove({ _id:  Meteor.userId()});
+    'users.deleteSelf'() {
+      Meteor.users.remove({ _id: Meteor.userId() });
     },
-    'users.delete'(_id){
+    'users.delete'(_id) {
       if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
         Meteor.users.remove({ _id });
       }
     },
-    'users.update'(_id){
+    'users.update'(_id) {
       if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
-        Meteor.users.update({_id: Meteor.userId()}, {$set: 
-          user
+        Meteor.users.update({ _id: Meteor.userId() }, {
+          $set:
+            user
         });
       }
     }

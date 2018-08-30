@@ -12,9 +12,13 @@ import '../client/styles/editEmpleado';
 export default class editarEmpleadoPage extends React.Component {
   constructor(props) {
     super(props);
-      this.state = {
-        users: [],
-      }
+    this.state = {
+      users: [],
+      tipoUser: "Empleados",
+      usersEmpleado: [],
+      usersAdmin: [],
+      usersCliente: [],
+    }
   }
 
   onAgregar() {
@@ -24,7 +28,7 @@ export default class editarEmpleadoPage extends React.Component {
     this.refs.firstNameAgregar.value = "";
     this.refs.lastNameAgregar.value = "";
     this.refs.phoneNumberAgregar.value = "";
-    this.refs.addressAgregar.value = ""; 
+    this.refs.addressAgregar.value = "";
     var modal = document.getElementById('ModalAgregarEmpleado');
     modal.style.display = 'block';
   }
@@ -35,8 +39,6 @@ export default class editarEmpleadoPage extends React.Component {
   }
 
   closeModificar() {
-    var modal = document.getElementById('ModalModificarEmpleado');
-    modal.style.display = 'none';
     this.refs.firstNameMod.value = '';
     this.refs.lastNameMod.value = '';
     this.refs.phoneNumber1Mod.value = '';
@@ -47,8 +49,11 @@ export default class editarEmpleadoPage extends React.Component {
     this.refs.address2Mod.value = '';
     this.refs.address3Mod.value = '';
     this.refs.address4Mod.value = '';
+    var modal = document.getElementById('ModalModificarEmpleado');
+    modal.style.display = 'none';
+
   }
-    
+
   filterNames() {
     //Get value of input
     let filterValue = document.getElementById('filterInput').value.toUpperCase();
@@ -73,12 +78,40 @@ export default class editarEmpleadoPage extends React.Component {
   }
 
   componentDidMount() {
-    
+
     setTimeout(() => {
       this.usersTracker = Tracker.autorun(() => {
         Meteor.subscribe('users.getEmployees');
-        const users = Meteor.users.find({_id: {$not: Meteor.userId()}}).fetch();
-        this.setState({users});
+
+        const users = Meteor.users.find(
+          { 
+            _id: { $not: Meteor.userId() } ,
+            "roles": "employee"
+          }
+        ).fetch();
+        this.setState({ usersEmpleado: users });
+      });
+
+      this.usersTracker = Tracker.autorun(() => {
+        Meteor.subscribe('users.getAdmins');
+        const users = Meteor.users.find(
+          { 
+            _id: { $not: Meteor.userId() } ,
+            "roles": "administrator"
+          }
+        ).fetch();
+        this.setState({ usersAdmin: users });
+      });
+
+      this.usersTracker = Tracker.autorun(() => {
+        Meteor.subscribe('users.getClients');
+        const users = Meteor.users.find(
+          { 
+            _id: { $not: Meteor.userId() } ,
+            "roles": "client"
+          }
+        ).fetch();
+        this.setState({ usersCliente: users });
       });
 
     }, 1000);
@@ -86,6 +119,7 @@ export default class editarEmpleadoPage extends React.Component {
 
   componentWillUnmount() {
     this.usersTracker.stop();
+    
   }
 
   handleSubmit(e) {
@@ -94,44 +128,26 @@ export default class editarEmpleadoPage extends React.Component {
 
   handleChange(e) {
     var index = e.nativeEvent.target.selectedIndex;
-    console.log("index" + index);
-    if (index == 1) {
-      this.props.history.push('/editAdmins');
-    } 
-    if (index == 2) {
-      this.props.history.push('/editUsuarios');
+
+    if (index == 0) {
+      this.setState({ tipoUser: "Empleados" })
+      $('#btn-Main').text("Agregar Empleado");
+      $('#h2-Title').text("Agregar Empleado");
+      $('#filterInput').attr("placeholder", "Buscar Empleado...");
     }
-  }
 
-  loadList() {
-    return this.state.users.map((user) => {
-      return (
-        <li  onClick={(e) => {
-          this.cargarInfo(user);
-        }} className="collection-item" key={user._id}>
-          <a href="#"  className="hrefNombre">{user.profile.firstName + ' ' + user.profile.lastName}</a>
-        </li>
-      )
-    })
-  }
-
-  cargarInfo(user) {
-    $('#phoneNumber1Mod').val(user.profile.phoneNumber1);
-    $('#phoneNumber2Mod').val(user.profile.phoneNumber2);
-    $('#phoneNumber3Mod').val(user.profile.phoneNumber3);
-    $('#phoneNumber4Mod').val(user.profile.phoneNumber4);
-    this.refs.firstNameMod.value = user.profile.firstName;
-    this.refs.lastNameMod.value = user.profile.lastName;
-    this.refs.phoneNumber1Mod.value = user.profile.phoneNumber1;
-    this.refs.phoneNumber2Mod.value = user.profile.phoneNumber2;
-    this.refs.phoneNumber3Mod.value = user.profile.phoneNumber3;
-    this.refs.phoneNumber4Mod.value = user.profile.phoneNumber4;
-    this.refs.address1Mod.value = user.profile.address1;
-    this.refs.address2Mod.value = user.profile.address2;
-    this.refs.address3Mod.value = user.profile.address3;
-    this.refs.address4Mod.value = user.profile.address4;
-    var modal = document.getElementById('ModalModificarEmpleado');
-    modal.style.display = 'block';
+    if (index == 1) {
+      this.setState({ tipoUser: "Admins" })
+      $('#btn-Main').text("Agregar Admins");
+      $('#h2-Title').text("Agregar Administrador");
+      $('#filterInput').attr("placeholder", "Buscar Administrador...");
+    }
+    if (index == 2) {
+      this.setState({ tipoUser: "Clientes" })
+      $('#btn-Main').text("Agregar Clientes");
+      $('#h2-Title').text("Agregar Cliente");
+      $('#filterInput').attr("placeholder", "Buscar Cliente...");
+    }
   }
 
   onSubmitAgregar() {
@@ -206,37 +222,105 @@ export default class editarEmpleadoPage extends React.Component {
     }
 
     if (!validator) {
-      let user = { 
-        email, 
-        password, 
-        profile 
+      let user = {
+        email,
+        password,
+        profile
       };
-      Meteor.call('users.initializeEmployee', user, (err, returnValue) => {
-        if (returnValue == 1) {
-          console.log(Meteor.userId);
-          toastr.success('Se ha agregado el empleado exitosamente.');
-          this.refs.email.value = "";
-          this.refs.passwordAgregar.value = "";
-          this.refs.confirmPasswordAgregar.value = "";
-          this.refs.firstNameAgregar.value = "";
-          this.refs.lastNameAgregar.value = "";
-          this.refs.phoneNumberAgregar.value = "";
-          this.refs.addressAgregar.value = ""; 
-        } else {
-          toastr.warning('No tiene privilegios de administrador. No se ha creado el empleado.');       
-        }     
-      });
+
+      switch (this.state.tipoUser) {
+        case "Empleados": {
+          Meteor.call('users.initializeEmployee', user, (err, returnValue) => {
+            if (returnValue == 1) {
+              toastr.success('Se ha agregado el empleado exitosamente.');
+              this.refs.email.value = "";
+              this.refs.passwordAgregar.value = "";
+              this.refs.confirmPasswordAgregar.value = "";
+              this.refs.firstNameAgregar.value = "";
+              this.refs.lastNameAgregar.value = "";
+              this.refs.phoneNumberAgregar.value = "";
+              this.refs.addressAgregar.value = "";
+            } else {
+              toastr.warning('No tiene privilegios de administrador. No se ha creado el empleado.');
+            }
+          });
+          break;
+        }
+        case "Admins": {
+          Meteor.call('users.initializeAdministrator', user, (err, returnValue) => {
+            if (returnValue == 1) {
+              console.log(Meteor.userId);
+              toastr.success('Se ha agregado el admin exitosamente.');
+              this.refs.email.value = "";
+              this.refs.passwordAgregar.value = "";
+              this.refs.confirmPasswordAgregar.value = "";
+              this.refs.firstNameAgregar.value = "";
+              this.refs.lastNameAgregar.value = "";
+              this.refs.phoneNumberAgregar.value = "";
+              this.refs.addressAgregar.value = "";
+            } else {
+              toastr.warning('No tiene privilegios de administrador. No se ha creado el administrador.');
+            }
+          });
+          break;
+        }
+        case "Clientes": {
+          Meteor.call('users.initializeClientEnAdmin', user, (err, returnValue) => {
+            if (returnValue == 1) {
+              console.log(Meteor.userId);
+              toastr.success('Se ha agregado el cliente exitosamente.');
+              this.refs.email.value = "";
+              this.refs.passwordAgregar.value = "";
+              this.refs.confirmPasswordAgregar.value = "";
+              this.refs.firstNameAgregar.value = "";
+              this.refs.lastNameAgregar.value = "";
+              this.refs.phoneNumberAgregar.value = "";
+              this.refs.addressAgregar.value = "";
+            } else {
+              toastr.warning('No tiene privilegios de administrador. No se ha creado el cliente.');
+            }
+          });
+          break;
+        }
+        default: {
+          break;
+        }
+      }
     }
   }
-  
+
+  checkStatus(){
+    console.log(this.refs.phoneNumber1Mod.value);
+  }
+
+  cargarInfo(user) {
+
+    $('#phoneNumber1Mod').val(user.profile.phoneNumber1);
+    $('#phoneNumber2Mod').val(user.profile.phoneNumber2);
+    $('#phoneNumber3Mod').val(user.profile.phoneNumber3);
+    $('#phoneNumber4Mod').val(user.profile.phoneNumber4);
+    this.refs.firstNameMod.value = user.profile.firstName;
+    this.refs.lastNameMod.value = user.profile.lastName;
+    this.refs.phoneNumber1Mod.value = user.profile.phoneNumber1;
+    this.refs.phoneNumber2Mod.value = user.profile.phoneNumber2;
+    this.refs.phoneNumber3Mod.value = user.profile.phoneNumber3;
+    this.refs.phoneNumber4Mod.value = user.profile.phoneNumber4;
+    this.refs.address1Mod.value = user.profile.address1;
+    this.refs.address2Mod.value = user.profile.address2;
+    this.refs.address3Mod.value = user.profile.address3;
+    this.refs.address4Mod.value = user.profile.address4;
+
+    var modal = document.getElementById('ModalModificarEmpleado');
+    modal.style.display = 'block';
+  }
+
   render() {
-    console.log(this.state.users);
     return (
       <div className="EditarEmpleado">
         <div className="containerPrincipal">
-        
-          <div className = "ComboBox">
-            <select onChange ={this.handleChange.bind(this)}>
+
+          <div className="ComboBox">
+            <select onChange={this.handleChange.bind(this)}>
               <option value="Empleados">Empleados</option>
               <option value="Administradores">Administradores</option>
               <option value="Usuarios">Clientes</option>
@@ -244,16 +328,20 @@ export default class editarEmpleadoPage extends React.Component {
           </div>
 
           <div className="Buttons">
-            <button className="botonAgregar" onClick={this.onAgregar.bind(this)}>Agregar Empleado</button>
-          </div>  
-
-          <div className="searchBarDiv">   
-            <input id="filterInput" onKeyUp={this.filterNames.bind(this)} placeholder="Buscar Empleado..." type="text"/>
-            <ul className="collection with-header" id="names">
-              {this.loadList()}
-            </ul>
+            <button id = "btn-Main" className="botonAgregar" onClick={this.onAgregar.bind(this)}>Agregar Empleado</button>
           </div>
 
+          <div className="searchBarDiv">
+            <input id="filterInput" onKeyUp={this.filterNames.bind(this)} placeholder="Buscar Empleado..." type="text" />
+            <ul className="collection with-header" id="names">
+              <Lista
+                Clients={this.state.usersCliente}
+                Admins={this.state.usersAdmin}
+                Employees={this.state.usersEmpleado}
+                tipo={this.state.tipoUser}
+                cargarInfo = {this.cargarInfo.bind(this)} />
+            </ul>
+          </div>
           {/*Modal Agregar Empleado*/}
           <div className="modal" id="ModalAgregarEmpleado">
             <div className="modal-content">
@@ -263,7 +351,7 @@ export default class editarEmpleadoPage extends React.Component {
                   <span className="closeBtn" onClick={this.closeAgregar.bind(this)}>&times;</span>
                 </div>
                 <div className="modal-header-Name">
-                  <h2>Agregar Empleado</h2>
+                  <h2 id = "h2-Title">Agregar Empleado</h2>
                 </div>
               </div>
               {/* Body */}
@@ -274,7 +362,7 @@ export default class editarEmpleadoPage extends React.Component {
                       <div className="box1">
                         <p>
                           <label>Email</label>
-                          <input id = "correo" maxLength='140' placeholder='Ingrese su correo.'  type="email" ref = "email"/>
+                          <input id="correo" maxLength='140' placeholder='Ingrese su correo.' type="email" ref="email" />
                         </p>
                       </div>
                     </div>
@@ -282,13 +370,13 @@ export default class editarEmpleadoPage extends React.Component {
                       <div className="box1">
                         <p>
                           <label>Contraseña</label>
-                          <input placeholder='Ingrese su contraseña.'  type="password" ref = "passwordAgregar"/>
+                          <input placeholder='Ingrese su contraseña.' type="password" ref="passwordAgregar" />
                         </p>
                       </div>
                       <div className="box2">
                         <p>
                           <label>Confirmar Contraseña</label>
-                          <input placeholder='Confirmar contraseña.' ref="confirmPasswordAgregar" type="password"/>
+                          <input placeholder='Confirmar contraseña.' ref="confirmPasswordAgregar" type="password" />
                         </p>
                       </div>
                     </div>
@@ -296,13 +384,13 @@ export default class editarEmpleadoPage extends React.Component {
                       <div className="box1">
                         <p>
                           <label>Primer Nombre</label>
-                          <input ref="firstNameAgregar" maxLength='140' placeholder='Ingrese su primer nombre.'  type="text" />
+                          <input ref="firstNameAgregar" maxLength='140' placeholder='Ingrese su primer nombre.' type="text" />
                         </p>
                       </div>
                       <div className="box2">
                         <p>
                           <label>Apellido</label>
-                          <input maxLength='140' placeholder='Ingrese su apellido.' ref="lastNameAgregar" type="text"/>
+                          <input maxLength='140' placeholder='Ingrese su apellido.' ref="lastNameAgregar" type="text" />
                         </p>
                       </div>
                     </div>
@@ -310,7 +398,7 @@ export default class editarEmpleadoPage extends React.Component {
                       <div className="box1">
                         <p>
                           <label>Número de Teléfono</label>
-                          <InputMask id = "numero" mask="9999-9999" placeholder='Ingrese su número de teléfono.' ref="phoneNumberAgregar"/>
+                          <InputMask id="numero" mask="9999-9999" placeholder='Ingrese su número de teléfono.' ref="phoneNumberAgregar" />
                         </p>
                       </div>
                     </div>
@@ -342,44 +430,44 @@ export default class editarEmpleadoPage extends React.Component {
                   <span className="closeBtn" onClick={this.closeModificar.bind(this)}>&times;</span>
                 </div>
                 <div className="modal-header-Name">
-                  <h2>Modificar Empleado</h2>
+                  <h2 id = "h2-Title">Modificar Empleado</h2>
                 </div>
               </div>
               {/* Body */}
               <div className="modal-body">
-                <form  className="agregarEmpleadoFormModal">
+                <form className="agregarEmpleadoFormModal">
                   <div>
-                    <div className = "container1">
-                      <div className = "box1">
+                    <div className="container1">
+                      <div className="box1">
                         <p>
                           <label>Primer Nombre</label>
-                          <input id = "firstNameId" maxLength='140' placeholder='Ingrese primer nombre.' ref = "firstNameMod"/>
+                          <input id="firstNameId" maxLength='140' placeholder='Ingrese primer nombre.' ref="firstNameMod" />
                         </p>
                       </div>
                       <div className="box2">
                         <p>
                           <label>Apellido</label>
-                          <input maxLength='140' placeholder='Ingrese su apellido.' ref="lastNameMod" type="text"/>
+                          <input id = "lastNameId" maxLength='140' placeholder='Ingrese su apellido.' ref="lastNameMod" type="text" />
                         </p>
                       </div>
                     </div>
                     <div className="container1">
                       <div className="box1">
                         <p>
-                          
+
                           <label>*Teléfono 1</label>
-                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber1Mod" id = "phoneNumber1Mod"/>
-                         
+                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber1Mod" id="phoneNumber1Mod" />
+
                           <label>Teléfono 3</label>
-                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber3Mod" id = "phoneNumber3Mod"/>
+                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber3Mod" id="phoneNumber3Mod" />
                         </p>
                       </div>
                       <div className="box2">
                         <p>
                           <label>Teléfono 2</label>
-                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber2Mod" id = "phoneNumber2Mod"/>
+                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber2Mod" id="phoneNumber2Mod" />
                           <label>Teléfono 4</label>
-                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber4Mod" id = "phoneNumber4Mod"/>
+                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber4Mod" id="phoneNumber4Mod" />
                         </p>
                       </div>
                     </div>
@@ -387,33 +475,34 @@ export default class editarEmpleadoPage extends React.Component {
                       <div className="box1">
                         <p>
                           <label>*Dirección 1</label>
-                          <textarea id = "direction1TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address1Mod" rows="5"/>
+                          <textarea id="direction1TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address1Mod" rows="5" />
                           <label>Dirección 3</label>
-                          <textarea id = "direction3TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address3Mod" rows="5"/>
+                          <textarea id="direction3TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address3Mod" rows="5" />
                         </p>
                       </div>
                       <div className="box2">
                         <p>
                           <label>Dirección 2</label>
-                          <textarea id = "direction2TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address2Mod" rows="5"/>
+                          <textarea id="direction2TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address2Mod" rows="5" />
                           <label>Dirección 4</label>
-                          <textarea id = "direction4TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address4Mod" rows="5"/>
+                          <textarea id="direction4TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address4Mod" rows="5" />
                         </p>
                       </div>
-                    </div>  
+                    </div>
                     <div className="container1">
                       <div className="box1">
                         <p>
-                          <button className = "confirmarModificar" >Confirmar Cambios</button>
+                          <button onClick={this.checkStatus.bind(this)}
+                          className="confirmarModificar" >Confirmar Cambios</button>
                         </p>
                       </div>
                       <div className="box2">
                         <p>
-                          <button className = "confirmarDesactivar" >Borrar Empleado</button>
+                          <button className="confirmarDesactivar" >Borrar Empleado</button>
                         </p>
                       </div>
-                    </div>     
-                  </div>       
+                    </div>
+                  </div>
                 </form>
               </div>
               {/* Footer */}
@@ -422,5 +511,63 @@ export default class editarEmpleadoPage extends React.Component {
           </div>{/*Termina MODAL MODIFICAR EMPLEADO*/}
         </div>
       </div>
-    );}
+    );
   }
+}
+
+class Lista extends React.Component {
+
+  render() {
+    return (
+      <div>
+        {this.loadList()}
+      </div>
+    )
+  }
+
+  loadList() {
+    switch (this.props.tipo) {
+      
+      case "Empleados": {
+        return this.props.Employees.map((user) => {
+          return (
+            <li onClick={(e) => {
+              this.props.cargarInfo(user);
+            }} className="collection-item" key={user._id}>
+              <a href="#" className="hrefNombre">{user.profile.firstName + ' ' + user.profile.lastName}</a>
+            </li>
+          )
+        })
+        break;
+      }
+      case "Admins": {
+        return this.props.Admins.map((user) => {
+          return (
+            <li onClick={(e) => {
+              this.props.cargarInfo(user);
+            }} className="collection-item" key={user._id}>
+              <a href="#" className="hrefNombre">{user.profile.firstName + ' ' + user.profile.lastName}</a>
+            </li>
+          )
+        })
+        break;
+      }
+      case "Clientes": {
+        return this.props.Clients.map((user) => {
+          return (
+            <li onClick={(e) => {
+              this.props.cargarInfo(user);
+            }} className="collection-item" key={user._id}>
+              <a href="#" className="hrefNombre">{user.profile.firstName + ' ' + user.profile.lastName}</a>
+            </li>
+          )
+        })
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+
+  }
+}
