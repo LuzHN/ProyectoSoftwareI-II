@@ -193,7 +193,7 @@ class EditProfilePage extends React.Component {
 
    
     if (!validator) {
-      Meteor.call('user.updateProfileSelf', {
+      Meteor.call('users.updateProfileSelf', {
         firstName,
         lastName,
         phoneNumber1,
@@ -216,7 +216,7 @@ class EditProfilePage extends React.Component {
   }
 
   deleteUserFinal() {
-    Meteor.call('user.deleteSelf');
+    Meteor.call('users.deleteSelf');
     toastr.error('Cuenta Desactivada.');
     this.props.history.push('/');
     this.closeDeleteModal();

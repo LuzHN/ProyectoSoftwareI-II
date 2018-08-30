@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
 import { Accounts } from 'meteor/accounts-base';
 
+
 Accounts.validateNewUser((user) => {
   const email = user.emails[0].address;
   new SimpleSchema({
@@ -14,11 +15,11 @@ Accounts.validateNewUser((user) => {
 });
 
 if (Meteor.isServer) {
-  Meteor.publish('user.getClients', () => { 
+  Meteor.publish('users.getClients', () => { 
     if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
       return Meteor.users.find(
         {
-         "roles": "client"
+          "roles": "client"
         }, 
         {
           "services": 0
@@ -27,7 +28,20 @@ if (Meteor.isServer) {
     }
   });
 
-  Meteor.publish('user.getEmployees', () => {
+  Meteor.publish('users.getAdmins', () => {
+    if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+      return Meteor.users.find(
+        {
+         "roles": "administrator"
+        }, 
+        {
+          "services": 0
+        }
+      );
+    }
+  });
+
+  Meteor.publish('users.getEmployees', () => {
     if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
       return Meteor.users.find(
         {
@@ -41,41 +55,66 @@ if (Meteor.isServer) {
   });
 
   Meteor.methods({
-    'user.initializeClient'(){
-      Roles.addUsersToRoles(Meteor.userId(), 'normal-user');
+    'users.initializeClient'(user){
+      Roles.addUsersToRoles(Accounts.createUser(user), 'client');
+      console.log('Se inicializo un cliente.');
     },
-    'user.initializeEmployee'(){
-      Roles.addUsersToRoles(Meteor.userId(), 'employee');
-    },
-    'user.initializeAdministrator'(){
-      Roles.addUsersToRoles(Meteor.userId(), 'administrator');
-    },
-    async 'user.isClient'(){
-      return await Roles.userIsInRole(Meteor.userId(), 'client');
-    },
-    async 'user.isAdmin'(){
-      return await Roles.userIsInRole(Meteor.userId(), 'employee');
-    },
-    async 'user.isEmployee'(){
-      return await Roles.userIsInRole(Meteor.userId(), 'administrator');
-    },
-    'user.updateProfileSelf'(user){
-      Meteor.users.update({_id: Meteor.userId()}, {$set: 
-        {profile: user}
-      });
-    },
-    'user.deleteSelf'(){
-      Meteor.users.remove({ _id:  Meteor.userId()});
-    },
-    'user.delete'(_id){
+    'users.initializeClientEnAdmin'(user){
       if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
-        Meteor.users.remove({ _id });
+        Roles.addUsersToRoles(Accounts.createUser(user), 'client');
+        console.log('Se inicializo un cliente.');
+        return 1;
+      } else {
+        console.log('No es administrador para inicializar clientes.');
+        return 0;
       }
     },
-    'user.update'(_id){
+    'users.initializeEmployee'(user){
       if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
-        Meteor.users.update({_id: Meteor.userId()}, {$set: 
-          user
+        Roles.addUsersToRoles(Accounts.createUser(user), 'employee');
+        console.log('Se inicializo un empleado.');
+        return 1;
+      } else {
+        console.log('No es administrador para inicializar un empleado.');
+        return 0;
+      }
+    },
+    'users.initializeAdministrator'(user){
+      if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+        Roles.addUsersToRoles(Accounts.createUser(user), 'administrator');
+        console.log('Se inicializo un adminsitrador');
+        return 1;
+      } else {
+        console.log('Nos es administrador para inicializar administradores');
+        return 0;
+      }
+    },
+    async 'users.isClient'(){
+      return await Roles.userIsInRole(Meteor.userId(), 'client');
+    },
+    async 'users.isAdministrator'(){
+      return await Roles.userIsInRole(Meteor.userId(), 'employee');
+    },
+    async 'users.isEmployee'(){
+      return await Roles.userIsInRole(Meteor.userId(), 'administrator');
+    },
+    'users.updateProfileSelf'(user){
+      Meteor.users.update({_id: Meteor.userId()}, {$set: 
+        {profile: user} 
+      });
+    },
+    'users.deleteSelf'(){
+      Meteor.users.remove({ _id:  Meteor.userId()});
+    },
+    'users.delete'(id){
+      if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+        Meteor.users.remove({ _id: id });
+      }
+    },
+    'users.update'(id, user){
+      if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+        Meteor.users.update({_id: id}, {$set: 
+          {profile: user}
         });
       }
     }
