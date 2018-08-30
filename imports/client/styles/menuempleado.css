@@ -58,6 +58,14 @@
     border-radius: 8px;
   }
 
+  #btn-changepage{
+    width: 40%;
+    border: none;
+    color: white;
+    font-size: 1em !important;
+    border-radius: 8px;
+  }
+
   .headerEmpleado{
     text-decoration: underline;
     display: flex;
@@ -68,7 +76,7 @@
   }
 
   .btn-employeehistory{
-    margin-left: 10%;
+    margin-left: 30%;
     margin-top: 1%;
     margin-bottom: 1%;
   }
@@ -89,7 +97,18 @@
     width: 30%;
   }
 
+  #btn-info{
+    background-color: #d86926;
+    border: none;
+    color: white;
+    font-size: 1em !important;
+    border-radius: 8px;
+  }
+
   @media only screen and (max-width: 600px){
+    #btn-info{
+      width: 50% !important;
+    }
     #btn-empleado{
       width: 50% !important;
     }
@@ -100,6 +119,9 @@
   }
   
   @media only screen and (min-width: 600px){
+    #btn-info{
+      width: 80% !important;
+    }
     #btn-empleado{
       width: 80% !important;
     }

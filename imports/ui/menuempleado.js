@@ -27,11 +27,15 @@ export default class MenuEmployee extends React.Component {
   btnHistorial = () => { //mostrar otra tabla
     if (this.state.Pagina == "Menu") {
       this.setState({ Pagina: "Historial" });
-      $('#btn-empleado').text("Ver Ordenes Pendientes");
+
+      $('#btn-changepage').text("Ver Ordenes Pendientes/Ingresadas");
       $('#headerEmpleado').text("Historial de Ordenes Terminadas");
+
     } else if (this.state.Pagina == "Historial") {
-      $('#btn-empleado').text("Ver Historial de Ordenes Terminadas");
+
+      $('#btn-changepage').text("Ver Historial de Ordenes Terminadas");
       $('#headerEmpleado').text("Historial de Ordenes Pendientes e Ingresadas");
+
       this.setState({ Pagina: "Menu" });
     }
   };
@@ -60,7 +64,7 @@ export default class MenuEmployee extends React.Component {
         </section>
         <button
           className="btn-employeehistory blueMarine"
-          id="btn-empleado"
+          id="btn-changepage"
           onClick={this.btnHistorial}
         >
           Ver Historial de Ordenes Terminadas
