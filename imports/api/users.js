@@ -106,15 +106,15 @@ if (Meteor.isServer) {
     'users.deleteSelf'(){
       Meteor.users.remove({ _id:  Meteor.userId()});
     },
-    'users.delete'(_id){
+    'users.delete'(id){
       if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
-        Meteor.users.remove({ _id });
+        Meteor.users.remove({ _id: id });
       }
     },
-    'users.update'(_id){
+    'users.update'(id, user){
       if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
-        Meteor.users.update({_id: Meteor.userId()}, {$set: 
-          user
+        Meteor.users.update({_id: id}, {$set: 
+          {profile: user}
         });
       }
     }

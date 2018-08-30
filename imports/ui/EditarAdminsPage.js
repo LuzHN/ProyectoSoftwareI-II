@@ -79,7 +79,7 @@ export default class editarAdminsPage extends React.Component {
         const users = Meteor.users.find({_id: {$not: Meteor.userId()}}).fetch();
         this.setState({users});
       });
-    }, 3000);
+    }, 1000);
   }
 
   componentWillUnmount() {
@@ -228,7 +228,7 @@ export default class editarAdminsPage extends React.Component {
   }
 
   render() {
-    // console.log(this.state.users);
+    console.log(this.state.users);
     return (
       <div className="EditarAdmins">
         <div className="containerPrincipal">

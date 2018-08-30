@@ -9,6 +9,9 @@ import { Redirect } from 'react-router'
 import InputMask from 'react-input-mask';
 import '../client/styles/editEmpleado';
 
+let userGlobal;
+
+
 export default class editarEmpleadoPage extends React.Component {
   constructor(props) {
     super(props);
@@ -79,7 +82,7 @@ export default class editarEmpleadoPage extends React.Component {
         const users = Meteor.users.find({_id: {$not: Meteor.userId()}}).fetch();
         this.setState({users});
       });
-    }, 3000);
+    }, 1000);
   }
 
   componentWillUnmount() {
@@ -114,6 +117,7 @@ export default class editarEmpleadoPage extends React.Component {
   }
 
   cargarInfo(user) {
+    userGlobal = user;
     $('#phoneNumber1Mod').val(user.profile.phoneNumber1);
     $('#phoneNumber2Mod').val(user.profile.phoneNumber2);
     $('#phoneNumber3Mod').val(user.profile.phoneNumber3);
@@ -130,6 +134,37 @@ export default class editarEmpleadoPage extends React.Component {
     this.refs.address4Mod.value = user.profile.address4;
     var modal = document.getElementById('ModalModificarEmpleado');
     modal.style.display = 'block';
+  }
+
+  onSubmitModificar(){
+    let firstName = this.refs.firstNameMod.value;
+    let lastName = this.refs.lastNameMod.value;
+    let phoneNumber1 = this.refs.phoneNumber1Mod.value;
+    let phoneNumber2 = this.refs.phoneNumber2Mod.value;
+    let phoneNumber3 = this.refs.phoneNumber3Mod.value;
+    let phoneNumber4 = this.refs.phoneNumber4Mod.value;
+    let address1 = this.refs.address1Mod.value;
+    let address2 = this.refs.address2Mod.value;
+    let address3 = this.refs.address3Mod.value;
+    let address4 = this.refs.address4Mod.value;
+    Meteor.call('users.update', userGlobal._id, {
+      firstName,
+      lastName,
+      phoneNumber1,
+      phoneNumber2,
+      phoneNumber3,
+      phoneNumber4,
+      address1,
+      address2,
+      address3,
+      address4
+    });
+    toastr.success('Se modifico');
+  }
+
+  onDeleteEmpleado() {
+    Meteor.call('users.delete', userGlobal._id);
+    toastr.success('Se elimino');
   }
 
   onSubmitAgregar() {
@@ -402,12 +437,12 @@ export default class editarEmpleadoPage extends React.Component {
                     <div className="container1">
                       <div className="box1">
                         <p>
-                          <button className = "confirmarModificar" >Confirmar Cambios</button>
+                          <button className = "confirmarModificar" onClick={this.onSubmitModificar.bind(this)}>Confirmar Cambios</button>
                         </p>
                       </div>
                       <div className="box2">
                         <p>
-                          <button className = "confirmarDesactivar" >Borrar Empleado</button>
+                          <button className = "confirmarDesactivar" onClick={this.onDeleteEmpleado.bind(this)} >Borrar Empleado</button>
                         </p>
                       </div>
                     </div>     
