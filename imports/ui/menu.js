@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import ReactDOM from 'react-dom';
 import {
   Card,
@@ -27,11 +28,20 @@ import ButtonPlato from './ButtonPlato';
 
 //Schemas
 import { Dishes } from '../api/dishes';
+import { Orders } from '../api/orders';
 
 export default class Menu extends Component {
   defaultMenu = 'Entree';
 
   state = {
+    swal: {
+      show: false,
+      index: 0
+    },
+    swaldir: {
+      show: false,
+      index: 0
+    },
     selectedFood: this.defaultMenu,
     dishes: [],
     cart: {
@@ -123,6 +133,21 @@ export default class Menu extends Component {
         cantBebida
       });
     });
+
+    if (this.props.history.location.state) {
+      let cant = 0;
+      this.props.history.location.state.map((orden) => {
+        cant += orden.cantidad;
+      });
+      this.setState({
+        ...this.state,
+        cantidadOrden: cant,
+        cart: {
+          estado: 'Preorden',
+          platos: [...this.props.history.location.state]
+        }
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -139,11 +164,12 @@ export default class Menu extends Component {
     this.setState({ ...this.state, platosMostrados: platosMostrar });
   };
 
-  clickComida = (plato, precio, imagen) => {
+  clickComida = (plato, precio, imagen, description = '') => {
     const platoOrdenado = {
       plato,
       precio,
-      imagen
+      imagen,
+      description
     };
 
     const platosOrdenados = this.state.cart.platos;
@@ -181,8 +207,28 @@ export default class Menu extends Component {
   }
 
   render() {
+    const swal = (
+      <div>
+        <SweetAlert
+          show={this.state.swal.show}
+          title="Comentario"
+          text="Agregue un comentario para su platillo"
+          type="input"
+          // inputType="password"
+          inputPlaceholder="Ej. Quiero mi carne con mucha sal"
+          onConfirm={(inputValue) => {
+            let platos = [...this.state.platos];
+            platos[this.state.swal.index].descripcion = inputValue;
+            this.setState({
+              swal: { show: false, index: 0 },
+              platos: platos
+            });
+          }}
+        />
+      </div>
+    );
     const menuItems = this.state.cart.platos.map((item, i) => (
-      <div key={i}>
+      <div key={i} className="platoOrdenado">
         <img src={item.imagen} alt="Imagen del platillo" />
         <a
           imagen={item.imagen}
@@ -193,19 +239,19 @@ export default class Menu extends Component {
           {item.plato}
         </a>
         <a className="menuItemCant">Cant: {item.cantidad}</a>
+
+        <a
+          className="button-comentario"
+          href="#"
+          role="button"
+          onClick={() => this.setState({ swal: { show: true, index: i } })}
+        >
+          <span />
+          <div className="icon">
+            <i className="far fa-comment-dots" />
+          </div>
+        </a>
       </div>
-      // <OrdenPlato
-      //   ref={(ref) => {
-      //     let componentes = this.state.componentes;
-      //     componentes.push(ref);
-      //     this.setState({ ...this.state, componentes });
-      //   }}
-      //   key={i}
-      //   imagen={item.imagen}
-      //   titulo={item.plato}
-      //   precio={parseInt(item.precio).toFixed(2)}
-      //   cantidad={item.cantidad}
-      // />
     ));
 
     return (
@@ -367,16 +413,6 @@ export default class Menu extends Component {
           <div id="SelectedMenu">
             <Entree
               hola="simon"
-              // Platos={
-              //   [{"type":"Entree","name":"Cauliflower Nuggets","price":"129","description":"Empanizado con panco acompañado con una salsa fresca de tomate y Tzatziki","image":"http://cdn1-www.momtastic.com/assets/uploads/2016/06/Cauliflower-Nuggets-4.jpg","nutricional":""},
-              //   {"type":"Entree","name":"Montaditos","price":"99","description":"Cuatro tostadas de pan de hierbas; atún, vegetales asados, pollo al pesto, y carne de berenjena","image":"https://www.philadelphia.com.mx/modx/assets/img/revision2016/images/recetas/montaditos_fuerza_roja.jpg","nutricional":""},
-              //   {"type":"Entree","name":"Croquetas de Vegetales","price":"99","description":"Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki","image":"https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg","nutricional":""},
-              //   {"type":"Entree","name":"Palitos de Camote","price":"49","description":"Camotes a la francesa, acompañado de aderezo Tzatziki.","image":"http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg","nutricional":""},
-              //   {"type":"Entree","name":"Aros de Cebolla HK","price":"89","description":"5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.","image":"http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg","nutricional":""},
-              //   {"type":"Entree","name":"Palitos de Camote","price":"49","description":"Camotes a la francesa, acompañado de aderezo Tzatziki.","image":"http://www.contigosalud.com/files/images/Palitos%20camote%20francesa.jpg","nutricional":""},
-              //   {"type":"Entree","name":"Aros de Cebolla HK","price":"89","description":"5 aros de cebolla rellenos con pure de camote, guacamole y carne de berenjena y Empanizado con panco.","image":"http://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-2.jpg","nutricional":""},
-              //   {"type":"Entree","name":"Croquetas de Vegetales","price":"99","description":"Fritura de carne de berenjena, papa y zanahoria rellos de cuajada y acompañados de Tatziki","image":"https://www.hogarmania.com/archivos/201105/193-croquetas-de-verduras-y-queso-xl-668x400x80xX.jpg","nutricional":""}]
-              // }
               Platos={this.state.platosMostrados}
               onClick={this.clickComida}
               modal={this.openModal}
@@ -432,22 +468,18 @@ export default class Menu extends Component {
                 </span>
               </div>
               <div className="modal-header-Name">
-                <h2>Agregar Plato</h2>
+                <h2>Nutritional Facts</h2>
               </div>
             </div>
             {/* Body */}
-            <div
-              className="nutritionLabel"
-              id="nutrilabel"
-              style={{ widh: '50%' }}
-            >
+
+            <div className="nutritionLabel" id="nutrilabel">
               <div className="yes">
-                <div className="title">Nutrition Facts</div>
+                <div className="title">Nutritional Facts</div>
 
                 <div className="serving">
                   <div className="cf">
                     <div className="servingSizeText fl">Serving Size</div>
-
                     <div className="servingUnitQuantity fl">1</div>
                   </div>
                 </div>
@@ -462,7 +494,9 @@ export default class Menu extends Component {
                   <div className="fr">Calories from Fat 0</div>
 
                   <div>
-                    <b>Calories</b> 0
+                    <b>Calories</b>
+                    &nbsp;
+                    <span id="TotalCalories" />
                   </div>
                 </div>
 
@@ -475,89 +509,114 @@ export default class Menu extends Component {
 
                 <div className="line">
                   <div className="dv">
-                    <b>0</b>%
+                    <b id="TotalFatPercentage">0</b>%
                   </div>
-                  <b>Total Fat</b> 0g
+                  <b>Total Fat</b>
+                  &nbsp;
+                  <span id="TotalFat" />g
                 </div>
 
                 <div className="line indent">
                   <div className="dv">
-                    <b>0</b>%
+                    <b id="TotalSatFatPercentage">0</b>%
                   </div>
-                  Saturated Fat 0g
+                  Saturated Fat &nbsp;
+                  <span id="TotalSatFat" />g
                 </div>
 
                 <div className="line indent">
-                  <i>Trans</i> Fat 0g
+                  <i>Trans</i> Fat &nbsp;
+                  <span id="TotalTrans" />
                 </div>
 
                 <div className="line">
                   <div className="dv">
-                    <b>0</b>%
+                    <b id="CholesterolPercentage">0</b>%
                   </div>
-                  <b>Cholesterol</b> 0mg
+                  <b>Cholesterol</b>
+                  &nbsp;
+                  <span id="TotalCholesterol" />
+                  mg
                 </div>
 
                 <div className="line">
                   <div className="dv">
-                    <b>0</b>%
+                    <b id="SodiumPercentage">0</b>%
                   </div>
-                  <b>Sodium</b> 0mg
+                  <b>Sodium</b>
+                  &nbsp;
+                  <span id="TotalSodium" />
+                  mg
                 </div>
 
                 <div className="line">
                   <div className="dv">
-                    <b>0</b>%
+                    <b id="CarbsPercentage">0</b>%
                   </div>
-                  <b>Total Carbohydrates</b> 0g
+                  <b>Total Carbohydrates</b>
+                  &nbsp;
+                  <span id="TotalCarbs" />g
                 </div>
 
                 <div className="line indent">
                   <div className="dv">
-                    <b>0</b>%
+                    <b id="DietaryFiberPercentage">0</b>%
                   </div>
-                  Dietary Fiber 0g
+                  Dietary Fiber &nbsp;
+                  <span id="TotalDietaryFiber" />g
                 </div>
 
-                <div className="line indent">Sugars 0g</div>
+                <div className="line indent">
+                  <div className="dv">
+                    <b id="SugarPercentage">0</b>%
+                  </div>
+                  Sugars
+                  <span id="TotalSugar" />g
+                </div>
 
                 <div className="line">
-                  <b>Protein</b> 0g
+                  <div className="dv">
+                    <b id="ProteinPercentage">0</b>%
+                  </div>
+                  <b>Protein</b>
+                  &nbsp;
+                  <span id="TotalProtein" />g
                 </div>
 
                 <div className="bar1" />
-
                 <div className="line vitaminA">
-                  <div className="dv">0%</div>
-                  Vitamin A
+                  <div className="dv">
+                    <b id="VitaminAPercentage">0</b>%
+                  </div>
+                  Vitamin A &nbsp;
+                  <span id="TotalVitaminA" />%
                 </div>
-
                 <div className="line vitaminC">
-                  <div className="dv">0%</div>
-                  Vitamin C
+                  <div className="dv">
+                    <b id="VitaminCPercentage">0</b>%
+                  </div>
+                  Vitamin C &nbsp;
+                  <span id="TotalVitaminC" />%
                 </div>
-
                 <div className="line calcium">
-                  <div className="dv">0%</div>
-                  Calcium
+                  <div className="dv">
+                    <b id="CalciumPercentage">0</b>%
+                  </div>
+                  Calcium &nbsp;
+                  <span id="TotalCalcium" />%
                 </div>
-
                 <div className="line iron">
-                  <div className="dv">0%</div>
-                  Iron
+                  <div className="dv">
+                    <b id="IronPercentage">0</b>%
+                  </div>
+                  Iron &nbsp;
+                  <span id="TotalIron" />%
                 </div>
-
                 <div className="dvCalorieDiet line">
                   <div className="calorieNote">
                     <span className="star">*</span> Percent Daily Values are
                     based on a 2000 calorie diet.
                     <br />
-                    <div className="ingredientListDiv">
-                      <b className="active" id="ingredientList">
-                        INGREDIENTS:
-                      </b>{' '}
-                      None
-                    </div>
                   </div>
                 </div>
               </div>
@@ -566,9 +625,18 @@ export default class Menu extends Component {
             </div>
           </div>
         </div>
-        <MenuSide ref="right" alignment="right" platos={this.state.cart}>
+        <MenuSide
+          ref="right"
+          alignment="right"
+          platos={this.state.cart}
+          history={this.props.history}
+          resetCount={() => {
+            this.setState({ ...this.state, cantidadOrden: 0 });
+          }}
+        >
           {menuItems}
         </MenuSide>
+        {swal}
       </div>
     );
   }
@@ -578,7 +646,9 @@ class MenuSide extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: false
+      swal: {},
+      visible: false,
+      user: {}
     };
   }
 
@@ -602,26 +672,60 @@ class MenuSide extends React.Component {
     return price;
   }
 
+  componentDidMount() {
+    Meteor.subscribe('orders.getClientOrders');
+  }
+
+  historial = () => {
+    const orders = Orders.find({ userId: Meteor.userId() }).fetch();
+    // this.setState({ orders });
+    console.log(orders);
+    console.log(this.context.history);
+    this.props.history.push({ pathname: '/historial', state: orders });
+  };
+
   confirmar = (evt) => {
     let orden = this.props.platos;
-    orden.estado = 'Preorden';
     orden.platos = [...this.props.platos.platos];
     orden.products = [];
-
+    let userprofile = Meteor.user() ? Meteor.user().profile : '';
+    var cbo = document.getElementById('dirCliente');
+    const dirSeleccionada = cbo.selectedIndex;
+    switch (dirSeleccionada) {
+      case 0: {
+        orden.direccion = userprofile.address1;
+        break;
+      }
+      case 1: {
+        orden.direccion = userprofile.address2;
+        break;
+      }
+      case 2: {
+        orden.direccion = userprofile.address3;
+        break;
+      }
+      case 3: {
+        orden.direccion = userprofile.address4;
+        break;
+      }
+      default: {
+      }
+    }
     let d = new Date();
     let stringFecha =
       d.getDate() +
       '/' +
-      d.getMonth() +
+      (d.getMonth() + 1) +
       '/' +
       d.getFullYear() +
-      ' ,' +
+      ', ' +
       d.getHours() +
       ':' +
       d.getMinutes() +
       ':' +
       d.getSeconds();
-    orden.fecha = stringFecha;
+    orden.fechaEntrada = stringFecha;
+    orden.fechaDespacho = '';
 
     for (let index = 0; index < this.props.platos.platos; index++) {
       orden.products.push({
@@ -636,28 +740,117 @@ class MenuSide extends React.Component {
     orden.products = orden.platos;
 
     orden.cliente = Meteor.user().profile.firstName;
-    console.log(orden);
     Meteor.call('orders.insert', orden);
     orden = {
       estado: '',
-      platos: []
+      platos: [],
+      products: []
     };
-    this.setState({ ...this.state, orden });
+    const cart = {
+      estado: 'Preorden',
+      platos: [],
+      products: []
+    };
+    this.props.platos.platos = [];
+    this.props.resetCount();
+    this.setState({ ...this.state, platos: [], orden, cart });
   };
 
+  onSubmit(e) {
+    this.confirmar.bind(this);
+  }
+
+  loadBox() {
+    //carga el combobox con las direcciones
+
+    let userprofile = Meteor.user() ? Meteor.user().profile : '';
+
+    let dir1 = userprofile.address1;
+    let dir2 = userprofile.address2;
+    let dir3 = userprofile.address3;
+    let dir4 = userprofile.address4;
+
+    var selectTag = '<select id = "dirCliente"><option>' + dir1 + '</option>';
+
+    if (dir2 !== '') {
+      selectTag += '<option>' + dir2 + '</option>';
+    }
+
+    if (dir3 !== '') {
+      selectTag += '<option>' + dir3 + '</option>';
+    }
+
+    if (dir4 !== '') {
+      selectTag += '<option>' + dir4 + '</option>';
+    }
+    selectTag += '</select>';
+    return (
+      <form
+        id="myForm"
+        className="contactModal"
+        onSubmit={this.onSubmit.bind(this)}
+      >
+        <span>Seleccione su metodo de pago y direcciones: </span>
+        <label id="labelAgregar">Direcciones Disponibles</label>
+        <div dangerouslySetInnerHTML={{ __html: selectTag }} />
+      </form>
+    );
+  }
+
   render() {
+    //sweetalert de direcciones/pago
+    let swal = (
+      <div>
+        <SweetAlert
+          show={this.state.swal.show}
+          title="Metodo de Pago & Direcciones"
+          showCancelButton
+          html
+          text={renderToStaticMarkup(this.loadBox())}
+          onConfirm={() => {
+            this.confirmar();
+            this.setState({
+              swal: { show: false, index: 0 }
+            });
+            toastr.success('La orden ha sido pedida');
+          }}
+          onCancel={() => {
+            this.setState({
+              swal: { show: false, index: 0 }
+            });
+          }}
+          onOutsideClick={() => {
+            this.setState({
+              swal: { show: false }
+            });
+          }}
+        />
+      </div>
+    );
     return (
       <div className="menuSide">
         <div className={this.isVisible()}>
           {this.props.children}
           <span className="menuSideTotal">
-            Sub Total: {this.calcularPrecio()}
+            Sub Total: L. {this.calcularPrecio()}
           </span>
-          <span className="menuSideTotal">ISV: 15%</span>
           <span className="menuSideTotal">
-            Sub Total: {this.calcularPrecio() * 0.15 + this.calcularPrecio()}
+            ISV: L. {(this.calcularPrecio() * 0.15).toFixed(2)} (15%)
           </span>
-          <ButtonPlato texto="Comprar" onClick={this.confirmar} />
+          <span className="menuSideTotal">
+            Sub Total: L. {this.calcularPrecio() * 0.15 + this.calcularPrecio()}
+          </span>
+          <ButtonPlato
+            texto="Comprar"
+            onClick={(e) => {
+              this.setState({
+                swal: { show: true, index: 0 }
+              });
+            }}
+          />
+          {swal}
+
+          <ButtonPlato texto="Historial" onClick={this.historial} />
         </div>
       </div>
     );

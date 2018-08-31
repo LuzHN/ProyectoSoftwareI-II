@@ -120,18 +120,28 @@ export default class Cart extends React.Component {
     // Meteor.call('orders.setPending', id);
 
     let rows = this.state.orden.platos.map((item, i) => (
-      <OrdenPlato
-        ref={(ref) => {
-          let componentes = this.state.componentes;
-          componentes.push(ref);
-          this.setState({ ...this.state, componentes });
-        }}
-        key={i}
-        imagen={item.imagen}
-        titulo={item.plato}
-        precio={parseInt(item.precio).toFixed(2)}
-        cantidad={item.cantidad}
-      />
+      <div>
+        <OrdenPlato
+          className="platoOrdenado"
+          ref={(ref) => {
+            let componentes = this.state.componentes;
+            componentes.push(ref);
+            this.setState({ ...this.state, componentes });
+          }}
+          key={i}
+          imagen={item.imagen}
+          titulo={item.plato}
+          precio={parseInt(item.precio).toFixed(2)}
+          cantidad={item.cantidad}
+        />
+        <button
+          role="button"
+          className="btn btn-primary"
+          onClick={this.confirmar}
+        >
+          Confirmar
+        </button>
+      </div>
     ));
 
     let newVal = (
@@ -147,12 +157,15 @@ export default class Cart extends React.Component {
           <tbody>{rows}</tbody>
         </table>
         <div className="total">
-          <h3>Subtotal:Lps.{price.toFixed(2)}</h3>
+          <h3>
+            Subtotal:Lps.
+            {price.toFixed(2)}
+          </h3>
           <h3>ISV: 15%</h3>
-          <h2>Total:Lps.{(price * 0.15 + price).toFixed(2)}</h2>
-          <button className="btn btn-primary" onClick={this.confirmar}>
-            Confirmar
-          </button>
+          <h2>
+            Total:Lps.
+            {(price * 0.15 + price).toFixed(2)}
+          </h2>
         </div>
       </div>
     );

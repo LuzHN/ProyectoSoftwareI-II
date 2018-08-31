@@ -20,32 +20,44 @@ Meteor.methods({
       status: '',
       products: order.products,
       price: order.price,
+      direccion: order.direccion,
       userId: this.userId,
       cliente: order.cliente,
-      fecha: order.fecha
+      fechaEntrada: order.fechaEntrada,
+      fechaDespacho: order.fechaDespacho
     });
   },
-  'orders.setDispatched'(id) {
+'orders.setDispatched'(id) {
     if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
       Orders.update(id, {$set: { status: 'Dispatched'}}); 
     }
   },
-  'orders.setPending'(id) {
+'orders.setPending'(id) {
     if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
       Orders.update(id, {$set: { status: 'Pending'}}); 
     }
   },
-  'orders.setPreOrder'(id) {
+'orders.setPreOrder'(id) {
     if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
       Orders.update(id, {$set: { status: 'PreOrder'}}); 
     }
   },
-  'orders.setInProgress'(id) {
+'orders.setInProgress'(id) {
     if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
       Orders.update(id, {$set: { status: 'InProgress'}}); 
     }
   },
-  'orders.delete'(id) {
+'orders.cambiarFechaDespacho'(id, fecha) {
+  if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+    Orders.update(id, { $set: { fechaDespacho: fecha } });
+  }
+},
+'orders.setHidden'(id) {
+    if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+      Orders.update(id, { $set: { status: 'Hidden' } });
+    }
+},
+'orders.delete'(id) {
     if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
       Orders.remove(id); 
     }

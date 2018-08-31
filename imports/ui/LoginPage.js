@@ -32,13 +32,19 @@ export default class LoginPage extends React.Component {
         } else if (password == '') {
           toastr.warning('Por favor ingrese su contraseña.');
         } else {
-          toastr.warning('Error de confirmación. Por favor ingrese sus datos correctamente.');
+          toastr.warning(
+            'Error de confirmación. Por favor ingrese sus datos correctamente.'
+          );
         } //Fin del if anidado
       } else {
         toastr.success('Se ha logueado exitosamente.');
         email = '';
         password = '';
-        this.props.history.push('/');
+        if (Meteor.user().roles[0] === 'employee') {
+          this.props.history.push('/menuempleado');
+        } else {
+          this.props.history.push('/');
+        }
       }
     });
   }
