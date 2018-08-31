@@ -9,226 +9,370 @@ import { Redirect } from 'react-router'
 import InputMask from 'react-input-mask';
 import '../client/styles/editUsuarios';
 
+let userGlobal;
+
 export default class editarUsuariosPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-        users: [],
-    }
-}
-
-onAgregarUsuario() {
-    this.refs.email.value = "";
-    this.refs.passwordAgregar.value = "";
-    this.refs.confirmPasswordAgregar.value = "";
-    this.refs.firstNameAgregar.value = "";
-    this.refs.lastNameAgregar.value = "";
-    this.refs.phoneNumberAgregar.value = "";
-    this.refs.addressAgregar.value = ""; 
-    var modal = document.getElementById('ModalAgregarUsuario');
-    modal.style.display = 'block';
-}
-
-closeAgregarUsuario() {
-    var modal = document.getElementById('ModalAgregarUsuario');
-    modal.style.display = 'none';
-}
-
-closeModificarUsuario() {
-    var modal = document.getElementById('ModalModificarUsuario');
-    modal.style.display = 'none';
-    this.refs.firstNameMod.value = '';
-    this.refs.lastNameMod.value = '';
-    this.refs.phoneNumber1Mod.value = '';
-    this.refs.phoneNumber2Mod.value = '';
-    this.refs.phoneNumber3Mod.value = '';
-    this.refs.phoneNumber4Mod.value = '';
-    this.refs.address1Mod.value = '';
-    this.refs.address2Mod.value = '';
-    this.refs.address3Mod.value = '';
-    this.refs.address4Mod.value = '';
-}
-  
-filterNames() {
-    //Get value of input
-    let filterValue = document.getElementById('filterInput').value.toUpperCase();
-    // console.log(filterValue);
-    //Get names ul
-    let ul = document.getElementById('names');
-    // Get li from Ul
-    //grab things by classes  and puts them in an array
-    let li = ul.querySelectorAll('li.collection-item');
-    // console.log(li);
-    //Loop through collection-item lis
-    for (let i = 0; i < li.length; i++) {
-        let a = li[i].getElementsByTagName('a')[0]; //get current link
-        // console.log(a);
-        // if matched
-        if (a.innerHTML.toUpperCase().indexOf(filterValue) > -1) {
-            li[i].style.display = '';
-        } else {
-            li[i].style.display = 'none';
+            users: [],
         }
     }
-}
 
-componentDidMount() {
+    /*Este es el método que se corre cuando se oprime el boton
+    de agrgear cliente.*/
+    onAgregarUsuario() {
+        this.refs.email.value = "";
+        this.refs.passwordAgregar.value = "";
+        this.refs.confirmPasswordAgregar.value = "";
+        this.refs.firstNameAgregar.value = "";
+        this.refs.lastNameAgregar.value = "";
+        this.refs.phoneNumberAgregar.value = "";
+        this.refs.addressAgregar.value = ""; 
+        var modal = document.getElementById('ModalAgregarUsuario');
+        modal.style.display = 'block';
+    }
 
+    /*Este es el método que se corre cuando se cierra el modal de 
+    agregar usuario.*/
+    closeAgregarUsuario() {
+        var modal = document.getElementById('ModalAgregarUsuario');
+        modal.style.display = 'none';
+        this.refs.email.value = "";
+        this.refs.passwordAgregar.value = "";
+        this.refs.confirmPasswordAgregar.value = "";
+        this.refs.firstNameAgregar.value = "";
+        this.refs.lastNameAgregar.value = "";
+        this.refs.phoneNumberAgregar.value = "";
+        this.refs.addressAgregar.value = "";
+    }
+
+    /*Este es el método que se corre cuando se cierra el modal de 
+    modificar usuario.*/
+    closeModificarUsuario() {
+        var modal = document.getElementById('ModalModificarUsuario');
+        modal.style.display = 'none';
+        this.refs.firstNameMod.value = '';
+        this.refs.lastNameMod.value = '';
+        this.refs.phoneNumber1Mod.value = '';
+        this.refs.phoneNumber2Mod.value = '';
+        this.refs.phoneNumber3Mod.value = '';
+        this.refs.phoneNumber4Mod.value = '';
+        this.refs.address1Mod.value = '';
+        this.refs.address2Mod.value = '';
+        this.refs.address3Mod.value = '';
+        this.refs.address4Mod.value = '';
+    }
     
-
-    setTimeout(() => {
-        this.usersTracker = Tracker.autorun(() => {
-            Meteor.subscribe('users.getClients');
-            const users = Meteor.users.find({_id: {$not: Meteor.userId()}}).fetch();
-            this.setState({users});
-        });
-  
-      }, 1000);
-}
-
-componentWillUnmount() {
-    this.usersTracker.stop();
-}
-
-handleSubmit(e) {
-    e.preventDefault();
-}
-
-handleChange(e) {
-    var index = e.nativeEvent.target.selectedIndex;
-    if (index == 1) {
-      this.props.history.push('/editAdmins');
-    } 
-    if (index == 2) {
-      this.props.history.push('/editEmpleado');
-    }
-}
-
-loadList() {
-    return this.state.users.map((user) => {
-      return (
-        <li  onClick={(e) => {
-          this.cargarInfo(user);
-        }} className="collection-item" key={user._id}>
-          <a href="#"  className="hrefNombre">{user.profile.firstName + ' ' + user.profile.lastName}</a>
-        </li>
-      )
-    })
-}
-
-cargarInfo(user) {
-    $('#phoneNumber1Mod').val(user.profile.phoneNumber1);
-    $('#phoneNumber2Mod').val(user.profile.phoneNumber2);
-    $('#phoneNumber3Mod').val(user.profile.phoneNumber3);
-    $('#phoneNumber4Mod').val(user.profile.phoneNumber4);
-    this.refs.firstNameMod.value = user.profile.firstName;
-    this.refs.lastNameMod.value = user.profile.lastName;
-    this.refs.phoneNumber1Mod.value = user.profile.phoneNumber1;
-    this.refs.phoneNumber2Mod.value = user.profile.phoneNumber2;
-    this.refs.phoneNumber3Mod.value = user.profile.phoneNumber3;
-    this.refs.phoneNumber4Mod.value = user.profile.phoneNumber4;
-    this.refs.address1Mod.value = user.profile.address1;
-    this.refs.address2Mod.value = user.profile.address2;
-    this.refs.address3Mod.value = user.profile.address3;
-    this.refs.address4Mod.value = user.profile.address4;
-    var modal = document.getElementById('ModalModificarUsuario');
-    modal.style.display = 'block';
-  }
-
-onSubmitAgregar() {
-    let email = this.refs.email.value.trim();
-    let password = this.refs.passwordAgregar.value.trim();
-    let confirmPassword = this.refs.confirmPasswordAgregar.value.trim();
-    let firstName = this.refs.firstNameAgregar.value.trim();
-    let lastName = this.refs.lastNameAgregar.value.trim();
-    let phoneNumber1 = this.refs.phoneNumberAgregar.value.trim();
-    let address1 = this.refs.addressAgregar.value.trim();
-    let profile = {
-        firstName,
-        lastName,
-        phoneNumber1,
-        phoneNumber2: '',
-        phoneNumber3: '',
-        phoneNumber4: '',
-        address1,
-        address2: '',
-        address3: '',
-        address4: '',
-    };
-
-    //Validaciones
-    let validator = 0;
-    //Validar email
-    if (email == '') {
-      validator = 1;
-      toastr.warning('Por favor ingrese un correo válido.');
-    } else if (email.indexOf('@') <= 0) {
-      validator = 1;
-      toastr.warning('Por favor ingrese un correo válido.');
-    } else if (
-      email.charAt(email.length - 4) != '.' &&
-      email.charAt(email.length - 3) != '.'
-    ) {
-      validator = 1;
-      toastr.warning('Por favor ingrese un correo válido.');
-    } else if (password == '') {
-      validator = 1;
-      toastr.warning('La contraseña debe de ser de al menos 9 dígitos.');
-    } else if (password.length < 9) {
-      validator = 1;
-      toastr.warning('La contraseña debe de ser de al menos 9 dígitos.');
-    } else if (confirmPassword != password) {
-      validator = 1;
-      toastr.warning('Las contraseñas no son iguales.');
-    } else if (firstName == '' || firstName.match(/[^a-z]/gi)) {
-      validator = 1;
-      toastr.warning('Por favor ingrese un nombre válido.');
-    } else if (lastName == '' || lastName.match(/[^a-z]/gi)) {
-      validator = 1;
-      toastr.warning('Por favor ingrese un apellido válido.');
-    } else if (phoneNumber1 == '') {
-      validator = 1;
-      toastr.warning('Por favor ingrese un número de teléfono válido.');
-    } else if (phoneNumber1.length < 8) {
-      validator = 1;
-      toastr.warning('Por favor ingrese un número de teléfono válido.');
-    } else if (
-      phoneNumber1.charAt(0) != '9' &&
-      phoneNumber1.charAt(0) != '3' &&
-      phoneNumber1.charAt(0) != '8' &&
-      phoneNumber1.charAt(0) != '7' &&
-      phoneNumber1.charAt(0) != '2'
-    ) {
-      validator = 1;
-      toastr.warning('Por favor ingrese un número de teléfono válido.');
-    } else if (address1 == '') {
-      validator = 1;
-      toastr.warning('Por favor ingrese una dirección válida.');
-    }
-
-    if (!validator) {
-        let user = { 
-            email, 
-            password, 
-            profile 
-        };
-        Meteor.call('users.initializeClientEnAdmin', user, (err, returnValue) => {
-            if (returnValue == 1) {
-                console.log(Meteor.userId);
-                toastr.success('Se ha registrado el cliente exitosamente.');
-                this.refs.email.value = "";
-                this.refs.passwordAgregar.value = "";
-                this.refs.confirmPasswordAgregar.value = "";
-                this.refs.firstNameAgregar.value = "";
-                this.refs.lastNameAgregar.value = "";
-                this.refs.phoneNumberAgregar.value = "";
-                this.refs.addressAgregar.value = "";
+    filterNames() {
+        //Get value of input
+        let filterValue = document.getElementById('filterInput').value.toUpperCase();
+        // console.log(filterValue);
+        //Get names ul
+        let ul = document.getElementById('names');
+        // Get li from Ul
+        //grab things by classes  and puts them in an array
+        let li = ul.querySelectorAll('li.collection-item');
+        // console.log(li);
+        //Loop through collection-item lis
+        for (let i = 0; i < li.length; i++) {
+            let a = li[i].getElementsByTagName('a')[0]; //get current link
+            // console.log(a);
+            // if matched
+            if (a.innerHTML.toUpperCase().indexOf(filterValue) > -1) {
+                li[i].style.display = '';
             } else {
-                toastr.warning('No tiene privilegios de administrador. No se ha creado el cliente.');
+                li[i].style.display = 'none';
             }
-        });
+        }
     }
-  }
+
+    componentDidMount() {
+        setTimeout(() => {
+            this.usersTracker = Tracker.autorun(() => {
+                Meteor.subscribe('users.getClients');
+                const users = Meteor.users.find({_id: {$not: Meteor.userId()}}).fetch();
+                this.setState({users});
+            });
+        }, 1000);
+    }
+
+    componentWillUnmount() {
+        this.usersTracker.stop();
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+    }
+
+    /*Este es el método que se corre cuando se cambia el indice seleccionado
+    en el combo box.*/
+    handleChange(e) {
+        var index = e.nativeEvent.target.selectedIndex;
+        if (index == 1) {
+        this.props.history.push('/editAdmins');
+        } 
+        if (index == 2) {
+        this.props.history.push('/editEmpleado');
+        }
+    }
+
+    /*Este es el método que carga y muestra la lista de usuario.*/
+    loadList() {
+        return this.state.users.map((user) => {
+        return (
+            <li  onClick={(e) => {
+            this.cargarInfo(user);
+            }} className="collection-item" key={user._id}>
+            <a href="#"  className="hrefNombre">{user.profile.firstName + ' ' + user.profile.lastName}</a>
+            </li>
+        )
+        })
+    }
+
+      /*Este es el método que carga la informacion del usuario seleccionado para 
+     modificacion.*/
+    cargarInfo(user) {
+        userGlobal = user;
+        $('#phoneNumber1Mod').val(user.profile.phoneNumber1);
+        $('#phoneNumber2Mod').val(user.profile.phoneNumber2);
+        $('#phoneNumber3Mod').val(user.profile.phoneNumber3);
+        $('#phoneNumber4Mod').val(user.profile.phoneNumber4);
+        this.refs.firstNameMod.value = user.profile.firstName;
+        this.refs.lastNameMod.value = user.profile.lastName;
+        this.refs.phoneNumber1Mod.value = user.profile.phoneNumber1;
+        this.refs.phoneNumber2Mod.value = user.profile.phoneNumber2;
+        this.refs.phoneNumber3Mod.value = user.profile.phoneNumber3;
+        this.refs.phoneNumber4Mod.value = user.profile.phoneNumber4;
+        this.refs.address1Mod.value = user.profile.address1;
+        this.refs.address2Mod.value = user.profile.address2;
+        this.refs.address3Mod.value = user.profile.address3;
+        this.refs.address4Mod.value = user.profile.address4;
+        var modal = document.getElementById('ModalModificarUsuario');
+        modal.style.display = 'block';
+    }
+
+    /*Este es el método que se corre cuando se oprime el boton de confirmar cambios
+    al momento de modificar un usuario.*/
+    onSubmitModificarCliente(){
+        let firstName = this.refs.firstNameMod.value;
+        let lastName = this.refs.lastNameMod.value;
+        let phoneNumber1 = this.refs.phoneNumber1Mod.value;
+        let phoneNumber2 = this.refs.phoneNumber2Mod.value;
+        let phoneNumber3 = this.refs.phoneNumber3Mod.value;
+        let phoneNumber4 = this.refs.phoneNumber4Mod.value;
+        let address1 = this.refs.address1Mod.value;
+        let address2 = this.refs.address2Mod.value;
+        let address3 = this.refs.address3Mod.value;
+        let address4 = this.refs.address4Mod.value;
+
+        //Validaciones
+        let validator = 0;
+        //Validar email
+        if (firstName == '' || firstName.match(/[^a-z]/gi)) {
+            validator = 1;
+            toastr.warning('Por favor ingrese un nombre válido.');
+        } else if (lastName == '' || lastName.match(/[^a-z]/gi)) {
+            validator = 1;
+            toastr.warning('Por favor ingrese un apellido válido.');
+        } else if (phoneNumber1 == '') {
+            validator = 1;
+            toastr.warning('Por favor ingrese un primer número de teléfono válido.');
+        } else if (phoneNumber1.includes("_")) {
+            validator = 1;
+            toastr.warning('Por favor ingrese un primer número de teléfono válido.');
+        } else if (
+            phoneNumber1.charAt(0) != '9' &&
+            phoneNumber1.charAt(0) != '3' &&
+            phoneNumber1.charAt(0) != '8' &&
+            phoneNumber1.charAt(0) != '7' &&
+            phoneNumber1.charAt(0) != '2'
+        ) {
+            validator = 1;
+            toastr.warning('Por favor ingrese un primer número de teléfono válido.');
+        } else if (address1 == '') {
+            validator = 1;
+            toastr.warning('Por favor ingrese una dirección válida.');
+        }
+
+        if (phoneNumber2 != '') {
+            if (phoneNumber2.includes("_")) {
+                validator = 1;
+                toastr.warning('Por favor ingrese un segundo número de teléfono válido.');
+            } else if (
+                phoneNumber2.charAt(0) != '9' &&
+                phoneNumber2.charAt(0) != '3' &&
+                phoneNumber2.charAt(0) != '8' &&
+                phoneNumber2.charAt(0) != '7' &&
+                phoneNumber2.charAt(0) != '2'
+            ) {
+                validator = 1;
+                toastr.warning('Por favor ingrese un segundo número de teléfono válido.');
+            }
+        }
+      
+        if (phoneNumber3 != '') {
+            if (phoneNumber3.includes("_")) {
+                validator = 1;
+                toastr.warning('Por favor ingrese un tercer número de teléfono válido.');
+            } else if (
+                phoneNumber3.charAt(0) != '9' &&
+                phoneNumber3.charAt(0) != '3' &&
+                phoneNumber3.charAt(0) != '8' &&
+                phoneNumber3.charAt(0) != '7' &&
+                phoneNumber3.charAt(0) != '2'
+            ) {
+                validator = 1;
+                toastr.warning('Por favor ingrese un tercer número de teléfono válido.');
+            }
+        }
+      
+        if (phoneNumber4 != '') {
+            if (phoneNumber4.includes("_")) {
+                validator = 1;
+                toastr.warning('Por favor ingrese un cuarto número de teléfono válido.');
+            } else if (
+                phoneNumber4.charAt(0) != '9' &&
+                phoneNumber4.charAt(0) != '3' &&
+                phoneNumber4.charAt(0) != '8' &&
+                phoneNumber4.charAt(0) != '7' &&
+                phoneNumber4.charAt(0) != '2'
+            ) {
+                validator = 1;
+                toastr.warning('Por favor ingrese un cuarto número de teléfono válido.');
+            }
+        }
+      
+
+        if (!validator) {
+            Meteor.call('users.update', userGlobal._id, {
+                firstName,
+                lastName,
+                phoneNumber1,
+                phoneNumber2,
+                phoneNumber3,
+                phoneNumber4,
+                address1,
+                address2,
+                address3,
+                address4
+            });
+            toastr.success('Se ha modificado el cliente exitosamente.');
+            this.closeModificarUsuario();
+        }
+    }
+
+    /*Este es el método que se corre cuando se oprime el boton de eliminar
+    cliente.*/
+    onDeleteCliente() {
+        var modal = document.getElementById('exampleModal');
+        modal.style.display = 'block';
+    }
+
+    /*Este es el método que cierra el modal de estar seguro de 
+    borrar usuario.*/
+    closeDeleteModal() {
+        var modal = document.getElementById('exampleModal');
+        modal.style.display = 'none';
+    }
+
+    /*Este es el método que se corre cuando se oprime el boton de eliminar
+    usuario.*/
+    borrarUsuario() {
+        Meteor.call('users.delete', userGlobal._id);
+        toastr.success('Se ha eliminado el cliente exitosamente.');
+        this.closeDeleteModal();
+        this.closeModificarUsuario();
+    }
+
+    onSubmitAgregar() {
+        let email = this.refs.email.value.trim();
+        let password = this.refs.passwordAgregar.value.trim();
+        let confirmPassword = this.refs.confirmPasswordAgregar.value.trim();
+        let firstName = this.refs.firstNameAgregar.value.trim();
+        let lastName = this.refs.lastNameAgregar.value.trim();
+        let phoneNumber1 = this.refs.phoneNumberAgregar.value.trim();
+        let address1 = this.refs.addressAgregar.value.trim();
+        let profile = {
+            firstName,
+            lastName,
+            phoneNumber1,
+            phoneNumber2: '',
+            phoneNumber3: '',
+            phoneNumber4: '',
+            address1,
+            address2: '',
+            address3: '',
+            address4: '',
+        };
+
+        //Validaciones
+        let validator = 0;
+        //Validar email
+        if (email == '') {
+            validator = 1;
+            toastr.warning('Por favor ingrese un correo válido.');
+        } else if (email.indexOf('@') <= 0) {
+            validator = 1;
+            toastr.warning('Por favor ingrese un correo válido.');
+        } else if (
+            email.charAt(email.length - 4) != '.' &&
+            email.charAt(email.length - 3) != '.'
+        ) {
+            validator = 1;
+            toastr.warning('Por favor ingrese un correo válido.');
+        } else if (password == '') {
+            validator = 1;
+            toastr.warning('La contraseña debe de ser de al menos 9 dígitos.');
+        } else if (password.length < 9) {
+            validator = 1;
+            toastr.warning('La contraseña debe de ser de al menos 9 dígitos.');
+        } else if (confirmPassword != password) {
+            validator = 1;
+            toastr.warning('Las contraseñas no son iguales.');
+        } else if (firstName == '' || firstName.match(/[^a-z]/gi)) {
+            validator = 1;
+            toastr.warning('Por favor ingrese un nombre válido.');
+        } else if (lastName == '' || lastName.match(/[^a-z]/gi)) {
+            validator = 1;
+            toastr.warning('Por favor ingrese un apellido válido.');
+        } else if (phoneNumber1 == '') {
+            validator = 1;
+            toastr.warning('Por favor ingrese un primer número de teléfono válido.');
+        } else if (phoneNumber1.includes("_")) {
+            validator = 1;
+            toastr.warning('Por favor ingrese un primer número de teléfono válido.');
+        } else if (
+            phoneNumber1.charAt(0) != '9' &&
+            phoneNumber1.charAt(0) != '3' &&
+            phoneNumber1.charAt(0) != '8' &&
+            phoneNumber1.charAt(0) != '7' &&
+            phoneNumber1.charAt(0) != '2'
+        ) {
+            validator = 1;
+            toastr.warning('Por favor ingrese un primer número de teléfono válido.');
+        } else if (address1 == '') {
+            validator = 1;
+            toastr.warning('Por favor ingrese una dirección válida.');
+        }
+
+        if (!validator) {
+            let user = { 
+                email, 
+                password, 
+                profile 
+            };
+            Meteor.call('users.initializeClientEnAdmin', user, (err, returnValue) => {
+                if (returnValue == 1) {
+                    console.log(Meteor.userId);
+                    toastr.success('Se ha registrado el cliente exitosamente.');
+                    this.closeAgregarUsuario();
+                } else {
+                    toastr.warning('No tiene privilegios de administrador. No se ha creado el cliente.');
+                }
+            });
+        }
+    }
 
 render() {
     console.log(this.state.users);
@@ -416,12 +560,12 @@ render() {
                                     <div className="container1">
                                         <div className="box1">
                                             <p>
-                                                <button className = "confirmarModificar" >Confirmar Cambios</button>
+                                                <button className = "confirmarModificar" onClick={this.onSubmitModificarCliente.bind(this)} >Confirmar Cambios</button>
                                             </p>
                                         </div>
                                         <div className="box2">
                                             <p>
-                                                <button className = "confirmarDesactivar" >Borrar Cliente</button>
+                                                <button className = "confirmarDesactivar" onClick={this.onDeleteCliente.bind(this)}>Borrar Cliente</button>
                                             </p>
                                         </div>
                                     </div>     
@@ -432,6 +576,24 @@ render() {
                         <div className="modal-footer"></div>
                     </div>
                 </div>{/*Termina MODAL MODIFICAR Administrador*/}
+
+                {/* <!-- Modal --> */}
+                <div className="modal" id="exampleModal">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                            </div>
+                            <div className="modal-body">
+                                <p>¿Desea borrar el cliente?</p>
+                            </div>
+                            <div className="modal-footer">
+                                <button className="btn btn-primary" onClick={this.closeDeleteModal.bind(this)}>Cancelar</button>
+                                <button className="btn btn-danger" onClick={this.borrarUsuario.bind(this)}>Borrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     );

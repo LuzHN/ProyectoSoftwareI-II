@@ -11,16 +11,17 @@ import '../client/styles/editEmpleado';
 
 let userGlobal;
 
-
 export default class editarEmpleadoPage extends React.Component {
   constructor(props) {
     super(props);
-      this.state = {
-        users: [],
-      }
+    this.state = {
+      users: [],
+    }
   }
 
-  onAgregar() {
+  /*Este es el método que se corre cuando se oprime el boton
+  de agrgear empleado.*/
+  onAgregarEmpleado() {
     this.refs.email.value = "";
     this.refs.passwordAgregar.value = "";
     this.refs.confirmPasswordAgregar.value = "";
@@ -32,12 +33,23 @@ export default class editarEmpleadoPage extends React.Component {
     modal.style.display = 'block';
   }
 
-  closeAgregar() {
+  /*Este es el método que se corre cuando se cierra el modal de 
+  agregar empleado.*/
+  closeAgregarEmpleado() {
     var modal = document.getElementById('ModalAgregarEmpleado');
     modal.style.display = 'none';
+    this.refs.email.value = "";
+    this.refs.passwordAgregar.value = "";
+    this.refs.confirmPasswordAgregar.value = "";
+    this.refs.firstNameAgregar.value = "";
+    this.refs.lastNameAgregar.value = "";
+    this.refs.phoneNumberAgregar.value = "";
+    this.refs.addressAgregar.value = ""; 
   }
 
-  closeModificar() {
+  /*Este es el método que se corre cuando se cierra el modal de 
+  modificar empleado.*/
+  closeModificarEmpleado() {
     var modal = document.getElementById('ModalModificarEmpleado');
     modal.style.display = 'none';
     this.refs.firstNameMod.value = '';
@@ -93,7 +105,9 @@ export default class editarEmpleadoPage extends React.Component {
     e.preventDefault();
   }
 
-  handleChange(e) {
+  /*Este es el método que se corre cuando se cambia el indice seleccionado
+  en el combo box.*/
+  handleChangeCBox(e) {
     var index = e.nativeEvent.target.selectedIndex;
     console.log("index" + index);
     if (index == 1) {
@@ -104,11 +118,12 @@ export default class editarEmpleadoPage extends React.Component {
     }
   }
 
+  /*Este es el método que carga y muestra la lista de empleados.*/
   loadList() {
     return this.state.users.map((user) => {
       return (
         <li  onClick={(e) => {
-          this.cargarInfo(user);
+          this.cargarInfoModificar(user);
         }} className="collection-item" key={user._id}>
           <a href="#"  className="hrefNombre">{user.profile.firstName + ' ' + user.profile.lastName}</a>
         </li>
@@ -116,7 +131,9 @@ export default class editarEmpleadoPage extends React.Component {
     })
   }
 
-  cargarInfo(user) {
+  /*Este es el método que carga la informacion del empleado seleccionado para 
+  modificacion.*/
+  cargarInfoModificar(user) {
     userGlobal = user;
     $('#phoneNumber1Mod').val(user.profile.phoneNumber1);
     $('#phoneNumber2Mod').val(user.profile.phoneNumber2);
@@ -136,7 +153,9 @@ export default class editarEmpleadoPage extends React.Component {
     modal.style.display = 'block';
   }
 
-  onSubmitModificar(){
+  /*Este es el método que se corre cuando se oprime el boton de confirmar cambios
+  al momento de modificar un empleado.*/
+  onSubmitModificarEmpleado(){
     let firstName = this.refs.firstNameMod.value;
     let lastName = this.refs.lastNameMod.value;
     let phoneNumber1 = this.refs.phoneNumber1Mod.value;
@@ -147,26 +166,126 @@ export default class editarEmpleadoPage extends React.Component {
     let address2 = this.refs.address2Mod.value;
     let address3 = this.refs.address3Mod.value;
     let address4 = this.refs.address4Mod.value;
-    Meteor.call('users.update', userGlobal._id, {
-      firstName,
-      lastName,
-      phoneNumber1,
-      phoneNumber2,
-      phoneNumber3,
-      phoneNumber4,
-      address1,
-      address2,
-      address3,
-      address4
-    });
-    toastr.success('Se modifico');
+
+    //Validaciones
+    let validator = 0;
+    //Validar email
+    if (firstName == '' || firstName.match(/[^a-z]/gi)) {
+      validator = 1;
+      toastr.warning('Por favor ingrese un nombre válido.');
+    } else if (lastName == '' || lastName.match(/[^a-z]/gi)) {
+      validator = 1;
+      toastr.warning('Por favor ingrese un apellido válido.');
+    } else if (phoneNumber1 == '') {
+      validator = 1;
+      toastr.warning('Por favor ingrese un primer número de teléfono válido.');
+    } else if (phoneNumber1.includes("_")) {
+      validator = 1;
+      toastr.warning('Por favor ingrese un primer número de teléfono válido.');
+    } else if (
+      phoneNumber1.charAt(0) != '9' &&
+      phoneNumber1.charAt(0) != '3' &&
+      phoneNumber1.charAt(0) != '8' &&
+      phoneNumber1.charAt(0) != '7' &&
+      phoneNumber1.charAt(0) != '2'
+    ) {
+      validator = 1;
+      toastr.warning('Por favor ingrese un primer número de teléfono válido.');
+    } else if (address1 == '') {
+      validator = 1;
+      toastr.warning('Por favor ingrese una dirección válida.');
+    }
+
+    if (phoneNumber2 != '') {
+      if (phoneNumber2.includes("_")) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un segundo número de teléfono válido.');
+      } else if (
+        phoneNumber2.charAt(0) != '9' &&
+        phoneNumber2.charAt(0) != '3' &&
+        phoneNumber2.charAt(0) != '8' &&
+        phoneNumber2.charAt(0) != '7' &&
+        phoneNumber2.charAt(0) != '2'
+      ) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un segundo número de teléfono válido.');
+      }
+    }
+
+    if (phoneNumber3 != '') {
+      if (phoneNumber3.includes("_")) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un tercer número de teléfono válido.');
+      } else if (
+        phoneNumber3.charAt(0) != '9' &&
+        phoneNumber3.charAt(0) != '3' &&
+        phoneNumber3.charAt(0) != '8' &&
+        phoneNumber3.charAt(0) != '7' &&
+        phoneNumber3.charAt(0) != '2'
+      ) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un tercer número de teléfono válido.');
+      }
+    }
+
+    if (phoneNumber4 != '') {
+      if (phoneNumber4.includes("_")) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un cuarto número de teléfono válido.');
+      } else if (
+        phoneNumber4.charAt(0) != '9' &&
+        phoneNumber4.charAt(0) != '3' &&
+        phoneNumber4.charAt(0) != '8' &&
+        phoneNumber4.charAt(0) != '7' &&
+        phoneNumber4.charAt(0) != '2'
+      ) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un cuarto número de teléfono válido.');
+      }
+    }
+    if (!validator) {
+      Meteor.call('users.update', userGlobal._id, {
+        firstName,
+        lastName,
+        phoneNumber1,
+        phoneNumber2,
+        phoneNumber3,
+        phoneNumber4,
+        address1,
+        address2,
+        address3,
+        address4
+      });
+      toastr.success('Se ha modificado el empleado exitosamente.');
+      this.closeModificarEmpleado();
+    }
   }
 
+  /*Este es el método que muestra el modal de estar seguro de 
+  borrar empleado.*/
   onDeleteEmpleado() {
-    Meteor.call('users.delete', userGlobal._id);
-    toastr.success('Se elimino');
+    var modal = document.getElementById('exampleModal');
+    modal.style.display = 'block';
   }
 
+  /*Este es el método que cierra el modal de estar seguro de 
+  borrar empleado.*/
+  closeDeleteModal() {
+    var modal = document.getElementById('exampleModal');
+    modal.style.display = 'none';
+  }
+
+  /*Este es el método que se corre cuando se oprime el boton de eliminar
+  empleado.*/
+  borrarEmpleado() {
+    Meteor.call('users.delete', userGlobal._id);
+    toastr.success('Se ha eliminado el empleado exitosamente.');
+    this.closeDeleteModal();
+    this.closeModificarEmpleado();
+  }
+
+  /*Este es el método que se corre cuando se oprime el boton de Confirmar en el
+  modal de Agregar Empleado.*/
   onSubmitAgregar() {
     let email = this.refs.email.value.trim();
     let password = this.refs.passwordAgregar.value.trim();
@@ -220,10 +339,10 @@ export default class editarEmpleadoPage extends React.Component {
       toastr.warning('Por favor ingrese un apellido válido.');
     } else if (phoneNumber1 == '') {
       validator = 1;
-      toastr.warning('Por favor ingrese un número de teléfono válido.');
-    } else if (phoneNumber1.length < 8) {
+      toastr.warning('Por favor ingrese un primer número de teléfono válido.');
+    } else if (phoneNumber1.includes("_")) {
       validator = 1;
-      toastr.warning('Por favor ingrese un número de teléfono válido.');
+      toastr.warning('Por favor ingrese un primer número de teléfono válido.');
     } else if (
       phoneNumber1.charAt(0) != '9' &&
       phoneNumber1.charAt(0) != '3' &&
@@ -232,7 +351,7 @@ export default class editarEmpleadoPage extends React.Component {
       phoneNumber1.charAt(0) != '2'
     ) {
       validator = 1;
-      toastr.warning('Por favor ingrese un número de teléfono válido.');
+      toastr.warning('Por favor ingrese un primer número de teléfono válido.');
     } else if (address1 == '') {
       validator = 1;
       toastr.warning('Por favor ingrese una dirección válida.');
@@ -246,15 +365,8 @@ export default class editarEmpleadoPage extends React.Component {
       };
       Meteor.call('users.initializeEmployee', user, (err, returnValue) => {
         if (returnValue == 1) {
-          console.log(Meteor.userId);
           toastr.success('Se ha agregado el empleado exitosamente.');
-          this.refs.email.value = "";
-          this.refs.passwordAgregar.value = "";
-          this.refs.confirmPasswordAgregar.value = "";
-          this.refs.firstNameAgregar.value = "";
-          this.refs.lastNameAgregar.value = "";
-          this.refs.phoneNumberAgregar.value = "";
-          this.refs.addressAgregar.value = ""; 
+          this.closeAgregarEmpleado();
         } else {
           toastr.warning('No tiene privilegios de administrador. No se ha creado el empleado.');       
         }     
@@ -269,7 +381,7 @@ export default class editarEmpleadoPage extends React.Component {
         <div className="containerPrincipal">
         
           <div className = "ComboBox">
-            <select onChange ={this.handleChange.bind(this)}>
+            <select onChange ={this.handleChangeCBox.bind(this)}>
               <option value="Empleados">Empleados</option>
               <option value="Administradores">Administradores</option>
               <option value="Usuarios">Clientes</option>
@@ -277,7 +389,7 @@ export default class editarEmpleadoPage extends React.Component {
           </div>
 
           <div className="Buttons">
-            <button className="botonAgregar" onClick={this.onAgregar.bind(this)}>Agregar Empleado</button>
+            <button className="botonAgregar" onClick={this.onAgregarEmpleado.bind(this)}>Agregar Empleado</button>
           </div>  
 
           <div className="searchBarDiv">   
@@ -293,7 +405,7 @@ export default class editarEmpleadoPage extends React.Component {
               {/* Header */}
               <div className="modal-header">
                 <div className="modal-header-Btn">
-                  <span className="closeBtn" onClick={this.closeAgregar.bind(this)}>&times;</span>
+                  <span className="closeBtn" onClick={this.closeAgregarEmpleado.bind(this)}>&times;</span>
                 </div>
                 <div className="modal-header-Name">
                   <h2>Agregar Empleado</h2>
@@ -372,7 +484,7 @@ export default class editarEmpleadoPage extends React.Component {
               {/* Header */}
               <div className="modal-header">
                 <div className="modal-header-Btn">
-                  <span className="closeBtn" onClick={this.closeModificar.bind(this)}>&times;</span>
+                  <span className="closeBtn" onClick={this.closeModificarEmpleado.bind(this)}>&times;</span>
                 </div>
                 <div className="modal-header-Name">
                   <h2>Modificar Empleado</h2>
@@ -437,7 +549,7 @@ export default class editarEmpleadoPage extends React.Component {
                     <div className="container1">
                       <div className="box1">
                         <p>
-                          <button className = "confirmarModificar" onClick={this.onSubmitModificar.bind(this)}>Confirmar Cambios</button>
+                          <button className = "confirmarModificar" onClick={this.onSubmitModificarEmpleado.bind(this)}>Confirmar Cambios</button>
                         </p>
                       </div>
                       <div className="box2">
@@ -453,6 +565,24 @@ export default class editarEmpleadoPage extends React.Component {
               <div className="modal-footer"></div>
             </div>
           </div>{/*Termina MODAL MODIFICAR EMPLEADO*/}
+
+           {/* <!-- Modal --> */}
+          <div className="modal" id="exampleModal">
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                </div>
+                <div className="modal-body">
+                  <p>¿Desea borrar el empleado?</p>
+                </div>
+                <div className="modal-footer">
+                  <button className="btn btn-primary" onClick={this.closeDeleteModal.bind(this)}>Cancelar</button>
+                  <button className="btn btn-danger" onClick={this.borrarEmpleado.bind(this)}>Borrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
         </div>
       </div>
     );}

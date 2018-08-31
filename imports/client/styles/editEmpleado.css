@@ -171,7 +171,7 @@ button:focus {
 }
   
 .modal-header{
-    background:#87AAAA;
+    background:#d86926;
     color:#fff;
     display: flex;
 }
@@ -206,10 +206,25 @@ button:focus {
 }
   
 .modal-footer{
-    background:#87AAAA;
+    background:#d86926;
     padding:2%;
     color:#fff;
 }
+
+.modal-dialog {
+    position: relative;
+    width: auto;
+    display: flex;
+    align-items: center;
+    margin: modal-dialog-margin;
+    pointer-events: none;
+}
+  
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+}
+
 
 .container1{
     color:  #514e4d;

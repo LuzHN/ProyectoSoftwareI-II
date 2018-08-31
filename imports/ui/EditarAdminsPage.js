@@ -9,6 +9,8 @@ import { Redirect } from 'react-router'
 import InputMask from 'react-input-mask';
 import '../client/styles/editAdmins';
 
+let userGlobal;
+
 export default class editarAdminsPage extends React.Component {
   constructor(props) {
     super(props);
@@ -17,7 +19,9 @@ export default class editarAdminsPage extends React.Component {
       }
   }
 
-  onAgregarAdmin() {
+  /*Este es el método que se corre cuando se oprime el boton
+  de agrgear administrador.*/
+  AgregarAdmin() {
     this.refs.email.value = "";
     this.refs.passwordAgregar.value = "";
     this.refs.confirmPasswordAgregar.value = "";
@@ -29,12 +33,23 @@ export default class editarAdminsPage extends React.Component {
     modal.style.display = 'block';
   }
 
-  closeAdmin() {
+  /*Este es el método que se corre cuando se cierra el modal de 
+  agregar administrador.*/
+  closeAgregarAdmin() {
     var modal = document.getElementById('ModalAgregarAdministrador');
     modal.style.display = 'none';
+    this.refs.email.value = "";
+    this.refs.passwordAgregar.value = "";
+    this.refs.confirmPasswordAgregar.value = "";
+    this.refs.firstNameAgregar.value = "";
+    this.refs.lastNameAgregar.value = "";
+    this.refs.phoneNumberAgregar.value = "";
+    this.refs.addressAgregar.value = "";
   }
 
-  onCloseModAdmin() {
+  /*Este es el método que se corre cuando se cierra el modal de 
+  modificar administrador.*/
+  CloseModificarAdmin() {
     var modal = document.getElementById('ModalModificarAdministrador');
     modal.style.display = 'none';
     this.refs.firstNameMod.value = '';
@@ -90,9 +105,10 @@ export default class editarAdminsPage extends React.Component {
     e.preventDefault();
   }
 
+  /*Este es el método que se corre cuando se cambia el indice seleccionado
+  en el combo box.*/
   handleChange(e) {
     var index = e.nativeEvent.target.selectedIndex;
-    console.log("index" + index);
     if (index == 1) {
       this.props.history.push('/editEmpleado');
     }
@@ -101,6 +117,7 @@ export default class editarAdminsPage extends React.Component {
     }
   }
 
+  /*Este es el método que carga y muestra la lista de administradores.*/
   loadList() {
     return this.state.users.map((user) => {
       return (
@@ -113,7 +130,10 @@ export default class editarAdminsPage extends React.Component {
     })
   }
 
+  /*Este es el método que carga la informacion del administrador seleccionado para 
+  modificacion.*/
   cargarInfo(user) {
+    userGlobal = user;
     $('#phoneNumber1Mod').val(user.profile.phoneNumber1);
     $('#phoneNumber2Mod').val(user.profile.phoneNumber2);
     $('#phoneNumber3Mod').val(user.profile.phoneNumber3);
@@ -131,7 +151,142 @@ export default class editarAdminsPage extends React.Component {
     var modal = document.getElementById('ModalModificarAdministrador');
     modal.style.display = 'block';
   }
+
+  /*Este es el método que se corre cuando se oprime el boton de confirmar cambios
+  al momento de modificar un administrador.*/
+  onSubmitModificarAdmin(){
+    let firstName = this.refs.firstNameMod.value;
+    let lastName = this.refs.lastNameMod.value;
+    let phoneNumber1 = this.refs.phoneNumber1Mod.value;
+    let phoneNumber2 = this.refs.phoneNumber2Mod.value;
+    let phoneNumber3 = this.refs.phoneNumber3Mod.value;
+    let phoneNumber4 = this.refs.phoneNumber4Mod.value;
+    let address1 = this.refs.address1Mod.value;
+    let address2 = this.refs.address2Mod.value;
+    let address3 = this.refs.address3Mod.value;
+    let address4 = this.refs.address4Mod.value;
+
+    //Validaciones
+    let validator = 0;
+    
+    //Validar email
+    if (firstName == '' || firstName.match(/[^a-z]/gi)) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un nombre válido.');
+    } else if (lastName == '' || lastName.match(/[^a-z]/gi)) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un apellido válido.');
+    } else if (phoneNumber1 == '') {
+        validator = 1;
+        toastr.warning('Por favor ingrese un primer número de teléfono válido.');
+    } else if (phoneNumber1.includes("_")) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un primer número de teléfono válido.');
+    } else if (
+        phoneNumber1.charAt(0) != '9' &&
+        phoneNumber1.charAt(0) != '3' &&
+        phoneNumber1.charAt(0) != '8' &&
+        phoneNumber1.charAt(0) != '7' &&
+        phoneNumber1.charAt(0) != '2'
+    ) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un primer número de teléfono válido.');
+    } else if (address1 == '') {
+        validator = 1;
+        toastr.warning('Por favor ingrese una dirección válida.');
+    }
+
+    if (phoneNumber2 != '') {
+      if (phoneNumber2.includes("_")) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un segundo número de teléfono válido.');
+      } else if (
+        phoneNumber2.charAt(0) != '9' &&
+        phoneNumber2.charAt(0) != '3' &&
+        phoneNumber2.charAt(0) != '8' &&
+        phoneNumber2.charAt(0) != '7' &&
+        phoneNumber2.charAt(0) != '2'
+      ) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un segundo número de teléfono válido.');
+      }
+    }
+
+    if (phoneNumber3 != '') {
+      if (phoneNumber3.includes("_")) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un tercer número de teléfono válido.');
+      } else if (
+        phoneNumber3.charAt(0) != '9' &&
+        phoneNumber3.charAt(0) != '3' &&
+        phoneNumber3.charAt(0) != '8' &&
+        phoneNumber3.charAt(0) != '7' &&
+        phoneNumber3.charAt(0) != '2'
+      ) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un tercer número de teléfono válido.');
+      }
+    }
+
+    if (phoneNumber4 != '') {
+      if (phoneNumber4.includes("_")) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un cuarto número de teléfono válido.');
+      } else if (
+        phoneNumber4.charAt(0) != '9' &&
+        phoneNumber4.charAt(0) != '3' &&
+        phoneNumber4.charAt(0) != '8' &&
+        phoneNumber4.charAt(0) != '7' &&
+        phoneNumber4.charAt(0) != '2'
+      ) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un cuarto número de teléfono válido.');
+      }
+    }
+
+    if (!validator) {
+        Meteor.call('users.update', userGlobal._id, {
+            firstName,
+            lastName,
+            phoneNumber1,
+            phoneNumber2,
+            phoneNumber3,
+            phoneNumber4,
+            address1,
+            address2,
+            address3,
+            address4
+        });
+        toastr.success('Se ha modificado el administrador exitosamente.');
+        this.CloseModificarAdmin();
+    }
+  }
   
+  /*Este es el método que se corre cuando se oprime el boton de eliminar
+  administrador.*/
+  onDeleteAdmin() {
+    var modal = document.getElementById('exampleModal');
+    modal.style.display = 'block';
+  }
+
+  /*Este es el método que cierra el modal de estar seguro de 
+  borrar administrador.*/
+  closeDeleteModal() {
+    var modal = document.getElementById('exampleModal');
+    modal.style.display = 'none';
+  }
+
+  /*Este es el método que se corre cuando se oprime el boton de eliminar
+  usuario.*/
+  borrarAdministrador() {
+    Meteor.call('users.delete', userGlobal._id);
+    toastr.success('Se ha eliminado el administrador exitosamente.');
+    this.closeDeleteModal();
+    this.CloseModificarAdmin();
+  }
+
+  /*Este es el método que se corre cuando se oprime el boton de Confirmar en el
+  modal de Agregar Empleado.*/
   onSubmitAgregar() {
     let email = this.refs.email.value.trim();
     let password = this.refs.passwordAgregar.value.trim();
@@ -152,7 +307,7 @@ export default class editarAdminsPage extends React.Component {
       address3: '',
       address4: '',
     };
-
+    console.log('Length numero 1: ' + phoneNumber1.length);
     //Validaciones
     let validator = 0;
     //Validar email
@@ -185,10 +340,10 @@ export default class editarAdminsPage extends React.Component {
       toastr.warning('Por favor ingrese un apellido válido.');
     } else if (phoneNumber1 == '') {
       validator = 1;
-      toastr.warning('Por favor ingrese un número de teléfono válido.');
-    } else if (phoneNumber1.length < 8) {
+      toastr.warning('Por favor ingrese un primer número de teléfono válido.');
+    } else if (phoneNumber1.includes("_")) {
       validator = 1;
-      toastr.warning('Por favor ingrese un número de teléfono válido.');
+      toastr.warning('Por favor ingrese un primer número de teléfono válido.');
     } else if (
       phoneNumber1.charAt(0) != '9' &&
       phoneNumber1.charAt(0) != '3' &&
@@ -197,13 +352,13 @@ export default class editarAdminsPage extends React.Component {
       phoneNumber1.charAt(0) != '2'
     ) {
       validator = 1;
-      toastr.warning('Por favor ingrese un número de teléfono válido.');
+      toastr.warning('Por favor ingrese un primer número de teléfono válido.');
     } else if (address1 == '') {
       validator = 1;
       toastr.warning('Por favor ingrese una dirección válida.');
     }
 
-    if (!validator) {
+    if (validator == 0) {
       let user = { 
         email, 
         password, 
@@ -211,18 +366,11 @@ export default class editarAdminsPage extends React.Component {
       };
       Meteor.call('users.initializeAdministrator', user, (err, returnValue) => {
         if (returnValue == 1) {
-          console.log(Meteor.userId);
           toastr.success('Se ha agregado el administrador exitosamente.');
-          this.refs.email.value = "";
-          this.refs.passwordAgregar.value = "";
-          this.refs.confirmPasswordAgregar.value = "";
-          this.refs.firstNameAgregar.value = "";
-          this.refs.lastNameAgregar.value = "";
-          this.refs.phoneNumberAgregar.value = "";
-          this.refs.addressAgregar.value = "";
+          this.closeAgregarAdmin();
         } else {
-          toastr.warning('No tiene privilegios de administrador. No se ha creado el administrador.');
-        }
+          toastr.warning('No tiene privilegios de administrador. No se ha creado el empleado.');       
+        }     
       });
     }
   }
@@ -242,7 +390,7 @@ export default class editarAdminsPage extends React.Component {
           </div>
 
           <div className="Buttons">
-            <button className="botonAgregar" onClick={this.onAgregarAdmin.bind(this)}>Agregar Administrador</button>
+            <button className="botonAgregar" onClick={this.AgregarAdmin.bind(this)}>Agregar Administrador</button>
           </div>
 
           <div className="searchBarDiv">
@@ -258,7 +406,7 @@ export default class editarAdminsPage extends React.Component {
               {/* Header */}
               <div className="modal-header">
                 <div className="modal-header-Btn">
-                  <span className="closeBtn" onClick={this.closeAdmin.bind(this)}>&times;</span>
+                  <span className="closeBtn" onClick={this.closeAgregarAdmin.bind(this)}>&times;</span>
                 </div>
                 <div className="modal-header-Name">
                   <h2>Agregar Administrador</h2>
@@ -337,7 +485,7 @@ export default class editarAdminsPage extends React.Component {
               {/* Header */}
               <div className="modal-header">
                 <div className="modal-header-Btn">
-                  <span className="closeBtn" onClick={this.onCloseModAdmin.bind(this)}>&times;</span>
+                  <span className="closeBtn" onClick={this.CloseModificarAdmin.bind(this)}>&times;</span>
                 </div>
                 <div className="modal-header-Name">
                   <h2>Modificar Administrador</h2>
@@ -400,12 +548,12 @@ export default class editarAdminsPage extends React.Component {
                     <div className="container1">
                       <div className="box1">
                         <p>
-                          <button className="confirmarModificar" >Confirmar Cambios</button>
+                          <button className="confirmarModificar" onClick={this.onSubmitModificarAdmin.bind(this)}>Confirmar Cambios</button>
                         </p>
                       </div>
                       <div className="box2">
                         <p>
-                          <button className="confirmarDesactivar" >Borrar Administrador</button>
+                          <button className="confirmarDesactivar" onClick={this.onDeleteAdmin.bind(this)}>Borrar Administrador</button>
                         </p>
                       </div>
                     </div>
@@ -416,6 +564,24 @@ export default class editarAdminsPage extends React.Component {
               <div className="modal-footer"></div>
             </div>
           </div>{/*Termina MODAL MODIFICAR Administrador*/}
+
+          {/* <!-- Modal --> */}
+          <div className="modal" id="exampleModal">
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                </div>
+                <div className="modal-body">
+                  <p>¿Desea borrar el administrador?</p>
+                </div>
+                <div className="modal-footer">
+                  <button className="btn btn-primary" onClick={this.closeDeleteModal.bind(this)}>Cancelar</button>
+                  <button className="btn btn-danger" onClick={this.borrarAdministrador.bind(this)}>Borrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     );

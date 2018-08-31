@@ -163,29 +163,6 @@ button:focus {
     display: flex;
 }
 
-#ModalAgregarAdministrador .modal-header {
-    background:#87AAAA;
-    color:#fff;
-    display: flex;
-}
-
-#ModalAgregarAdministrador .modal-footer{
-    background:#87AAAA;
-    padding:2%;
-    color:#fff;
-}
-
-#ModalModificarAdministrador .modal-header {
-    background:#87AAAA;
-    color:#fff;
-    display: flex;
-}
-
-#ModalModificarAdministrador .modal-footer{
-    background:#87AAAA;
-    padding:2%;
-    color:#fff;
-}
 
 .modal-header-Btn{
     flex:1;
@@ -220,6 +197,20 @@ button:focus {
     background:#d86926;
     padding:2%;
     color:#fff;
+}
+
+.modal-dialog {
+    position: relative;
+    width: auto;
+    display: flex;
+    align-items: center;
+    margin: modal-dialog-margin;
+    pointer-events: none;
+}
+  
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
 }
 
 .container1{
