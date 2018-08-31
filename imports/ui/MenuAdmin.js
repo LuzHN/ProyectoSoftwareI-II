@@ -55,7 +55,7 @@ export default class MenuAdmin extends Component {
         platosMostrar.push(this.state.dishes[i]);
       }
     }
-    this.setState({...this.state,platosMostrados: platosMostrar });
+    this.setState({ ...this.state, platosMostrados: platosMostrar });
   };
 
   onSubmit(e) {
@@ -124,20 +124,20 @@ export default class MenuAdmin extends Component {
     this.dishesTracker.stop();
   }
 
-  setNutritionalFactsToZero(){ //Limpia el Nutritional Facts Percentages
-    document.getElementById('TotalFatPercentage').innerHTML = 0;
-    document.getElementById('CholesterolPercentage').innerHTML = 0;
-    document.getElementById('SodiumPercentage').innerHTML = 0;
-    document.getElementById('ProteinPercentage').innerHTML = 0;
-    document.getElementById('CarbsPercentage').innerHTML = 0;
-    document.getElementById('DietaryFiberPercentage').innerHTML = 0;
-    document.getElementById('SugarPercentage').innerHTML = 0;
-    document.getElementById('VitaminAPercentage').innerHTML = 0;
-    document.getElementById('VitaminAPercentage').innerHTML = 0;
-    document.getElementById('VitaminCPercentage').innerHTML = 0;
-    document.getElementById('IronPercentage').innerHTML = 0;
-    document.getElementById('CalciumPercentage').innerHTML = 0;
-    document.getElementById('TotalSatFatPercentage').innerHTML = 0;
+  setNutritionalFactsToZero() { //Limpia el Nutritional Facts Percentages
+
+    $('#TotalFatPercentage').text("0");
+    $('#CholesterolPercentage').text("0");
+    $('#SodiumPercentage').text("0");
+    $('#ProteinPercentage').text("0");
+    $('#CarbsPercentage').text("0");
+    $('#DietaryFiberPercentage').text("0");
+    $('#SugarPercentage').text("0");
+    $('#VitaminAPercentage').text("0");
+    $('#VitaminCPercentage').text("0");
+    $('#IronPercentage').text("0");
+    $('#CalciumPercentage').text("0");
+    $('#TotalSatFatPercentage').text("0");
   }
 
   openAgregar() {
@@ -168,8 +168,7 @@ export default class MenuAdmin extends Component {
   }
 
   deletePlateFinal() {
-    Meteor.call('dishes.delete', dishID);
-
+    Meteor.call('dishes.Delete', dishID);
     dishID = '';
     this.closeDeleteModal();
   }
@@ -180,8 +179,8 @@ export default class MenuAdmin extends Component {
     price = parseFloat(price).toFixed(2);
     let image = this.refs.imagenPlato.value.trim();
     let description = this.refs.descriptionPlato.value.trim();
-    let type = this.refs.tipodeComida[this.refs.tipodeComida.selectedIndex].value;
-
+    let idType = this.refs.tipodeComida.selectedIndex;
+    let type = this.checkCategory(idType);
     let calories = this.refs.calorias.value.trim() || "0";
     let totalFat = this.refs.totalFat.value.trim() || "0";
     let saturatedFat = this.refs.saturatedFat.value.trim() || "0";
@@ -220,7 +219,7 @@ export default class MenuAdmin extends Component {
         calcium,
         iron
       };
-      Meteor.call('dishes.insert', dish);
+      Meteor.call('dishes.Insert', dish);
 
       document.getElementById('myForm').reset(); //resets los inputs del form
       toastr.success('Se ha agregado un plato nuevo.');
@@ -233,14 +232,70 @@ export default class MenuAdmin extends Component {
     }
   }
 
+  checkCategory(idType){ //revisa el id en la categoria de los platillos
+
+    let type = "";
+    //para que el usuario no edite el value
+    switch (idType) {
+      case 0: {
+        type = "Entree";
+        break;
+      }
+      case 1: {
+        type = "Soup";
+        break;
+      }
+      case 2: {
+        type = "Salad";
+        break;
+      }
+      case 3: {
+        type = "Wrap";
+        break;
+      }
+      case 4: {
+        type = "LittleItaly";
+        break;
+      }
+      case 5: {
+        type = "Sandwich";
+        break;
+      }
+      case 6: {
+        type = "SideDish";
+        break;
+      }
+      case 7: {
+        type = "Breakfast";
+        break;
+      }
+      case 8: {
+        type = "Dessert";
+        break;
+      }
+      case 9: {
+        type = "Juice";
+        break;
+      }
+      case 10: {
+        type = "Drink";
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+    return type;
+  }
+
   editarFinal() {
     let nameNew = this.refs.nombrePlato.value.trim();
     let priceNew = this.refs.precioPlato.value.trim();
     priceNew = parseFloat(priceNew).toFixed(2);
     let imageNew = this.refs.imagenPlato.value.trim();
     let descriptionNew = this.refs.descriptionPlato.value.trim();
-    let typeNew = this.refs.tipodeComida[this.refs.tipodeComida.selectedIndex].value;
-
+    let idType = this.refs.tipodeComida.selectedIndex; //indice de combobox
+    let typeNew = this.checkCategory(idType);
     let caloriesNew = this.refs.calorias.value.trim() || "0";
     let totalFatNew = this.refs.totalFat.value.trim() || "0";
     let saturatedFatNew = this.refs.saturatedFat.value.trim() || "0";
@@ -255,9 +310,7 @@ export default class MenuAdmin extends Component {
     let vitaminCNew = this.refs.vitaminC.value.trim() || "0";
     let calciumNew = this.refs.calcium.value.trim() || "0";
     let ironNew = this.refs.iron.value.trim() || "0";
-
     let id = dishID;
-
 
     if (nameNew != '' && priceNew != '' && descriptionNew != '' && priceNew > 0) {
 
@@ -283,7 +336,7 @@ export default class MenuAdmin extends Component {
         calciumNew,
         ironNew
       };
-      Meteor.call('dishes.update', dish);
+      Meteor.call('dishes.Update', dishID, dish);
 
       toastr.success('Se ha editado el plato.');
       document.getElementById('myForm').reset(); //resets los inputs del form
@@ -484,17 +537,17 @@ export default class MenuAdmin extends Component {
                     <p>
                       <label id="labelAgregar">Tipo de Plato</label>
                       <select name="tipoComida" id="tipoDeComida" ref="tipodeComida">
-                        <option value="Entree">Entree</option>
-                        <option value="Soup">Soup</option>
-                        <option value="Salad">Salad</option>
+                        <option value="Entree">Entrada</option>
+                        <option value="Soup">Sopa</option>
+                        <option value="Salad">Ensalada</option>
                         <option value="Wrap">Wrap</option>
-                        <option value="LittleItaly">LittleItaly</option>
+                        <option value="LittleItaly">Little Italy</option>
                         <option value="Sandwich">Sandwich</option>
-                        <option value="SideDish">SideDish</option>
-                        <option value="Breakfast">Breakfast</option>
-                        <option value="Dessert">Dessert</option>
-                        <option value="Juice">Juice</option>
-                        <option value="Drink">Drink</option>
+                        <option value="SideDish">Acompañantes</option>
+                        <option value="Breakfast">Desayuno</option>
+                        <option value="Dessert">Postre</option>
+                        <option value="Juice">Jugo</option>
+                        <option value="Drink">Bebida</option>
                       </select>
                     </p>
                   </div>
@@ -660,10 +713,6 @@ export default class MenuAdmin extends Component {
             <div className="modal-footer"></div>
           </div>
         </div>
-
-
-
-
         {/* <!-- Modal --> */}
         <div className="modal" id="exampleModal">
           <div className="modal-dialog">
@@ -684,15 +733,11 @@ export default class MenuAdmin extends Component {
             </div>
           </div>
         </div>
-
-
         <img id="ColorStrip" src="http://www.healthkitchen.hn/static/media/color-strip.9c28b147.svg" />
 
         <footer id="Footer">
           <img className="LogoHK" src="http://www.healthkitchen.hn/static/media/hk-logo.b8b1c147.svg" alt="Logo" />
         </footer>
-
-
       </div>
     );
   }
@@ -707,7 +752,6 @@ class Entree extends Component {
     );
   }
 }
-
 
 const renderPlates = (platesList) => {
   return platesList.map((dish) => {
@@ -727,9 +771,7 @@ const renderPlates = (platesList) => {
   });
 }
 
-
 class ButtonPlato extends Component {
-
 
   loadNutritionalFacts() { //carga los nutritional facts del platillo
 
@@ -747,9 +789,7 @@ class ButtonPlato extends Component {
     $('#CalciumPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.calcium) / 1100.0) * 100).toFixed(1));
   }
 
-  
   loadModal() { //llena el modal de editar platillo con la información debida
-
 
     this.loadNutritionalFacts();
 

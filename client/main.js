@@ -134,6 +134,20 @@ class Hk extends React.Component {
         <span>
           <a
             className="nav-link"
+            style={{ display: 'inline' }}
+            href="/editProfile"
+          >
+            EditProfile
+          </a>
+          <a
+            className="nav-link"
+            style={{ display: 'inline' }}
+            onClick={this.showRight}
+          >
+            Cart
+          </a>
+          <a
+            className="nav-link"
             onClick={() => {
               // e.preventDefault();
               Meteor.logout(() => {
