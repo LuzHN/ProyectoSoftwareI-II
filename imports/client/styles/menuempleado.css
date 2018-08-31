@@ -1,111 +1,142 @@
-#HeaderEmployee{
-    background: url(http://www.healthkitchen.hn/static/media/hero-ingredients.9299118b.jpg) no-repeat center bottom;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: center;
-    align-items: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    height: 98vh;
-    background-size: cover;
+#HeaderEmployee {
+  background: url(http://www.healthkitchen.hn/static/media/hero-ingredients.9299118b.jpg)
+    no-repeat center bottom;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 98vh;
+  background-size: cover;
+}
+
+#hk-logo-header {
+  display: block;
+  width: 420px;
+  height: 150px;
+  text-indent: -9999px;
+  background: url(https://i.gyazo.com/72a18ae2af8e3d1b705d944fbb93de69.png)
+    no-repeat center;
+  background-size: cover;
+  margin: 10px 10px 10px 10px;
+}
+
+/* Menu */
+
+.MenuEmployee {
+  background: url(http://www.healthkitchen.hn/static/media/icon-wall.471f8b8e.svg);
+  background-color: #325157;
+}
+
+.black {
+  color: black;
+  padding: 10px;
+}
+
+.blue {
+  font-size: 20px;
+  font-weight: bold;
+  color: #37555a;
+}
+
+.red {
+  color: #d86926;
+}
+
+.blueMarine {
+  background-color: #5b8c96 !important;
+}
+
+#btn-empleado {
+  background-color: #d86926;
+  border: none;
+  color: white;
+  font-size: 1em !important;
+  border-radius: 8px;
+}
+
+#btn-empleado[class='cancelar'] {
+  background-color: rgb(240, 84, 78);
+}
+
+#btn-empleado:disabled {
+  background-color: rgba(240, 84, 78, 0.5);
+  cursor: not-allowed;
+}
+
+#btn-changepage {
+  width: 40%;
+  border: none;
+  color: white;
+  font-size: 1em !important;
+  border-radius: 8px;
+}
+
+.headerEmpleado {
+  text-decoration: underline;
+  display: flex;
+  justify-content: center;
+  font-weight: bolder;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.btn-employeehistory {
+  margin-left: 30%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
+.EmployeeTable {
+  width: 99% !important;
+  margin: auto;
+  table-layout: fixed;
+  text-align: center;
+}
+
+.spanEmployee {
+  width: 100%;
+}
+
+.badgeEmployee {
+  width: 30%;
+}
+
+#btn-info {
+  background-color: #d86926;
+  border: none;
+  color: white;
+  font-size: 1em !important;
+  border-radius: 8px;
+}
+
+@media only screen and (max-width: 600px) {
+  #btn-info {
+    width: 50% !important;
   }
-  
-  #hk-logo-header{
-    display: block;
-    width: 420px;
-    height: 150px;
-    text-indent: -9999px;
-    background: url(https://i.gyazo.com/72a18ae2af8e3d1b705d944fbb93de69.png) no-repeat center;
-    background-size: cover;
-    margin: 10px 10px 10px 10px;
+  #btn-empleado {
+    width: 50% !important;
   }
-
-
-  /* Menu */
-
-  .MenuEmployee{
-
-
-    
-    background: url(http://www.healthkitchen.hn/static/media/icon-wall.471f8b8e.svg);
-
-    background-color: #325157;
-    
+  .EmployeeTable {
+    width: 50% !important;
   }
+}
 
-  .black{
-    color: black;
-    padding: 10px;
+@media only screen and (min-width: 600px) {
+  #btn-info {
+    width: 80% !important;
   }
-
-  .blue{
-    font-size: 20px;
-    font-weight: bold;
-    color: #37555A;
+  #btn-empleado {
+    width: 80% !important;
   }
-
-  .red{
-    color: #d86926;
-    
-  }
-
-  #btn-empleado{
-    background-color:  #d86926;
-    border: none;
-    color: white;
-    font-size: 1em !important;
-    border-radius: 8px;
-  }
-
-  #btn-info{
-    background-color: #d86926;
-    border: none;
-    color: white;
-    font-size: 1em !important;
-    border-radius: 8px;
-  }
-
-  .btn-employeehistory{
-    margin-left: 10%;
-  }
-
-  .EmployeeTable{
+  .EmployeeTable {
     width: 99% !important;
-    margin: auto;
-    table-layout: fixed;
-    text-align: center;
-    
   }
+}
 
-  .spanEmployee{
-    width:100%;
-  }
-
-  .badgeEmployee{
-    width: 30%;
-  }
-
-  @media only screen and (max-width: 600px){
-    #btn-info{
-      width: 50% !important;
-    }
-    #btn-empleado{
-      width: 50% !important;
-    }
-  }
-  
-  @media only screen and (min-width: 600px){
-    #btn-info{
-      width: 80% !important;
-    }
-    #btn-empleado{
-      width: 80% !important;
-    }
-  }
-
-  html hr{
-    border-width: 3px;
-    border-color: #d86926;
-    opacity: 0.3;
-  }
-
+html hr {
+  border-width: 3px;
+  border-color: #d86926;
+  opacity: 0.3;
+}

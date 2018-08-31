@@ -63,7 +63,7 @@ export default class Register extends React.Component {
     } else if (phoneNumber1 == '') {
       validator = 1;
       toastr.warning('Por favor ingrese un número de teléfono válido.');
-    } else if (phoneNumber1.includes("_")) {
+    } else if (phoneNumber1.includes('_')) {
       validator = 1;
       toastr.warning('Por favor ingrese un número de teléfono válido.');
     } else if (
@@ -113,7 +113,7 @@ export default class Register extends React.Component {
       <div className="container">
         <div className="wrapper">
           <div className="contact">
-            <div className="image" />​
+            <div className="image" />
             <form onSubmit={this.handleSubmit.bind(this)}>
               <p>
                 <label>Correo Electrónico</label>
@@ -190,7 +190,7 @@ export default class Register extends React.Component {
               <p>
                 <button onClick={this.onSubmit.bind(this)}>Registrarse</button>
               </p>
-              
+
             </form>
           </div>
         </div>

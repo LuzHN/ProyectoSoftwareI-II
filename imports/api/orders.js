@@ -9,7 +9,9 @@ if (Meteor.isServer) {
     return Orders.find({ userId: this.userId });
   });
   Meteor.publish('orders', () => {
-    return Orders.find({});
+    if (Roles.userIsInRole(Meteor.userId(), 'employee') || Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+      return Orders.find({}); 
+    }
   });
 }
 Meteor.methods({
@@ -18,24 +20,46 @@ Meteor.methods({
       status: '',
       products: order.products,
       price: order.price,
+      direccion: order.direccion,
       userId: this.userId,
       cliente: order.cliente,
-      fecha: order.fecha
+      fechaEntrada: order.fechaEntrada,
+      fechaDespacho: order.fechaDespacho
     });
   },
-  'orders.setDispatched'(id) {
-    Orders.update(id, {$set: { status: 'Dispatched'}});
+'orders.setDispatched'(id) {
+    if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+      Orders.update(id, {$set: { status: 'Dispatched'}}); 
+    }
   },
-  'orders.setPending'(id) {
-    Orders.update(id, {$set: { status: 'Pending'}});
+'orders.setPending'(id) {
+    if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+      Orders.update(id, {$set: { status: 'Pending'}}); 
+    }
   },
-  'orders.setPreOrder'(id) {
-    Orders.update(id, {$set: { status: 'PreOrder'}});
+'orders.setPreOrder'(id) {
+    if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+      Orders.update(id, {$set: { status: 'PreOrder'}}); 
+    }
   },
-  'orders.setInProgress'(id) {
-    Orders.update(id, {$set: { status: 'InProgress'}});
+'orders.setInProgress'(id) {
+    if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+      Orders.update(id, {$set: { status: 'InProgress'}}); 
+    }
   },
-  'orders.delete'(id) {
-    Orders.remove(id);
+'orders.cambiarFechaDespacho'(id, fecha) {
+  if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+    Orders.update(id, { $set: { fechaDespacho: fecha } });
+  }
+},
+'orders.setHidden'(id) {
+    if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+      Orders.update(id, { $set: { status: 'Hidden' } });
+    }
+},
+'orders.delete'(id) {
+    if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+      Orders.remove(id); 
+    }
   }
 });
