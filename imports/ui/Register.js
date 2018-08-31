@@ -80,6 +80,8 @@ export default class Register extends React.Component {
       toastr.warning('Por favor ingrese una dirección válida.');
     }
 
+
+
     if (!validator) {
       let user = {
         email,
@@ -88,21 +90,17 @@ export default class Register extends React.Component {
       };
       Meteor.call('users.initializeClient', user, (err) => {
         if (err) {
-          // alert(err.reason);  
           if(err.reason.includes("Email already exists")){
-            toastr.warning(err.reason);
+            toastr.warning('El correo que ingresó ya existe.');
           }else{
             toastr.warning('Hubo un problema al momento de crear su cuenta.');
           }
-          
-          
         } else {
-          toastr.success('Se registró el usuario exitosamente.');
+          toastr.success('Se ha registrado exitosamente.');
           console.log(Meteor.userId());
           this.changeToLogin();
         }
       });
-
     }
   }
 

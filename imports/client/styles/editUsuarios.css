@@ -211,6 +211,20 @@ button:focus {
     color:#fff;
 }
 
+.modal-dialog {
+    position: relative;
+    width: auto;
+    display: flex;
+    align-items: center;
+    margin: modal-dialog-margin;
+    pointer-events: none;
+}
+  
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+}
+
 .container1{
     color:  #514e4d;
     display: grid;

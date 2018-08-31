@@ -9,45 +9,61 @@ import { Redirect } from 'react-router'
 import InputMask from 'react-input-mask';
 import '../client/styles/editAdmins';
 
-export default class editarEmpleadoPage extends React.Component {
+let userGlobal;
+
+export default class editarAdminsPage extends React.Component {
   constructor(props) {
     super(props);
       this.state = {
-        users: []
+        users: [],
       }
   }
 
-  searchEmployeeSubmit(e) {
-    e.preventDefault();
-    console.log("Search Employee");
-    let parameters = this.refs.valueToQuery.value;
-    const usersFound = Meteor.call('query.User', parameters);
-    console.log(usersFound);
-    this.setState({ usersFound });
-    }
-
-  onModAdmin() {
-    var modal = document.getElementById('ModalModificarAdministrador');
-    modal.style.display = 'block';
-  }
-
-  
-  onCloseModAdmin() {
-    var modal = document.getElementById('ModalModificarAdministrador');
-    modal.style.display = 'none';
-  }
-
-  onAgregarAdmin() {
+  /*Este es el método que se corre cuando se oprime el boton
+  de agrgear administrador.*/
+  AgregarAdmin() {
+    this.refs.email.value = "";
+    this.refs.passwordAgregar.value = "";
+    this.refs.confirmPasswordAgregar.value = "";
+    this.refs.firstNameAgregar.value = "";
+    this.refs.lastNameAgregar.value = "";
+    this.refs.phoneNumberAgregar.value = "";
+    this.refs.addressAgregar.value = "";
     var modal = document.getElementById('ModalAgregarAdministrador');
     modal.style.display = 'block';
   }
 
-  closeAdmin() {
+  /*Este es el método que se corre cuando se cierra el modal de 
+  agregar administrador.*/
+  closeAgregarAdmin() {
     var modal = document.getElementById('ModalAgregarAdministrador');
     modal.style.display = 'none';
+    this.refs.email.value = "";
+    this.refs.passwordAgregar.value = "";
+    this.refs.confirmPasswordAgregar.value = "";
+    this.refs.firstNameAgregar.value = "";
+    this.refs.lastNameAgregar.value = "";
+    this.refs.phoneNumberAgregar.value = "";
+    this.refs.addressAgregar.value = "";
   }
 
-  
+  /*Este es el método que se corre cuando se cierra el modal de 
+  modificar administrador.*/
+  CloseModificarAdmin() {
+    var modal = document.getElementById('ModalModificarAdministrador');
+    modal.style.display = 'none';
+    this.refs.firstNameMod.value = '';
+    this.refs.lastNameMod.value = '';
+    this.refs.phoneNumber1Mod.value = '';
+    this.refs.phoneNumber2Mod.value = '';
+    this.refs.phoneNumber3Mod.value = '';
+    this.refs.phoneNumber4Mod.value = '';
+    this.refs.address1Mod.value = '';
+    this.refs.address2Mod.value = '';
+    this.refs.address3Mod.value = '';
+    this.refs.address4Mod.value = '';
+  }
+    
   filterNames() {
     //Get value of input
     let filterValue = document.getElementById('filterInput').value.toUpperCase();
@@ -72,27 +88,205 @@ export default class editarEmpleadoPage extends React.Component {
   }
 
   componentDidMount() {
-    this.usersTracker = Tracker.autorun(() => {
-      Meteor.subscribe('users');
-      const users = Meteor.users.find().fetch();
-      this.setState({ users });
-    });
+    setTimeout(() => {
+      this.usersTracker = Tracker.autorun(() => {
+        Meteor.subscribe('users.getAdmins');
+        const users = Meteor.users.find({_id: {$not: Meteor.userId()}}).fetch();
+        this.setState({users});
+      });
+    }, 1000);
   }
 
   componentWillUnmount() {
     this.usersTracker.stop();
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+  }
+
+  /*Este es el método que se corre cuando se cambia el indice seleccionado
+  en el combo box.*/
   handleChange(e) {
     var index = e.nativeEvent.target.selectedIndex;
     if (index == 1) {
       this.props.history.push('/editEmpleado');
-    } 
+    }
     if (index == 2) {
       this.props.history.push('/editUsuarios');
     }
   }
 
+  /*Este es el método que carga y muestra la lista de administradores.*/
+  loadList() {
+    return this.state.users.map((user) => {
+      return (
+        <li  onClick={(e) => {
+          this.cargarInfo(user);
+        }} className="collection-item" key={user._id}>
+          <a href="#"  className="hrefNombre">{user.profile.firstName + ' ' + user.profile.lastName}</a>
+        </li>
+      )
+    })
+  }
+
+  /*Este es el método que carga la informacion del administrador seleccionado para 
+  modificacion.*/
+  cargarInfo(user) {
+    userGlobal = user;
+    $('#phoneNumber1Mod').val(user.profile.phoneNumber1);
+    $('#phoneNumber2Mod').val(user.profile.phoneNumber2);
+    $('#phoneNumber3Mod').val(user.profile.phoneNumber3);
+    $('#phoneNumber4Mod').val(user.profile.phoneNumber4);
+    this.refs.firstNameMod.value = user.profile.firstName;
+    this.refs.lastNameMod.value = user.profile.lastName;
+    this.refs.phoneNumber1Mod.value = user.profile.phoneNumber1;
+    this.refs.phoneNumber2Mod.value = user.profile.phoneNumber2;
+    this.refs.phoneNumber3Mod.value = user.profile.phoneNumber3;
+    this.refs.phoneNumber4Mod.value = user.profile.phoneNumber4;
+    this.refs.address1Mod.value = user.profile.address1;
+    this.refs.address2Mod.value = user.profile.address2;
+    this.refs.address3Mod.value = user.profile.address3;
+    this.refs.address4Mod.value = user.profile.address4;
+    var modal = document.getElementById('ModalModificarAdministrador');
+    modal.style.display = 'block';
+  }
+
+  /*Este es el método que se corre cuando se oprime el boton de confirmar cambios
+  al momento de modificar un administrador.*/
+  onSubmitModificarAdmin(){
+    let firstName = this.refs.firstNameMod.value;
+    let lastName = this.refs.lastNameMod.value;
+    let phoneNumber1 = this.refs.phoneNumber1Mod.value;
+    let phoneNumber2 = this.refs.phoneNumber2Mod.value;
+    let phoneNumber3 = this.refs.phoneNumber3Mod.value;
+    let phoneNumber4 = this.refs.phoneNumber4Mod.value;
+    let address1 = this.refs.address1Mod.value;
+    let address2 = this.refs.address2Mod.value;
+    let address3 = this.refs.address3Mod.value;
+    let address4 = this.refs.address4Mod.value;
+
+    //Validaciones
+    let validator = 0;
+    
+    //Validar email
+    if (firstName == '' || firstName.match(/[^a-z]/gi)) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un nombre válido.');
+    } else if (lastName == '' || lastName.match(/[^a-z]/gi)) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un apellido válido.');
+    } else if (phoneNumber1 == '') {
+        validator = 1;
+        toastr.warning('Por favor ingrese un primer número de teléfono válido.');
+    } else if (phoneNumber1.includes("_")) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un primer número de teléfono válido.');
+    } else if (
+        phoneNumber1.charAt(0) != '9' &&
+        phoneNumber1.charAt(0) != '3' &&
+        phoneNumber1.charAt(0) != '8' &&
+        phoneNumber1.charAt(0) != '7' &&
+        phoneNumber1.charAt(0) != '2'
+    ) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un primer número de teléfono válido.');
+    } else if (address1 == '') {
+        validator = 1;
+        toastr.warning('Por favor ingrese una dirección válida.');
+    }
+
+    if (phoneNumber2 != '') {
+      if (phoneNumber2.includes("_")) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un segundo número de teléfono válido.');
+      } else if (
+        phoneNumber2.charAt(0) != '9' &&
+        phoneNumber2.charAt(0) != '3' &&
+        phoneNumber2.charAt(0) != '8' &&
+        phoneNumber2.charAt(0) != '7' &&
+        phoneNumber2.charAt(0) != '2'
+      ) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un segundo número de teléfono válido.');
+      }
+    }
+
+    if (phoneNumber3 != '') {
+      if (phoneNumber3.includes("_")) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un tercer número de teléfono válido.');
+      } else if (
+        phoneNumber3.charAt(0) != '9' &&
+        phoneNumber3.charAt(0) != '3' &&
+        phoneNumber3.charAt(0) != '8' &&
+        phoneNumber3.charAt(0) != '7' &&
+        phoneNumber3.charAt(0) != '2'
+      ) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un tercer número de teléfono válido.');
+      }
+    }
+
+    if (phoneNumber4 != '') {
+      if (phoneNumber4.includes("_")) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un cuarto número de teléfono válido.');
+      } else if (
+        phoneNumber4.charAt(0) != '9' &&
+        phoneNumber4.charAt(0) != '3' &&
+        phoneNumber4.charAt(0) != '8' &&
+        phoneNumber4.charAt(0) != '7' &&
+        phoneNumber4.charAt(0) != '2'
+      ) {
+        validator = 1;
+        toastr.warning('Por favor ingrese un cuarto número de teléfono válido.');
+      }
+    }
+
+    if (!validator) {
+        Meteor.call('users.update', userGlobal._id, {
+            firstName,
+            lastName,
+            phoneNumber1,
+            phoneNumber2,
+            phoneNumber3,
+            phoneNumber4,
+            address1,
+            address2,
+            address3,
+            address4
+        });
+        toastr.success('Se ha modificado el administrador exitosamente.');
+        this.CloseModificarAdmin();
+    }
+  }
+  
+  /*Este es el método que se corre cuando se oprime el boton de eliminar
+  administrador.*/
+  onDeleteAdmin() {
+    var modal = document.getElementById('exampleModal');
+    modal.style.display = 'block';
+  }
+
+  /*Este es el método que cierra el modal de estar seguro de 
+  borrar administrador.*/
+  closeDeleteModal() {
+    var modal = document.getElementById('exampleModal');
+    modal.style.display = 'none';
+  }
+
+  /*Este es el método que se corre cuando se oprime el boton de eliminar
+  usuario.*/
+  borrarAdministrador() {
+    Meteor.call('users.delete', userGlobal._id);
+    toastr.success('Se ha eliminado el administrador exitosamente.');
+    this.closeDeleteModal();
+    this.CloseModificarAdmin();
+  }
+
+  /*Este es el método que se corre cuando se oprime el boton de Confirmar en el
+  modal de Agregar Empleado.*/
   onSubmitAgregar() {
     let email = this.refs.email.value.trim();
     let password = this.refs.passwordAgregar.value.trim();
@@ -113,7 +307,7 @@ export default class editarEmpleadoPage extends React.Component {
       address3: '',
       address4: '',
     };
-
+    console.log('Length numero 1: ' + phoneNumber1.length);
     //Validaciones
     let validator = 0;
     //Validar email
@@ -146,10 +340,10 @@ export default class editarEmpleadoPage extends React.Component {
       toastr.warning('Por favor ingrese un apellido válido.');
     } else if (phoneNumber1 == '') {
       validator = 1;
-      toastr.warning('Por favor ingrese un número de teléfono válido.');
-    } else if (phoneNumber1.length < 8) {
+      toastr.warning('Por favor ingrese un primer número de teléfono válido.');
+    } else if (phoneNumber1.includes("_")) {
       validator = 1;
-      toastr.warning('Por favor ingrese un número de teléfono válido.');
+      toastr.warning('Por favor ingrese un primer número de teléfono válido.');
     } else if (
       phoneNumber1.charAt(0) != '9' &&
       phoneNumber1.charAt(0) != '3' &&
@@ -158,58 +352,59 @@ export default class editarEmpleadoPage extends React.Component {
       phoneNumber1.charAt(0) != '2'
     ) {
       validator = 1;
-      toastr.warning('Por favor ingrese un número de teléfono válido.');
+      toastr.warning('Por favor ingrese un primer número de teléfono válido.');
     } else if (address1 == '') {
       validator = 1;
       toastr.warning('Por favor ingrese una dirección válida.');
     }
 
-    if (!validator) {
-      Accounts.createUser({ email, password, profile }, (err) => {
+    if (validator == 0) {
+      let user = { 
+        email, 
+        password, 
+        profile 
+      };
+      Meteor.call('users.initializeAdministrator', user, (err, returnValue) => {
         if (err) {
-          alert(err.reason);
+          if(err.reason.includes("Email already exists")){
+            toastr.warning('El correo que ingresó ya existe.');
+          }else{
+            toastr.warning('Hubo un problema al momento de crear su cuenta.');
+          }
         } else {
-          console.log(Meteor.userId);
-          toastr.success('Se ha registrado el usuario exitosamente.');
-          this.refs.email.value = "";
-          this.refs.passwordAgregar.value = "";
-          this.refs.confirmPasswordAgregar.value = "";
-          this.refs.firstNameAgregar.value = "";
-          this.refs.lastNameAgregar.value = "";
-          this.refs.phoneNumberAgregar.value = "";
-          this.refs.addressAgregar.value = "";
-          
-        }
+          if (returnValue == 1) {
+            toastr.success('Se ha agregado el administrador exitosamente.');
+            this.closeAgregarAdmin();
+          } else {
+            toastr.warning('No tiene privilegios de administrador. No se ha creado el empleado.');       
+          }  
+        } 
       });
     }
   }
-
-  handleSubmit(e) {
-    e.preventDefault();
-}
 
   render() {
     console.log(this.state.users);
     return (
       <div className="EditarAdmins">
         <div className="containerPrincipal">
-        
-          <div className = "ComboBox">
-            <select onChange ={this.handleChange.bind(this)}>
+
+          <div className="ComboBox">
+            <select onChange={this.handleChange.bind(this)}>
               <option value="Administradores">Administradores</option>
               <option value="Empleados">Empleados</option>
-              <option value="Usuarios">Usuarios</option>
+              <option value="Usuarios">Clientes</option>
             </select>
           </div>
 
           <div className="Buttons">
-            <button className="botonAgregar" onClick={this.onAgregarAdmin.bind(this)}>Agregar Administrador</button>
-          </div>  
+            <button className="botonAgregar" onClick={this.AgregarAdmin.bind(this)}>Agregar Administrador</button>
+          </div>
 
-          <div className="searchBarDiv">   
-            <input id="filterInput" onKeyUp={this.filterNames.bind(this)} placeholder="Buscar Administrador..." type="text"/>
+          <div className="searchBarDiv">
+            <input id="filterInput" onKeyUp={this.filterNames.bind(this)} placeholder="Buscar Administrador..." type="text" />
             <ul className="collection with-header" id="names">
-              {renderUser(this.state.users)}
+              {this.loadList()}
             </ul>
           </div>
 
@@ -219,7 +414,7 @@ export default class editarEmpleadoPage extends React.Component {
               {/* Header */}
               <div className="modal-header">
                 <div className="modal-header-Btn">
-                  <span className="closeBtn" onClick={this.closeAdmin.bind(this)}>&times;</span>
+                  <span className="closeBtn" onClick={this.closeAgregarAdmin.bind(this)}>&times;</span>
                 </div>
                 <div className="modal-header-Name">
                   <h2>Agregar Administrador</h2>
@@ -233,7 +428,7 @@ export default class editarEmpleadoPage extends React.Component {
                       <div className="box1">
                         <p>
                           <label>Email</label>
-                          <input ref = "email" id = "correo" maxLength='140' placeholder='Ingrese su correo.'  type="email"/>
+                          <input ref="email" id="correo" maxLength='140' placeholder='Ingrese su correo.' type="email" />
                         </p>
                       </div>
                     </div>
@@ -241,13 +436,13 @@ export default class editarEmpleadoPage extends React.Component {
                       <div className="box1">
                         <p>
                           <label>Contraseña</label>
-                          <input ref = "passwordAgregar" placeholder='Ingrese su contraseña.'  type="password"/>
+                          <input ref="passwordAgregar" placeholder='Ingrese su contraseña.' type="password" />
                         </p>
                       </div>
                       <div className="box2">
                         <p>
                           <label>Confirmar Contraseña</label>
-                          <input placeholder='Confirmar contraseña.' ref="confirmPasswordAgregar" type="password"/>
+                          <input placeholder='Confirmar contraseña.' ref="confirmPasswordAgregar" type="password" />
                         </p>
                       </div>
                     </div>
@@ -261,7 +456,7 @@ export default class editarEmpleadoPage extends React.Component {
                       <div className="box2">
                         <p>
                           <label>Apellido</label>
-                          <input maxLength='140' placeholder='Ingrese su apellido.' ref="lastNameAgregar" type="text"/>
+                          <input maxLength='140' placeholder='Ingrese su apellido.' ref="lastNameAgregar" type="text" />
                         </p>
                       </div>
                     </div>
@@ -269,7 +464,7 @@ export default class editarEmpleadoPage extends React.Component {
                       <div className="box1">
                         <p>
                           <label>Número de Teléfono</label>
-                          <InputMask id = "numero" mask="9999-9999" placeholder='Ingrese su número de teléfono.' ref="phoneNumberAgregar"/>
+                          <InputMask id="numero" mask="9999-9999" placeholder='Ingrese su número de teléfono.' ref="phoneNumberAgregar" />
                         </p>
                       </div>
                     </div>
@@ -298,7 +493,7 @@ export default class editarEmpleadoPage extends React.Component {
               {/* Header */}
               <div className="modal-header">
                 <div className="modal-header-Btn">
-                  <span className="closeBtn" onClick={this.onCloseModAdmin.bind(this)}>&times;</span>
+                  <span className="closeBtn" onClick={this.CloseModificarAdmin.bind(this)}>&times;</span>
                 </div>
                 <div className="modal-header-Name">
                   <h2>Modificar Administrador</h2>
@@ -306,19 +501,19 @@ export default class editarEmpleadoPage extends React.Component {
               </div>
               {/* Body */}
               <div className="modal-body">
-                <form  className="agregarEmpleadoFormModal">
+                <form className="agregarEmpleadoFormModal">
                   <div>
-                    <div className = "container1">
-                      <div className = "box1">
+                    <div className="container1">
+                      <div className="box1">
                         <p>
                           <label>Primer Nombre</label>
-                          <input id = "firstNameId" maxLength='140' placeholder='Ingrese primer nombre.' ref = "firstName"/>
+                          <input id="firstNameId" maxLength='140' placeholder='Ingrese primer nombre.' ref="firstNameMod" />
                         </p>
                       </div>
                       <div className="box2">
                         <p>
                           <label>Apellido</label>
-                          <input maxLength='140' placeholder='Ingrese su apellido.' ref="lastName" type="text"/>
+                          <input maxLength='140' placeholder='Ingrese su apellido.' ref="lastNameMod" type="text" />
                         </p>
                       </div>
                     </div>
@@ -326,17 +521,17 @@ export default class editarEmpleadoPage extends React.Component {
                       <div className="box1">
                         <p>
                           <label>*Teléfono 1</label>
-                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber1"/>
+                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber1Mod" id = "phoneNumber1Mod"/>
                           <label>Teléfono 3</label>
-                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber3"/>
+                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber3Mod" id = "phoneNumber3Mod"/>
                         </p>
                       </div>
                       <div className="box2">
                         <p>
                           <label>Teléfono 2</label>
-                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber2"/>
+                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber2Mod" id = "phoneNumber2Mod"/>
                           <label>Teléfono 4</label>
-                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber4"/>
+                          <InputMask mask="9999-9999" placeholder='Ingrese su teléfono.' ref="phoneNumber4Mod" id = "phoneNumber4Mod"/>
                         </p>
                       </div>
                     </div>
@@ -344,54 +539,59 @@ export default class editarEmpleadoPage extends React.Component {
                       <div className="box1">
                         <p>
                           <label>*Dirección 1</label>
-                          <textarea id = "direction1TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address1" rows="5"/>
+                          <textarea id="direction1TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address1Mod" rows="5" />
                           <label>Dirección 3</label>
-                          <textarea id = "direction3TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address3" rows="5"/>
+                          <textarea id="direction3TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address3Mod" rows="5" />
                         </p>
                       </div>
                       <div className="box2">
                         <p>
                           <label>Dirección 2</label>
-                          <textarea id = "direction2TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address2" rows="5"/>
+                          <textarea id="direction2TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address2Mod" rows="5" />
                           <label>Dirección 4</label>
-                          <textarea id = "direction4TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address4" rows="5"/>
+                          <textarea id="direction4TextArea" maxLength='140' placeholder='Ingrese su dirección.' ref="address4Mod" rows="5" />
                         </p>
                       </div>
-                    </div>  
+                    </div>
                     <div className="container1">
                       <div className="box1">
                         <p>
-                          <button className = "confirmarModificar" >Confirmar Cambios</button>
+                          <button className="confirmarModificar" onClick={this.onSubmitModificarAdmin.bind(this)}>Confirmar Cambios</button>
                         </p>
                       </div>
                       <div className="box2">
                         <p>
-                          <button className = "confirmarDesactivar" >Desactivar Administrador</button>
+                          <button className="confirmarDesactivar" onClick={this.onDeleteAdmin.bind(this)}>Borrar Administrador</button>
                         </p>
                       </div>
-                    </div>     
-                  </div>       
+                    </div>
+                  </div>
                 </form>
               </div>
               {/* Footer */}
               <div className="modal-footer"></div>
             </div>
           </div>{/*Termina MODAL MODIFICAR Administrador*/}
+
+          {/* <!-- Modal --> */}
+          <div className="modal" id="exampleModal">
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                </div>
+                <div className="modal-body">
+                  <p>¿Desea borrar el administrador?</p>
+                </div>
+                <div className="modal-footer">
+                  <button className="btn btn-primary" onClick={this.closeDeleteModal.bind(this)}>Cancelar</button>
+                  <button className="btn btn-danger" onClick={this.borrarAdministrador.bind(this)}>Borrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
-      );
+    );
   }
-}
-
-const renderUser = (users) => {
-  return users.map((user) => {
-    return (
-      <li  onClick={function () {
-        var modal = document.getElementById('ModalModificarAdministrador');
-        modal.style.display = 'block';
-        }} className="collection-item" key={user._id}>
-        <a href="#"  className="hrefNombre">{user.profile.firstName} {user.profile.lastName}</a>
-      </li>
-    )
-  });
 }
