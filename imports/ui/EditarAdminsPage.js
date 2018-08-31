@@ -365,12 +365,20 @@ export default class editarAdminsPage extends React.Component {
         profile 
       };
       Meteor.call('users.initializeAdministrator', user, (err, returnValue) => {
-        if (returnValue == 1) {
-          toastr.success('Se ha agregado el administrador exitosamente.');
-          this.closeAgregarAdmin();
+        if (err) {
+          if(err.reason.includes("Email already exists")){
+            toastr.warning('El correo que ingresó ya existe.');
+          }else{
+            toastr.warning('Hubo un problema al momento de crear su cuenta.');
+          }
         } else {
-          toastr.warning('No tiene privilegios de administrador. No se ha creado el empleado.');       
-        }     
+          if (returnValue == 1) {
+            toastr.success('Se ha agregado el administrador exitosamente.');
+            this.closeAgregarAdmin();
+          } else {
+            toastr.warning('No tiene privilegios de administrador. No se ha creado el empleado.');       
+          }  
+        } 
       });
     }
   }

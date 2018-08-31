@@ -363,12 +363,20 @@ export default class editarUsuariosPage extends React.Component {
                 profile 
             };
             Meteor.call('users.initializeClientEnAdmin', user, (err, returnValue) => {
-                if (returnValue == 1) {
-                    console.log(Meteor.userId);
-                    toastr.success('Se ha registrado el cliente exitosamente.');
-                    this.closeAgregarUsuario();
+                if (err) {
+                    if(err.reason.includes("Email already exists")){
+                        toastr.warning('El correo que ingresó ya existe.');
+                    } else{
+                        toastr.warning('Hubo un problema al momento de crear su cuenta.');
+                    }
                 } else {
-                    toastr.warning('No tiene privilegios de administrador. No se ha creado el cliente.');
+                    if (returnValue == 1) {
+                        console.log(Meteor.userId);
+                        toastr.success('Se ha registrado el cliente exitosamente.');
+                        this.closeAgregarUsuario();
+                    } else {
+                        toastr.warning('No tiene privilegios de administrador. No se ha creado el cliente.');
+                    }
                 }
             });
         }
