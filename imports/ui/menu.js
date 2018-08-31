@@ -630,6 +630,9 @@ export default class Menu extends Component {
           alignment="right"
           platos={this.state.cart}
           history={this.props.history}
+          resetCount={() => {
+            this.setState({ ...this.state, cantidadOrden: 0 });
+          }}
         >
           {menuItems}
         </MenuSide>
@@ -740,9 +743,17 @@ class MenuSide extends React.Component {
     Meteor.call('orders.insert', orden);
     orden = {
       estado: '',
-      platos: []
+      platos: [],
+      products: []
     };
-    this.setState({ ...this.state, orden });
+    const cart = {
+      estado: 'Preorden',
+      platos: [],
+      products: []
+    };
+    this.props.platos.platos = [];
+    this.props.resetCount();
+    this.setState({ ...this.state, platos: [], orden, cart });
   };
 
   onSubmit(e) {

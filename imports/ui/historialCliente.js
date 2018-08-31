@@ -120,8 +120,8 @@ export default class historialCliente extends Component {
       }
       return (
         <tr key={order._id}>
-          <td>Orden X</td>
-          <td>{order.fecha}</td>
+          <td>{order._id}</td>
+          <td>{order.fechaEntrada}</td>
           <td>{Meteor.user().profile.address1}</td>
           <td>{this.checkStatus(order)}</td>
           <td>
