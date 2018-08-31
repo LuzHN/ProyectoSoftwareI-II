@@ -11,6 +11,9 @@ import '../imports/client/styles/sweetalert.css';
 import Menu from '../imports/ui/menu';
 import MenuEmpleado from '../imports/ui/menuempleado';
 
+// import HistorialEmpleado from '../imports/ui/HistorialEmpleado';
+import historialCliente from '../imports/ui/historialCliente';
+
 import '../imports/client/styles/register';
 import NotFound from '../imports/ui/NotFound';
 import Principal from '../imports/ui/Principal';
@@ -96,6 +99,11 @@ class Hk extends React.Component {
             component={editarUsuariosPage}
             history={browserHistory}
           />
+          <Route
+            path="/historial"
+            component={historialCliente}
+            history={browserHistory}
+          />
           <Route path="/" exact component={Menu} history={browserHistory} />
           <Route path="*" component={NotFound} history={browserHistory} />
         </Switch>
@@ -124,13 +132,6 @@ class Hk extends React.Component {
     if (Meteor.user() !== null) {
       ref = (
         <span>
-          <a
-            className="nav-link"
-            style={{ display: 'inline' }}
-            onClick={this.showRight}
-          >
-            Cart
-          </a>
           <a
             className="nav-link"
             onClick={() => {
