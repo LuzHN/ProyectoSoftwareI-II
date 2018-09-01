@@ -218,10 +218,15 @@ export default class Menu extends Component {
           inputPlaceholder="Ej. Quiero mi carne con mucha sal"
           onConfirm={(inputValue) => {
             let platos = [...this.state.platos];
+            console.log({ inputValue });
             platos[this.state.swal.index].descripcion = inputValue;
             this.setState({
               swal: { show: false, index: 0 },
-              platos: platos
+              platos: platos,
+              cart: {
+                estado: 'Preorden',
+                platos
+              }
             });
           }}
         />
