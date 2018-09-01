@@ -137,14 +137,7 @@ class Hk extends React.Component {
             style={{ display: 'inline' }}
             href="/editProfile"
           >
-            EditProfile
-          </a>
-          <a
-            className="nav-link"
-            style={{ display: 'inline' }}
-            onClick={this.showRight}
-          >
-            Cart
+            Edit Profile
           </a>
           <a
             className="nav-link"
@@ -157,7 +150,7 @@ class Hk extends React.Component {
             }}
             style={{ display: 'inline' }}
           >
-            LogOut
+            Log Out
           </a>
         </span>
       );
@@ -165,7 +158,7 @@ class Hk extends React.Component {
       ref = (
         <li className="nav-item">
           <a className="nav-link" href="/login" style={{ display: 'inline' }}>
-            LogIn/SingUp
+            Log In/Sign Up
           </a>
         </li>
       );

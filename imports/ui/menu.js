@@ -76,7 +76,7 @@ export default class Menu extends Component {
   handleClick = () => (this.state.rightVisible ? this.hideRight() : false);
 
   componentDidMount() {
-    Meteor.call('check.Role');
+    // Meteor.call('check.Role');
     this.dishesTracker = Tracker.autorun(() => {
       Meteor.subscribe('dishes');
       const dishes = Dishes.find().fetch();
@@ -740,6 +740,7 @@ class MenuSide extends React.Component {
     orden.products = orden.platos;
 
     orden.cliente = Meteor.user().profile.firstName;
+    console.log(orden);
     Meteor.call('orders.insert', orden);
     orden = {
       estado: '',

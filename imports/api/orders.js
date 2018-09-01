@@ -5,12 +5,15 @@ import SimpleSchema from 'simpl-schema';
 export const Orders = new Mongo.Collection('orders');
 
 if (Meteor.isServer) {
-  Meteor.publish('client-orders', () => {
+  Meteor.publish('orders.getClientOrders', function() {
     return Orders.find({ userId: this.userId });
   });
   Meteor.publish('orders', () => {
-    if (Roles.userIsInRole(Meteor.userId(), 'employee') || Roles.userIsInRole(Meteor.userId(), 'administrator')) {
-      return Orders.find({}); 
+    if (
+      Roles.userIsInRole(Meteor.userId(), 'employee') ||
+      Roles.userIsInRole(Meteor.userId(), 'administrator')
+    ) {
+      return Orders.find({});
     }
   });
 }
@@ -24,42 +27,56 @@ Meteor.methods({
       userId: this.userId,
       cliente: order.cliente,
       fechaEntrada: order.fechaEntrada,
-      fechaDespacho: order.fechaDespacho
+      fechaDespacho: order.fechaDespacho,
+      fechaCancelado: order.fechaCancelado
     });
   },
-'orders.setDispatched'(id) {
+  'orders.setDispatched'(id) {
     if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
-      Orders.update(id, {$set: { status: 'Dispatched'}}); 
+      Orders.update(id, { $set: { status: 'Dispatched' } });
     }
   },
-'orders.setPending'(id) {
+  'orders.setPending'(id) {
     if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
-      Orders.update(id, {$set: { status: 'Pending'}}); 
+      Orders.update(id, { $set: { status: 'Pending' } });
     }
   },
-'orders.setPreOrder'(id) {
+  'orders.setPreOrder'(id) {
     if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
-      Orders.update(id, {$set: { status: 'PreOrder'}}); 
+      Orders.update(id, { $set: { status: 'PreOrder' } });
     }
   },
-'orders.setInProgress'(id) {
+  'orders.setInProgress'(id) {
     if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
-      Orders.update(id, {$set: { status: 'InProgress'}}); 
+      Orders.update(id, { $set: { status: 'InProgress' } });
     }
   },
-'orders.cambiarFechaDespacho'(id, fecha) {
-  if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
-    Orders.update(id, { $set: { fechaDespacho: fecha } });
-  }
-},
-'orders.setHidden'(id) {
+  'orders.cambiarFechaDespacho'(id, fecha) {
     if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+      Orders.update(id, { $set: { fechaDespacho: fecha } });
+    }
+  },
+  'orders.setHidden'(id) {
+    if (
+      Roles.userIsInRole(Meteor.userId(), 'employee') ||
+      Roles.userIsInRole(Meteor.userId(), 'normal-user')
+    ) {
       Orders.update(id, { $set: { status: 'Hidden' } });
     }
-},
-'orders.delete'(id) {
+  },
+  'orders.delete'(id) {
     if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
-      Orders.remove(id); 
+      Orders.remove(id);
+    }
+  },
+  'orders.cambiarFechaCancelacion'(id, fecha) {
+    if (Roles.userIsInRole(Meteor.userId(), 'normal-user')) {
+      Orders.update(id, { $set: { fechaCancelado: fecha } });
+    }
+  },
+  'orders.setCanceled'(id) {
+    if (Roles.userIsInRole(Meteor.userId(), 'normal-user')) {
+      Orders.update(id, { $set: { status: 'Canceled' } });
     }
   }
 });
