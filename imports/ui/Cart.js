@@ -3,24 +3,25 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import { disconnect } from 'cluster';
 import PropTypes from 'prop-types';
-import { Router, Route, browserHistory} from 'react-router';
-import {withRouter} from "react-router-dom";
+import { Router, Route, browserHistory } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import { Orders } from '../api/orders';
-import './../client/styles/cart';
-import OrdenPlato from '../client/ui/components/ordenesCart.js';
+import '../client/styles/cart.css';
+import OrdenPlato from './ordenesCart';
 
-export default class Cart extends React.Component{
-  constructor(props){
+export default class Cart extends React.Component {
+  constructor(props) {
     super(props);
-    this.state= {
+    this.state = {
       orders: [],
-      value : "De click para revisar entre 'Orden Actual' e 'Historial de Ordenes'",
+      value:
+        "De click para revisar entre 'Orden Actual' e 'Historial de Ordenes'",
       cart: [],
-      orden:{
-        estado: "",
+      orden: {
+        estado: '',
         platos: [],
-        fecha: ""
+        fecha: ''
       },
       componentes: []
     };
@@ -34,20 +35,19 @@ export default class Cart extends React.Component{
     // });
 
     const carrito = this.props.history.location.state;
-    this.setState({...this.state, cart: carrito});
+    this.setState({ ...this.state, cart: carrito });
 
-    const platosNuevo = carrito.platos.map((platito)=>{
-      return {...platito, descripcion: ""};
+    const platosNuevo = carrito.platos.map((platito) => {
+      return { ...platito, descripcion: '' };
     });
-    const platos = {estado: "Preorden", platos: platosNuevo};
-    this.setState({...this.state, orden: platos});
-
-  };
+    const platos = { estado: 'Preorden', platos: platosNuevo };
+    this.setState({ ...this.state, orden: platos });
+  }
   componentWillUnmount() {
     this.ordersTracker.stop();
-  };
+  }
 
-  handleDescriptionChange=(evt)=>{
+  handleDescriptionChange = (evt) => {
     console.log(this.state);
     console.log(this);
     // console.log(i);
@@ -55,18 +55,29 @@ export default class Cart extends React.Component{
     const orden = this.state.orden.platos;
     orden[evt.target.attributes.i.value].descripcion = event.target.value;
     console.log(orden[evt.target.attributes.i.value]);
-    this.setState({...this.state, orden});
+    this.setState({ ...this.state, orden });
     // console.log(event.target.value)
   };
 
   confirmar = (evt) => {
     let orden = this.state.orden;
-    orden.estado = "Preorden";
+    orden.estado = 'Preorden';
     orden.platos = [];
     orden.products = [];
 
     let d = new Date();
-    let stringFecha = d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear() + " ," + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+    let stringFecha =
+      d.getDate() +
+      '/' +
+      d.getMonth() +
+      '/' +
+      d.getFullYear() +
+      ' ,' +
+      d.getHours() +
+      ':' +
+      d.getMinutes() +
+      ':' +
+      d.getSeconds();
     orden.fecha = stringFecha;
 
     for (var i = 0; i < this.state.componentes.length; i++) {
@@ -75,27 +86,24 @@ export default class Cart extends React.Component{
         descripcion: this.state.componentes[i].state.descripcion,
         imagen: this.state.componentes[i].state.imagen,
         plato: this.state.componentes[i].state.titulo,
-        precio: this.state.componentes[i].state.precio,
+        precio: this.state.componentes[i].state.precio
       });
     }
-    orden.cliente =Meteor.user().profile.firstName;
+    orden.cliente = Meteor.user().profile.firstName;
     console.log(orden);
     Meteor.call('orders.insert', orden);
     orden = {
-      estado: "",
-      platos: [],
-    }
-    this.setState({...this.state, orden});
+      estado: '',
+      platos: []
+    };
+    this.setState({ ...this.state, orden });
+  };
 
-  }
-
-
-  onActual=()=>{
-
+  onActual = () => {
     //Calcular el precio
     let price = 0;
     let getPrice = this.state.orden.platos.forEach((item) => {
-      price += item.precio*item.cantidad;
+      price += item.precio * item.cantidad;
     });
 
     //Crear orden internamente
@@ -111,77 +119,98 @@ export default class Cart extends React.Component{
     // let id = '9qxdEChNBWKh2PSvD';
     // Meteor.call('orders.setPending', id);
 
-    let rows = this.state.orden.platos.map((item, i) =>
-      <OrdenPlato
-        ref={(ref)=>{
-          let componentes = this.state.componentes;
-          componentes.push(ref);
-          this.setState({...this.state, componentes})
-        }}
-        key={i}
-        imagen={item.imagen}
-        titulo={item.plato}
-        precio={parseInt(item.precio).toFixed(2)}
-        cantidad=<input type="number" placeholder={item.cantidad} min="1" max="10"/>/>
-    );
+    let rows = this.state.orden.platos.map((item, i) => (
+      <div>
+        <OrdenPlato
+          className="platoOrdenado"
+          ref={(ref) => {
+            let componentes = this.state.componentes;
+            componentes.push(ref);
+            this.setState({ ...this.state, componentes });
+          }}
+          key={i}
+          imagen={item.imagen}
+          titulo={item.plato}
+          precio={parseInt(item.precio).toFixed(2)}
+          cantidad={item.cantidad}
+        />
+        <button
+          role="button"
+          className="btn btn-primary"
+          onClick={this.confirmar}
+        >
+          Confirmar
+        </button>
+      </div>
+    ));
 
     let newVal = (
       <div>
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Item</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Cantidad</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows}
-        </tbody>
-      </table>
-      <div className="total">
-        <h3>Subtotal:Lps.{price.toFixed(2)}</h3>
-        <h3>ISV: 15%</h3>
-        <h2>Total:Lps.{((price*0.15)+price).toFixed(2)}</h2>
-        <button className="btn btn-primary" onClick={this.confirmar}>Confirmar</button>
-      </div>
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Item</th>
+              <th scope="col">Precio</th>
+              <th scope="col">Cantidad</th>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </table>
+        <div className="total">
+          <h3>
+            Subtotal:Lps.
+            {price.toFixed(2)}
+          </h3>
+          <h3>ISV: 15%</h3>
+          <h2>
+            Total:Lps.
+            {(price * 0.15 + price).toFixed(2)}
+          </h2>
+        </div>
       </div>
     );
-    return this.setState({...this.state,value: newVal});
-  }
+    return this.setState({ ...this.state, value: newVal });
+  };
 
-  onHistory(){
+  onHistory() {
     let newVal = (
       <div>
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Orden</th>
-            <th scope="col">Items</th>
-            <th scope="col">Precio Total</th>
-            <th scope="col">Fecha</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Orden</th>
+              <th scope="col">Items</th>
+              <th scope="col">Precio Total</th>
+              <th scope="col">Fecha</th>
+              <th scope="col" />
+            </tr>
+          </thead>
+          <tbody />
+        </table>
       </div>
     );
-    return this.setState({...this.state, value: newVal})
+    return this.setState({ ...this.state, value: newVal });
   }
 
-  render(){
+  render() {
     return (
       <div className="container">
         <h1>Detalle de la Orden</h1>
         <p>Revise su orden, siga ordenando o inicie el proceso de pago.</p>
         <div className="row">
           <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-            <h1><a className="" onClick={this.onActual}>Orden Actual</a></h1>
+            <h1>
+              <a className="" onClick={this.onActual}>
+                Orden Actual
+              </a>
+            </h1>
           </div>
           <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-            <h1><a className="" onClick={this.onHistory.bind(this)}>Historial de Ordenes</a></h1>
+            <h1>
+              <a className="" onClick={this.onHistory.bind(this)}>
+                Historial de Ordenes
+              </a>
+            </h1>
           </div>
         </div>
         {this.state.value}
