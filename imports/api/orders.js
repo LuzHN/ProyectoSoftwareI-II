@@ -9,9 +9,10 @@ if (Meteor.isServer) {
     return Orders.find({ userId: this.userId });
   });
   Meteor.publish('orders', () => {
-    if (Roles.userIsInRole(Meteor.userId(), 'employee') || Roles.userIsInRole(Meteor.userId(), 'administrator')) {
-      return Orders.find({}); 
-    }
+    return Orders.find({});
+    // if (Roles.userIsInRole(Meteor.userId(), 'employee') || Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+    //   return Orders.find({}); 
+    // }
   });
 }
 Meteor.methods({
@@ -27,39 +28,48 @@ Meteor.methods({
       fechaDespacho: order.fechaDespacho
     });
   },
-'orders.setDispatched'(id) {
-    if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
-      Orders.update(id, {$set: { status: 'Dispatched'}}); 
-    }
+  'orders.setDispatched'(id) {
+
+    Orders.update(id, { $set: { status: 'Dispatched' } });
+    // if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+    //   Orders.update(id, { $set: { status: 'Dispatched' } });
+    // }
   },
-'orders.setPending'(id) {
-    if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
-      Orders.update(id, {$set: { status: 'Pending'}}); 
-    }
+  'orders.setPending'(id) {
+    Orders.update(id, { $set: { status: 'Pending' } });
+    // if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+    //   Orders.update(id, { $set: { status: 'Pending' } });
+    // }
   },
-'orders.setPreOrder'(id) {
-    if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
-      Orders.update(id, {$set: { status: 'PreOrder'}}); 
-    }
+  'orders.setPreOrder'(id) {
+    Orders.update(id, { $set: { status: 'PreOrder' } });
+    // if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+    //   Orders.update(id, { $set: { status: 'PreOrder' } });
+    // }
   },
-'orders.setInProgress'(id) {
-    if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
-      Orders.update(id, {$set: { status: 'InProgress'}}); 
-    }
+  'orders.setInProgress'(id) {
+    Orders.update(id, { $set: { status: 'InProgress' } });
+
+    // if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+    //   Orders.update(id, { $set: { status: 'InProgress' } });
+    // }
   },
-'orders.cambiarFechaDespacho'(id, fecha) {
-  if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+  'orders.cambiarFechaDespacho'(id, fecha) {
     Orders.update(id, { $set: { fechaDespacho: fecha } });
-  }
-},
-'orders.setHidden'(id) {
-    if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
-      Orders.update(id, { $set: { status: 'Hidden' } });
-    }
-},
-'orders.delete'(id) {
-    if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
-      Orders.remove(id); 
-    }
+    // if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+    //   Orders.update(id, { $set: { fechaDespacho: fecha } });
+    // }
+  },
+  'orders.setHidden'(id) {
+    Orders.update(id, { $set: { status: 'Hidden' } });
+    // if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+    //   Orders.update(id, { $set: { status: 'Hidden' } });
+    // }
+  },
+  'orders.delete'(id) {
+    Orders.remove(id);
+    // if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+    //   Orders.remove(id);
+    // }
   }
 });
