@@ -12,7 +12,6 @@ if (Meteor.isServer) {
     if (
       Roles.userIsInRole(Meteor.userId(), 'employee') ||
       Roles.userIsInRole(Meteor.userId(), 'administrator') ||
-      Roles.userIsInRole(Meteor.userId(), 'normal-user') ||
       Roles.userIsInRole(Meteor.userId(), 'client')
     ) {
       return Orders.find({});
@@ -36,7 +35,7 @@ Meteor.methods({
   'orders.setDispatched'(id) {
     if (
       Roles.userIsInRole(Meteor.userId(), 'employee') ||
-      Roles.userIsInRole(Meteor.userId(), 'normal-user')
+      Roles.userIsInRole(Meteor.userId(), 'client')
     ) {
       Orders.update(id, { $set: { status: 'Dispatched' } });
     }
@@ -44,7 +43,7 @@ Meteor.methods({
   'orders.setPending'(id) {
     if (
       Roles.userIsInRole(Meteor.userId(), 'employee') ||
-      Roles.userIsInRole(Meteor.userId(), 'normal-user')
+      Roles.userIsInRole(Meteor.userId(), 'client')
     ) {
       Orders.update(id, { $set: { status: 'Pending' } });
     }
@@ -52,7 +51,7 @@ Meteor.methods({
   'orders.setPreOrder'(id) {
     if (
       Roles.userIsInRole(Meteor.userId(), 'employee') ||
-      Roles.userIsInRole(Meteor.userId(), 'normal-user')
+      Roles.userIsInRole(Meteor.userId(), 'client')
     ) {
       Orders.update(id, { $set: { status: 'PreOrder' } });
     }
@@ -60,7 +59,7 @@ Meteor.methods({
   'orders.setInProgress'(id) {
     if (
       Roles.userIsInRole(Meteor.userId(), 'employee') ||
-      Roles.userIsInRole(Meteor.userId(), 'normal-user')
+      Roles.userIsInRole(Meteor.userId(), 'client')
     ) {
       Orders.update(id, { $set: { status: 'InProgress' } });
     }
@@ -68,7 +67,7 @@ Meteor.methods({
   'orders.cambiarFechaDespacho'(id, fecha) {
     if (
       Roles.userIsInRole(Meteor.userId(), 'employee') ||
-      Roles.userIsInRole(Meteor.userId(), 'normal-user')
+      Roles.userIsInRole(Meteor.userId(), 'client')
     ) {
       Orders.update(id, { $set: { fechaDespacho: fecha } });
     }
@@ -76,7 +75,7 @@ Meteor.methods({
   'orders.setHidden'(id) {
     if (
       Roles.userIsInRole(Meteor.userId(), 'employee') ||
-      Roles.userIsInRole(Meteor.userId(), 'normal-user')
+      Roles.userIsInRole(Meteor.userId(), 'client')
     ) {
       Orders.update(id, { $set: { status: 'Hidden' } });
     }
@@ -84,18 +83,18 @@ Meteor.methods({
   'orders.delete'(id) {
     if (
       Roles.userIsInRole(Meteor.userId(), 'employee') ||
-      Roles.userIsInRole(Meteor.userId(), 'normal-user')
+      Roles.userIsInRole(Meteor.userId(), 'client')
     ) {
       Orders.remove(id);
     }
   },
   'orders.cambiarFechaCancelacion'(id, fecha) {
-    if (Roles.userIsInRole(Meteor.userId(), 'normal-user')) {
+    if (Roles.userIsInRole(Meteor.userId(), 'client')) {
       Orders.update(id, { $set: { fechaCancelado: fecha } });
     }
   },
   'orders.setCanceled'(id) {
-    if (Roles.userIsInRole(Meteor.userId(), 'normal-user')) {
+    if (Roles.userIsInRole(Meteor.userId(), 'client')) {
       Orders.update(id, { $set: { status: 'Canceled' } });
     }
   }

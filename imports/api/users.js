@@ -17,7 +17,7 @@ if (Meteor.isServer) {
   Meteor.publish('users.getClients', () => {
     if (
       Roles.userIsInRole(Meteor.userId(), 'administrator') ||
-      Roles.userIsInRole(Meteor.userId(), 'normal-user')
+      Roles.userIsInRole(Meteor.userId(), 'client')
     ) {
       return Meteor.users.find({
         $or: [
