@@ -101,7 +101,7 @@ export default class historialCliente extends Component {
       return 'INGRESADA';
     } else if (Order.status == 'Dispatched') {
       return 'Terminada';
-    } else if (Order.status == 'Cancelada' || Order.status == 'Hidden') {
+    } else if (Order.status == 'Canceled' || Order.status == 'Hidden') {
       return 'CANCELADA';
     } else {
       jsx = <span>{'PENDIENTE '}</span>;
@@ -110,18 +110,27 @@ export default class historialCliente extends Component {
     }
   }
 
+  checkCanceledDate(Order) {
+    if (typeof Order.fechaCancelado == 'undefined') {
+      return 'N/A';
+    } else {
+      return Order.fechaCancelado;
+    }
+  }
+
   loadList = () => {
     return this.state.orders.map((order) => {
       if (order.status == '') {
         order.status = 'Pending';
       }
-      if (order.status == 'Hidden') {
-        order.status = 'Cancelada';
+      if (order.status == 'Canceled') {
+        order.status = 'Canceled';
       }
       return (
         <tr key={order._id}>
           <td>{order._id}</td>
           <td>{order.fechaEntrada}</td>
+          <td>{this.checkCanceledDate(order)}</td>
           <td>{Meteor.user().profile.address1}</td>
           <td>{this.checkStatus(order)}</td>
           <td>
@@ -139,7 +148,28 @@ export default class historialCliente extends Component {
               className="cancelar"
               disabled={order.status !== 'Pending' ? true : false}
               onClick={function() {
-                Meteor.call('orders.setHidden', order._id);
+                Meteor.call('orders.setCanceled', order._id);
+
+                let d = new Date();
+                let stringFecha =
+                  d.getDate() +
+                  '/' +
+                  (d.getMonth() + 1) +
+                  '/' +
+                  d.getFullYear() +
+                  ', ' +
+                  d.getHours() +
+                  ':' +
+                  d.getMinutes() +
+                  ':' +
+                  d.getSeconds();
+
+                Meteor.call(
+                  'orders.cambiarFechaCancelacion',
+                  order._id,
+                  stringFecha
+                );
+
                 toastr.success('La orden ha sido cancelada');
               }}
             >
@@ -187,6 +217,7 @@ export default class historialCliente extends Component {
               <tr>
                 <th scope="col">Número Orden</th>
                 <th scope="col">Fecha de Orden </th>
+                <th scope="col">Fecha de Cancelacion </th>
                 <th scope="col">Dirección </th>
                 <th scope="col">Estado</th>
                 <th scope="col">Ver platos</th>
