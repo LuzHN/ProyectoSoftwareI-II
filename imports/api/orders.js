@@ -78,6 +78,5 @@ Meteor.methods({
     if (Roles.userIsInRole(Meteor.userId(), 'normal-user')) {
       Orders.update(id, { $set: { status: 'Canceled' } });
     }
->>>>>>> 8628a399dc51240958e76dc03888a98ee6657b27
   }
 });
