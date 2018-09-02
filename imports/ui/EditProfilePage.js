@@ -342,19 +342,22 @@ class EditProfilePage extends React.Component {
           {/*Last two directions text areas end here.*/}
 
           <div className="Buttons">
-            <button
-              className="disableAccBtn"
-              onClick={this.disableAccount.bind(this)}
-            >
-              Desactivar Cuenta
-            </button>
-            <label className="spaceLabel" />
+
+
             <button
               className="saveChangesBtn"
               onClick={this.onSubmit.bind(this)}
             >
               Guardar Cambios
             </button>
+            <label className="spaceLabel" />
+            <button
+              className="disableAccBtn"
+              onClick={this.disableAccount.bind(this)}
+            >
+              Desactivar Cuenta
+            </button>
+
           </div>
         </form>
 

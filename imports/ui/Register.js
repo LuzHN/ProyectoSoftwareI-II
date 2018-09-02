@@ -10,7 +10,7 @@ export default class Register extends React.Component {
   }
 
   onSubmit() {
-    let email = this.refs.email.value.trim();
+    let email = this.refs.email.value.trim().toLowerCase();
     let password = this.refs.password.value.trim();
     let confirmPassword = this.refs.confirmPassword.value.trim();
     let firstName = this.refs.firstName.value.trim();

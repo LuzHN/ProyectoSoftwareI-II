@@ -286,7 +286,7 @@ export default class editarUsuariosPage extends React.Component {
     }
 
     onSubmitAgregar() {
-        let email = this.refs.email.value.trim();
+        let email = this.refs.email.value.trim().toLowerCase();
         let password = this.refs.passwordAgregar.value.trim();
         let confirmPassword = this.refs.confirmPasswordAgregar.value.trim();
         let firstName = this.refs.firstNameAgregar.value.trim();

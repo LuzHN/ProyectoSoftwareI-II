@@ -287,7 +287,7 @@ export default class editarEmpleadoPage extends React.Component {
   /*Este es el método que se corre cuando se oprime el boton de Confirmar en el
   modal de Agregar Empleado.*/
   onSubmitAgregar() {
-    let email = this.refs.email.value.trim();
+    let email = this.refs.email.value.trim().toLowerCase();
     let password = this.refs.passwordAgregar.value.trim();
     let confirmPassword = this.refs.confirmPasswordAgregar.value.trim();
     let firstName = this.refs.firstNameAgregar.value.trim();
