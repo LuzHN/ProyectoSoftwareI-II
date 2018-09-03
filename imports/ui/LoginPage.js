@@ -1,11 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import React from 'react';
-import ReactDom from 'react-dom';
-import { disconnect } from 'cluster';
-import PropTypes from 'prop-types';
-import { Router, Route, browserHistory } from 'react-router';
-import { withRouter } from 'react-router-dom';
-import { Redirect } from 'react-router';
+import React from 'react';  
 import '../client/styles/Login.css';
 
 export default class LoginPage extends React.Component {

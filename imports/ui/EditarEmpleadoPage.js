@@ -1,11 +1,5 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
-import ReactDom from 'react-dom';
-import { disconnect } from 'cluster';
-import PropTypes from 'prop-types';
-import { Router, Route, browserHistory } from 'react-router';
-import { withRouter } from "react-router-dom";
-import { Redirect } from 'react-router'
 import InputMask from 'react-input-mask';
 import '../client/styles/editEmpleado';
 
@@ -63,7 +57,9 @@ export default class editarEmpleadoPage extends React.Component {
     this.refs.address3Mod.value = '';
     this.refs.address4Mod.value = '';
   }
-    
+
+  /*Este es el método que permite que el administrador busque en la lista
+  escribiendo el nombre del empleado.*/  
   filterNames() {
     //Get value of input
     let filterValue = document.getElementById('filterInput').value.toUpperCase();
@@ -109,7 +105,6 @@ export default class editarEmpleadoPage extends React.Component {
   en el combo box.*/
   handleChangeCBox(e) {
     var index = e.nativeEvent.target.selectedIndex;
-    console.log("index" + index);
     if (index == 1) {
       this.props.history.push('/editAdmins');
     } 
@@ -383,7 +378,6 @@ export default class editarEmpleadoPage extends React.Component {
   }
   
   render() {
-    console.log(this.state.users);
     return (
       <div className="EditarEmpleado">
         <div className="containerPrincipal">
@@ -593,5 +587,6 @@ export default class editarEmpleadoPage extends React.Component {
           
         </div>
       </div>
-    );}
+    );
   }
+}
