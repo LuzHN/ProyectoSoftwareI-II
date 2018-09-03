@@ -131,7 +131,7 @@ export default class historialCliente extends Component {
           <td>{order._id}</td>
           <td>{order.fechaEntrada}</td>
           <td>{this.checkCanceledDate(order)}</td>
-          <td>{Meteor.user().profile.address1}</td>
+          <td>{order.direccion}</td>
           <td>{this.checkStatus(order)}</td>
           <td>
             <button id="btn-info" onClick={(e) => this.showModal(order)}>
