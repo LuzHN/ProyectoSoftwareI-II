@@ -21,6 +21,7 @@ class EditProfilePage extends React.Component {
     e.preventDefault();
   }
 
+  /*Se carga la informacion del user*/
   componentDidMount() {
 
     let user;
@@ -87,6 +88,7 @@ class EditProfilePage extends React.Component {
 
   }
 
+  /** Se guarda la info de los inputs,se validan y se hace el update de la informacion del user*/
   onSubmit() {
     let firstName = this.refs.firstName.value.trim();
     let lastName = this.refs.lastName.value.trim();
@@ -166,7 +168,6 @@ class EditProfilePage extends React.Component {
       }
     }
     if (phoneNumber3 != '') {
-      console.log("entra");
       if (phoneNumber3.includes('_')) {
         validator = 1;
         toastr.warning('El número adicional no cumple con los requerimientos.');
@@ -216,11 +217,13 @@ class EditProfilePage extends React.Component {
     }
   }
 
+  /**Carga el Modal para confirmar el delete de user */
   disableAccount() {
     var modal = document.getElementById('exampleModal');
     modal.style.display = 'block';
   }
 
+  /**Se borra el user de la DB */
   deleteUserFinal() {
     Meteor.call('users.deleteSelf');
     toastr.error('Cuenta Desactivada.');
@@ -228,6 +231,7 @@ class EditProfilePage extends React.Component {
     this.closeDeleteModal();
   }
 
+  /**Metodo para cerrar el modal de confirmacion para delete user */
   closeDeleteModal() {
     var modal = document.getElementById('exampleModal');
     modal.style.display = 'none';

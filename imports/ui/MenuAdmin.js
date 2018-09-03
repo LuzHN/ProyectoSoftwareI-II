@@ -19,7 +19,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../client/styles/MenuAdmin.css';
 
 let dishID;
-
+/**Cerrar Modal con Click afuera */
 window.onclick = function (event) {
   if (event.target.className == 'modal') {
     var modal = document.getElementById('simpleModal');
@@ -47,7 +47,7 @@ export default class MenuAdmin extends Component {
 
     };
   }
-
+  /**Carga los platosa un arreglo */
   renderPlatos = (nombrePlato) => {
     const platosMostrar = [];
     for (var i = 0; i < this.state.dishes.length; i++) {
@@ -61,7 +61,7 @@ export default class MenuAdmin extends Component {
   onSubmit(e) {
     e.preventDefault();
   }
-
+  /** Cuenta los platos existentes y llena el menu bar*/
   componentDidMount() {
     this.dishesTracker = Tracker.autorun(() => {
       Meteor.subscribe('dishes');
@@ -124,6 +124,7 @@ export default class MenuAdmin extends Component {
     this.dishesTracker.stop();
   }
 
+  /**Se resetean los valores en nutritional facts */
   setNutritionalFactsToZero() { //Limpia el Nutritional Facts Percentages
 
     $('#TotalFatPercentage').text("0");
@@ -140,6 +141,7 @@ export default class MenuAdmin extends Component {
     $('#TotalSatFatPercentage').text("0");
   }
 
+  /**Se abre el modal para Agregar Plato */
   openAgregar() {
 
     this.setNutritionalFactsToZero();
@@ -157,22 +159,26 @@ export default class MenuAdmin extends Component {
     modal.style.display = 'block';
   }
 
+  /**Se cierra el modal para agregar plato */
   closeAgregar() {
     var modal = document.getElementById('simpleModal');
     modal.style.display = 'none';
   }
 
+  /**Se cierra el modal para confirmar delete */
   closeDeleteModal() {
     var modal = document.getElementById('exampleModal');
     modal.style.display = 'none';
   }
 
+  /**Borra el dish de la DB */
   deletePlateFinal() {
     Meteor.call('dishes.Delete', dishID);
     dishID = '';
     this.closeDeleteModal();
   }
 
+  /**Lee inputs de Agregar Plato, valida, y agrega plato a la DB */
   agregarFinal() {
     let name = this.refs.nombrePlato.value.trim();
     let price = this.refs.precioPlato.value.trim();
@@ -288,6 +294,7 @@ export default class MenuAdmin extends Component {
     return type;
   }
 
+  /**Lee inputs en Edit, valida, y cambia el dish en la DB */
   editarFinal() {
     let nameNew = this.refs.nombrePlato.value.trim();
     let priceNew = this.refs.precioPlato.value.trim();
@@ -773,6 +780,7 @@ const renderPlates = (platesList) => {
 
 class ButtonPlato extends Component {
 
+  /**Calcula los valores de los nutritional facts ingresados */
   loadNutritionalFacts() { //carga los nutritional facts del platillo
 
     $('#TotalFatPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.totalFat) / 65.0) * 100).toFixed(1));
@@ -789,6 +797,7 @@ class ButtonPlato extends Component {
     $('#CalciumPercentage').text(parseFloat((parseInt(this.props.plato.nutritionFacts.calcium) / 1100.0) * 100).toFixed(1));
   }
 
+  /**Carga la info a los inputs de Edit Dish */
   loadModal() { //llena el modal de editar platillo con la información debida
 
     this.loadNutritionalFacts();
@@ -851,6 +860,7 @@ class ButtonPlato extends Component {
     field.value = this.props.plato.nutritionFacts.iron;
   }
 
+  /**Carga el Modal */
   editDish() {
 
     dishID = this.props.plato._id;
@@ -872,6 +882,7 @@ class ButtonPlato extends Component {
   }
 
 
+  /**Carga el Modal de confirmar si quiere borrar el dish */
   deleteDish() {
 
     dishID = this.props.plato._id;
