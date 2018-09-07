@@ -739,7 +739,7 @@ class MenuSide extends React.Component {
 
     orden.products = orden.platos;
 
-    orden.cliente = Meteor.user().profile.firstName;
+    orden.cliente = Meteor.user();
     console.log(orden);
     Meteor.call('orders.insert', orden);
     orden = {

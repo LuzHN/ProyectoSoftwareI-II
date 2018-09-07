@@ -237,8 +237,8 @@ class Tabla extends React.Component {
             <td>{order._id}</td>
             <td>{order.fechaEntrada}</td>
             <td>{order.fechaDespacho}</td>
-            <td>{user.profile.firstName + ' ' + user.profile.lastName}</td>
-            <td>{user.profile.phoneNumber1}</td>
+            <td>{order.firstName + ' ' + order.secondName}</td>
+            <td>{order.phoneNumber}</td>
             <td>{order.direccion}</td>
             <td>{this.checkStatus(order)}</td>
             <td>
