@@ -265,7 +265,6 @@ class Tabla extends React.Component {
 
   loadMenu() { //carga las ordenes pendientes/terminadas
     return this.state.orders.map((order) => {
-      const user = Meteor.users.findOne({ _id: order.userId });
       if (order.status == '') {
         order.status = 'Pending';
       }
@@ -277,8 +276,8 @@ class Tabla extends React.Component {
           <tr key={order._id}>
             <td>{order._id}</td>
             <td>{order.fechaEntrada}</td>
-            <td>{user.profile.firstName + ' ' + user.profile.lastName}</td>
-            <td>{user.profile.phoneNumber1}</td>
+            <td>{order.firstName + ' ' + order.secondName}</td>
+            <td>{order.phoneNumber}</td>
             <td>{order.direccion}</td>
             <td>
               {this.checkStatus(order)}
