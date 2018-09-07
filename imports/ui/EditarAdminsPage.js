@@ -1,11 +1,5 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
-import ReactDom from 'react-dom';
-import { disconnect } from 'cluster';
-import PropTypes from 'prop-types';
-import { Router, Route, browserHistory } from 'react-router';
-import { withRouter } from "react-router-dom";
-import { Redirect } from 'react-router'
 import InputMask from 'react-input-mask';
 import '../client/styles/editAdmins';
 
@@ -63,7 +57,9 @@ export default class editarAdminsPage extends React.Component {
     this.refs.address3Mod.value = '';
     this.refs.address4Mod.value = '';
   }
-    
+   
+  /*Este es el método que permite que el administrador busque en la lista
+  escribiendo el nombre del administrador.*/  
   filterNames() {
     //Get value of input
     let filterValue = document.getElementById('filterInput').value.toUpperCase();
@@ -288,7 +284,7 @@ export default class editarAdminsPage extends React.Component {
   /*Este es el método que se corre cuando se oprime el boton de Confirmar en el
   modal de Agregar Empleado.*/
   onSubmitAgregar() {
-    let email = this.refs.email.value.trim();
+    let email = this.refs.email.value.trim().toLowerCase();
     let password = this.refs.passwordAgregar.value.trim();
     let confirmPassword = this.refs.confirmPasswordAgregar.value.trim();
     let firstName = this.refs.firstNameAgregar.value.trim();
@@ -307,7 +303,6 @@ export default class editarAdminsPage extends React.Component {
       address3: '',
       address4: '',
     };
-    console.log('Length numero 1: ' + phoneNumber1.length);
     //Validaciones
     let validator = 0;
     //Validar email
@@ -384,7 +379,6 @@ export default class editarAdminsPage extends React.Component {
   }
 
   render() {
-    console.log(this.state.users);
     return (
       <div className="EditarAdmins">
         <div className="containerPrincipal">

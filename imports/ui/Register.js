@@ -9,8 +9,9 @@ export default class Register extends React.Component {
     e.preventDefault();
   }
 
+  /**Lee inputs, valida, y agrega a DB */
   onSubmit() {
-    let email = this.refs.email.value.trim();
+    let email = this.refs.email.value.trim().toLowerCase();
     let password = this.refs.password.value.trim();
     let confirmPassword = this.refs.confirmPassword.value.trim();
     let firstName = this.refs.firstName.value.trim();
@@ -104,6 +105,7 @@ export default class Register extends React.Component {
     }
   }
 
+  /**Redirecciona a Login */
   changeToLogin() {
     this.props.history.push('/login');
   }
