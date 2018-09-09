@@ -9,12 +9,12 @@ if (Meteor.isServer) {
     return Orders.find({ userId: this.userId });
   });
   Meteor.publish('orders', () => {
-    if (
-      Roles.userIsInRole(Meteor.userId(), 'employee') ||
-      Roles.userIsInRole(Meteor.userId(), 'administrator')
-    ) {
-      return Orders.find({});
-    }
+      if (
+        Roles.userIsInRole(Meteor.userId(), 'employee') ||
+        Roles.userIsInRole(Meteor.userId(), 'administrator')
+      ) {
+        return Orders.find({});
+      }
   });
 }
 Meteor.methods({

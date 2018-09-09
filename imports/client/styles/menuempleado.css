@@ -1,3 +1,4 @@
+
 #HeaderEmployee {
   background: url(http://www.healthkitchen.hn/static/media/hero-ingredients.9299118b.jpg)
     no-repeat center bottom;
@@ -47,20 +48,25 @@
 .blueMarine {
   background-color: #5b8c96 !important;
 }
+.wordbreak-column { word-break: break-all; }   
 
-#btn-empleado {
+.cuerpoTablaEmpleado{ 
+  font-size: 2vh;
+}    
+
+#btn-cambiarestado {
   background-color: #d86926;
   border: none;
   color: white;
-  font-size: 1em !important;
-  padding-right: 5rem;
+  border-radius: 8px;
+  font-size: 1.5vh !important;
 }
 
-#btn-empleado[class='cancelar'] {
+#btn-cambiarestado[class='cancelar'] {
   background-color: rgb(240, 84, 78);
 }
 
-#btn-empleado:disabled {
+#btn-cambiarestado:disabled {
   background-color: rgba(240, 84, 78, 0.5);
   cursor: not-allowed;
 }
@@ -123,9 +129,6 @@
 
 @media only screen and (min-width: 600px) {
   #btn-info {
-    width: 80% !important;
-  }
-  #btn-empleado {
     width: 80% !important;
   }
   .EmployeeTable {

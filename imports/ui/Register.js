@@ -91,9 +91,9 @@ export default class Register extends React.Component {
       };
       Meteor.call('users.initializeClient', user, (err) => {
         if (err) {
-          if(err.reason.includes("Email already exists")){
+          if (err.reason.includes("Email already exists")) {
             toastr.warning('El correo que ingresó ya existe.');
-          }else{
+          } else {
             toastr.warning('Hubo un problema al momento de crear su cuenta.');
           }
         } else {
@@ -189,10 +189,11 @@ export default class Register extends React.Component {
                   maxLength="140"
                 />
               </p>
-              <p>
-                <button onClick={this.onSubmit.bind(this)}>Registrarse</button>
-              </p>
-
+                <div className="btn-bg bg-3">
+                  <div className="btn btn-3">
+                    <button onClick={this.onSubmit.bind(this)}>Registrarse</button>
+                  </div>
+                </div>
             </form>
           </div>
         </div>

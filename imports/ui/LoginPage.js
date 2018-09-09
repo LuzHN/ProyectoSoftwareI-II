@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import React from 'react';  
+import React from 'react';
 import '../client/styles/Login.css';
 
 export default class LoginPage extends React.Component {
@@ -69,15 +69,20 @@ export default class LoginPage extends React.Component {
           />
 
           <div className="Buttons">
-            <button className="loginButton" onClick={this.onLogin.bind(this)}>
-              Login
-            </button>
-            <button
-              className="registerButton"
-              onClick={this.onRegister.bind(this)}
-            >
-              Registrarse
-            </button>
+            <div className="btn-bg bg-2">
+              <div className="btn btn-2">
+                <button onClick={this.onLogin.bind(this)}>Login
+                </button>
+              </div>
+            </div>
+            <div className="btn-bg bg-3">
+              <div className="btn btn-3">
+                <button
+                  className="registerButton"
+                  onClick={this.onRegister.bind(this)}
+                >Registrarse </button>
+              </div>
+            </div>
           </div>
         </form>
       </div>

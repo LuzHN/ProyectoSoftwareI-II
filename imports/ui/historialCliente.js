@@ -144,7 +144,7 @@ export default class historialCliente extends Component {
           </td>
           <td>
             <button
-              id="btn-empleado"
+              id="btn-cambiarestado"
               className="cancelar"
               disabled={order.status !== 'Pending' ? true : false}
               onClick={function() {
@@ -178,7 +178,7 @@ export default class historialCliente extends Component {
           </td>
           <td>
             <button
-              id="btn-empleado"
+              id="btn-cambiarestado"
               onClick={() => {
                 console.log('Volver a pedir');
                 this.props.history.push({

@@ -234,27 +234,30 @@ class Tabla extends React.Component {
       if (order.status == 'Dispatched') {
         return (
           <tr key={order._id}>
-            <td>{order._id}</td>
+            <td className="wordbreak-column">{order._id}</td>
             <td>{order.fechaEntrada}</td>
             <td>{order.fechaDespacho}</td>
             <td>{order.firstName + ' ' + order.secondName}</td>
             <td>{order.phoneNumber}</td>
-            <td>{order.direccion}</td>
+            <td className="wordbreak-column">{order.direccion}</td>
             <td>{this.checkStatus(order)}</td>
             <td>
-              <button
-                id="btn-empleado"
-                onClick={function () {
-                  if (window.confirm('Esta segur@ de esconder esta orden del sistema?')) {
-                    //Meteor.call('orders.delete', order._id);
-                    Meteor.call('orders.setHidden', order._id);
-                    toastr.success('La orden ha sido escondida exitosamente del sistema!');
-                  }
-                }}
-              >
-                Esconder
+              <div id="wrapper">
+                <button
+                  id="btn-cambiarestado"
+                  onClick={function () {
+                    if (window.confirm('Esta segur@ de esconder esta orden del sistema?')) {
+                      //Meteor.call('orders.delete', order._id);
+                      Meteor.call('orders.setHidden', order._id);
+                      toastr.success('La orden ha sido escondida exitosamente del sistema!');
+                    }
+                  }}
+                >
+                  Esconder
                         </button>
+              </div>
             </td>
+
           </tr>
         );
       } else {
@@ -274,68 +277,74 @@ class Tabla extends React.Component {
       else {
         return (
           <tr key={order._id}>
-            <td>{order._id}</td>
+            <td className="wordbreak-column">{order._id}</td>
             <td>{order.fechaEntrada}</td>
             <td>{order.firstName + ' ' + order.secondName}</td>
             <td>{order.phoneNumber}</td>
-            <td>{order.direccion}</td>
-            <td>
+            <td className="wordbreak-column">{order.direccion}</td>
+            <td className="wordbreak-column">
               {this.checkStatus(order)}
             </td>
             <td>
-              <button id="btn-info" onClick={(e) => this.showModal(order)}>
-                <span className="spanEmployee">{'Ver Más'}</span>
+              <div id="wrapper">
+                <button id="btn-info" onClick={(e) => this.showModal(order)}>
+                  <span className="spanEmployee">{'Ver Más'}</span>
 
-                <span className="badgeEmployee badge badge-primary badge-pill">
-                  {this.countPlates(order)}
-                </span>
-              </button>
+                  <span className="badgeEmployee badge badge-primary badge-pill">
+                    {this.countPlates(order)}
+                  </span>
+                </button>
+              </div>
             </td>
             <td>
-              <button
-                id="btn-empleado"
-                onClick={function () {
-                  if (order.status == 'Pending') {
-                    Meteor.call('orders.setInProgress', order._id);
-                    toastr.success('La orden ha sido cambiada a Ingresada');
-                  } else if (order.status == 'InProgress') {
-                    toastr.warning('La orden ya esta en estado Ingresada');
-                  }
-                }}
-              >
-                Cambiar a Ingresado
+              <div id="wrapper">
+                <button
+                  id="btn-cambiarestado"
+                  onClick={function () {
+                    if (order.status == 'Pending') {
+                      Meteor.call('orders.setInProgress', order._id);
+                      toastr.success('La orden ha sido cambiada a Ingresada');
+                    } else if (order.status == 'InProgress') {
+                      toastr.warning('La orden ya esta en estado Ingresada');
+                    }
+                  }}
+                >
+                  Cambiar a Ingresado
               </button>
+              </div>
             </td>
             <td>
-              <button
-                id="btn-empleado"
-                onClick={function () {
-                  if (order.status == 'InProgress' &&
-                    window.confirm('¿Esta seguro de cambiar esta orden a terminada?')) {
-                    let d = new Date();
-                    let stringFecha =
-                      d.getDate() +
-                      '/' +
-                      (d.getMonth() + 1) +
-                      '/' +
-                      d.getFullYear() +
-                      ', ' +
-                      d.getHours() +
-                      ':' +
-                      d.getMinutes() +
-                      ':' +
-                      d.getSeconds();
+              <div id="wrapper">
+                <button
+                  id="btn-cambiarestado"
+                  onClick={function () {
+                    if (order.status == 'InProgress' &&
+                      window.confirm('¿Esta seguro de cambiar esta orden a terminada?')) {
+                      let d = new Date();
+                      let stringFecha =
+                        d.getDate() +
+                        '/' +
+                        (d.getMonth() + 1) +
+                        '/' +
+                        d.getFullYear() +
+                        ', ' +
+                        d.getHours() +
+                        ':' +
+                        d.getMinutes() +
+                        ':' +
+                        d.getSeconds();
 
-                    Meteor.call('orders.cambiarFechaDespacho', order._id, stringFecha);
-                    Meteor.call('orders.setDispatched', order._id);
-                    toastr.success('La orden ha sido terminada y despachada!');
-                  } else if (order.status == 'Pending') {
-                    toastr.warning('Primero tiene que estar ingresado.');
-                  }
-                }}
-              >
-                Cambiar a Terminado
+                      Meteor.call('orders.cambiarFechaDespacho', order._id, stringFecha);
+                      Meteor.call('orders.setDispatched', order._id);
+                      toastr.success('La orden ha sido terminada y despachada!');
+                    } else if (order.status == 'Pending') {
+                      toastr.warning('Primero tiene que estar ingresado.');
+                    }
+                  }}
+                >
+                  Cambiar a Terminado
               </button>
+              </div>
             </td>
           </tr>
         );
@@ -361,7 +370,7 @@ class Tabla extends React.Component {
                 <th scope="col">Terminar</th>
               </tr>
             </thead>
-            <tbody>{this.loadMenu()}</tbody>
+            <tbody className="cuerpoTablaEmpleado">{this.loadMenu()}</tbody>
           </table>
         );
         break;
@@ -369,20 +378,20 @@ class Tabla extends React.Component {
       case "Historial": {
         return (
           <table className="EmployeeTable table table-hover table-blue table table-bordered text-center">
-          <thead className="thead-dark">
-            <tr>
-              <th scope="col">ID Orden</th>
-              <th scope="col">Fecha de Entrada </th>
-              <th scope="col">Fecha de Despacho </th>
-              <th scope="col">Cliente</th>
-              <th scope="col">Tel�fono</th>
-              <th scope="col">Dirección</th>
-              <th scope="col">Estado</th>
-              <th scope="col">Esconder</th>
-            </tr>
-          </thead>
-          <tbody>{this.loadHistory()}</tbody>
-        </table>
+            <thead className="thead-dark">
+              <tr>
+                <th scope="col">ID Orden</th>
+                <th scope="col">Fecha de Entrada </th>
+                <th scope="col">Fecha de Despacho </th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Tel�fono</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Esconder</th>
+              </tr>
+            </thead>
+            <tbody className="cuerpoTablaEmpleado">{this.loadHistory()}</tbody>
+          </table>
         );
         break;
       }
