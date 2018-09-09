@@ -72,7 +72,6 @@ export default class LoginPage extends React.Component {
             <button className="loginButton" onClick={this.onLogin.bind(this)}>
               Login
             </button>
-            <label className="orLabel">O</label>
             <button
               className="registerButton"
               onClick={this.onRegister.bind(this)}

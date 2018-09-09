@@ -53,7 +53,7 @@
   border: none;
   color: white;
   font-size: 1em !important;
-  border-radius: 8px;
+  padding-right: 5rem;
 }
 
 #btn-empleado[class='cancelar'] {
@@ -70,7 +70,6 @@
   border: none;
   color: white;
   font-size: 1em !important;
-  border-radius: 8px;
 }
 
 .headerEmpleado {
@@ -108,7 +107,6 @@
   border: none;
   color: white;
   font-size: 1em !important;
-  border-radius: 8px;
 }
 
 @media only screen and (max-width: 600px) {

@@ -505,7 +505,7 @@ export default class MenuAdmin extends Component {
         </section>
 
         <div id="wrapper">
-          <button id="modalBtn" className="btn_Agregar" onClick={this.openAgregar.bind(this)}>Agregar Plato</button>
+          <button id="modalBtn" className="btn_Agregar" onClick={this.openAgregar.bind(this)}>AGREGAR PLATO</button>
         </div>
 
         {/*Modal*/}
@@ -709,10 +709,10 @@ export default class MenuAdmin extends Component {
                   </div>
                 </div>
                 <p id="bt_ModalAgregar">
-                  <button className="finalBtn" onClick={this.agregarFinal.bind(this)}>Agregar Plato</button>
+                  <button className="finalBtn" onClick={this.agregarFinal.bind(this)}>AGREGAR PLATO</button>
                 </p>
                 <p id="bt_ModalEditar">
-                  <button className="finalBtn" onClick={this.editarFinal.bind(this)}>Editar Plato</button>
+                  <button className="finalBtn" onClick={this.editarFinal.bind(this)}>EDITAR PLATO</button>
                 </p>
               </form>
             </div>
@@ -895,10 +895,10 @@ class ButtonPlato extends Component {
     return (
       <div className="btn-bg bg-2">
         <div className="btn btn-2">
-          <button onClick={() => this.editDish()}>Edit</button>
+          <button onClick={() => this.editDish()}>Editar</button>
         </div>
         <div className="btn btn-2">
-          <button onClick={() => this.deleteDish()}>Delete</button>
+          <button onClick={() => this.deleteDish()}>Borrar</button>
         </div>
       </div>
 

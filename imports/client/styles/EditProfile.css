@@ -113,25 +113,25 @@ todos los elementos a ser editados.
 .disableAccBtn{ 
     background: #e33444;
     border:none;
-    border-radius: 8px;
     color: white;
     font: 'Paralucent Bold';
     font-size: 1.7rem;
     margin-left: auto;
     margin-right: auto;
     padding-right: 14rem;
+    text-align: center;
     width: 16rem;    
 }
 
 .saveChangesBtn {
     background: #4e873e;
     border: none;
-    border-radius: 8px;
     color: white;
     font: 'Paralucent Bold';
     font-size: 1.7rem;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
     width: 16rem;
 }
 

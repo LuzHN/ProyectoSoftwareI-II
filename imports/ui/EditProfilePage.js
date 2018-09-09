@@ -1,11 +1,5 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { disconnect } from 'cluster';
-import PropTypes from 'prop-types';
-import { Router, Route, browserHistory } from 'react-router';
-import { withRouter } from 'react-router-dom';
-import { Redirect } from 'react-router';
 import InputMask from 'react-input-mask';
 import { createContainer } from 'meteor/react-meteor-data';
 import '../client/styles/EditProfile.css';

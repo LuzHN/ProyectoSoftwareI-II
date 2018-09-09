@@ -65,41 +65,40 @@ acceso a la página principal del app.
 .loginButton{ 
     background: #4e873e;
     border:none;
-    border-radius: 8px;
     color: white;
     font: 'Paralucent Bold';
-    font-size: 1.3rem;
+    font-size: 1.8rem;
     margin-left: auto;
     margin-right: auto;
-    width: 13rem;    
+    width: 17rem;    
 }
 
 .registerButton {
     background: #87aaaa;
     border: none;
-    border-radius: 8px;
     color: white;
     font: 'Paralucent Bold';
-    font-size: 1.3rem;
-    margin-left: auto;
+    font-size: 1.8rem;
+    margin-left: 5rem;
     margin-right: auto;
-    padding-left: 1.6rem;
-    padding-right: 2rem;
-    width: 13rem;
+    padding-left: 2rem;
+    padding-right: 4.3rem;
+    width: 17rem;
 }
 
 .Buttons {
+    color: #fff;
     cursor: pointer;
     display: flex;
+    font-family: "Lato";
+    font-size: 1.5em;    
+    font-weight: 400;
+    letter-spacing: 0.1em;
     line-height: 1;
-    margin-left: auto;
-    margin-right: auto;
     padding-top: 3rem;
+    text-transform: uppercase;
 }
 
-.orLabel {
-    padding:1rem 1rem 0 1rem;
-}
 
 /*Foto del Logo de The Health Kitchen.*/
 .Image {
