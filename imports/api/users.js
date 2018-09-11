@@ -16,7 +16,7 @@ Accounts.validateNewUser((user) => {
 
 if (Meteor.isServer) {
   Meteor.publish('users.getClients', () => { 
-    if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+    
       return Meteor.users.find(
         {
           "roles": "client"
@@ -25,11 +25,11 @@ if (Meteor.isServer) {
           "services": 0
         }
       );
-    }
+    
   });
 
   Meteor.publish('users.getAdmins', () => {
-    if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+   
       return Meteor.users.find(
         {
          "roles": "administrator"
@@ -38,11 +38,10 @@ if (Meteor.isServer) {
           "services": 0
         }
       );
-    }
   });
 
   Meteor.publish('users.getEmployees', () => {
-    if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+   
       return Meteor.users.find(
         {
          "roles": "employee"
@@ -51,7 +50,7 @@ if (Meteor.isServer) {
           "services": 0
         }
       );
-    }
+    
   });
 
   Meteor.methods({
@@ -60,34 +59,27 @@ if (Meteor.isServer) {
       console.log('Se inicializo un cliente.');
     },
     'users.initializeClientEnAdmin'(user){
-      if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+      
         Roles.addUsersToRoles(Accounts.createUser(user), 'client');
         console.log('Se inicializo un cliente.');
         return 1;
-      } else {
-        console.log('No es administrador para inicializar clientes.');
-        return 0;
-      }
+      
     },
     'users.initializeEmployee'(user){
-      if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+     
         Roles.addUsersToRoles(Accounts.createUser(user), 'employee');
         console.log('Se inicializo un empleado.');
         return 1;
-      } else {
+     
         console.log('No es administrador para inicializar un empleado.');
         return 0;
-      }
     },
     'users.initializeAdministrator'(user){
-      if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+      
         Roles.addUsersToRoles(Accounts.createUser(user), 'administrator');
         console.log('Se inicializo un adminsitrador');
         return 1;
-      } else {
-        console.log('Nos es administrador para inicializar administradores');
-        return 0;
-      }
+     
     },
     async 'users.isClient'(){
       return await Roles.userIsInRole(Meteor.userId(), 'client');

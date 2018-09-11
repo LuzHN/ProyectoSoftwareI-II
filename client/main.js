@@ -58,57 +58,166 @@ class Hk extends React.Component {
 
   handleClick = () => (this.state.rightVisible ? this.hideRight() : false);
 
+  revisarTipoUsuario(){
+    let tipoUser = "";
+
+    if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+      tipoUser = "admin";
+    } else if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+      tipoUser = "empleado";
+    } else if (Roles.userIsInRole(Meteor.userId(), 'client')) {
+      tipoUser = "cliente"
+    } else{
+      tipoUser = "user-normal";
+    }
+
+    return tipoUser;
+  }
+  
+  loadRoutes() {
+    let tipoUser = this.revisarTipoUsuario();
+
+    let routes;
+
+    switch (tipoUser) {
+      case "admin": {
+
+       routes = (
+          <BrowserRouter history={browserHistory}>
+            <Switch history={browserHistory}>
+              <Route
+                path="/register"
+                component={Register}
+                history={browserHistory}
+              />
+              <Route
+                path="/menuAdmin"
+                component={MenuAdmin}
+                history={browserHistory}
+              />
+              <Route path="/login" component={LoginPage} history={browserHistory} />
+              <Route path="/cart" component={Cart} history={browserHistory} />
+              <Route
+                path="/editProfile"
+                component={EditProfilePage}
+                history={browserHistory}
+              />
+              <Route
+                path="/menuempleado"
+                component={MenuEmpleado}
+                history={browserHistory}
+              />
+              <Route
+                path="/editEmpleado"
+                component={editarEmpleadoPage}
+                history={browserHistory}
+              />
+              <Route
+                path="/editAdmins"
+                component={editarAdminsPage}
+                history={browserHistory}
+              />
+              <Route
+                path="/editUsuarios"
+                component={editarUsuariosPage}
+                history={browserHistory}
+              />
+              <Route
+                path="/historial"
+                component={historialCliente}
+                history={browserHistory}
+              />
+              <Route path="/" exact component={Menu} history={browserHistory} />
+              <Route path="*" component={NotFound} history={browserHistory} />
+            </Switch>
+          </BrowserRouter>
+        );
+
+        break;
+      }
+      case "empleado": {
+
+        routes = (
+          <BrowserRouter history={browserHistory}>
+            <Switch history={browserHistory}>
+              <Route
+                path="/register"
+                component={Register}
+                history={browserHistory}
+              />
+              <Route path="/login" component={LoginPage} history={browserHistory} />
+              <Route
+                path="/editProfile"
+                component={EditProfilePage}
+                history={browserHistory}
+              />
+              <Route
+                path="/menuempleado"
+                component={MenuEmpleado}
+                history={browserHistory}
+              />
+              <Route path="/" exact component={Menu} history={browserHistory} />
+              <Route path="*" component={NotFound} history={browserHistory} />
+            </Switch>
+          </BrowserRouter>
+        );
+        break;
+      }
+      case "cliente": {
+
+        routes = (
+          <BrowserRouter history={browserHistory}>
+            <Switch history={browserHistory}>
+              <Route
+                path="/register"
+                component={Register}
+                history={browserHistory}
+              />
+              <Route path="/login" component={LoginPage} history={browserHistory} />
+              <Route path="/cart" component={Cart} history={browserHistory} />
+              <Route
+                path="/editProfile"
+                component={EditProfilePage}
+                history={browserHistory}
+              />
+              <Route
+                path="/historial"
+                component={historialCliente}
+                history={browserHistory}
+              />
+              <Route path="/" exact component={Menu} history={browserHistory} />
+              <Route path="*" component={NotFound} history={browserHistory} />
+            </Switch>
+          </BrowserRouter>
+        );
+
+        break;
+      }
+
+      case "user-normal":{
+        routes = (
+          <BrowserRouter history={browserHistory}>
+            <Switch history={browserHistory}>
+              <Route
+                path="/register"
+                component={Register}
+                history={browserHistory}
+              />
+              <Route path="/login" component={LoginPage} history={browserHistory} />
+              <Route path="/" exact component={Menu} history={browserHistory} />
+              <Route path="*" component={NotFound} history={browserHistory} />
+            </Switch>
+          </BrowserRouter>
+        );
+      }
+      default: {
+        break;
+      }
+    }
+    return routes;
+  }
+
   render() {
-    const routes = (
-      <BrowserRouter history={browserHistory}>
-        <Switch history={browserHistory}>
-          <Route
-            path="/register"
-            component={Register}
-            history={browserHistory}
-          />
-          <Route
-            path="/menuAdmin"
-            component={MenuAdmin}
-            history={browserHistory}
-          />
-          <Route path="/login" component={LoginPage} history={browserHistory} />
-          <Route path="/cart" component={Cart} history={browserHistory} />
-          <Route
-            path="/editProfile"
-            component={EditProfilePage}
-            history={browserHistory}
-          />
-          <Route
-            path="/menuempleado"
-            component={MenuEmpleado}
-            history={browserHistory}
-          />
-          <Route
-            path="/editEmpleado"
-            component={editarEmpleadoPage}
-            history={browserHistory}
-          />
-          <Route
-            path="/editAdmins"
-            component={editarAdminsPage}
-            history={browserHistory}
-          />
-          <Route
-            path="/editUsuarios"
-            component={editarUsuariosPage}
-            history={browserHistory}
-          />
-          <Route
-            path="/historial"
-            component={historialCliente}
-            history={browserHistory}
-          />
-          <Route path="/" exact component={Menu} history={browserHistory} />
-          <Route path="*" component={NotFound} history={browserHistory} />
-        </Switch>
-      </BrowserRouter>
-    );
     const swal = (
       <SweetAlert
         show={this.state.show}
@@ -125,13 +234,15 @@ class Hk extends React.Component {
         onOutsideClick={() => {
           this.setState({ show: false });
         }}
-        
+
       />
     );
     const isLogIn = this.state.isLoggedIn;
     let ref;
+    let tipoUser =  this.revisarTipoUsuario();
+    console.log(tipoUser);
     if (Meteor.user() !== null) {
-      if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+      if (tipoUser == "admin") {
         ref = (
           <span>
             <a
@@ -140,6 +251,13 @@ class Hk extends React.Component {
               href="/editProfile"
             >
               Editar Perfil
+            </a>
+            <a
+              className="nav-link"
+              style={{ display: 'inline' }}
+              href="/menuadmin"
+            >
+              Editar Platillos
             </a>
             <a
               className="nav-link"
@@ -163,7 +281,7 @@ class Hk extends React.Component {
             </a>
           </span>
         );
-      } else if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+      } else if (tipoUser == "empleado") {
         ref = (
           <span>
             <a
@@ -195,7 +313,7 @@ class Hk extends React.Component {
             </a>
           </span>
         );
-      } else if (Roles.userIsInRole(Meteor.userId(), 'client')) {
+      } else if (tipoUser == "cliente") {
         ref = (
           <span>
             <a
@@ -259,7 +377,7 @@ class Hk extends React.Component {
             </ul>
           </div>
         </nav>
-        {routes}
+        {this.loadRoutes()}
         {swal}
         <MenuSide ref="right" alignment="right">
           <MenuItem>First Page</MenuItem>
