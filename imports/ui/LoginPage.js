@@ -34,9 +34,11 @@ export default class LoginPage extends React.Component {
         toastr.success('Se ha logueado exitosamente.');
         email = '';
         password = '';
-        if (Meteor.user().roles[0] === 'employee') {
+        if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
           this.props.history.push('/menuempleado');
-        } else {
+        } else if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+          this.props.history.push('/editEmpleado');
+        } else if (Roles.userIsInRole(Meteor.userId(), 'client')) {
           this.props.history.push('/');
         }
       }

@@ -125,35 +125,102 @@ class Hk extends React.Component {
         onOutsideClick={() => {
           this.setState({ show: false });
         }}
+        
       />
     );
     const isLogIn = this.state.isLoggedIn;
     let ref;
     if (Meteor.user() !== null) {
-      ref = (
-        <span>
-          <a
-            className="nav-link"
-            style={{ display: 'inline' }}
-            href="/editProfile"
-          >
-            Edit Profile
-          </a>
-          <a
-            className="nav-link"
-            onClick={() => {
-              // e.preventDefault();
-              Meteor.logout(() => {
-                // alert('Adios');
-                this.setState({ show: true });
-              });
-            }}
-            style={{ display: 'inline' }}
-          >
-            Log Out
-          </a>
-        </span>
-      );
+      if (Roles.userIsInRole(Meteor.userId(), 'administrator')) {
+        ref = (
+          <span>
+            <a
+              className="nav-link"
+              style={{ display: 'inline' }}
+              href="/editProfile"
+            >
+              Editar Perfil
+            </a>
+            <a
+              className="nav-link"
+              style={{ display: 'inline' }}
+              href="/editEmpleado"
+            >
+              Editar Usuarios
+            </a>
+            <a
+              className="nav-link"
+              onClick={() => {
+                // e.preventDefault();
+                Meteor.logout(() => {
+                  // alert('Adios');
+                  this.setState({ show: true });
+                });
+              }}
+              style={{ display: 'inline' }}
+            >
+              Log Out
+            </a>
+          </span>
+        );
+      } else if (Roles.userIsInRole(Meteor.userId(), 'employee')) {
+        ref = (
+          <span>
+            <a
+              className="nav-link"
+              style={{ display: 'inline' }}
+              href="/editProfile"
+            >
+              Editar Perfil
+            </a>
+            <a
+              className="nav-link"
+              style={{ display: 'inline' }}
+              href="/menuempleado"
+            >
+              Menú Empleado
+            </a>
+            <a
+              className="nav-link"
+              onClick={() => {
+                // e.preventDefault();
+                Meteor.logout(() => {
+                  // alert('Adios');
+                  this.setState({ show: true });
+                });
+              }}
+              style={{ display: 'inline' }}
+            >
+              Log Out
+            </a>
+          </span>
+        );
+      } else if (Roles.userIsInRole(Meteor.userId(), 'client')) {
+        ref = (
+          <span>
+            <a
+              className="nav-link"
+              style={{ display: 'inline' }}
+              href="/editProfile"
+            >
+              Editar Perfil
+            </a>
+            <a
+              className="nav-link"
+              onClick={() => {
+                // e.preventDefault();
+                Meteor.logout(() => {
+                  // alert('Adios');
+                  this.setState({ show: true });
+                });
+              }}
+              style={{ display: 'inline' }}
+            >
+              Log Out
+            </a>
+          </span>
+        );
+      }
     } else {
       ref = (
         <li className="nav-item">

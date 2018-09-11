@@ -43,10 +43,10 @@ acceso a la página principal del app.
 .botonAgregar{ 
     background: #4e873e;
     border:none;
-    border-radius: 8px;
     color: white;
     font: 'Paralucent Bold';
-    font-size: 1.3rem;
+    font-size: 1.8rem;
+    font-weight: 400;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
@@ -56,10 +56,10 @@ acceso a la página principal del app.
 .botonEliminar {
     background: #E13232;
     border: none;
-    border-radius: 8px;
     color: white;
     font: 'Paralucent Bold';
-    font-size: 1.3rem;
+    font-size: 1.8rem;
+    font-weight: 400;
     margin-left: auto;
     margin-right: auto;
     padding-right: 10rem;
@@ -77,12 +77,18 @@ acceso a la página principal del app.
 }
 
 .Buttons {
+    color: #fff;
     cursor: pointer;
     display: flex;
+    font-family: "Lato";
+    font-size: 1.5em;    
+    font-weight: 400;
+    letter-spacing: 0.1em;
     line-height: 1;
     margin-left: auto;
     margin-right: auto;
     padding-top: 3rem;
+    text-transform: uppercase;
 }
 /* Search bar */
 .searchBarDiv {
@@ -271,20 +277,20 @@ button:focus {
 .confirmarAdd{
     background: #4e873e;
     border:none;
-    border-radius: 8px;
     color: white;
     font: 'Paralucent Bold';
-    font-size: 1.3rem;
+    font-size: 1.8rem;
+    font-weight: 400;
     width: 90rem;  
 }
 
 .confirmarModificar {
     background: #4e873e;
     border:none;
-    border-radius: 8px;
     color: white;
     font: 'Paralucent Bold';
-    font-size: 1.3rem;
+    font-size: 1.8rem;
+    font-weight: 400;
     margin-left: 2rem;
     width: 40rem;  
 }
@@ -292,10 +298,10 @@ button:focus {
 .confirmarDesactivar {
     background: #E13232;
     border:none;
-    border-radius: 8px;
     color: white;
     font: 'Paralucent Bold';
-    font-size: 1.3rem;
+    font-size: 1.8rem;
+    font-weight: 400;
     margin-left: 2rem;
     width: 40rem;  
 }

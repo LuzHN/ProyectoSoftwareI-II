@@ -377,8 +377,13 @@ export default class editarAdminsPage extends React.Component {
       });
     }
   }
-
+  
   render() {
+    if (Roles.userIsInRole(Meteor.userId(), 'employee')){
+      return this.props.history.push('/login');
+    } else {
+      console.log('nada');
+    }
     return (
       <div className="EditarAdmins">
         <div className="containerPrincipal">
